@@ -10,6 +10,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.utils.Recursos;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +21,6 @@ import java.util.Map;
 
 public class RegInteractor implements RegContracts.Iteractor{
 
-    private static final String URL_VALIDATE_PLATE = "https://us-central1-frigg-1762c.cloudfunctions.net/vldtLnkPltYG";
     private RegContracts.Listener listener;
     private RequestQueue requestQueue;
 
@@ -42,7 +42,8 @@ public class RegInteractor implements RegContracts.Iteractor{
         final String requestBody = jsonBody.toString();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.POST, URL_VALIDATE_PLATE, null, response -> {
+                (Request.Method.POST, Recursos.URL_FRIGGS +
+                        App.getContext().getResources().getString(R.string.validateQr), null, response -> {
                     try {
                         boolean success = response.getBoolean("success");
                         if (success){

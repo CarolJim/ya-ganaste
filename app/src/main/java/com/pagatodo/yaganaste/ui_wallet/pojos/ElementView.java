@@ -245,9 +245,9 @@ public class ElementView implements ElementGlobal {
     public static ArrayList<ElementView> getListEmisor() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_EMISOR, R.drawable.icono_movimientos, R.string.operation_movimientos));
-        elementViews.add(new ElementView(OPTION_DEPOSITO, R.drawable.ico_depositos, R.string.operation_deposito));
-        elementViews.add(new ElementView(OPTION_ADMON_EMISOR, R.drawable.ico_admin_tarj, R.string.operation_administracion));
-        elementViews.add(new ElementView(OPTION_ESTADOS_CUENTA, R.drawable.ic_edo_cuenta, R.string.operation_estado_cuenta));
+        elementViews.add(new ElementView(OPTION_DEPOSITO, R.drawable.ico_my_account, R.string.operation_deposito));
+        elementViews.add(new ElementView(OPTION_PAGO_QR, R.drawable.ico_scan_qr, R.string.operation_payment_qr));
+        //elementViews.add(new ElementView(OPTION_ESTADOS_CUENTA, R.drawable.ic_edo_cuenta, R.string.operation_estado_cuenta));
         return elementViews;
     }
 
@@ -460,7 +460,7 @@ public class ElementView implements ElementGlobal {
         elementViews.add(new ElementView(OPTION_RECOMPENSAS, R.drawable.icon_star, R.string.opt_recompensas));
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_STARBUCKS, R.drawable.icono_movimientos, R.string.opt_consulta));
         elementViews.add(new ElementView(OPTION_SUCURSALES, R.drawable.ico_store, R.string.opt_sucursales));
-        elementViews.add(new ElementView(OPTION_ADMON_STARBUCK, R.drawable.ico_admin_tarj, R.string.operation_administracion));
+        //elementViews.add(new ElementView(OPTION_ADMON_STARBUCK, R.drawable.ico_admin_tarj, R.string.operation_administracion));
         return elementViews;
     }
 

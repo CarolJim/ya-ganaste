@@ -9,8 +9,8 @@ import com.pagatodo.yaganaste.interfaces.IEnumTab;
 
 public enum MainTabOperador implements IEnumTab {
 
-    TAB2(R.string.main_tab_inicio, R.drawable.tab_wallet),
-    TAB3(R.string.main_tab_pagos, R.drawable.tab_pagar);
+    TAB2(R.string.main_tab_inicio, R.drawable.ic_wallet_tab),
+    TAB3(R.string.main_tab_pagos, R.drawable.ic_pay_tab);
     //TAB4(R.string.main_tab_cobros, R.drawable.ic_tab_cobros);
     //TAB5(R.string.main_tab_movimientos,R.drawable)
 

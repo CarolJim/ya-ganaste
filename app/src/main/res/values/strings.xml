@@ -197,8 +197,8 @@
     <string name="colonia">Colonia</string>
     <string name="terms_and_conditions">Al continuar reconozco ser mayor de edad, así como\nhaber leído y aceptado los Términos y Condiciones y\nel Aviso de Privacidad</string>
     <string name="postal_code">C.P.</string>
-    <string name="intern_number">No. Int.</string>
-    <string name="outside_number">No. Ext.</string>
+    <string name="intern_number"># Interior</string>
+    <string name="outside_number"># Exterior</string>
     <string name="are_you_want_get_payments">¿Te gustaría recibir\npagos con tarjeta?</string>
     <string name="yes_i_want_card_payments">SÍ QUIERO ACEPTAR TARJETA</string>
     <string name="i_dont_want_card_payments">NO QUIERO ACEPTAR TARJETA</string>
@@ -218,7 +218,7 @@
     <string name="r_social">Razon social</string>
     <string name="my_commerce_is">Mi comercio es…</string>
     <string name="giro_commerce">Giro del comercio</string>
-    <string name="giro_commerce_spinner">Giro comercial</string>
+    <string name="giro_commerce_spinner">Giro</string>
     <string name="subgiro_commerce">Subgiro del comercio</string>
     <string name="this_is_optional">Este dato es opcional</string>
     <string name="short_form_and_finish">Favor de completar este breve cuestionario y habremos terminado</string>
@@ -462,7 +462,7 @@
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
     <string name="bussinesInfoTitle">Datos de tu negocio</string>
     <string name="bussinesAddresQuestion">¿Es Este el Domicilio de tu Negocio?</string>
-    <string name="bussinesName">Nombre del negocio</string>
+    <string name="bussinesName">Nombre Comercial</string>
 
     <string name="publicServantQuestion">¿Tú o algún familiar han desempeñado cargos públicos?</string>
     <string name="mexicanQuestion">¿Eres mexicano naturalizado?</string>
@@ -475,6 +475,7 @@
     <string name="error_cargo">Cargo requerido, verifique su información</string>
     <string name="terminos_condiciones">Términos y Condiciones</string>
     <string name="terms_and_conditions_aditional_info">Al continuar reconozco haber leído y aceptado los\nTéminos y Condiciones</string>
+    <string name="terms_and_conditions_private">Al continuar, acepto los\nTérminos y Condiciones y el Aviso de Privacidad</string>
     <string name="parentesco">Parentesco</string>
 
     <!--felicidades-->
@@ -500,13 +501,13 @@
     <string name="message_generic_wsnuevo">Ocurrió un error de conexión al intentar realizar la operación</string>
 
     <!-- Strings Menu Principal-->
-    <string name="main_tab_inicio">Wallet</string>
+    <string name="main_tab_inicio">Inicio</string>
     <string name="main_tab_pagos">Pagar</string>
-    <string name="main_tab_depositos">Enviar</string>
+    <string name="main_tab_send">Enviar</string>
     <string name="main_tab_qr">Mis QR</string>
     <string name="main_tab_ganar">Ganar</string>
     <string name="main_tab_adquiriente">Adquirente</string>
-    <string name="main_tab_cobros">Cobros</string>
+    <string name="main_tab_cobros">Cobrar</string>
     <string name="main_tab_movimientos">Consultar Movimientos</string>
 
     <string name="no_movimientos">Sin movimientos</string>
@@ -1389,8 +1390,9 @@
 
 
     <!--Tittle Operaciones-->
-    <string name="operation_movimientos">Consultar\nmovimientos</string>
+    <string name="operation_movimientos">Movimientos\nYa Ganaste</string>
     <string name="operation_deposito">Mi cuenta</string>
+    <string name="operation_payment_qr">Pago a\nQR</string>
     <string name="operation_administracion">Administrar\ntarjeta</string>
     <string name="operation_administracion_starbucks">Administrar\nTarjetas</string>
     <string name="operation_cobro">Realizar\nun cobro</string>
@@ -1661,7 +1663,7 @@
     <string name="confirmardatos">Confirmar datos </string>
 
     <!--Nuevo Registro  Datos Personales-->
-    <string name="titulo_domicilio_ea">Ingresa tu domicilio actual</string>
+    <string name="titulo_domicilio_ea">Ingresar Domicilio Actual</string>
     <string name="domicilio_ea">Blvrd. Ávila Camacho #66 Interior 2 C.P. 11000</string>
     <string name="terminosaviso">Al crear una cuenta, acepto los\nTérminos y Condiciones y el Aviso de Privacidad</string>
 
@@ -1674,7 +1676,7 @@
     <string name="centrar_mapa">Centrar mapa</string>
 
     <string name="scan_qr_label">Escanea tu código QR</string>
-    <string name="physical_question">¿Ya tienes un código QR para\ntu negocio?</string>
+    <string name="physical_question">¿Ya tienes un código QR para tu negocio?</string>
     <!-- Nueva Pantalla Vincular Dispositivo -->
     <string name="creating_user">Creando usuario</string>
     <string name="assigning_account_1">Asignando cuenta\nProceso 1 de 2</string>
@@ -1692,8 +1694,8 @@
     <string name="code_qr_linked_label">Códigos QR vinculados\na tu cuenta</string>
     <string name="enter_qr_number">Ingresar Número QR</string>
     <string name="qr_number">Número QR</string>
-    <string name="qr_code">QR code</string>
-    <string name="enter_a_name">Ingresa un nombre para identificar tu vódigo</string>
+    <string name="qr_code">Código QR</string>
+    <string name="enter_a_name">Ingresa un Nombre para Identificar tu Código</string>
     <string name="crear_cuenta">Crear Cuenta</string>
     <string name="title_code_fragment">Códigos QR vinculados\na tu cuenta</string>
     <string name="title_code_digital_fragment">Hemos generado un código QR\npara tu negocio</string>

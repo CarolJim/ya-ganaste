@@ -274,6 +274,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             }
         });
 
+
         customPassSixDigitsConfirm.getCode1().setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

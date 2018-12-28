@@ -165,7 +165,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
         }
         val requestBody = jsonBody.toString()
         val jsonObjectRequest = object : JsonObjectRequest(Request.Method.POST,
-                "https://us-central1-frigg-1762c.cloudfunctions.net/nwQRYG", null,
+                Recursos.URL_FRIGGS + App.getContext().resources.getString(R.string.newQr), null,
                 { response ->
                     try {
                         val success = response.getBoolean("success")
@@ -221,7 +221,8 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
         }
         val requestBody = jsonBody.toString()
         val jsonObjectRequest = object : JsonObjectRequest(Request.Method.POST,
-                "https://us-central1-frigg-1762c.cloudfunctions.net/lnkQRYG ", null,
+                Recursos.URL_FRIGGS +
+                App.getContext().resources.getString(R.string.linkedQr), null,
                 { response ->
                     try {
                         val success = response.getBoolean("success")

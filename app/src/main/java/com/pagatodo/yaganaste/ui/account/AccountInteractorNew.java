@@ -931,102 +931,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
     }
 
-    /*private void processLogin(DataSourceResult response) {
-        IniciarSesionUYUResponse data = (IniciarSesionUYUResponse) response.getData();
-        DataIniciarSesionUYU dataUserUyu = data.getData();
-        SingletonUser.getInstance().setDataUserUyu(dataUserUyu);
-
-        DataIniciarSesion dataUser = new DataIniciarSesion();
-        dataUser.setEsUsuario(dataUserUyu.getControl().getEsUsuario());
-        dataUser.setConCuenta(dataUserUyu.getCliente().getConCuenta());
-        dataUser.setIdEstatusEmisor(dataUserUyu.getUsuario().getIdEstatusEmisor());
-        dataUser.setRequiereActivacionSMS(dataUserUyu.getControl().getRequiereActivacionSMS());
-        dataUser.setSemilla(dataUserUyu.getUsuario().getSemilla());
-
-        UsuarioClienteResponse usuario = new UsuarioClienteResponse();
-        usuario.setIdUsuario(dataUserUyu.getUsuario().getIdUsuario());
-        usuario.setIdUsuarioAdquirente(dataUserUyu.getUsuario().getIdUsuarioAdquirente());
-        usuario.setNombreUsuario("");
-        //usuario.setNombreUsuario("qa.pt.apple4@gmail.com");
-        usuario.setNombre(dataUserUyu.getCliente().getNombre());
-        usuario.setPrimerApellido(dataUserUyu.getCliente().getPrimerApellido());
-        usuario.setSegundoApellido(dataUserUyu.getCliente().getSegundoApellido());
-        usuario.setImagenAvatarURL(dataUserUyu.getUsuario().getImagenAvatarURL());
-        usuario.setTokenSesion(dataUserUyu.getUsuario().getTokenSesion());
-        usuario.setTokenSesionAdquirente(dataUserUyu.getUsuario().getTokenSesionAdquirente());
-        usuario.setPasswordAsignado(dataUserUyu.getUsuario().getPasswordAsignado());
-        usuario.setExtranjero(dataUserUyu.getUsuario().isEsExtranjero());
-        List<CuentaResponse> cuentas = new ArrayList<>();
-        CuentaResponse cuentaResponse = new CuentaResponse();
-        cuentaResponse.setIdCuenta(dataUserUyu.getEmisor().getCuentas().get(0).getIdCuenta());
-        cuentaResponse.setAsignoNip(dataUserUyu.getEmisor().getCuentas().get(0).getTarjetas().get(0).getAsignoNip());
-        cuentaResponse.setCuenta(dataUserUyu.getEmisor().getCuentas().get(0).getCuenta());
-        cuentaResponse.setCLABE(dataUserUyu.getEmisor().getCuentas().get(0).getCLABE());
-        cuentaResponse.setTarjeta(dataUserUyu.getEmisor().getCuentas().get(0).getTarjetas().get(0).getNumero());
-        cuentaResponse.setTelefono(dataUserUyu.getEmisor().getCuentas().get(0).getTelefono());
-        cuentas.add(cuentaResponse);
-        usuario.setCuentas(cuentas);
-        dataUser.setUsuario(usuario);
-        String stepByUserStatus = "";
-        if (data.getCodigoRespuesta() == CODE_OK) {
-            //Seteamos los datos del usuario en el SingletonUser.
-            SingletonUser user = SingletonUser.getInstance();
-            if (dataUser.isEsUsuario()) {
-                user.setDataUser(dataUser);// Si Usuario
-                App.getInstance().getPrefs().saveDataInt(ID_ESTATUS_EMISOR, dataUser.getIdEstatusEmisor());
-                String pswcph = pass + "-" + Utils.getSHA256(pass) + "-" + System.currentTimeMillis();
-                App.getInstance().getPrefs().saveData(PSW_CPR, Utils.cipherAES(pswcph, true));
-                RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
-                RequestHeaders.setTokenAdq(dataUser.getUsuario().getTokenSesionAdquirente());
-                RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());
-
-                if (dataUser.isConCuenta()) {// Si Cuenta
-                    RequestHeaders.setIdCuenta(String.format("%s", dataUser.getUsuario().getCuentas().get(0).getIdCuenta()));
-                    if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
-                        if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
-                            checkAfterLogin();
-                            return;
-                        } else {//Requiere setear el NIP
-                            stepByUserStatus = EVENT_GO_ASSIGN_PIN;
-                        }
-                    } else {
-
-                        if (!dataUser.isRequiereActivacionSMS()) {
-
-                            stepByUserStatus = EVENT_GO_ASSIGN_NEW_CONTRASE;
-                        } else {
-
-                            if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
-                                checkAfterLogin();
-                                return;
-                            } else {//Requiere setear el NIP
-                                stepByUserStatus = EVENT_GO_ASSIGN_PIN;
-                            }
-
-                        }
-                    }
-
-                } else { // No tiene cuenta asignada.
-
-                    stepByUserStatus = EVENT_GO_GET_CARD; // Mostramos pantalla para asignar cuenta.
-
-                }
-
-                accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
-            } else { // No es usuario
-                if (RequestHeaders.getTokenauth().isEmpty()) {
-                    RequestHeaders.setUsername("");
-                }
-                accountManager.onError(response.getWebService(), App.getContext().getString(R.string.usuario_no_existe));
-            }
-        } else {
-            if (RequestHeaders.getTokenauth().isEmpty()) {
-                RequestHeaders.setUsername("");
-            }
-            accountManager.onError(response.getWebService(), data.getMensaje());
-        }
-    }
-*/
     private void checkAfterLogin() {
         String stepByUserStatus;
         SingletonUser user = SingletonUser.getInstance();
@@ -1054,7 +958,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 prefs.saveData(OLD_NIP, prefs.loadData(SHA_256_FREJA));
             }
             stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
-            if (!prefs.loadDataBoolean(HAS_FIREBASE_ACCOUNT, false)) {
+            if (prefs.loadDataBoolean(HAS_FIREBASE_ACCOUNT, false)) {
                 registerUserInFirebase(dataUser, stepByUserStatus);
             } else {
                 logInFirebase(dataUser, stepByUserStatus);
@@ -1067,24 +971,22 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void registerUserInFirebase(DataIniciarSesionUYU data, String stepUser) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.createUserWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "123456").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                prefs.saveDataBool(HAS_FIREBASE_ACCOUNT, true);
-                if (task.isSuccessful()) {
-                    // Sign in success, update UI with the signed-in user's information
-                    FirebaseUser user = auth.getCurrentUser();
-                    prefs.saveData(TOKEN_FIREBASE_AUTH, user.getUid());
-                    Map<String, String> users = new HashMap<>();
-                    users.put("Mbl", data.getEmisor().getCuentas().get(0).getTelefono()
-                            .replace(" ", ""));
-                    users.put("DvcId", FirebaseInstanceId.getInstance().getToken());
-                    accountManager.goToNextStepAccount(stepUser, null);
-                } else {
-                    logInFirebase(data, stepUser);
-                }
-            }
-        });
+        auth.createUserWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "123456")
+                .addOnCompleteListener(task -> {
+                    prefs.saveDataBool(HAS_FIREBASE_ACCOUNT, true);
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        FirebaseUser user = auth.getCurrentUser();
+                        prefs.saveData(TOKEN_FIREBASE_AUTH, user.getUid());
+                        Map<String, String> users = new HashMap<>();
+                        users.put("Mbl", data.getEmisor().getCuentas().get(0).getTelefono()
+                                .replace(" ", ""));
+                        users.put("DvcId", FirebaseInstanceId.getInstance().getToken());
+                        accountManager.goToNextStepAccount(stepUser, null);
+                    } else {
+                        logInFirebase(data, stepUser);
+                    }
+                });
     }
 
     private void logInFirebase(DataIniciarSesionUYU data, String stepUser) {

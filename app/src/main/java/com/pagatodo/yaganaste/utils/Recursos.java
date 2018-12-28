@@ -36,6 +36,7 @@ public class Recursos {
             PUBLIC_STARBUCKS_KEY_RSA = "xymBd9bjA9QcZDSMoqvDts/zvoOTt1xjgzXRWzSD2eHoVHrpVhPR8hJzXiJyjAQ/fzUSsFUoYzIs6irVtZpgbggvhbAs/ItkvbypUzFN4CPnWCmYCVNqf/hwnniVTOn1EJ8WhPXdc5r5PPgBX74GnEvy2GI4n8santnvQq3WvTE=";
 
             URL_FRIGGS = "https://us-central1-frigg-1762c.cloudfunctions.net";
+            //URL_FRIGGS = "https://us-central1-frigg-51525.cloudfunctions.net";
 
 
         } else {
