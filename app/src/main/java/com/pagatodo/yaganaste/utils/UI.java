@@ -249,7 +249,6 @@ public class UI {
 
         customErrorDialog.setTitleBtnAcept(btnAceptar);
         customErrorDialog.setTitleBtnCancel(btnCancelar);
-
         customErrorDialog.setDialogActions(actions);
         customErrorDialog.show(fragmentManager, tag);
     }
@@ -263,7 +262,6 @@ public class UI {
 
         customErrorDialog.setTitleBtnAcept(btnAceptar);
         customErrorDialog.setTitleBtnCancel(btnCancelar);
-
         customErrorDialog.setDialogActions(actions);
         customErrorDialog.show(fragmentManager, tag);
     }
