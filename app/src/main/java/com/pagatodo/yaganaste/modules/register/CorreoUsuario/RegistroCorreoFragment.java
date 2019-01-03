@@ -19,10 +19,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.pagatodo.yaganaste.R;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.RegisterUserNew;
 import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
@@ -123,6 +123,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_registro_correo, container, false);
         initViews();
 
@@ -132,12 +133,10 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        activityf.showStepBar();
         customPassSixDigitsConfirm.getTitlepass().setText("Confirma tu Contraseña");
         btnNextDatosUsuario.setOnClickListener(this);
         customPassSixDigits.setOnClickListener(this);
         customPassSixDigits.setListener(this);
-
         customPassSixDigitsConfirm.setOnClickListener(this);
         customPassSixDigitsConfirm.setListener(this);
 
@@ -149,8 +148,8 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
                     accountPresenter.validateEmail(editMail.getText().toString());
                     isChecked();
-                    if (customPassSixDigits.getCode1().getText().length() == 1) {
-                        customPassSixDigits.getCode1().requestFocus();
+                    if (customPassSixDigits.getText().length()>=1) {
+                        customPassSixDigits.clearCode();
                     } else {
                         edit_psw.requestFocus();
                     }

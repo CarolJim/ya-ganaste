@@ -1722,6 +1722,7 @@
     <string name="add_qr">Agregar\nQR</string>
     <string name="generate_new_qr">Generar\nNuevo QR</string>
 
+
     <!-- Flujos mi cuenta-->
     <string name="activate_card">Activa tu Tarjeta Ya Ganaste</string>
     <string name="label_number_card">Número de tarjeta</string>
@@ -1734,4 +1735,10 @@
     <string name="label_option_tem_subtitle">Podrás seguir usando tu tarjeta al desbloquearla</string>
     <string name="label_option_per_title">Bloqueo Permanente</string>
     <string name="label_option_per_subtitle">Cancela tu tarjeta y solicita un nuevo plástico</string>
+
+    <!--Onboarding-->
+    <string name="red">Red</string>
+    <string name="blue">Blue</string>
+    <string name="green">Green</string>
+
 </resources>
