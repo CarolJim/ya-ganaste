@@ -872,6 +872,10 @@
     <string name="text_tu_qr">Muéstralo para recibir envíos de dinero\nen tu cuenta</string>
     <string name="string_share_deposits">¡Hola!\nEstos son los datos de depósito de mi cuenta Ya Ganaste\n
         \nTitular: %1$s\nN° Teléfono: %2$s\nCLABE: %3$s\nTarjeta: %4$s</string>
+    <string name="name_rquest_physical_card">Solicitar\nTarjeta Física</string>
+    <string name="name_active_physical_card">Activar\nTarjeta Física</string>
+    <string name="name_block_card">Bloquear\nTarjeta</string>
+    <string name="name_change_nip">Cambiar\nNIP</string>
 
     <!-- Landing -->
     <string name="landing_emisor_saldo_disponible">Tu saldo disponible</string>
@@ -938,7 +942,6 @@
     <string name="tu_línea_credito">Tu línea de crédito</string>
     <string name="txt_bloquear">Bloquear</string>
     <string name="txt_desbloquear">Desbloquear</string>
-    <string name="bloquear_tu_tarjeta">Bloqueo de tarjeta</string>
     <string name="desbloquear_tu_tarjeta">Desbloqueo de tarjeta</string>
     <string name="codigoAcceso">Código de seguridad</string>
     <string name="cobroRapido">Cobro rápido</string>
@@ -1523,6 +1526,7 @@
     <string name="load_detail_movimientos_error">No se pudo obtener el detalle, inténtelo más tarde</string>
     <string name="ingresa_tu_curp">Ingresa tu CURP</string>
     <string name="mis_recompensas">Mis Recompensas</string>
+    <string name="label_btn_see_account_statement">Ver estado de cuenta</string>
 
     <string name="cancel_title">¿Seguro que quieres cancelar tu cuenta?</string>
     <string name="cacncel_desc">Al cancelar, no podrás usar ninguno de los servicios\nYa Ganaste, esta acción es definitiva e irreversible.\n\nPara cancelar, es necesario que no exista\nningun tipo de fondos asociados a tu cuenta.</string>
@@ -1686,8 +1690,8 @@
 
 
     <!-- Nueva Pantalla Registro Completado -->
-    <string name="title_register_complete">¡Bienvenido a Ya Ganaste!\nAhora ya puedes:</string>
-    <string name="desc_register_complete">\u2713   Aceptar pagos desde celulares con las principales apps bancarias\n\n\u2713   Recibir tu dinero de inmediato\n\n\u2713   Recibir tu dinero de inmediato\n\n\u2713   Pagar a proveedores o enviar dinero a familiares y amigos\n\n\u2713   Hacer recargas y pagar tus servicios.</string>
+    <string name="title_register_complete">¡Bienvenido a Ya Ganaste!</string>
+    <string name="desc_register_complete">\u00B7 Aceptar pagos desde celulares con las\n   principales apps bancarias\n\n\u00B7   Recibir tu dinero de inmediato\n\n\u00B7   Paga a proveedores o envía dinero a\n  familiares y amigos\n\n\u00B7 Paga tus servicios y realiza tus recargas</string>
 
 
     <!-- Codigo fisico -->
@@ -1718,7 +1722,16 @@
     <string name="add_qr">Agregar\nQR</string>
     <string name="generate_new_qr">Generar\nNuevo QR</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <!-- Flujos mi cuenta-->
+    <string name="activate_card">Activa tu Tarjeta Ya Ganaste</string>
+    <string name="label_number_card">Número de tarjeta</string>
+    <string name="label_des_activate_card">Ingresa los últimos 10 dígitos que se\nencuentran al frente de tu tarjeta</string>
+    <string name="label_title_generate_nip">Generar NIP</string>
+    <string name="label_des_generate_nip">No puede contener más de dos números\nconsecutivos, ascendentes o descendentes</string>
+    <string name="title_block_card">Bloquear Tarjeta Ya Ganaste</string>
+    <string name="label_des_block_card">Selecciona el tipo de bloqueo\nque mejor se adapte a tus necesidades</string>
+    <string name="label_option_tem_title">Bloqueo temporal</string>
+    <string name="label_option_tem_subtitle">Podrás seguir usando tu tarjeta al desbloquearla</string>
+    <string name="label_option_per_title">Bloqueo Permanente</string>
+    <string name="label_option_per_subtitle">Cancela tu tarjeta y solicita un nuevo plástico</string>
 </resources>

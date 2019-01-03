@@ -167,7 +167,7 @@
         <activity android:name=".ui._controllers.TarjetaActivity" />
         <activity android:name=".ui._controllers.manager.DongleBatteryHome" />
         <activity
-            android:name=".ui_wallet.WalletMainActivity"
+            android:name=".modules.wallet_emisor.WalletMainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
@@ -188,7 +188,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui._controllers.PromoCodesActivity" />
         <activity android:name=".modules.register.RegActivity" />
-        <activity android:name=".modules.qr.operations.QrOperationActivity"/>
+        <activity android:name=".modules.wallet_emisor.PaymentToQR.operations.QrOperationActivity"/>
     </application>
 
 </manifest>

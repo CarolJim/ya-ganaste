@@ -41,11 +41,10 @@ import butterknife.ButterKnife;
 import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CARD_REPORT;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_NIP_CHANGE;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_CARD_REPORT;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_NIP_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
-import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 
 /**

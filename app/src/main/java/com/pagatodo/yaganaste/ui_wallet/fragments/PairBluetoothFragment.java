@@ -27,9 +27,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDe
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
-import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.BluetoothDeviceAdapter;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;

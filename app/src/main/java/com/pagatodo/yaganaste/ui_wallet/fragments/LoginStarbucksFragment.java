@@ -3,10 +3,7 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +23,11 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_ADMIN_STARBUCKS;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_FORGET_PASSWORD_STARBUCKS;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_REGISTER_STARBUCKS;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_TO_ADMIN_STARBUCKS;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_TO_FORGET_PASSWORD_STARBUCKS;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_TO_REGISTER_STARBUCKS;
 
 
 /**

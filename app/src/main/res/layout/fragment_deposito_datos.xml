@@ -1,68 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_child_tab"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgraund_wallet"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:background="@color/backgraund_wallet">
 
-    <View
-        android:id="@+id/toolbar_alternative"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/bar_height"
-        android:background="@drawable/background_toolbar" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtDepositTitle"
         style="@style/title_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/datos_deposito" />
-
-    <RelativeLayout
-        android:id="@+id/qr_zone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtDepositTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="6dp">
-
-        <ImageView
-            android:id="@+id/imgYaGanasteQR"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/blue_border_rectangle"
-            android:padding="5dp"
-            android:scaleType="centerInside"
-            android:contentDescription="@string/app_name"/>
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:foregroundGravity="center"
-            android:scaleType="center"
-            android:visibility="gone"
-            android:contentDescription="@string/app_name"
-            app:srcCompat="@mipmap/ic_launcher" />
-    </RelativeLayout>
+        android:text="@string/datos_deposito"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/text_data_list"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/qr_zone"
-        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:background="@drawable/border_card"
-        android:paddingBottom="30dp"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:paddingTop="30dp"
-        android:visibility="visible"/>
+        android:padding="@dimen/dimen_20"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDepositTitle" />
 
+    <LinearLayout
+        android:id="@+id/layout_virtual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-</RelativeLayout>
+        <com.pagatodo.view_manager.components.IconButton
+            android:id="@+id/request_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_marginRight="8dp"
+            app:iconNameText="@string/name_rquest_physical_card"
+            app:iconResImage="@drawable/ic_request_physical_card"
+            android:layout_marginEnd="8dp" />
+
+        <com.pagatodo.view_manager.components.IconButton
+            android:id="@+id/active_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:iconNameText="@string/name_active_physical_card"
+            app:iconResImage="@drawable/ic_active_physical_card" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_physical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_data_list">
+
+        <com.pagatodo.view_manager.components.IconButton
+            android:id="@+id/block_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:visibility="visible"
+            app:iconNameText="@string/name_block_card"
+            app:iconResImage="@drawable/ic_bloquear_wallet" />
+
+        <com.pagatodo.view_manager.components.IconButton
+            android:id="@+id/change_nip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:iconNameText="@string/name_change_nip"
+            app:iconResImage="@drawable/ic_password_wallet" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

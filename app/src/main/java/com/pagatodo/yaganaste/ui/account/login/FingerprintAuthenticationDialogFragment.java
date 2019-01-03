@@ -36,7 +36,7 @@ import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
-import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
+import com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.fragments.CancelAccountFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.DescargarEdoCuentaFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.DetalleOperadorFragment;

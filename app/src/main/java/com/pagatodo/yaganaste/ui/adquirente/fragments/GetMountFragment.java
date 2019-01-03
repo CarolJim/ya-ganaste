@@ -52,7 +52,7 @@ import butterknife.BindView;
 
 import static android.app.Activity.RESULT_OK;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.TYPE_TRANSACTION;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.REQUEST_CHECK_SETTINGS;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.REQUEST_CHECK_SETTINGS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 

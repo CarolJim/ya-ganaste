@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_VISUALIZER_EDO_CUENTA_ERROR;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_VISUALIZER_EDO_CUENTA_ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 public class EdoCuentaFragment extends GenericFragment {

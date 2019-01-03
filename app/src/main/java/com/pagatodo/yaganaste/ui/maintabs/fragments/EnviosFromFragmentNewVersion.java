@@ -62,7 +62,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
-import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
+import com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.Container;

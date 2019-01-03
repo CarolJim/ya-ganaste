@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
@@ -21,6 +22,7 @@ import android.widget.Spinner;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+import com.pagatodo.view_manager.buttons.ButtonContinue;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -28,6 +30,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
+import com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -58,7 +61,7 @@ import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_EMISOR;
 
 public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> extends GenericFragment
         implements MovementsView<ItemRecycler, T>, SwipyRefreshLayout.OnRefreshListener,
-        TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener, AdapterView.OnItemSelectedListener {
+        TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener, AdapterView.OnItemSelectedListener, View.OnClickListener{
 
     public SwipyRefreshLayoutDirection direction;
     public static final String TYPE = "TYPE";
@@ -86,6 +89,8 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     Spinner spinner;
     @BindView(R.id.imageViewCustomSpinner)
     AppCompatImageView row;
+    @BindView(R.id.buttonContinue)
+    ButtonContinue btnContinue;
 
     protected IFavoritesPresenter favoritesPresenter;
     protected PresenterPaymentFragment paymentPresenter;
@@ -94,9 +99,16 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     protected List<Agentes> agentes;
     protected boolean isBussines = false;
     protected int currentTab;
+    protected WalletMainActivity activity;
 
     public AbstractAdEmFragment() {
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.activity = (WalletMainActivity) context;
     }
 
     @Override
@@ -131,6 +143,13 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     }
 
+    public void activeButton(){
+        btnContinue.active();
+    }
+
+    public void inactiveButton(){
+        btnContinue.inactive();
+    }
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.adquitente_emisor_fragment, container, false);
@@ -163,7 +182,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         row.setOnClickListener(view -> {
             spinner.performClick();
         });
-
+        btnContinue.setOnClickListener(this);
 
     }
 
@@ -293,5 +312,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     protected void notifyDataSetChanged() {
         recyclerMovements.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(View view) {
+        activity.getRouter().onshowAccountStatus();
     }
 }

@@ -1,0 +1,66 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 192413696 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2640), pid=5110, tid=0x00007f5c5257a700
+#
+# JRE version: OpenJDK Runtime Environment (8.0_152-b06) (build 1.8.0_152-release-1136-b06)
+# Java VM: OpenJDK 64-Bit Server VM (25.152-b06 mixed mode linux-amd64 compressed oops)
+# Core dump written. Default location: /home/icuz/AndroidStudioProjects/ya-ganaste-adt-4x/core or core.5110
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f5c78079000):  VMThread [stack: 0x00007f5c5247b000,0x00007f5c5257b000] [id=5118]
+
+Stack: [0x00007f5c5247b000,0x00007f5c5257b000],  sp=0x00007f5c52579520,  free space=1017k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xa70d3f]  VMError::report_and_die()+0x2af
+V  [libjvm.so+0x4c7207]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*)+0x67
+V  [libjvm.so+0x8b5b70]  os::pd_commit_memory(char*, unsigned long, unsigned long, bool)+0x100
+V  [libjvm.so+0x8b078f]  os::commit_memory(char*, unsigned long, unsigned long, bool)+0x1f
+V  [libjvm.so+0x92e446]  PSVirtualSpace::expand_by(unsigned long)+0x56
+V  [libjvm.so+0x92f6d8]  PSYoungGen::resize(unsigned long, unsigned long)+0xd8
+V  [libjvm.so+0x92be66]  PSScavenge::invoke_no_policy()+0x1356
+V  [libjvm.so+0x92c20c]  PSScavenge::invoke()+0x4c
+V  [libjvm.so+0x8dbda8]  ParallelScavengeHeap::failed_mem_allocate(unsigned long)+0x68
+V  [libjvm.so+0xa72873]  VM_ParallelGCFailedAllocation::doit()+0x93
+V  [libjvm.so+0xa778a6]  VM_Operation::evaluate()+0x46
+V  [libjvm.so+0xa75102]  VMThread::evaluate_operation(VM_Operation*) [clone .constprop.31]+0xa2
+V  [libjvm.so+0xa7652b]  VMThread::loop()+0x37b
+V  [libjvm.so+0xa768d8]  VMThread::run()+0x78
+V  [libjvm.so+0x8b3332]  java_start(Thread*)+0x102
+
+VM_Operation (0x00007f5c50a35680): ParallelGCFailedAllocation, mode: safepoint, requested by thread 0x00007f5c14003000
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007f5bf118b800 JavaThread "RMI RenewClean-[127.0.0.1:45723,org.jetbrains.kotlin.daemon.common.LoopbackNetworkInterface$ClientLoopbackSocketFactory@507439]" daemon [_thread_blocked, id=5893, stack(0x00007f5c36957000,0x00007f5c36a58000)]
+  0x00007f5c14003000 JavaThread "RMI TCP Connection(8)-127.0.0.1" daemon [_thread_blocked, id=5892, stack(0x00007f5c5093a000,0x00007f5c50a3b000)]
+  0x00007f5c14001800 JavaThread "RMI TCP Connection(7)-127.0.0.1" daemon [_thread_in_native, id=5890, stack(0x00007f5c50d3c000,0x00007f5c50e3d000)]
+  0x00007f5bf8013800 JavaThread "RMI RenewClean-[127.0.0.1:45723,org.jetbrains.kotlin.daemon.common.LoopbackNetworkInterface$ClientLoopbackSocketFactory@4537b3e9]" daemon [_thread_blocked, id=5334, stack(0x00007f5c50032000,0x00007f5c50133000)]
+  0x00007f5bf0011000 JavaThread "RMI RenewClean-[127.0.0.1:45723,org.jetbrains.kotlin.daemon.common.LoopbackNetworkInterface$ClientLoopbackSocketFactory@2df81206]" daemon [_thread_blocked, id=5140, stack(0x00007f5c5103f000,0x00007f5c51140000)]
+  0x00007f5bf8011800 JavaThread "RMI Scheduler(0)" daemon [_thread_blocked, id=5133, stack(0x00007f5c50a3b000,0x00007f5c50b3c000)]
+  0x00007f5c7800c000 JavaThread "DestroyJavaVM" [_thread_blocked, id=5113, stack(0x00007f5c7c9a8000,0x00007f5c7caa8000)]
+  0x00007f5c78464800 JavaThread "GC Daemon" daemon [_thread_blocked, id=5131, stack(0x00007f5c50e3d000,0x00007f5c50f3e000)]
+  0x00007f5c7845e000 JavaThread "RMI Reaper" [_thread_blocked, id=5130, stack(0x00007f5c50f3e000,0x00007f5c5103f000)]
+  0x00007f5c78449000 JavaThread "Timer-0" daemon [_thread_blocked, id=5128, stack(0x00007f5c51140000,0x00007f5c51241000)]
+  0x00007f5c78447000 JavaThread "RMI TCP Accept-17682" daemon [_thread_in_native, id=5127, stack(0x00007f5c51241000,0x00007f5c51342000)]
+  0x00007f5c780e3800 JavaThread "Service Thread" daemon [_thread_blocked, id=5125, stack(0x00007f5c51d73000,0x00007f5c51e74000)]
+  0x00007f5c780be800 JavaThread "C1 CompilerThread2" daemon [_thread_blocked, id=5124, stack(0x00007f5c51e75000,0x00007f5c51f75000)]
+  0x00007f5c780bc800 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=5123

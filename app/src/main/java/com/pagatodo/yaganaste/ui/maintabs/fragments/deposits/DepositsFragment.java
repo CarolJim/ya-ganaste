@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments.deposits;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,10 +10,10 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaSucursal;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.modules.wallet_emisor.virtualcardaccount.MyVirtualCardAccountFragment;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
 import com.pagatodo.yaganaste.utils.UI;
 
@@ -51,7 +50,7 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
     @Override
     public void initViews() {
         ButterKnife.bind(this, this.rootView);
-        loadFragment(DepositsDataFragment.newInstance(), Direction.NONE, false);
+        loadFragment(MyVirtualCardAccountFragment.newInstance(), Direction.NONE, false);
     }
 
     public DepositsManager getDepositManager() {
@@ -95,10 +94,10 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
         if (fragments != null && fragments.get(0) instanceof DepositsMapFragment) {
             if (((DepositsMapFragment) fragments.get(0)).isBackAvailable) {
                 removeLastFragment();
-                loadFragment(DepositsDataFragment.newInstance(), Direction.BACK, false);
+                loadFragment(MyVirtualCardAccountFragment.newInstance(), Direction.BACK, false);
                 onEventListener.onEvent(TabActivity.EVENT_SHOW_MAIN_TAB, null);
             }
-        } else if (fragments != null && fragments.get(0) instanceof DepositsDataFragment) {
+        } else if (fragments != null && fragments.get(0) instanceof MyVirtualCardAccountFragment) {
             ((TabActivity) getActivity()).goHome();
             onEventListener.onEvent(TabActivity.EVENT_SHOW_MAIN_TAB, null);
         }

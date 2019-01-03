@@ -1,68 +1,31 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
-import android.app.KeyguardManager;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.hardware.fingerprint.FingerprintManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.security.keystore.KeyGenParameterSpec;
-import android.security.keystore.KeyProperties;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IChangeOperador;
-import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
-import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
-import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.presenter.ChangeStatusOperadorPresenter;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
-
-import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
-
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_OPERADOR_DETALLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.SUCCES_CHANGE_STATUS_OPERADOR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_MOV_ADQ;
-import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
 /**
  * A simple {@link Fragment} subclass.

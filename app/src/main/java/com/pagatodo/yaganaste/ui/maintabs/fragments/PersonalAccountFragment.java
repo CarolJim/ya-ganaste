@@ -20,7 +20,7 @@ import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritesPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AccountMovementsPresenter;
-import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
+import com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper;
 import com.pagatodo.yaganaste.ui_wallet.presenter.PresenterPaymentFragment;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -39,13 +39,13 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAVORITE_PROCESS;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.CURRENT_TAB;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_DETAIL_EMISOR;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_DETAIL_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper.LEFT;
 import static com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper.RIGHT;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_OPERATION;
 
 
-public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovementsTab, ItemMovements<MovimientosResponse>> {
+public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovementsTab, ItemMovements<MovimientosResponse>>{
 
     public static final String TAG = PersonalAccountFragment.class.getSimpleName();
     private int currentTab;
@@ -125,7 +125,10 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
             ex.printStackTrace();
         }
         if (actualList != null && actualList.size() > 0) {
+
             if (movementsList.size() > 0) {
+                this.activeButton();
+
                 if (direction.equals(SwipyRefreshLayoutDirection.TOP)) {
                     this.movementsList.get(tabPosition).addAll(0, movementsList);
                 } else {
@@ -133,6 +136,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
                 }
                 currentAdapter.notifyDataSetChanged();
             } else {
+                this.inactiveButton();
                 if (direction.equals(SwipyRefreshLayoutDirection.BOTTOM)) {
                     swipeContainer.setDirection(SwipyRefreshLayoutDirection.TOP);
                     doubleSwipePosition.put(tabPosition, false);
@@ -279,4 +283,6 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
+
 }

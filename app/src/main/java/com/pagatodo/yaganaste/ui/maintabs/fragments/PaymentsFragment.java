@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -23,7 +22,7 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AdqPaymentesPresenter;
-import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
+import com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper;
 import com.pagatodo.yaganaste.utils.UI;
 
@@ -31,7 +30,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CANCELADO;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_DETAIL_ADQ;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_DETAIL_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper.LEFT_AD;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
@@ -94,6 +93,11 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     public void loadMovementsResult(List<ItemMovements<DataMovimientoAdq>> movements) {
         this.currentAdapter = createAdapter(movements);
         updateRecyclerData(this.currentAdapter, movements);
+        if (movements.size() > 0){
+            this.activeButton();
+        } else {
+            this.inactiveButton();
+        }
 
         if (!App.getInstance().getPrefs().loadDataBoolean(IS_UYU, false) && SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
             ItemTouchHelper.SimpleCallback itemTouchHelperCallbackL = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, getListenerItemTouchLeft(), LEFT_AD);

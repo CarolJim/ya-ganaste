@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
-import android.view.WindowManager;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -29,7 +28,7 @@ import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyAccountFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
-import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
+import com.pagatodo.yaganaste.modules.wallet_emisor.ChangeNip.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.MyEmailFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpAcercaApp;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanos;

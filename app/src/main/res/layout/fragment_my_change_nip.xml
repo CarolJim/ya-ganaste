@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pagatodo.yaganaste.ui.preferuser.MyChangeNip">
+    tools:context="com.pagatodo.yaganaste.modules.wallet_emisor.ChangeNip.MyChangeNip">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/textView2"

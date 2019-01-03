@@ -7,7 +7,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -33,7 +32,6 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_REPAYMENT_BACK;
 
 /**
  * Created by Omar on 22/02/2018.

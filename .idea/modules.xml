@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/view_manager/view_manager.iml" filepath="$PROJECT_DIR$/view_manager/view_manager.iml" />
       <module fileurl="file://$PROJECT_DIR$/ya-ganaste-adt-4x.iml" filepath="$PROJECT_DIR$/ya-ganaste-adt-4x.iml" />
     </modules>
   </component>

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
-import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
+import com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.bookmarks.system.FacadeBookmarks;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.ContainerBuilder;

@@ -1,58 +1,45 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.bluetooth.BluetoothAdapter;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
-import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IDetailAdqView;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.CreateDatailBuilder;
 import com.pagatodo.yaganaste.ui_wallet.patterns.facade.FacadeMovements;
 import com.pagatodo.yaganaste.ui_wallet.presenter.MovementDetailAdqPresenter;
 import com.pagatodo.yaganaste.utils.DateUtil;
-import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
-import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE_CANCELATION;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_MOV_ADQ;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_SEND_TICKET;
-import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CANCELADO;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_TO_MOV_ADQ;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_TO_SEND_TICKET;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
-import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_REMBOLSADO;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 /**

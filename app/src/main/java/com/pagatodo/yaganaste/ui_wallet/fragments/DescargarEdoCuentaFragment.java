@@ -49,7 +49,7 @@ import javax.crypto.SecretKey;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_VISUALIZER_EDO_CUENTA;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_VISUALIZER_EDO_CUENTA;
 import static com.pagatodo.yaganaste.utils.Recursos.PSW_CPR;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
