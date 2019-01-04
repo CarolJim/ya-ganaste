@@ -256,7 +256,7 @@
     <string name="txt_login">INGRESAR</string>
     <string name="txt_ingresar">Ingresar</string>
     <string name="txt_iniciar_sesion">Ya tengo una cuenta</string>
-    <string name="recover_pass">¿Olvidaste tu contraseña?\n<u>Aquí podemos ayudarte</u></string>
+    <string name="recover_pass"><u>¿Olvidaste tu contraseña?</u></string>
     <string name="other_user">Ingresar con otro usuario</string>
     <string name="ingress_mail_to_recover_pass">Ingresa el correo electrónico\ncon el que registraste tu\ncuenta Ya Ganaste</string>
     <string name="txt_mail">Correo electrónico</string>
@@ -691,9 +691,9 @@
 
     <string name="cargando">Cargando</string>
 
-    <string name="recupera_contrasenia_title">Reestablece tu contraseña</string>
+    <string name="recupera_contrasenia_title">¿Olvidaste tu Contraseña?</string>
     <string name="recupera_contrasenia_title2">Reestablece aquí tu contraseña</string>
-    <string name="enviaremos_enlace_restablecer">Si olvidaste tu contraseña, puedes\ngenerar una nueva, te enviaremos las\ninstrucciones al correo:</string>
+    <string name="enviaremos_enlace_restablecer">Genera una nueva, te enviarémos las\ninstrucciones a tu correo electrónico</string>
     <string name="ingresa_correo_registrado">Ingresa el correo electrónico que\nregistraste para recuperar tu contraseña</string>
     <string name="ingresa_correo_registrado_requerido">El correo electrónico es requerido. Verifica tu información.</string>
 
@@ -1271,10 +1271,10 @@
     <string name="calcular_comisiones">Calcular comisiones</string>
     <string name="tarjeta_yg">Tarjeta Ya Ganaste</string>
     <string name="lector_yg">Lector de Tarjetas Ya Ganaste</string>
-    <string name="set_credentials_login">¡Hola!\nIngresa tus datos para iniciar sesión</string>
+    <string name="set_credentials_login">Iniciar Sesión</string>
     <string name="set_credentials_login_2">Ingresa tu contraseña para\niniciar sesión</string>
     <string name="send_sms">Enviar SMS</string>
-    <string name="send_email">Enviar correo electrónico</string>
+    <string name="send_email">Enviar</string>
     <string name="block_your_card_title">Bloqueo temporal de tarjeta</string>
     <string name="block_your_card_subtitle">Si tienes algún problema con tu\ntarjeta, bloquéala temporalmente\ningresando tu contraseña.</string>
     <string name="unblock_your_card_title">Desbloquea tu tarjeta</string>

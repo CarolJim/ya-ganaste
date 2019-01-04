@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.text.style.AlignmentSpan;
 import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,24 +34,31 @@ public class AsignarNipTextWatcher implements TextWatcher {
     TextView tv2Num;
     TextView tv3Num;
     TextView tv4Num;
+    TextView tv5Num;
+    TextView tv6Num;
     String newText = "";
     String oldText = "";
-    CustomValidationEditText etGen;
+    EditText etGen;
     Bitmap bitmapBullet;
     ImageView asignar_iv1;
     int posCount;
     Handler handler;
     Runnable myRunnable;
 
+    changeTxtWtxher listener;
+
     private String TAG = getClass().getSimpleName();
 
-    public AsignarNipTextWatcher(CustomValidationEditText etGen, TextView tv1Num, TextView tv2Num,
-                                 TextView tv3Num, TextView tv4Num) {
+    public AsignarNipTextWatcher(EditText etGen, TextView tv1Num, TextView tv2Num,
+                                 TextView tv3Num, TextView tv4Num,TextView tv5Num, TextView tv6Num ,changeTxtWtxher listener) {
         this.etGen = etGen;
         this.tv1Num = tv1Num;
         this.tv2Num = tv2Num;
         this.tv3Num = tv3Num;
         this.tv4Num = tv4Num;
+        this.tv5Num = tv5Num;
+        this.tv6Num = tv6Num;
+        this.listener = listener;
 
         /*Log.d("ds","WNIP "+tv1Num.getWidth());
         float textSize = tv1Num.getTextSize();
@@ -58,7 +66,7 @@ public class AsignarNipTextWatcher implements TextWatcher {
          Log.d("ds","textSizeInt "+ textSizeInt);*/
 
         bitmapBullet = BitmapFactory.decodeResource(App.getContext().getResources(),
-                R.drawable.base_bullet_blue);
+                R.drawable.ico_asterisk_white);
         int medidaTextSize = 0;
 
         /**
@@ -117,6 +125,7 @@ public class AsignarNipTextWatcher implements TextWatcher {
 
     @Override
     public void afterTextChanged(final Editable s) {
+
         newText = s.toString();
         if (newText.length() > oldText.length()) {
             final int countString = etGen.getText().toString().length();
@@ -133,6 +142,14 @@ public class AsignarNipTextWatcher implements TextWatcher {
                 case 4:
                     tv4Num.setText("" + s.charAt(s.toString().length() - 1));
                     break;
+                    case 5:
+                    tv5Num.setText("" + s.charAt(s.toString().length() - 1));
+                    break;
+
+                    case 6:
+                    tv6Num.setText("" + s.charAt(s.toString().length() - 1));
+                    listener.fill();
+                    break;
             }
             oldText = s.toString();
 
@@ -145,6 +162,10 @@ public class AsignarNipTextWatcher implements TextWatcher {
                 updatePosAnterior(3);
             } else if (posCount == 4) {
                 updatePosAnterior(4);
+            }else if (posCount == 5) {
+                updatePosAnterior(5);
+            }else if (posCount == 6) {
+                updatePosAnterior(6);
             }
             posCount++;
 
@@ -166,11 +187,18 @@ public class AsignarNipTextWatcher implements TextWatcher {
                         case 4:
                             tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
                             break;
+                            case 5:
+                            tv5Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            break;
+                            case 6:
+                            tv6Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            break;
                     }
                 }
             };
             handler = new Handler();//
             handler.postDelayed(myRunnable, 000);
+            listener.changeeye();
         } else {
             // Proceso de borrado de numeros,
             handler.removeCallbacks(myRunnable);
@@ -181,18 +209,35 @@ public class AsignarNipTextWatcher implements TextWatcher {
                     tv2Num.setText("");
                     tv3Num.setText("");
                     tv4Num.setText("");
+                    tv5Num.setText("");
+                    tv6Num.setText("");
                     break;
                 case 1:
                     tv2Num.setText("");
                     tv3Num.setText("");
                     tv4Num.setText("");
+                    tv5Num.setText("");
+                    tv6Num.setText("");
                     break;
                 case 2:
                     tv3Num.setText("");
                     tv4Num.setText("");
+                    tv5Num.setText("");
+                    tv6Num.setText("");
                     break;
                 case 3:
                     tv4Num.setText("");
+                    tv5Num.setText("");
+                    tv6Num.setText("");
+                    break;
+
+                    case 4:
+                    tv5Num.setText("");
+                    tv6Num.setText("");
+                    break;
+
+                    case 5:
+                    tv6Num.setText("");
                     break;
             }
             oldText = s.toString();
@@ -211,14 +256,41 @@ public class AsignarNipTextWatcher implements TextWatcher {
                 tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
                 break;
             case 2:
+                tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
                 tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
                 break;
             case 3:
+                tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
                 tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
                 break;
             case 4:
+
+                tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
                 tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
                 break;
+                case 5:
+                    tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                    tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                    tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                    tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                    tv5Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                break;
+                case 6:
+                    tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                    tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                    tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                    tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                    tv5Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                    tv6Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                break;
         }
+    }
+
+  public   interface changeTxtWtxher{
+       void changeeye();
+       void fill();
     }
 }

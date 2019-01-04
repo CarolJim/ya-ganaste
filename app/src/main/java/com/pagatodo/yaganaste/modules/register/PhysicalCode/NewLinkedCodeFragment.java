@@ -76,6 +76,7 @@ public class NewLinkedCodeFragment extends GenericFragment implements TextWatche
 
         RegisterUserNew registerAgent = RegisterUserNew.getInstance();
         editNameQR.setText(registerAgent.getNombreNegocio());
+        textNameQR.setText(registerAgent.getNombreNegocio());
         if (getArguments() != null){
             textPlate = getArguments().getString("DISPLAY");
             assert textPlate != null;

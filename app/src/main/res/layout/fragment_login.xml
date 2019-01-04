@@ -29,6 +29,7 @@
                     android:layout_height="172dp"
                     android:layout_marginBottom="16dp"
                     android:background="@color/colorAccent"
+                    android:visibility="gone"
                     android:padding="31dp"
                     app:srcCompat="@drawable/ic_logo_header" />
 
@@ -41,13 +42,14 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="32dp"
+                    android:visibility="visible"
                     android:background="@drawable/ic_circle_border_shadow">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imgLoginExistProfile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@mipmap/icon_user" />
+                        app:srcCompat="@drawable/ico_my_account" />
                 </LinearLayout>
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -70,6 +72,10 @@
                     android:layout_marginBottom="26dp"
                     android:text="@string/set_credentials_login_2"
                     android:textAlignment="center" />
+
+
+
+
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_email"
@@ -106,15 +112,18 @@
 
                 </android.support.design.widget.TextInputLayout>
 
+
+
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_width="276dp"
+                    android:layout_height="53dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/inputtext_normal"
                     android:gravity="center_vertical"
                     android:hint="@string/txt_escribe_tu_pass"
+                    android:visibility="gone"
                     android:maxLines="1"
                     android:textColorHint="@color/texthint"
                     android:theme="@style/TextLabel"
@@ -140,6 +149,84 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/txtContrasena"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/password"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textColor="@color/gray_text_wallet_3"
+                    android:visibility="gone" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="start"
+                    android:gravity="center"
+                    >
+                    <include
+                        layout="@layout/asignar_pin_layout"
+
+                        />
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_passwordnew"
+                        android:layout_width="276dp"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/inputtext_normal"
+                        android:gravity="center_vertical"
+                        android:hint="@string/txt_escribe_tu_pass"
+                        android:visibility="visible"
+                        android:maxLines="1"
+                        android:textColorHint="@color/texthint"
+                        android:theme="@style/TextLabel"
+                        app:passwordToggleTint="@color/colorAccent"
+                        tools:ignore="UnusedAttribute">
+
+                        <EditText
+                            android:id="@+id/editUserPasswordnew"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="9dp"
+                            android:background="@android:color/transparent"
+                            android:imeOptions="actionDone"
+                            android:inputType="numberPassword"
+                            android:maxLength="6"
+                            android:paddingLeft="15dp"
+                            android:password="true"
+                            android:singleLine="true"
+                            android:textColor="@color/texthint"
+                            android:theme="@style/NewEdittextwallet" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:id="@+id/llay_eye_pass"
+                        android:layout_marginLeft="8dp"
+                        android:background="@drawable/inputtext_normal"
+                        >
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:id="@+id/eye_img"
+                            android:src="@drawable/icon_eye_pass"
+                            />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtLoginOperadorOtroUsuario"
                     style="@style/textDescInputs"
                     android:layout_width="match_parent"
@@ -161,6 +248,14 @@
                     android:padding="@dimen/margin_medium"
                     android:text="@string/recover_pass"
                     android:textAlignment="center" />
+                <EditText
+                    android:id="@+id/asignar_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="70px"
+                    android:visibility="visible"
+                    android:inputType="number"
+                    android:maxLength="6" />
+
 
             </LinearLayout>
 
