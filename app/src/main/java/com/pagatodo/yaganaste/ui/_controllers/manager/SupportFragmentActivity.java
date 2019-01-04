@@ -95,8 +95,8 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         UI.hideKeyBoard(this);
     }
 
-    protected void loadFragment(@NonNull Fragment fragment, @IdRes int idContainer, @NonNull Direction direction,
-                                boolean addToBackStack) {
+    public void loadFragment(@NonNull Fragment fragment, @IdRes int idContainer, @NonNull Direction direction,
+                             boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, idContainer, direction, addToBackStack);
         UI.hideKeyBoard(this);
     }

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    tools:context=".modules.onboarding.fragments.StartFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left">
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:scaleType="fitXY"
+                    android:id="@+id/onBack"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:tint="@color/blue_text_wallet"
+                    android:src="@drawable/introbutton_behaviour_previous" />
+            </android.support.v7.widget.Toolbar>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="290dp"
+            android:layout_height="290dp"
+            android:layout_marginTop="26dp"
+            android:src="@drawable/slider" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="Bienvenido a\nYa Ganaste"
+            android:textColor="@color/blue_text_wallet"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btn_init_session"
+            android:layout_width="219dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="31dp"
+            android:background="@drawable/button_no"
+            android:text="@string/inicia_sesion"
+            android:textColor="@color/blue_text_wallet"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/create_account"
+            android:layout_width="219dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_yes"
+            android:text="@string/crear_cuenta"
+            android:textColor="@color/whiteColor"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

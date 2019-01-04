@@ -200,7 +200,17 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                 }
             }
         });
-
+        editIntNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId==EditorInfo.IME_ACTION_NEXT){
+                    component_postal_code.getCode1().requestFocus();
+                    InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                }
+                return false;
+            }
+        });
 
         editIntNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -260,7 +270,15 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
 
         });
 
+        component_postal_code.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    component_postal_code.getCode1().requestFocus();
+                }
 
+            }
+        });
         editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
