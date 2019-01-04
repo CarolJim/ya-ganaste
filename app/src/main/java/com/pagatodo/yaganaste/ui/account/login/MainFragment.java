@@ -20,7 +20,6 @@ import android.widget.Scroller;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.modules.onboarding.OnboardingActivity;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;

@@ -61,6 +61,7 @@ import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.SelfieFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.BalanceWalletFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PayQRFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
@@ -721,6 +722,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
             ((AccessCodeGenerateFragment) fm).loadOtpHuella();
         if (fm instanceof BlockCardFragment)
             ((BlockCardFragment) fm).loadOtpHuella();
+        if (fm instanceof BalanceWalletFragment)
+            ((BalanceWalletFragment) fm).loadOtpHuella();
 
     }
 

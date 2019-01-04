@@ -151,7 +151,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
             tvCorreoRegistrado.setVisibility(View.VISIBLE);
             tvCorreoRegistrado.setText(userEmailCifrado);
         } else {
-            ((AccountActivity) getActivity()).showImageToolbar(false);
+            ((AccountActivity) getActivity()).showImageToolbar(true);
             imgRecoverBlue.setVisibility(View.GONE);
             tvCorreoRegistrado.setVisibility(View.GONE);
             // Asignamos el texto de enlace de correo

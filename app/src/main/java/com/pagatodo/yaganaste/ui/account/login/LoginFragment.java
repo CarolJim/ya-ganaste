@@ -3,18 +3,27 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
+import android.text.Layout;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.text.style.AlignmentSpan;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.ImageSpan;
 import android.text.style.UnderlineSpan;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -39,9 +48,11 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.squareup.picasso.Picasso;
@@ -73,20 +84,38 @@ import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
  * A simple {@link GenericFragment} subclass.
  */
 public class LoginFragment extends GenericFragment implements View.OnClickListener, ILoginView,
-        ValidationForms {
+        ValidationForms ,AsignarNipTextWatcher.changeTxtWtxher {
     private Preferencias prefs = App.getInstance().getPrefs();
 
     @BindView(R.id.img_header_yg_login)
     ImageView imgHeaderLogin;
 
+    @BindView(R.id.txtContrasena)
+    StyleTextView txtContrasena;
+
     @BindView(R.id.lyt_img_user)
     LinearLayout lyImgUser;
+
+    @BindView(R.id.llay_eye_pass)
+    LinearLayout llay_eye_pass;
+
+    @BindView(R.id.llypass)
+    LinearLayout llypass_pass;
+
+    @BindView(R.id.asignar_control_layout)
+    LinearLayout asignar_control_layout;
 
     @BindView(R.id.imgLoginExistProfile)
     CircleImageView imgLoginExistProfile;
 
     @BindView(R.id.textNameUser)
     StyleTextView textNameUser;
+
+    @BindView(R.id.asignar_edittext)
+    EditText asignar_edittext;
+
+    @BindView(R.id.editUserPasswordnew)
+    EditText editUserPasswordnew;
 
     @BindView(R.id.txt_set_credentials)
     StyleTextView txtSetCredentials;
@@ -103,9 +132,29 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.text_password)
     TextInputLayout text_password;
 
+
+    @BindView(R.id.text_passwordnew)
+    TextInputLayout text_passwordnew;
+
     @BindView(R.id.btnLoginExistUser)
     StyleButton btnLogin;
 
+    @BindView(R.id.eye_img)
+    ImageView eye_img;
+
+    @BindView(R.id.asignar_tv1)
+    TextView tv1Num;
+    @BindView(R.id.asignar_tv2)
+    TextView tv2Num;
+    @BindView(R.id.asignar_tv3)
+    TextView tv3Num;
+    @BindView(R.id.asignar_tv4)
+    TextView tv4Num;
+    @BindView(R.id.asignar_tv5)
+    TextView tv5Num;
+    @BindView(R.id.asignar_tv6)
+    TextView tv6Num;
+    Bitmap bitmapBullet;
     @BindView(R.id.txtLoginExistUserRecoverPass)
     StyleTextView txtLoginExistUserRecoverPass;
 
@@ -122,6 +171,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     private String password;
     private Preferencias preferencias;
     private boolean dialogErrorShown = false;
+
+    private boolean passwordshow = true;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -165,10 +216,157 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         txtLoginExistUserRecoverPass.setOnClickListener(this);
         SpannableString ss;
         ss = new SpannableString(getString(R.string.recover_pass));
-        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 26, 47, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss.setSpan(new UnderlineSpan(), 26, 47, 0);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 0, 25, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new UnderlineSpan(), 0, 25, 0);
         txtLoginExistUserRecoverPass.setText(ss);
         txtLoginOperadorOtroUsuario.setOnClickListener(this);
+
+
+
+        asignar_edittext.addTextChangedListener(new AsignarNipTextWatcher(asignar_edittext, tv1Num, tv2Num, tv3Num, tv4Num, tv5Num, tv6Num,this));
+
+        asignar_control_layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                asignar_edittext.requestFocusFromTouch();
+                InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                lManager.showSoftInput(asignar_edittext, 0);
+
+
+                return false;
+            }
+        });
+
+        llay_eye_pass.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                bitmapBullet = BitmapFactory.decodeResource(App.getContext().getResources(),
+                        R.drawable.ico_asterisk_white);
+                int medidaTextSize = 0;
+
+                /**
+                 * Obtenemos la resolucion de la pantalla y enviamos la medida necesaria
+                 */
+                DisplayMetrics metrics = App.getContext().getResources().getDisplayMetrics();
+                switch (metrics.densityDpi) {
+                    case DisplayMetrics.DENSITY_LOW:
+                        break;
+                    case DisplayMetrics.DENSITY_MEDIUM:
+                        medidaTextSize = obtenerMedidas(tv1Num, 2);
+                        break;
+                    case DisplayMetrics.DENSITY_HIGH:
+                        medidaTextSize = obtenerMedidas(tv1Num, 3);
+                        break;
+                    case DisplayMetrics.DENSITY_XHIGH:
+                        medidaTextSize = obtenerMedidas(tv1Num, 4);
+                        break;
+                    case DisplayMetrics.DENSITY_XXHIGH:
+                        medidaTextSize = obtenerMedidas(tv1Num, 5);
+                        break;
+                    case DisplayMetrics.DENSITY_XXXHIGH:
+                        medidaTextSize = obtenerMedidas(tv1Num, 5);
+                        break;
+                    default:
+                        medidaTextSize = obtenerMedidas(tv1Num, 5);
+                        break;
+                }
+
+                bitmapBullet = Bitmap.createScaledBitmap(bitmapBullet, medidaTextSize, medidaTextSize, true);
+
+
+                String pass = asignar_edittext.getText().toString();
+                if (passwordshow) {
+                    passwordshow=false;
+                }else {
+                    passwordshow=true;
+                }
+                    if (!passwordshow) {
+
+                    if (pass.length()==1)
+                        tv1Num.setText(pass.substring(0, 1));
+                        if (pass.length()==2) {
+                            tv1Num.setText(pass.substring(0, 1));
+                            tv2Num.setText(pass.substring(1, 2));
+                        }
+                        if (pass.length()==3){
+                            tv1Num.setText(pass.substring(0, 1));
+                            tv2Num.setText(pass.substring(1, 2));
+                            tv3Num.setText(pass.substring(2, 3));
+                        }
+
+                        if (pass.length()==4){
+                            tv1Num.setText(pass.substring(0, 1));
+                            tv2Num.setText(pass.substring(1, 2));
+                            tv3Num.setText(pass.substring(2, 3));
+                            tv4Num.setText(pass.substring(3, 4));
+                        }
+
+                        if (pass.length()==5){
+                            tv1Num.setText(pass.substring(0, 1));
+                            tv2Num.setText(pass.substring(1, 2));
+                            tv3Num.setText(pass.substring(2, 3));
+                            tv4Num.setText(pass.substring(3, 4));
+                            tv5Num.setText(pass.substring(4, 5));
+                        }
+                        if (pass.length()==6)
+                        {
+                            tv1Num.setText(pass.substring(0, 1));
+                            tv2Num.setText(pass.substring(1, 2));
+                            tv3Num.setText(pass.substring(2, 3));
+                            tv4Num.setText(pass.substring(3, 4));
+                            tv5Num.setText(pass.substring(4, 5));
+                            tv6Num.setText(pass.substring(5, 6));
+                        }
+
+                        eye_img.setImageResource(R.drawable.icon_eye_pass_blok);
+
+                    }else {
+                        SpannableStringBuilder ssb = new SpannableStringBuilder(" "); // 20
+                        ssb.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                        ssb.setSpan(new ImageSpan(bitmapBullet), 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                        if (pass.length()==1)
+                        tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        if (pass.length()==2) {
+                            tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        }
+                        if (pass.length()==3) {
+                            tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        }
+                        if (pass.length()==4) {
+                            tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        }
+                        if (pass.length()==5){
+                            tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            tv5Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        }
+
+                        if (pass.length()==6)
+                        {
+                            tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            tv5Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                            tv6Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        }
+
+                        eye_img.setImageResource(R.drawable.icon_eye_pass);
+                    }
+
+                return false;
+            }
+        });
 
 
         if (prefs.containsData(IS_OPERADOR)) {
@@ -178,19 +376,44 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             txtLoginOperadorOtroUsuario.setVisibility(GONE);
         }
         if ((prefs.containsData(IS_OPERADOR)) || !RequestHeaders.getTokenauth().isEmpty()) {
+            text_passwordnew.setVisibility(GONE);
+            llypass_pass.setVisibility(VISIBLE);
+            asignar_edittext.requestFocus();
             textNameUser.setText("¡Hola " + prefs.loadData(NAME_USER) + "!");
             btnLogin.setText(getString(R.string.nextButton));
             edtUserName.setText(RequestHeaders.getUsername());
             text_email.setVisibility(GONE);
             imgHeaderLogin.setVisibility(GONE);
             textNameUser.setOnClickListener(this);
-            edtUserPass.setFocusableInTouchMode(true);
-            edtUserPass.requestFocus();
+            asignar_edittext.setFocusableInTouchMode(true);
+            asignar_edittext.requestFocus();
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
-            imm.showSoftInput(edtUserPass, InputMethodManager.SHOW_IMPLICIT);
+            imm.showSoftInput(asignar_edittext, InputMethodManager.SHOW_IMPLICIT);
+            text_passwordnew.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    text_passwordnew.setVisibility(GONE);
+                    llypass_pass.setVisibility(VISIBLE);
+                    txtContrasena.setVisibility(VISIBLE);
+                    asignar_edittext.requestFocus();
+                    return false;
+                }
+            });
+
+            editUserPasswordnew.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+                    if (b){
+                        text_passwordnew.setVisibility(GONE);
+                        llypass_pass.setVisibility(VISIBLE);
+                        asignar_edittext.requestFocus();
+                    }
+                }
+            });
+
         } else {
-            ((AccountActivity) getActivity()).changeToolbarVisibility(false);
+            ((AccountActivity) getActivity()).changeToolbarVisibility(true);
             lyImgUser.setVisibility(GONE);
             imgLoginExistProfile.setVisibility(GONE);
             txtSetCredentials.setVisibility(GONE);
@@ -204,6 +427,29 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
             imm.showSoftInput(edtUserName, InputMethodManager.SHOW_IMPLICIT);
+            text_passwordnew.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    text_passwordnew.setVisibility(GONE);
+                    llypass_pass.setVisibility(VISIBLE);
+                    txtContrasena.setVisibility(VISIBLE);
+                    asignar_edittext.requestFocus();
+                    return false;
+                }
+            });
+
+            editUserPasswordnew.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+                    if (b){
+                        text_passwordnew.setVisibility(GONE);
+                        llypass_pass.setVisibility(VISIBLE);
+                        txtContrasena.setVisibility(VISIBLE);
+                        asignar_edittext.requestFocus();
+                    }
+                }
+            });
+
         }
         setValidationRules();
         txtVersionApp.setText("Versión: " + BuildConfig.VERSION_NAME);
@@ -242,6 +488,20 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         }
     }
 
+    /**
+     * Se encarga de obtener las medidas de la letra, y multiplicar por el tamaño asignado por pantalla
+     *
+     * @param mTextView
+     * @param mInt
+     * @return
+     */
+    public int obtenerMedidas(TextView mTextView, int mInt) {
+        Paint paint = new Paint();
+        paint.setTextSize(mTextView.getTextSize());
+        return ((int) (-paint.ascent() + paint.descent() * mInt));
+    }
+
+
     @Override
     public void nextScreen(String event, Object data) {
         onEventListener.onEvent(event, data);
@@ -268,8 +528,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             dialogErrorShown = false;
             UI.showErrorSnackBar(getActivity(), error.toString(), Snackbar.LENGTH_LONG);
             edtUserName.clearFocus();
-            edtUserPass.clearFocus();
-            edtUserPass.setText("");
+            asignar_edittext.clearFocus();
+            asignar_edittext.setText("");
             password = "";
         }
         setEnableViews(true);
@@ -293,22 +553,22 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             }
         });
 
-        edtUserPass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        asignar_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    text_password.setBackgroundResource(R.drawable.inputtext_active);
+                    llypass_pass.setBackgroundResource(R.drawable.inputtext_active);
                 } else {
-                    if (edtUserPass.toString().isEmpty()) {
-                        text_password.setBackgroundResource(R.drawable.inputtext_error);
+                    if (asignar_edittext.toString().isEmpty()) {
+                        llypass_pass.setBackgroundResource(R.drawable.inputtext_error);
                     } else {
-                        text_password.setBackgroundResource(R.drawable.inputtext_normal);
+                        llypass_pass.setBackgroundResource(R.drawable.inputtext_normal);
                     }
                 }
             }
         });
 
-        edtUserPass.addTextChangedListener(new TextWatcher() {
+        asignar_edittext.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -322,7 +582,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                     } else {
                         //  Servicio para consumir usuario y contraseña
                         validateForm();
-                        edtUserPass.setText("");
+                        asignar_edittext.setText("");
                     }
                 }
                 text_password.setBackgroundResource(R.drawable.inputtext_active);
@@ -334,7 +594,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         });
 
         // Asignamos el OnEditorActionListener a este CustomEditext para el efecto de consumir el servicio
-        edtUserPass.setOnEditorActionListener(new DoneOnEditorActionListener());
+        asignar_edittext.setOnEditorActionListener(new DoneOnEditorActionListener());
     }
 
     @Override
@@ -414,7 +674,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void getDataForm() {
         username = edtUserName.getText().toString().trim();
-        password = edtUserPass.getText().toString().trim();
+        password = asignar_edittext.getText().toString().trim();
     }
 
     @Override
@@ -428,7 +688,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     private void setEnableViews(boolean isEnable) {
         edtUserName.setEnabled(isEnable);
-        edtUserPass.setEnabled(isEnable);
+        asignar_edittext.setEnabled(isEnable);
         btnLogin.setEnabled(isEnable);
     }
 
@@ -463,6 +723,23 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                     .into(imgLoginExistProfile);
         }
 
+    }
+
+    @Override
+    public void changeeye() {
+        eye_img.setImageResource(R.drawable.icon_eye_pass);
+    }
+
+    @Override
+    public void fill() {
+        UI.hideKeyBoard(getActivity());
+        if (!UtilsNet.isOnline(getActivity())) {
+            UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
+        } else {
+            //  Servicio para consumir usuario y contraseña
+            validateForm();
+            asignar_edittext.setText("");
+        }
     }
 
     /**
