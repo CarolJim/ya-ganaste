@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.modules.qr.QRWallet.AgregarQRFisico;
+package com.pagatodo.yaganaste.modules.qr.AgregarQRFisico;
 
 
 import android.content.Context;
@@ -15,28 +15,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.modules.data.QrItems;
+import com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico.AgregaQRContracts;
+import com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico.AgregaQRIteractor;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AgregaQRFragment extends GenericFragment implements  AgregaQRContracts.Listener{
+public class AgregaQRFragmentisma extends GenericFragment implements  AgregaQRContracts.Listener{
     @BindView(R.id.edit_code_qr)
     EditText edit_code_qr;
     @BindView(R.id.text_name_qr)
@@ -56,20 +51,20 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
     public static int MILISEGUNDOS_ESPERA = 1500;
     RegActivity activityf;
 
-    public static AgregaQRFragment newInstance(){
-        return new AgregaQRFragment();
+    public static AgregaQRFragmentisma newInstance(){
+        return new AgregaQRFragmentisma();
     }
 
-    public static AgregaQRFragment newInstance(String platre){
+    public static AgregaQRFragmentisma newInstance(String platre){
         plate = platre;
-        return new AgregaQRFragment();
+        return new AgregaQRFragmentisma();
     }
 
-      public static AgregaQRFragment newInstance(RegActivity activityf){
-        return new AgregaQRFragment();
+      public static AgregaQRFragmentisma newInstance(RegActivity activityf){
+        return new AgregaQRFragmentisma();
     }
 
-    public AgregaQRFragment() {
+    public AgregaQRFragmentisma() {
         // Required empty public constructor
     }
 

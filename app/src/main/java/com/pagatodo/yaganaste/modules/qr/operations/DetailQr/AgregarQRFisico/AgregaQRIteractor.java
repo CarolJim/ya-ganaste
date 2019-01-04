@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.modules.qr.operations.DetailQr.AgregarQRFisico;
+package com.pagatodo.yaganaste.modules.qr.QRWallet.AgregarQRFisico;
 
 import android.content.Context;
 import android.util.Log;

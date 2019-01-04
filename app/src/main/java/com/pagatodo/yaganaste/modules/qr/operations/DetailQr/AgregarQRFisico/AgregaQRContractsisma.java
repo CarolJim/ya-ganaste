@@ -1,10 +1,10 @@
-package com.pagatodo.yaganaste.modules.qr.QRWallet.AgregarQRFisico;
+package com.pagatodo.yaganaste.modules.qr.AgregarQRFisico;
 
 import com.pagatodo.yaganaste.modules.data.QrItems;
 
 import java.util.ArrayList;
 
-public class AgregaQRContracts {
+public class AgregaQRContractsisma {
 
 
     public interface Listener{
