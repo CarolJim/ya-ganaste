@@ -174,6 +174,22 @@ public class ApiTrans extends Api {
     }
 
     public static void bloquearCuenta(BloquearCuentaRequest request,
+                                      IRequestResult result) throws OfflineException {
+
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+
+        int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
+                .getCuentas().get(0).getIdCuenta();
+        headers.put("IdCuenta", "" + idCuenta);
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(BLOQUEAR_CUENTA,
+                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.bloquearDatosCuenta),
+                headers, request, true, BloquearCuentaResponse.class, result);
+    }
+
+    public static void bloquearCuenta(BloquearCuentaRequest request,
                                       TarjetaUserIteractor result) throws OfflineException {
 
         Map<String, String> headers = getHeadersYaGanaste();

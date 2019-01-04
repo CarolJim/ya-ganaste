@@ -50,6 +50,13 @@ public class WalletEmisorRouter implements WalletEmisorContracts.Router{
 
     @Override
     public void onShowBlockCard() {
-        this.activity.loadFragment(BlockCardFragment.newInstance(),this.IdContainer,Direction.NONE,false);
+        //this.activity.loadFragment(BlockCardFragment.newInstance(),this.IdContainer,Direction.FORDWARD,false);
     }
+
+    @Override
+    public void onShowTemporaryBlock() {
+
+    }
+
+
 }

@@ -66,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:layout_below="@id/filter"
-        app:tabTextColor="@color/texthint"
+        app:tabTextColor="#9ca2a8"
         app:tabIndicatorColor="@color/whiteColor"
         app:tabGravity="center"
         app:tabMode="fixed"/>

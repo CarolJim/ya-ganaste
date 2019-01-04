@@ -117,6 +117,9 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
 
     @Override
     public void loadMovementsResult(List<ItemMovements<MovimientosResponse>> movementsList) {
+        if (movementsList.size() > 0){
+            this.activeButton();
+        } else this.inactiveButton();
         List<ItemMovements<MovimientosResponse>> actualList = null;
         int tabPosition = tabMonths.getSelectedTabPosition();
         try {
@@ -127,7 +130,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
         if (actualList != null && actualList.size() > 0) {
 
             if (movementsList.size() > 0) {
-                this.activeButton();
+
 
                 if (direction.equals(SwipyRefreshLayoutDirection.TOP)) {
                     this.movementsList.get(tabPosition).addAll(0, movementsList);
@@ -136,13 +139,14 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
                 }
                 currentAdapter.notifyDataSetChanged();
             } else {
-                this.inactiveButton();
+
                 if (direction.equals(SwipyRefreshLayoutDirection.BOTTOM)) {
                     swipeContainer.setDirection(SwipyRefreshLayoutDirection.TOP);
                     doubleSwipePosition.put(tabPosition, false);
                 }
             }
         } else {
+
             this.movementsList.set(tabPosition, movementsList);
             currentAdapter = createAdapter(this.movementsList.get(tabPosition));
             updateRecyclerData(currentAdapter, movementsList);

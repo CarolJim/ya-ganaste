@@ -219,6 +219,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         textViewversion.setText("Ya Ganaste " + String.valueOf(BuildConfig.VERSION_NAME));
         nameUser.setText(App.getInstance().getPrefs().loadData(SIMPLE_NAME));
         imgLoginExistProfile.setOnClickListener(v -> setAvatar());
+        navitaionBar.setOnNavigationItemSelectedListener(this);
+        lastFrag = 0;
+        navitaionBar.setSelectedItemId(R.id.navigation_wallet);
     }
 
     @Override
@@ -288,45 +291,14 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
 
         if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
-            mainViewPager.setCurrentItem(0);
+            mainViewPager.setCurrentItem(2);
         } else {
             mainViewPager.setCurrentItem(0);
         }
         //mainTab.setupWithViewPager(mainViewPager);
-        lastFrag = R.id.navigation_wallet;
-
-        navitaionBar.setOnNavigationItemSelectedListener(item -> {
-            if (lastFrag != item.getItemId()) {
-                lastFrag = item.getItemId();
-                switch (item.getItemId()) {
 
 
-                    case R.id.navigation_send:
 
-                        mainViewPager.setCurrentItem(0);
-                        return true;
-
-                    case R.id.navigation_pay:
-                        //navitaionBar.setSelectedItemId(R.id.navigation_pay);
-                        mainViewPager.setCurrentItem(1);
-                        return true;
-
-                    case R.id.navigation_wallet:
-                        //navitaionBar.setSelectedItemId(R.id.navigation_wallet);
-                        mainViewPager.setCurrentItem(2);
-                        return true;
-                    case R.id.navigation_my_qr:
-                        //navitaionBar.setSelectedItemId(R.id.navigation_my_qr);
-                        mainViewPager.setCurrentItem(3);
-                        return true;
-                    case R.id.navigation_charge:
-                        //navitaionBar.setSelectedItemId(R.id.navigation_charge);
-                        mainViewPager.setCurrentItem(4);
-                        return true;
-                }
-            }
-            return false;
-        });
 
         if (tabPresenter.needsProvisioning() || tabPresenter.needsPush()) {
             tabPresenter.doProvisioning();
@@ -847,38 +819,32 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
+        if (lastFrag != menuItem.getItemId()) {
+            lastFrag = menuItem.getItemId();
+            switch (menuItem.getItemId()) {
+                case R.id.navigation_send:
+                    mainViewPager.setCurrentItem(0);
+                    return true;
 
-            case R.id.navigation_send:
+                case R.id.navigation_pay:
+                    //navitaionBar.setSelectedItemId(R.id.navigation_pay);
+                    mainViewPager.setCurrentItem(1);
+                    return true;
 
-                mainViewPager.setCurrentItem(0);
-
-                break;
-
-            case R.id.navigation_pay:
-
-                mainViewPager.setCurrentItem(1);
-
-                break;
-
-            case R.id.navigation_wallet:
-
-                mainViewPager.setCurrentItem(2);
-
-                break;
-            case R.id.navigation_my_qr:
-
-                mainViewPager.setCurrentItem(3);
-
-                break;
-            case R.id.navigation_charge:
-
-                mainViewPager.setCurrentItem(4);
-
-                break;
-
+                case R.id.navigation_wallet:
+                    //navitaionBar.setSelectedItemId(R.id.navigation_wallet);
+                    mainViewPager.setCurrentItem(2);
+                    return true;
+                case R.id.navigation_my_qr:
+                    //navitaionBar.setSelectedItemId(R.id.navigation_my_qr);
+                    mainViewPager.setCurrentItem(3);
+                    return true;
+                case R.id.navigation_charge:
+                    //navitaionBar.setSelectedItemId(R.id.navigation_charge);
+                    mainViewPager.setCurrentItem(4);
+                    return true;
+            }
         }
-
         return false;
     }
 }

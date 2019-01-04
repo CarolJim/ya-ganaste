@@ -35,69 +35,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDepositTitle" />
 
-    <LinearLayout
-        android:id="@+id/layout_virtual"
+
+    <com.pagatodo.view_manager.components.IconButton
+        android:id="@+id/active_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:iconNameText="@string/name_active_physical_card"
+        app:iconResImage="@drawable/ic_active_physical_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/change_nip"
+        app:layout_constraintTop_toBottomOf="@+id/text_data_list" />
+
+
+    <com.pagatodo.view_manager.components.IconButton
+        android:id="@+id/block_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.pagatodo.view_manager.components.IconButton
-            android:id="@+id/request_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            android:layout_marginRight="8dp"
-            app:iconNameText="@string/name_rquest_physical_card"
-            app:iconResImage="@drawable/ic_request_physical_card"
-            android:layout_marginEnd="8dp" />
-
-        <com.pagatodo.view_manager.components.IconButton
-            android:id="@+id/active_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:iconNameText="@string/name_active_physical_card"
-            app:iconResImage="@drawable/ic_active_physical_card" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_physical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="visible"
+        app:iconNameText="@string/name_block_card"
+        app:iconResImage="@drawable/ic_bloquear_wallet"
+        app:layout_constraintEnd_toStartOf="@+id/change_nip"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_data_list">
+        app:layout_constraintTop_toBottomOf="@+id/text_data_list" />
 
-        <com.pagatodo.view_manager.components.IconButton
-            android:id="@+id/block_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:visibility="visible"
-            app:iconNameText="@string/name_block_card"
-            app:iconResImage="@drawable/ic_bloquear_wallet" />
-
-        <com.pagatodo.view_manager.components.IconButton
-            android:id="@+id/change_nip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:iconNameText="@string/name_change_nip"
-            app:iconResImage="@drawable/ic_password_wallet" />
-    </LinearLayout>
+    <com.pagatodo.view_manager.components.IconButton
+        android:id="@+id/change_nip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:iconNameText="@string/name_change_nip"
+        app:iconResImage="@drawable/ic_password_wallet"
+        app:layout_constraintEnd_toStartOf="@+id/active_card"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/block_card"
+        app:layout_constraintTop_toBottomOf="@+id/text_data_list" />
 
 </android.support.constraint.ConstraintLayout>

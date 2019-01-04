@@ -18,7 +18,11 @@ import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.COMISION;
+import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.DEVOLUCION;
+import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.RETIRO_DE_DINERO_ATM;
+import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.SPEI_ABONO;
+import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.TRASPASO_MISMO_BANCO_ABONO;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CANCELADO;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_REMBOLSADO;
@@ -76,14 +80,14 @@ public class CreateDatailBuilder {
                 break;
             case SPEI_ABONO:
                 builder.createLeaf(new TextData(R.string.details_concepto, response.getConcepto()));
-                builder.createLeaf(new TextData(R.string.details_clave_rastreo, response.getClaveRastreo()));
-                builder.createLeaf(new TextData(R.string.detals_referencia_num, response.getReferenciaNum()));
+                //builder.createLeaf(new TextData(R.string.details_clave_rastreo, response.getClaveRastreo()));
+                //builder.createLeaf(new TextData(R.string.detals_referencia_num, response.getReferenciaNum()));
 
                 break;
             case RETIRO_DE_DINERO_ATM:
                 builder.createLeaf(new TextData(R.string.details_monto_retiro, StringUtils.getCurrencyValue(response.getImporte())));
-                builder.createLeaf(new TextData(R.string.details_comision, StringUtils.getCurrencyValue(response.getComision())));
-                builder.createLeaf(new TextData(R.string.details_iva, StringUtils.getCurrencyValue(response.getIVA())));
+                //builder.createLeaf(new TextData(R.string.details_comision, StringUtils.getCurrencyValue(response.getComision())));
+                //builder.createLeaf(new TextData(R.string.details_iva, StringUtils.getCurrencyValue(response.getIVA())));
                 break;
             case CASH_BACK:
                 builder.createLeaf(new TextData(R.string.details_monto_retiro, StringUtils.getCurrencyValue(response.getImporte())));
@@ -104,7 +108,7 @@ public class CreateDatailBuilder {
 
                 break;
             case COMPRA:
-
+                builder.createLeaf(new TextData(R.string.details_monto, StringUtils.getCurrencyValue(response.getImporte())));
                 break;
             case CONSULTA_ATM://10
 
@@ -115,7 +119,11 @@ public class CreateDatailBuilder {
         }
 
         if (TipoTransaccionPCODE.getTipoTransaccionById(response.getIdTipoTransaccion()) != DEVOLUCION) {
-            if (!isspei && TipoTransaccionPCODE.getTipoTransaccionById(response.getIdTipoTransaccion()) != COMISION) {
+            if (!isspei && TipoTransaccionPCODE.getTipoTransaccionById(response.getIdTipoTransaccion()) != COMISION
+                    && TipoTransaccionPCODE.getTipoTransaccionById(response.getIdTipoTransaccion()) != COMPRA
+                    && TipoTransaccionPCODE.getTipoTransaccionById(response.getIdTipoTransaccion()) != SPEI_ABONO
+                    && TipoTransaccionPCODE.getTipoTransaccionById(response.getIdTipoTransaccion()) != TRASPASO_MISMO_BANCO_ABONO
+                    && TipoTransaccionPCODE.getTipoTransaccionById(response.getIdTipoTransaccion()) != RETIRO_DE_DINERO_ATM) {
                 builder.createLeaf(new TextData(R.string.details_comision, StringUtils.getCurrencyValue(response.getComision())));
                 builder.createLeaf(new TextData(R.string.details_iva, StringUtils.getCurrencyValue(response.getIVA())));
             }

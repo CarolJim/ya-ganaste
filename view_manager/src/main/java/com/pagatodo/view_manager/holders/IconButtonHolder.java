@@ -1,5 +1,6 @@
 package com.pagatodo.view_manager.holders;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
@@ -36,6 +37,13 @@ public class IconButtonHolder extends GenericHolder<IconButtonDataHolder> {
         }
     }
 
+    public void setIconImage(Drawable res){
+        this.iconImage.setImageDrawable(res);
+    }
+
+    public void setTextName(String textName){
+        this.textName.setText(textName);
+    }
     /*public void setOnClickHolderListener(final OnHolderListener<IconButtonDataHolder> listener){
         if (listener != null){
             this.itemView.setOnClickListener(new View.OnClickListener() {

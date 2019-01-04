@@ -57,14 +57,6 @@
         app:lablelTitle="@string/label_option_tem_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view5" />
+        app:layout_constraintTop_toBottomOf="@+id/view5"/>
 
-    <com.pagatodo.view_manager.components.LabelArrow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:labelSubtilte="@string/label_option_per_subtitle"
-        app:lablelTitle="@string/label_option_per_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelArrow" />
 </android.support.constraint.ConstraintLayout>

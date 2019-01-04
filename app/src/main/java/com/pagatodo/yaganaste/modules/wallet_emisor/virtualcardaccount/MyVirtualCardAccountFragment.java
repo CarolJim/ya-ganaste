@@ -25,6 +25,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.pagatodo.view_manager.components.IconButton;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ClienteResponse;
@@ -47,6 +48,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.content.Context.WINDOW_SERVICE;
+import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
@@ -171,6 +173,25 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
         blockCard.setOnClickListener(this);
     }
 
+    private void checkState(String state) {
+        switch (state) {
+            case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
+                //mycard_switch.setChecked(false);
+                blockCard.setIconButton(getResources().getDrawable(R.drawable.ic_bloquear_wallet),
+                        getResources().getString(R.string.name_block_card));
+                break;
+            case Recursos.ESTATUS_CUENTA_BLOQUEADA:
+                //mycard_switch.setChecked(true); ic_desbloquear_wallet
+                blockCard.setIconButton(getResources().getDrawable(R.drawable.ic_desbloquear_wallet),
+                        getResources().getString(R.string.desbloquear_tarjeta));
+                break;
+            default:
+                if (BuildConfig.DEBUG)
+                    Log.d("ESTAUS", state);
+                break;
+        }
+    }
+
     @Override
     public void onClick(View v) {
         getStatusGPS();
@@ -180,13 +201,12 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
                 intent.setType("text/plain");
                 startActivity(Intent.createChooser(intent, "Compartir con.."));
                 break;
-            case R.id.request_card:
-                break;
+
             case R.id.active_card:
                 this.activity.getRouter().onShowActivatePhysicalCard();
                 break;
             case R.id.block_card:
-                this.activity.getRouter().onShowBlockCard();
+
                 break;
             case R.id.change_nip:
                 this.activity.getRouter().onShowMyChangeNip();
@@ -217,27 +237,6 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
             checkState(statusId);
         } else {
             checkState(App.getInstance().getPrefs().loadData(CARD_NUMBER));
-        }
-    }
-
-
-    private void checkState(String state) {
-        switch (state) {
-            case "0":
-                //imgYaGanasteQR.setImageResource(R.mipmap.main_card_zoom_gray);
-                //txtNumberCard.setText(getString(R.string.transfer_card_unavailable));
-                break;
-            case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
-                //printCard(cardNumber);
-                //txtNumberCard.setText(cardNumber);
-                break;
-            case Recursos.ESTATUS_CUENTA_BLOQUEADA:
-                //imgYaGanasteQR.setImageResource(R.mipmap.main_card_zoom_gray);
-                //txtNumberCard.setText(cardNumber);
-                break;
-            default:
-                //printCard(cardNumber);
-                break;
         }
     }
 

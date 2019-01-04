@@ -84,24 +84,17 @@ public class ViewPagerDataFactory {
     }
 
     private static void addMainFragments(List<Fragment> fragmentList) {
-        int Idestatus;
 
         if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
+            fragmentList.add(EnviosFromFragmentNewVersion.newInstance());
+            fragmentList.add(NewPaymentFragment.newInstance());
             fragmentList.add(WalletTabFragment.newInstance());
+            fragmentList.add(QrManagerFragment.newInstance());
         } else {
             fragmentList.add(OperadorTabFragment.newInstance());
         }
 
-        if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
-            fragmentList.add(EnviosFromFragmentNewVersion.newInstance());
-        }
 
-        if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
-            fragmentList.add(NewPaymentFragment.newInstance());
-        }
-        if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
-            fragmentList.add(QrManagerFragment.newInstance());
-        }
     }
 
     private static void addHomeFragments(List<Fragment> fragmentList) {

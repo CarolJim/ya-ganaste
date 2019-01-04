@@ -417,12 +417,13 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                                     App.mixpanel.getPeople().set("name", dataUserT.getCliente().getNombre() + " " +
                                             dataUserT.getCliente().getPrimerApellido() + " " + dataUserT.getCliente().getSegundoApellido());
                                 }
+                                loadFragment(RegisterCompleteFragment.newInstance(ASOCIATE_PHN), Direction.FORDWARD, false);
                             } else {
                                 // Error de login Firebase
                                 registerUserInFirebase(dataUserT);
                             }
                             //accountManager.goToNextStepAccount(stepUser, null);
-                            //loadFragment(RegisterCompleteFragment.newInstance(ASOCIATE_PHN), Direction.FORDWARD, false);
+                            //
                         });
 
                 break;
@@ -535,6 +536,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                         });
                         //accountManager.goToNextStepAccount(stepUser, null);
                         //loadFragment(RegisterCompleteFragment.newInstance(ASOCIATE_PHN), Direction.FORDWARD, false);
+                        loadFragment(RegisterCompleteFragment.newInstance(ASOCIATE_PHN), Direction.FORDWARD, false);
                     } else {
                         //logInFirebase(data, stepUser);
                         //UI.showErrorSnackBar(this,"No se pudo realizar la operación",Snackbar.LENGTH_SHORT);

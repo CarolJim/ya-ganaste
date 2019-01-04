@@ -1735,6 +1735,7 @@
     <string name="label_option_tem_subtitle">Podrás seguir usando tu tarjeta al desbloquearla</string>
     <string name="label_option_per_title">Bloqueo Permanente</string>
     <string name="label_option_per_subtitle">Cancela tu tarjeta y solicita un nuevo plástico</string>
+    <string name="label_change_nip_des">Genera un nuevo NIP para\ntu tarjeta Ya Ganaste</string>
 
     <!--Onboarding-->
     <string name="red">Red</string>
