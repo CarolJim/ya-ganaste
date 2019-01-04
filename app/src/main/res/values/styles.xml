@@ -547,6 +547,12 @@
         <item name="buttonNormalColor">@color/whiteColor</item>
         <item name="buttonRippleColor2">@color/lightGrayColor</item>
     </style>
+    <style name="ButtonSession" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:strokeColor">@color/colorAccent</item>
+        <item name="buttonNormalColor">@color/whiteColor</item>
+        <item name="android:background">@color/whiteColor</item>
+    </style>
 
     <style name="textTitleDetailTransaction">
         <item name="android:layout_centerHorizontal">true</item>

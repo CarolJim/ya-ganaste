@@ -260,7 +260,15 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
 
         });
 
+        component_postal_code.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    component_postal_code.getCode1().requestFocus();
+                }
 
+            }
+        });
         editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {

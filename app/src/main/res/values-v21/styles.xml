@@ -6,4 +6,5 @@
         <item name="android:colorControlActivated">#460745</item>
         <item name="android:colorControlHighlight">#c51162</item>
     </style>
+
 </resources>

@@ -33,7 +33,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_HELP;
-import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 
 
 /**
@@ -119,8 +118,8 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
                 //startActivity(intent);
                 //getActivity().finish();
 
-                startActivity(RegActivity.createIntent(getActivity()));
-                //startActivity(OnboardingActivity.createIntent(getActivity()));
+                //startActivity(RegActivity.createIntent(getActivity()));
+                startActivity(OnboardingActivity.createIntent(getActivity()));
 
                 /*Intent intent = new Intent(getActivity(), ScannVisionActivity.class);
                 intent.putExtra(ScannVisionActivity.QRObject, true);
