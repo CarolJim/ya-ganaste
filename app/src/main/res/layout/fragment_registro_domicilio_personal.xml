@@ -190,14 +190,15 @@
         <com.pagatodo.yaganaste.utils.customviews.Custom_postal_code
             android:id="@+id/component_postal_code"
             android:layout_width="match_parent"
-            android:inputType="number"
             android:layout_height="55dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="10dp"
+            android:inputType="number"
             android:visibility="gone">
 
         </com.pagatodo.yaganaste.utils.customviews.Custom_postal_code>
+
 
         <LinearLayout
             android:id="@+id/txtcoloria"
@@ -275,8 +276,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/margin_big"
             android:layout_marginTop="@dimen/margin_elements"
+            android:layout_marginBottom="@dimen/margin_big"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -301,13 +302,13 @@
             android:orientation="horizontal">
 
 
-
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnBackDatosUsuario"
                 style="@style/buttonDirecctionBackSmall"
                 android:gravity="center"
                 android:text="@string/backButton"
                 android:visibility="gone" />
+
             <android.support.v4.widget.Space
                 android:layout_width="@dimen/btns_separation"
                 android:layout_height="match_parent" />

@@ -205,19 +205,25 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId==EditorInfo.IME_ACTION_NEXT){
                     component_postal_code.getCode1().requestFocus();
-                    InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                    return true;
                 }
                 return false;
             }
         });
+
+
 
         editIntNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     //    editIntNumber.imageViewIsGone(true);
-                    text_num_interior.setBackgroundResource(R.drawable.inputtext_active);
+                    component_postal_code.setBackgroundResource(R.drawable.inputtext_active);
+                    text_cp.setVisibility(View.GONE);
+                    component_postal_code.setVisibility(View.VISIBLE);
+                    component_postal_code.getCode1().requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(component_postal_code.getCode1(), InputMethodManager.SHOW_IMPLICIT);
                 } else {
                     /*if (editIntNumber.getText().toString().isEmpty()) {
                         text_num_interior.setBackgroundResource(R.drawable.inputtext_error);
