@@ -252,7 +252,7 @@
                     android:id="@+id/asignar_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="70px"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     android:inputType="number"
                     android:maxLength="6" />
 

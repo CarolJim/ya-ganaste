@@ -670,6 +670,8 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !preferencias.loadData(PSW_CPR).equals("")) {
                     if (!fingerprintManager.isHardwareDetected()) {
+                        showDialogPassword();
+                    }else {
                         loadFinguerPrint();
                     }
                 }else {

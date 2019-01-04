@@ -118,6 +118,7 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
             public void onFocusChange(View view, boolean b) {
 
                 if (b){
+
                     text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_active);
                 }else {
                     text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_normal);
