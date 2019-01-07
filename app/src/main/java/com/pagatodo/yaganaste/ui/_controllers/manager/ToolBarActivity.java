@@ -20,11 +20,6 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_HE
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 
-/**
- * Created by jguerras on 29/11/2016.
- * Updated by flima on 8/02/2017.
- */
-
 public abstract class ToolBarActivity extends SupportFragmentActivity implements View.OnClickListener {
 
     public static final int CODE_LOG_OUT = 3124;

@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.data.room_db.AppDatabase;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
+import com.pagatodo.yaganaste.modules.onboarding.OnboardingActivity;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
@@ -132,8 +133,10 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
                 intent = new Intent(SplashActivity.this, AccountActivity.class);
                 intent.putExtra(SELECTION,GO_TO_LOGIN);
             }else {*/
-            intent = new Intent(SplashActivity.this, MainActivity.class);
-            intent.putExtra(SELECTION, MAIN_SCREEN);
+            /*intent = new Intent(SplashActivity.this, MainActivity.class);
+            intent.putExtra(SELECTION, MAIN_SCREEN);*/
+            intent = new Intent(SplashActivity.this, OnboardingActivity.class);
+            //intent.putExtra(SELECTION, MAIN_SCREEN);
             //}
         } else {
             intent = new Intent(SplashActivity.this, MainActivity.class);

@@ -56,10 +56,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_MIXPANEL;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_BD_ODIN;
 
-/**
- * Created by flima on 17/03/17.
- */
-
 public class App extends Application {
 
     private static App m_singleton;
@@ -253,7 +249,7 @@ public class App extends Application {
             e.printStackTrace();
         }
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(SELECTION, MAIN_SCREEN);
+        //intent.putExtra(SELECTION, MAIN_SCREEN);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.e("APP", "Close From: " + Thread.currentThread().getStackTrace()[1].getMethodName());

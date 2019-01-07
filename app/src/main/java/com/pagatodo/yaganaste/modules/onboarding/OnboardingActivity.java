@@ -44,6 +44,7 @@ import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.onboarding.fragments.ScreenSlidePageFragment;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
@@ -69,9 +70,12 @@ import static com.pagatodo.yaganaste.utils.Recursos.CATALOG_VERSION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SPLASH;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 
 public class OnboardingActivity extends LoaderActivity
-        implements OnboardingContracts.Presenter, View.OnClickListener, FileDownloadListener, IRequestResult, IGetInfoFromFirebase {
+        implements OnboardingContracts.Presenter, View.OnClickListener, FileDownloadListener,
+        IRequestResult, IGetInfoFromFirebase {
     private Preferencias preferencias;
     private AppDatabase db;
     private static final String TAG = "SplashActivity";
@@ -103,10 +107,16 @@ public class OnboardingActivity extends LoaderActivity
         db = App.getAppDatabase();
         preferencias = App.getInstance().getPrefs();
         // new DatabaseManager().checkCountries();
-        new ForcedUpdateChecker(this).getUrls(this);
+        //new ForcedUpdateChecker(this).getUrls(this);
 
+        Intent intent = null;
+        if ((preferencias.containsData(IS_OPERADOR))||(preferencias.containsData(HAS_SESSION) || !RequestHeaders.getTokenauth().isEmpty())) {
+            intent = new Intent(OnboardingActivity.this, MainActivity.class);
+            intent.putExtra(SELECTION, MAIN_SCREEN);
+            startActivity(intent);
+            this.finish();
+        }
         initViews();
-
     }
 
     @Override

@@ -24,6 +24,8 @@ import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 
+import java.util.Objects;
+
 import static android.os.Process.killProcess;
 import static android.os.Process.myPid;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
@@ -44,8 +46,9 @@ public class MainActivity extends ToolBarActivity implements ForcedUpdateChecker
         /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_fragment_container);
         initViews();
-        String action = getIntent().getExtras().getString(SELECTION);
+        String action = Objects.requireNonNull(getIntent().getExtras()).getString(SELECTION);
 
+        assert action != null;
         if (action.equals(MAIN_SCREEN)) {
             Preferencias prefs = App.getInstance().getPrefs();
 
@@ -58,10 +61,12 @@ public class MainActivity extends ToolBarActivity implements ForcedUpdateChecker
                 finish();
             } else {
                 ForcedUpdateChecker.with(this).onUpdateNeeded(this).check();
-                loadFragment(MainFragment.newInstance(), true);
+                //loadFragment(MainFragment.newInstance(), true);
+                Intent intent = new Intent(this,SplashActivity.class);
+                startActivity(intent);
+                finish();
                 if (getIntent().getExtras().getBoolean(IS_FROM_TIMER, false)) {
                     //UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo), this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
-
                     UI.showAlertDialog(this, getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo),
                             R.string.title_aceptar, (dialogInterface, i) -> {
                             });
