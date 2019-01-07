@@ -205,7 +205,7 @@ public class OnboardingActivity extends LoaderActivity
                     preferencias.saveData(CATALOG_VERSION, response.getData().getVersion());
                     new DatabaseManager().insertComercios(response.getData().getComercios());
                 }
-                callNextActivity();
+               // callNextActivity();
                 break;
             default:
                 break;

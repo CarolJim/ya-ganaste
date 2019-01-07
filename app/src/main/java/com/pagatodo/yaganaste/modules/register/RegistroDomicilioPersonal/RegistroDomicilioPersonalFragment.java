@@ -200,17 +200,6 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                 }
             }
         });
-        editIntNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId==EditorInfo.IME_ACTION_NEXT){
-                    component_postal_code.getCode1().requestFocus();
-                    return true;
-                }
-                return false;
-            }
-        });
-
 
 
         editIntNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -279,10 +268,10 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
         component_postal_code.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
-                    component_postal_code.getCode1().requestFocus();
-                }
+                if (hasFocus) {
+                    component_postal_code.setBackgroundResource(R.drawable.inputtext_active);
 
+                }
             }
         });
         editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -294,7 +283,9 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                     text_cp.setVisibility(View.GONE);
                     component_postal_code.getCode1().requestFocus();
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                    imm.showSoftInput(component_postal_code.getCode1(), InputMethodManager.SHOW_IMPLICIT);
+                } else {
+                    component_postal_code.setBackgroundResource(R.drawable.inputtext_normal);
                 }
             }
         });
@@ -370,7 +361,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                     LegalsDialogregistro legalsDialog = LegalsDialogregistro.newInstance(LegalsDialogregistro.Legales.TERMINOS);
                     legalsDialog.show(getActivity().getFragmentManager(), LegalsDialogregistro.TAG);
                 } else {
-                  //  showDialogMesage(getResources().getString(R.string.no_internet_access));
+                    //  showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }
 
 
@@ -388,7 +379,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                     LegalsDialogregistro legalsDialog = LegalsDialogregistro.newInstance(PRIVACIDAD);
                     legalsDialog.show(getActivity().getFragmentManager(), LegalsDialogregistro.TAG);
                 } else {
-                //    showDialogMesage(getResources().getString(R.string.no_internet_access));
+                    //    showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }
             }
         };

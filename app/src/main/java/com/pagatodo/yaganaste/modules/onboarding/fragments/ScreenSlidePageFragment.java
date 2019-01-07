@@ -50,6 +50,7 @@ public class ScreenSlidePageFragment extends Fragment {
     void fill(){
         Picasso.with(App.getContext())
                 .load(url)
+                .placeholder(R.drawable.onboarding_00)
                 .into(imageView);
     }
 }
