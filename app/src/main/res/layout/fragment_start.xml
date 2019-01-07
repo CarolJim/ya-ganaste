@@ -7,6 +7,7 @@
     android:background="@color/whiteColor"
     tools:context=".modules.onboarding.fragments.StartFragment">
 
+
     <ImageView
         android:id="@+id/onBack"
         android:layout_width="30dp"
@@ -16,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/app_name"/>
+
 
     <ImageView
         android:id="@+id/imageView16"
