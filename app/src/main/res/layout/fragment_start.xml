@@ -7,66 +7,75 @@
     android:background="@color/whiteColor"
     tools:context=".modules.onboarding.fragments.StartFragment">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/onBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:srcCompat="@drawable/ic_back"
+        android:tint="@color/blue_text_wallet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/app_name"/>
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="290dp"
+        android:layout_height="290dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/slider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onBack" />
+
+    <TextView
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="@string/title_welcome"
+        android:textColor="@color/blue_text_wallet"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView16" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left">
-            <android.support.v7.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:scaleType="fitXY"
-                    android:id="@+id/onBack"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:tint="@color/blue_text_wallet"
-                    android:src="@drawable/introbutton_behaviour_previous" />
-            </android.support.v7.widget.Toolbar>
-        </LinearLayout>
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btn_init_session"
+        android:layout_width="219dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/button_no"
+        android:text="@string/inicia_sesion"
+        android:textColor="@color/blue_text_wallet"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-        <ImageView
-            android:layout_width="290dp"
-            android:layout_height="290dp"
-            android:layout_marginTop="26dp"
-            android:src="@drawable/slider" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:gravity="center"
-            android:text="Bienvenido a\nYa Ganaste"
-            android:textColor="@color/blue_text_wallet"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/btn_init_session"
-            android:layout_width="219dp"
-            android:layout_height="51dp"
-            android:layout_marginTop="31dp"
-            android:background="@drawable/button_no"
-            android:text="@string/inicia_sesion"
-            android:textColor="@color/blue_text_wallet"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/create_account"
-            android:layout_width="219dp"
-            android:layout_height="51dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/button_yes"
-            android:text="@string/crear_cuenta"
-            android:textColor="@color/whiteColor"
-            android:textSize="16sp" />
-
-
-    </LinearLayout>
-
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/create_account"
+        android:layout_width="219dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/button_yes"
+        android:text="@string/crear_cuenta"
+        android:textColor="@color/whiteColor"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_init_session" />
 
 </android.support.constraint.ConstraintLayout>

@@ -51,7 +51,7 @@
             android:layout_marginLeft="170dp"
             android:textSize="14sp"
             android:text="Saltar Intro"
-            android:textColor="@color/white_text_wallet" />
+            android:textColor="@color/colorAccent" />
     </LinearLayout>
 
 

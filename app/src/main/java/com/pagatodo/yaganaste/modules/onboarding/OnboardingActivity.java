@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.modules.onboarding;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -24,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import com.airbnb.lottie.parser.ColorParser;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -164,7 +166,7 @@ public class OnboardingActivity extends LoaderActivity
         SpannableString text = new SpannableString("Saltar Intro");
         text.setSpan(new UnderlineSpan(), 0, text.length(), 0);
         skeepIntro.setText(text);
-        //skeepIntro.setTextColor(R.color.whiteColor);
+        skeepIntro.setTextColor(Color.parseColor("#FFFFFF"));
 
     }
 
@@ -316,7 +318,7 @@ public class OnboardingActivity extends LoaderActivity
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
             if (position != 0) {
-                skeepIntro.setTextColor(R.color.blue_text_wallet);
+                //skeepIntro.setTextColor(R.color.blue_text_wallet);
             }
             return super.instantiateItem(container, position);
         }
@@ -325,7 +327,30 @@ public class OnboardingActivity extends LoaderActivity
     void setAdapter() {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), url);
+
         mPager.setAdapter(mPagerAdapter);
+
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                if (i == 0){
+                    skeepIntro.setTextColor(Color.parseColor("#FFFFFF"));
+                } else {
+                    skeepIntro.setTextColor(Color.parseColor("#00A1E1"));
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+        mPager.setCurrentItem(0);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mPager, true);
     }
