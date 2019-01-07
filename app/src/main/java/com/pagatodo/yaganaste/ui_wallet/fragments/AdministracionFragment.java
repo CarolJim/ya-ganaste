@@ -41,11 +41,10 @@ import butterknife.ButterKnife;
 import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CARD_REPORT;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_NIP_CHANGE;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_CARD_REPORT;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_NIP_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
-import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 
 /**
@@ -201,36 +200,30 @@ public class AdministracionFragment extends SupportFragment implements OnClickIt
 
     private void setOnchangeListener() {
         final boolean isOnline = Utils.isDeviceOnline();
-        radioButtonSi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (isOnline) {
-                        mPreferPresenter.toPresenterBloquearCuenta(BLOQUEO);
-                        statusBloqueo = BLOQUEO;
-                        //checkState(Recursos.ESTATUS_CUENTA_BLOQUEADA);
-                    } else {
-                        UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
-                        radioButtonSi.setChecked(false);
-                        // Toast.makeText(getContext(), "Deschecked 2", Toast.LENGTH_SHORT).show();
-                        //mPreferPresenter.toPresenterBloquearCuenta(DESBLOQUEO);
-                        //statusBloqueo = DESBLOQUEO;
-                    }
+        radioButtonSi.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b) {
+                if (isOnline) {
+                    mPreferPresenter.toPresenterBloquearCuenta(BLOQUEO);
+                    statusBloqueo = BLOQUEO;
+                    //checkState(Recursos.ESTATUS_CUENTA_BLOQUEADA);
+                } else {
+                    UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
+                    radioButtonSi.setChecked(false);
+                    // Toast.makeText(getContext(), "Deschecked 2", Toast.LENGTH_SHORT).show();
+                    //mPreferPresenter.toPresenterBloquearCuenta(DESBLOQUEO);
+                    //statusBloqueo = DESBLOQUEO;
                 }
             }
         });
 
-        radioButtonNo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (isOnline) {
-                        mPreferPresenter.toPresenterBloquearCuenta(DESBLOQUEO);
-                        statusBloqueo = DESBLOQUEO;
-                    } else {
-                        UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
-                        radioButtonNo.setChecked(false);
-                    }
+        radioButtonNo.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b) {
+                if (isOnline) {
+                    mPreferPresenter.toPresenterBloquearCuenta(DESBLOQUEO);
+                    statusBloqueo = DESBLOQUEO;
+                } else {
+                    UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
+                    radioButtonNo.setChecked(false);
                 }
             }
         });

@@ -18,7 +18,6 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 public class SelectDongleFragment extends GenericFragment implements View.OnClickListener {

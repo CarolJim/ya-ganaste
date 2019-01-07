@@ -12,6 +12,9 @@ buildscript {
         maven {
             url 'https://maven.fabric.io/public'
         }
+        maven {
+            url "https://maven.google.com"
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
@@ -33,7 +36,7 @@ allprojects {
 
 ext {
     supportLibVersion = "26.+"
-    espressoCoreVersion = "2.2.2"
+    espressoCoreVersion = "3.0.2"
     multidexVersion = "1.0.3"
     playServicesVersion = "11.0.4"
     firebaseVersion = "11.0.1"

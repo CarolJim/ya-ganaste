@@ -4,7 +4,6 @@ import android.content.Intent;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
-import com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico.AgregaQRFragment;
 import com.pagatodo.yaganaste.modules.register.CodigoVinculados.CodigosVinculadosFragment;
 import com.pagatodo.yaganaste.modules.register.CorreoUsuario.RegistroCorreoFragment;
 import com.pagatodo.yaganaste.modules.register.DatosNegocio.DatosNegocioEAFragment;

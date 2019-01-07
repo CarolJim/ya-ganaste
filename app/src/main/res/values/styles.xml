@@ -650,7 +650,7 @@
 
     <!-- Estilo para titulos de fragments -->
     <style name="title_fragment">
-        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="android:button">@color/transparent</item>
         <item name="tipo">Text</item>

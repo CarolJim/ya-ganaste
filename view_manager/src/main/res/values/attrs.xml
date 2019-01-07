@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="IconButton">
+        <attr name="iconResImage" format="reference"/>
+        <attr name="iconNameText" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="LabelArrow">
+        <attr name="lablelTitle" format="reference"/>
+        <attr name="labelSubtilte" format="reference"/>
+    </declare-styleable>
+</resources>

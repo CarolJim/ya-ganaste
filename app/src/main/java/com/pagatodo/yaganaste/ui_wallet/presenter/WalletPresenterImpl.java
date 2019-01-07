@@ -85,7 +85,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     @Override
     public void getInformacionAgente() {
         walletView.showProgress();
-        walletInteractor.getInfoAgente();
+        WalletEmisorInteractor.getInfoAgente();
     }*/
 
     @Override

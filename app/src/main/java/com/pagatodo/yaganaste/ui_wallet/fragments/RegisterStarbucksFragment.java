@@ -16,14 +16,10 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.Iregisterstarbucks;
-import com.pagatodo.yaganaste.ui_wallet.presenter.LoginPresenterStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.presenter.RegisterPresenterStarbucks;
-import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.TarjetaStarbucksTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -32,9 +28,8 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_LOGIN_STARBUCKS;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_REGISTER_COMPLETE_STARBUCKS;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_REGISTER_STARBUCKS;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_TO_LOGIN_STARBUCKS;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_TO_REGISTER_COMPLETE_STARBUCKS;
 
 /**
  * Created by asandovals on 16/04/2018.

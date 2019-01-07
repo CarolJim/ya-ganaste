@@ -43,10 +43,6 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSA
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
-/**
- * @author Juan Guerra on 11/04/2017.
- */
-
 public class DetailsActivity extends LoaderActivity implements OnEventListener {
 
     public static final String DATA = "data";

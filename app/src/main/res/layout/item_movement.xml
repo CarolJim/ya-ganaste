@@ -153,7 +153,7 @@
                     style="@style/generic_text_style_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/texthint"
+                    android:textColor="@color/gray_slate"
                     tools:text="Feb" />
 
             </LinearLayout>
@@ -183,8 +183,8 @@
                     style="@style/generic_text_style_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/texthint"
                     android:maxLines="1"
+                    android:textColor="@color/gray_slate"
                     tools:text="Pago de servicio" />
 
             </LinearLayout>
@@ -200,16 +200,16 @@
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txt_monto"
                     style="@style/generic_text_style_2"
-                    android:textColor="@color/texthint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="200"
+                    android:textColor="@color/gray_slate"
                     android:textSize="12sp"
                     app:decimalLenght="2"
                     app:dotBottom="true"
                     app:symbolSmaller="false"
-                    app:tipo="Text"
-                    android:layout_gravity="center_vertical"/>
+                    app:tipo="Text" />
 
                 <!--com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_monto"

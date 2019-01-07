@@ -14,7 +14,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoA
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment.MovTab;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
@@ -24,7 +23,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_MOV_ADQ;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_TO_MOV_ADQ;
 
 
 public class SendTicketFragment extends SupportFragment implements View.OnClickListener,

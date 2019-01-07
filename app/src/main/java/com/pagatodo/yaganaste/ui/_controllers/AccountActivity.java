@@ -18,11 +18,9 @@ import android.view.Menu;
 import android.widget.FrameLayout;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -69,7 +67,6 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.TutorialsFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.qrcode.MyQrCommerce;
-import com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
@@ -92,8 +89,8 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ASOCIATE_PHN;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
+import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE_COMERCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
@@ -421,12 +418,13 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                                     App.mixpanel.getPeople().set("name", dataUserT.getCliente().getNombre() + " " +
                                             dataUserT.getCliente().getPrimerApellido() + " " + dataUserT.getCliente().getSegundoApellido());
                                 }
+                                loadFragment(RegisterCompleteFragment.newInstance(ASOCIATE_PHN), Direction.FORDWARD, false);
                             } else {
                                 // Error de login Firebase
                                 registerUserInFirebase(dataUserT);
                             }
                             //accountManager.goToNextStepAccount(stepUser, null);
-                            //loadFragment(RegisterCompleteFragment.newInstance(ASOCIATE_PHN), Direction.FORDWARD, false);
+                            //
                         });
 
                 break;
@@ -539,6 +537,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                         });
                         //accountManager.goToNextStepAccount(stepUser, null);
                         //loadFragment(RegisterCompleteFragment.newInstance(ASOCIATE_PHN), Direction.FORDWARD, false);
+                        loadFragment(RegisterCompleteFragment.newInstance(ASOCIATE_PHN), Direction.FORDWARD, false);
                     } else {
                         //logInFirebase(data, stepUser);
                         //UI.showErrorSnackBar(this,"No se pudo realizar la operación",Snackbar.LENGTH_SHORT);

@@ -6,40 +6,28 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
-import com.pagatodo.yaganaste.interfaces.enums.AdqEmTab;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.interfaces.enums.MainTabOperador;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.interfaces.enums.VoidTab;
-import com.pagatodo.yaganaste.modules.qr.QrManagerFragment;
+import com.pagatodo.yaganaste.modules.wallet_emisor.PaymentToQR.QrManagerFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
-import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.StatusRegisterAdquirienteFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.otp.fragments.OtpGeneratorFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.GanarFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.OperadorTabFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.PromocionesFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_ADQ;
-import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_EMISOR;
-import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
-import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 
 public class ViewPagerDataFactory {
@@ -96,24 +84,17 @@ public class ViewPagerDataFactory {
     }
 
     private static void addMainFragments(List<Fragment> fragmentList) {
-        int Idestatus;
 
         if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
+            fragmentList.add(EnviosFromFragmentNewVersion.newInstance());
+            fragmentList.add(NewPaymentFragment.newInstance());
             fragmentList.add(WalletTabFragment.newInstance());
+            fragmentList.add(QrManagerFragment.newInstance());
         } else {
             fragmentList.add(OperadorTabFragment.newInstance());
         }
 
-        if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
-            fragmentList.add(EnviosFromFragmentNewVersion.newInstance());
-        }
 
-        if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
-            fragmentList.add(NewPaymentFragment.newInstance());
-        }
-        if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
-            fragmentList.add(QrManagerFragment.newInstance());
-        }
     }
 
     private static void addHomeFragments(List<Fragment> fragmentList) {
