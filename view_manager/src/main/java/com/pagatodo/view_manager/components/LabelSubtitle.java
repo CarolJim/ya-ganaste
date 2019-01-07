@@ -12,39 +12,46 @@ import com.pagatodo.view_manager.R;
 import com.pagatodo.view_manager.controllers.dataholders.LabelDataHolder;
 import com.pagatodo.view_manager.holders.LabelHolder;
 
-public class LabelArrow extends LinearLayout {
-    public LabelArrow(Context context) {
+public class LabelSubtitle extends LinearLayout {
+
+    private LabelHolder holder;
+
+    public LabelSubtitle(Context context) {
         super(context);
         init(null);
     }
 
-    public LabelArrow(Context context, @Nullable AttributeSet attrs) {
+    public LabelSubtitle(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
 
-    public LabelArrow(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public LabelSubtitle(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
     }
 
     private void init(AttributeSet attrs){
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View rootView = inflater.inflate(R.layout.label_arrow,this,false);
-        LabelHolder holder = new LabelHolder(rootView);
+        View rootView = inflater.inflate(R.layout.label_subtitle,this,false);
+        holder = new LabelHolder(rootView);
         if (attrs != null) {
             TypedArray a = getContext().getTheme().obtainStyledAttributes(
                     attrs,
-                    R.styleable.LabelArrow,
+                    R.styleable.LabelSubtitle,
                     0, 0);
             try {
-                String resTextTitle = a.getString(R.styleable.LabelArrow_lablelTitle);
-                String resTextSubtitle = a.getString(R.styleable.LabelArrow_labelSubtilte);
+                String resTextTitle = a.getString(R.styleable.LabelSubtitle_labelTitleSingle);
+                String resTextSubtitle = a.getString(R.styleable.LabelSubtitle_labelSubtitleSingle);
                 holder.bind(new LabelDataHolder(resTextTitle,resTextSubtitle),null);
             } finally {
                 a.recycle();
             }
         }
         holder.inflate(this);
+    }
+
+    public void setData(String subTitle){
+        holder.setTextSubtitle(subTitle);
     }
 }

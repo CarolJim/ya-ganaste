@@ -1,11 +1,11 @@
 package com.pagatodo.view_manager.controllers.dataholders;
 
-public class LabelArrowDataHolder {
+public class LabelDataHolder {
 
     private String labelTitle;
     private String labelSubtitle;
 
-    public LabelArrowDataHolder(String labelTitle, String labelSubtitle) {
+    public LabelDataHolder(String labelTitle, String labelSubtitle) {
         this.labelTitle = labelTitle;
         this.labelSubtitle = labelSubtitle;
     }

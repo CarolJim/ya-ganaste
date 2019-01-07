@@ -7,14 +7,14 @@ import android.widget.TextView;
 import com.pagatodo.view_manager.R;
 import com.pagatodo.view_manager.controllers.GenericHolder;
 import com.pagatodo.view_manager.controllers.OnHolderListener;
-import com.pagatodo.view_manager.controllers.dataholders.LabelArrowDataHolder;
+import com.pagatodo.view_manager.controllers.dataholders.LabelDataHolder;
 
-public class LabelArrowHolder extends GenericHolder<LabelArrowDataHolder> {
+public class LabelHolder extends GenericHolder<LabelDataHolder> {
 
     private TextView textTitle;
     private TextView textSubtitle;
 
-    public LabelArrowHolder(@NonNull View itemView) {
+    public LabelHolder(@NonNull View itemView) {
         super(itemView);
         init();
     }
@@ -26,8 +26,14 @@ public class LabelArrowHolder extends GenericHolder<LabelArrowDataHolder> {
     }
 
     @Override
-    public void bind(LabelArrowDataHolder item, OnHolderListener<LabelArrowDataHolder> listener) {
-        this.textTitle.setText(item.getLabelTitle());
+    public void bind(LabelDataHolder item, OnHolderListener<LabelDataHolder> listener) {
+        if (item.getLabelTitle() != null || !item.getLabelTitle().isEmpty()){
+            this.textTitle.setText(item.getLabelTitle());
+        }
         this.textSubtitle.setText(item.getLabelSubtitle());
+    }
+
+    public void setTextSubtitle(String subtitle){
+        this.textSubtitle.setText(subtitle);
     }
 }

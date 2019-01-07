@@ -243,9 +243,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
-    public static void showToolBarMenu() {
-        //getSupportActionBar().setHomeButtonEnabled(true);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

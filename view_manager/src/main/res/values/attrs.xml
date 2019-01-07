@@ -8,4 +8,8 @@
         <attr name="lablelTitle" format="reference"/>
         <attr name="labelSubtilte" format="reference"/>
     </declare-styleable>
+    <declare-styleable name="LabelSubtitle">
+        <attr name="labelTitleSingle" format="reference"/>
+        <attr name="labelSubtitleSingle" format="reference"/>
+    </declare-styleable>
 </resources>

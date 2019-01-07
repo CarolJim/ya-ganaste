@@ -3,9 +3,8 @@ package com.pagatodo.yaganaste.modules.wallet_emisor;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.wallet_emisor.ActivatePhysicalCard.ActivatePhysicalCardFragment;
-import com.pagatodo.yaganaste.modules.wallet_emisor.BlockCard.BlockCardFragment;
 import com.pagatodo.yaganaste.modules.wallet_emisor.GeneratePIN.GeneratePINFragment;
-import com.pagatodo.yaganaste.modules.wallet_emisor.virtualcardaccount.MyVirtualCardAccountFragment;
+import com.pagatodo.yaganaste.modules.wallet_emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
 import com.pagatodo.yaganaste.modules.wallet_emisor.ChangeNip.MyChangeNip;
 import com.pagatodo.yaganaste.ui_wallet.fragments.DescargarEdoCuentaFragment;
 

@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.modules.wallet_emisor.virtualcardaccount;
+package com.pagatodo.yaganaste.modules.wallet_emisor.VirtualCardAccount;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.pagatodo.view_manager.components.IconButton;
+import com.pagatodo.view_manager.components.LabelSubtitle;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -36,7 +37,6 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.Container;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.ContainerBuilder;
-import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UtilsIntents;
 import com.pagatodo.yaganaste.utils.qrcode.InterbankQr;
@@ -48,7 +48,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.content.Context.WINDOW_SERVICE;
-import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
@@ -56,8 +55,14 @@ import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 public class MyVirtualCardAccountFragment extends SupportFragment implements View.OnClickListener {
 
 
-    @BindView(R.id.text_data_list)
-    ListView listView;
+    @BindView(R.id.label_titular)
+    LabelSubtitle titular;
+    @BindView(R.id.label_telefono)
+    LabelSubtitle telef;
+    @BindView(R.id.label_clabe)
+    LabelSubtitle clabeLabel;
+    @BindView(R.id.label_tarjeta)
+    LabelSubtitle card;
     @BindView(R.id.active_card)
     IconButton activeCardBtn;
     @BindView(R.id.change_nip)
@@ -153,13 +158,17 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
         showQRCode(name, celPhone, usuario.getCuentas().get(0));
 
         mensaje = getString(R.string.string_share_deposits, name, celPhone, clabe, cardNumber);
+        titular.setData(name);
+        telef.setData(celPhone);
+        clabeLabel.setData(clabe);
+        card.setData(cardNumber);
 
         Container list = new Container();
-        list.addTextDataA(new TextData(R.string.datos_deposito_titular, name));
-        list.addTextDataA(new TextData(R.string.datos_depsito_numero_celular, celPhone));
-        list.addTextDataA(new TextData(R.string.datos_deposito_clabe, clabe));
-        list.addTextDataA(new TextData(R.string.datos_deposito_num_card, cardNumber));
-        listView.setAdapter(ContainerBuilder.DEPOSITO(getContext(), list));
+        //list.addTextDataA(new TextData(R.string.datos_deposito_titular, name));
+        //list.addTextDataA(new TextData(R.string.datos_depsito_numero_celular, celPhone));
+        //list.addTextDataA(new TextData(R.string.datos_deposito_clabe, c));
+        //list.addTextDataA(new TextData(R.string.datos_deposito_num_card, cardNumber));
+        //listView.setAdapter(ContainerBuilder.DEPOSITO(getContext(), list));
     }
 
     @Override
@@ -167,7 +176,7 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
         ButterKnife.bind(this, rootView);
         //btnDepositar.setOnClickListener(this);
         //imageshae.setOnClickListener(this);
-        WalletMainActivity.showToolBarMenu();
+
         activeCardBtn.setOnClickListener(this);
         changeNip.setOnClickListener(this);
         blockCard.setOnClickListener(this);

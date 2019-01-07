@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaSucursal;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
-import com.pagatodo.yaganaste.modules.wallet_emisor.virtualcardaccount.MyVirtualCardAccountFragment;
+import com.pagatodo.yaganaste.modules.wallet_emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
