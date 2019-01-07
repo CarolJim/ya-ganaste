@@ -302,7 +302,7 @@ public class OnboardingActivity extends LoaderActivity
         @SuppressLint("ResourceType")
         @Override
         public Fragment getItem(int i) {
-            return new ScreenSlidePageFragment(list.get(i).getUrl_img());
+            return new ScreenSlidePageFragment(list.get(i).getUrl_img(),i);
             //return new ScreenSlidePageFragment();
         }
 
