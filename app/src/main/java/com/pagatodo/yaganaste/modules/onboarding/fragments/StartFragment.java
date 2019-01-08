@@ -78,12 +78,15 @@ public class StartFragment extends Fragment implements OnboardingContracts.Prese
 
     }
 
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
 
             case R.id.onBack:
                 startActivity(OnboardingActivity.createIntent(getActivity()));
+                getActivity().finish();
                 break;
             case R.id.btn_init_session:
                 Intent intent = new Intent(getActivity(), AccountActivity.class);

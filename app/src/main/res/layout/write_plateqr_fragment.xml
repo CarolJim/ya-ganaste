@@ -41,17 +41,18 @@
         android:id="@+id/text_number_qr"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:visibility="gone"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/inputtext_normal"
         android:hint="@string/qr_number"
         android:maxLines="1"
         android:textColorHint="@color/texthint"
         android:theme="@style/TextLabel"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView12"
         app:passwordToggleEnabled="false"
@@ -68,15 +69,291 @@
             android:imeOptions="actionDone"
             android:inputType="numberDecimal"
             android:maxLength="12"
-            android:paddingStart="15dp"
             android:paddingLeft="15dp"
+            android:paddingStart="15dp"
             android:singleLine="true"
             android:textColor="@color/texthint"
             android:theme="@style/NewEdittextwallet"
-            tools:ignore="LabelFor,RtlSymmetry,TextFields">
-        </EditText>
+            tools:ignore="LabelFor,RtlSymmetry,TextFields"></EditText>
 
     </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/llypass"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="7dp"
+        android:background="@drawable/inputtext_normal"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/imageView12"
+        tools:layout_editor_absoluteX="11dp"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/titlepass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/qr_number"
+                android:textColor="@color/blue_text_wallet"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/asignar_control_layout"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginBottom="7dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/asignar_tv1"
+                style="@style/formatPIN"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ems="10" />
+
+            <LinearLayout
+                android:id="@+id/div1"
+                android:layout_width="2dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_space"
+                android:orientation="vertical"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/asignar_tv2"
+                style="@style/formatPIN"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center" />
+
+            <LinearLayout
+                android:id="@+id/div2"
+                android:layout_width="2dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_space"
+                android:orientation="vertical"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/asignar_tv3"
+                style="@style/formatPIN"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center" />
+
+            <LinearLayout
+                android:id="@+id/div3"
+                android:layout_width="2dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_space"
+                android:orientation="vertical"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/asignar_tv4"
+                style="@style/formatPIN"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center" />
+
+            <LinearLayout
+                android:id="@+id/div4"
+                android:layout_width="4dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_space"
+                android:orientation="vertical"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/asignar_tv5"
+                style="@style/formatPIN"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center" />
+
+
+            <LinearLayout
+                android:id="@+id/div5"
+                android:layout_width="2dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_space"
+                android:orientation="vertical"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/asignar_tv6"
+                style="@style/formatPIN"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center" />
+
+            <LinearLayout
+                android:id="@+id/div6"
+                android:layout_width="2dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_space"
+                android:orientation="vertical"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/asignar_tv7"
+                style="@style/formatPIN"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center" />
+
+            <LinearLayout
+                android:id="@+id/div7"
+                android:layout_width="2dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_space"
+                android:orientation="vertical"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/asignar_tv8"
+                style="@style/formatPIN"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+
+                android:ems="10"
+                android:gravity="center" />
+
+            <LinearLayout
+                android:id="@+id/div8"
+                android:layout_width="4dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_space"
+                android:orientation="vertical"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/asignar_tv9"
+                style="@style/formatPIN"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+
+                android:ems="10"
+                android:gravity="center" />
+
+            <LinearLayout
+                android:id="@+id/div9"
+                android:layout_width="2dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_space"
+                android:orientation="vertical"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/asignar_tv10"
+                style="@style/formatPIN"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center" />
+
+            <LinearLayout
+                android:id="@+id/div10"
+                android:layout_width="2dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_space"
+                android:orientation="vertical"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/asignar_tv11"
+                style="@style/formatPIN"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center" />
+
+            <LinearLayout
+                android:id="@+id/div12"
+                android:layout_width="2dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_space"
+                android:orientation="vertical"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/asignar_tv12"
+                style="@style/formatPIN"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+
+                android:ems="10"
+                android:gravity="center" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/asignar_edittext"
+        android:layout_width="1px"
+        android:layout_height="70px"
+        android:layout_marginTop="20dp"
+        android:inputType="number"
+        android:maxLength="12"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+
+
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/btn_continue"

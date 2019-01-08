@@ -45,11 +45,13 @@ import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.onboarding.fragments.ScreenSlidePageFragment;
+import com.pagatodo.yaganaste.modules.onboarding.fragments.StartFragment;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
+import com.pagatodo.yaganaste.ui.account.login.LoginManagerContainerFragment;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IGetInfoFromFirebase;
 import com.pagatodo.yaganaste.utils.FileDownloadListener;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
@@ -134,6 +136,11 @@ public class OnboardingActivity extends LoaderActivity
         } else {
             mPager.setCurrentItem(mPager.getCurrentItem() - 1);
         }*/
+        Fragment currentFragment = getCurrentFragment();
+        if (currentFragment instanceof StartFragment) {
+            startActivity(OnboardingActivity.createIntent(this));
+            finish();
+        }
         super.onBackPressed();
     }
 

@@ -73,7 +73,7 @@ public class NewLinkedCodeFragment extends GenericFragment implements TextWatche
 
     public void initViews() {
         ButterKnife.bind(this, rootView);
-
+        activity.showStepBar();
         RegisterUserNew registerAgent = RegisterUserNew.getInstance();
         editNameQR.setText(registerAgent.getNombreNegocio());
         textNameQR.setText(registerAgent.getNombreNegocio());

@@ -63,7 +63,7 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
     public void initViews() {
        router.showUserData(Direction.FORDWARD);
         btn_back = (ImageView) findViewById(R.id.btn_back);
-       //  router.showBusinessData(Direction.FORDWARD);
+       //  router.shosWritePlateQR();
     }
 
     public void backvisivility( boolean visivility){

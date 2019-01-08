@@ -188,7 +188,7 @@
                         <EditText
                             android:id="@+id/editUserPasswordnew"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="33dp"
                             android:layout_marginBottom="9dp"
                             android:background="@android:color/transparent"
                             android:imeOptions="actionDone"
