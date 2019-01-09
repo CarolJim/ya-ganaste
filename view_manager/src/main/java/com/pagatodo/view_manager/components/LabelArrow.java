@@ -41,6 +41,7 @@ public class LabelArrow extends LinearLayout {
                 String resTextTitle = a.getString(R.styleable.LabelArrow_lablelTitle);
                 String resTextSubtitle = a.getString(R.styleable.LabelArrow_labelSubtilte);
                 holder.bind(new LabelArrowDataHolder(resTextTitle,resTextSubtitle),null);
+
             } finally {
                 a.recycle();
             }

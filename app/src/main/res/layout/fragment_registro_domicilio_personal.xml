@@ -56,7 +56,7 @@
             <EditText
                 android:id="@+id/editStreet"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="9dp"
                 android:background="@android:color/transparent"
                 android:imeOptions="actionNext"
@@ -99,7 +99,7 @@
                 <EditText
                     android:id="@+id/editExtNumber"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="9dp"
                     android:background="@android:color/transparent"
                     android:digits="0,1,2,3,4,5,6,7,8,9,*,qwertzuiopasdfghjklyxcvbnm,_,-, ,QWERTYUIOPASDFGHJKLÑZXCVBNM"
@@ -134,7 +134,7 @@
                 <EditText
                     android:id="@+id/editIntNumber"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="9dp"
                     android:background="@android:color/transparent"
                     android:digits="0,1,2,3,4,5,6,7,8,9,*, ,qwertzuiopasdfghjklyxcvbnm,_,-,QWERTYUIOPASDFGHJKLÑZXCVBNM"
