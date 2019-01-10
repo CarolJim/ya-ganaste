@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".modules.sidebar.HelpYaGanaste.HelpYaGanasteFragment">
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/title_menu"
+        style="@style/generic_text_style_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="@string/title_fragment_ayuda"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/settings_security"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_menu">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/subtitle_fragment_ayuda"
+            android:textColor="@color/gray_slate"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/settings_security">
+
+        <LinearLayout
+            android:id="@+id/chat"
+            android:layout_marginLeft="11dp"
+            android:background="@drawable/border"
+            android:layout_width="0dp"
+            android:layout_height="110dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                app:srcCompat="@drawable/ic_ico_chat"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_width="52dp"
+                android:layout_height="52dp" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chat"
+                android:textColor="@color/gray_slate" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/email"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_width="0dp"
+            android:background="@drawable/border"
+            android:layout_height="110dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                app:srcCompat="@drawable/ic_ico_mail"
+                android:layout_width="52dp"
+                android:layout_height="52dp" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/correo"
+                android:textColor="@color/gray_slate" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/call"
+            android:layout_width="0dp"
+            android:layout_marginRight="11dp"
+            android:background="@drawable/border"
+            android:layout_height="110dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                app:srcCompat="@drawable/ic_ico_call"
+                android:layout_width="52dp"
+                android:layout_height="52dp" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/llamada"
+                android:textColor="@color/gray_slate" />
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

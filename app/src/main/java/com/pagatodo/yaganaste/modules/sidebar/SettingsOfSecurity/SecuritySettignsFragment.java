@@ -39,12 +39,8 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
         // Required empty public constructor
     }
 
-    public static SecuritySettignsFragment newInstance(int menu, String msj) {
+    public static SecuritySettignsFragment newInstance() {
         SecuritySettignsFragment securitySettignsFragment = new SecuritySettignsFragment();
-        Bundle args = new Bundle();
-        args.putInt(MENU, menu);
-        args.putString(MENSAJE, msj);
-        securitySettignsFragment.setArguments(args);
         return securitySettignsFragment;
     }
 
