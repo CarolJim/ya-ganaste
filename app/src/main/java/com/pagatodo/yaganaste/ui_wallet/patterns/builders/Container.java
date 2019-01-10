@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
 
 import java.util.ArrayList;
 
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.CHECKBOX;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RADIOBUTTON;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
 
@@ -39,18 +40,18 @@ public class Container {
 
     private ArrayList<GenericHolder> listItems;
 
-    public Container(){
+    public Container() {
 
     }
 
-    public Container(Context context, ViewGroup parent, OnClickItemHolderListener listener){
+    public Container(Context context, ViewGroup parent, OnClickItemHolderListener listener) {
         this.listItems = new ArrayList<>();
         this.context = context;
         this.parent = parent;
         this.listenerHolder = listener;
     }
 
-    public Container(Context context){
+    public Container(Context context) {
         this.context = context;
     }
 
@@ -59,26 +60,26 @@ public class Container {
         this.listener = listener;
     }*/
 
-    public Container(Context context, OnClickItemHolderListener listener){
+    public Container(Context context, OnClickItemHolderListener listener) {
         this.context = context;
         this.listenerHolder = listener;
     }
 
-    public Container(Context context, ViewGroup parent){
+    public Container(Context context, ViewGroup parent) {
         this.context = context;
         this.parent = parent;
     }
 
-    public void addItemOptionMenuIViewHolder(int resource, Object item){
+    public void addItemOptionMenuIViewHolder(int resource, Object item) {
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(resource, this.parent, false);
         GenericHolder holder = new OptionMenuIViewHolder(layout);
-        holder.bind(item,this.listenerHolder);
+        holder.bind(item, this.listenerHolder);
         parent.addView(layout);
         listItems.add(holder);
     }
 
-    public void addItemTextData(int resource){
+    public void addItemTextData(int resource) {
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(resource, this.parent, false);
         GenericHolder holder = new TextDataViewHolder(layout);
@@ -87,7 +88,7 @@ public class Container {
 
     }
 
-    public void addItemViewHolderMenuSegurity(Object item){
+    public void addItemViewHolderMenuSegurity(Object item) {
         LayoutInflater inflater = LayoutInflater.from(this.context);
         OptionMenuItem optionMenuItem = (OptionMenuItem) item;
         View layout = null;
@@ -99,20 +100,20 @@ public class Container {
         }
 
         GenericHolder holder = new ViewHolderMenuSegurity(layout);
-        holder.bind(item,this.listenerHolder);
+        holder.bind(item, this.listenerHolder);
         parent.addView(layout);
         listItems.add(holder);
     }
 
-    public ViewGroup getParent(){
+    public ViewGroup getParent() {
         return this.parent;
     }
 
-    public Context getContext(){
+    public Context getContext() {
         return this.context;
     }
 
-    public GenericHolder getItem(int position){
+    public GenericHolder getItem(int position) {
         return listItems.get(position);
     }
 
@@ -125,11 +126,11 @@ public class Container {
     private ArrayList<PaletteViewHolder> holdersList = new ArrayList<>();
     private ArrayList<TextDataViewHolder> holderDataList = new ArrayList<>();
 
-    void addOption(OptionMenuItem options){
+    void addOption(OptionMenuItem options) {
         this.options.add(options);
     }
 
-    public void addInputText(InputText inputText){
+    public void addInputText(InputText inputText) {
         this.inputTextList.add(inputText);
     }
 
@@ -137,12 +138,23 @@ public class Container {
     ArrayList<OptionMenuItem> getOptions() {
         return this.options;
     }
-    ArrayList<TextData> getTextDataList() { return this.textDataList;}
-    ArrayList<InputText.ViewHolderInputText> getArrayListInput(){
+
+    ArrayList<TextData> getTextDataList() {
+        return this.textDataList;
+    }
+
+    ArrayList<InputText.ViewHolderInputText> getArrayListInput() {
         return this.arrayListInput;
     }
-    ArrayList<OptionMenuIViewHolder> getArrayListOptionMenu(){ return this.arrayListOptionMenu;}
-    public ArrayList<OptionMenuItem.ViewHolderMenuSegurity> getArrayListOptionMenuSegurity(){ return this.arrayListOptionMenuSegurity;}
+
+    ArrayList<OptionMenuIViewHolder> getArrayListOptionMenu() {
+        return this.arrayListOptionMenu;
+    }
+
+    public ArrayList<OptionMenuItem.ViewHolderMenuSegurity> getArrayListOptionMenuSegurity() {
+        return this.arrayListOptionMenuSegurity;
+    }
+
     public ArrayList<InputText> getInputTextList() {
         return this.inputTextList;
     }
@@ -161,16 +173,16 @@ public class Container {
         this.arrayListInput.add(viewHolderInputText);
     }
 
-    public void addHolder(Favoritos favorito, OnClickItemHolderListener listener){
+    public void addHolder(Favoritos favorito, OnClickItemHolderListener listener) {
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.row_envios, parent, false);
-        PaletteViewHolder holder =  new PaletteViewHolder(layout);
-        holder.bind(favorito,listener);
+        PaletteViewHolder holder = new PaletteViewHolder(layout);
+        holder.bind(favorito, listener);
         this.parent.addView(layout);
         this.holdersList.add(holder);
     }
 
-    public void addSimpleHolder(final Favoritos favorito, final OnClickItemHolderListener listener){
+    public void addSimpleHolder(final Favoritos favorito, final OnClickItemHolderListener listener) {
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.row_envios, parent, false);
         layout.setOnClickListener(view -> listener.onItemClick(favorito));
@@ -220,25 +232,36 @@ public class Container {
             viewHolder.radioGroup.setVisibility(View.VISIBLE);
             parent.addView(layout);
         }
+        if (optionMenuItem.getIndication() != null && optionMenuItem.getIndication() == CHECKBOX) {
+            layout = inflater.inflate(R.layout.checkbox, parent, false);
+
+            viewHolder.title = layout.findViewById(R.id.title);
+            viewHolder.subtitle = layout.findViewById(R.id.subtitle);
+            viewHolder.title.setText(optionMenuItem.getResourceTitle());
+            viewHolder.relativeLayout = layout.findViewById(R.id.item_menu);
+            viewHolder.subtitle.setText(optionMenuItem.getSubtitle());
+            viewHolder.checkBox = layout.findViewById(R.id.check);
+            parent.addView(layout);
+        }
 
 
 
         this.arrayListOptionMenuSegurity.add(viewHolder);
     }
 
-    public ArrayList<PaletteViewHolder>  getHoldersList(){
+    public ArrayList<PaletteViewHolder> getHoldersList() {
         return this.holdersList;
     }
 
-    public void addTextDataA(TextData textData){
+    public void addTextDataA(TextData textData) {
         this.textDataList.add(textData);
     }
 
-    public void addTextDataHolder(ViewGroup parent, TextData textData){
+    public void addTextDataHolder(ViewGroup parent, TextData textData) {
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.item_detail_mov, parent, false);
         TextDataViewHolder holder = new TextDataViewHolder(layout);
-        holder.bind(textData,null);
+        holder.bind(textData, null);
         parent.addView(layout);
         this.holderDataList.add(holder);
     }

@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui_wallet.pojos;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -122,7 +123,7 @@ public class OptionMenuItem {
 
 
     public enum INDICATION {
-        RAW, RADIOBUTTON,CHECK
+        RAW, RADIOBUTTON,CHECKBOX
     }
 
     final public static int ID_SEGURIDAD = 1;
@@ -152,6 +153,7 @@ public class OptionMenuItem {
         public CustomRadioButton radioButtonNo;
         public CustomRadioButton radioButtonSi;
         public RadioGroup radioGroup;
+        public CheckBox checkBox;
     }
 
     public interface OnMenuItemClickListener {

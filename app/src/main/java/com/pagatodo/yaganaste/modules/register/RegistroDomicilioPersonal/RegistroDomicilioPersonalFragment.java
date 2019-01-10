@@ -207,12 +207,8 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     //    editIntNumber.imageViewIsGone(true);
-                    component_postal_code.setBackgroundResource(R.drawable.inputtext_active);
-                    text_cp.setVisibility(View.GONE);
-                    component_postal_code.setVisibility(View.VISIBLE);
-                    component_postal_code.getCode1().requestFocus();
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(component_postal_code.getCode1(), InputMethodManager.SHOW_IMPLICIT);
+                    text_num_interior.setBackgroundResource(R.drawable.inputtext_active);
+                    editIntNumber.requestFocus();
                 } else {
                     /*if (editIntNumber.getText().toString().isEmpty()) {
                         text_num_interior.setBackgroundResource(R.drawable.inputtext_error);
@@ -250,7 +246,6 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                 }
             }
         });
-
         spColonia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -265,26 +260,18 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
 
         });
 
-        component_postal_code.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    component_postal_code.setBackgroundResource(R.drawable.inputtext_active);
-
-                }
-            }
-        });
         editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
+                    text_cp.setVisibility(View.GONE);
                     component_postal_code.setVisibility(View.VISIBLE);
                     component_postal_code.setBackgroundResource(R.drawable.inputtext_active);
-                    text_cp.setVisibility(View.GONE);
                     component_postal_code.getCode1().requestFocus();
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(component_postal_code.getCode1(), InputMethodManager.SHOW_IMPLICIT);
                 } else {
+                    //component_postal_code.setBackgroundResource(R.drawable.inputtext_normal);
                     component_postal_code.setBackgroundResource(R.drawable.inputtext_normal);
                 }
             }
@@ -320,7 +307,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (editZipCode.getText().length() == 5) {
-                    text_cp.setBackgroundResource(R.drawable.inputtext_normal);
+                    component_postal_code.setBackgroundResource(R.drawable.inputtext_active);
                     showLoader(getString(R.string.search_zipcode));
                     imgcp.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAccent), android.graphics.PorterDuff.Mode.SRC_IN);
                     accountPresenter.getNeighborhoods(editZipCode.getText().toString().toString().trim());//Buscamos por CP

@@ -22,6 +22,7 @@ import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -51,7 +52,6 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
-import com.pagatodo.yaganaste.ui.account.login.LoginManagerContainerFragment;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IGetInfoFromFirebase;
 import com.pagatodo.yaganaste.utils.FileDownloadListener;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
@@ -91,6 +91,8 @@ public class OnboardingActivity extends LoaderActivity
     private OnboardingRouter router;
     public TextView skeepIntro;
 
+    private LinearLayout saltar;
+
     private DatabaseReference mDatabase;
     private List<ElementOnboarding> url;
 
@@ -106,7 +108,7 @@ public class OnboardingActivity extends LoaderActivity
         url = new ArrayList<>();
         skeepIntro = findViewById(R.id.skeep_intro);
         router = new OnboardingRouter(this);
-
+        saltar=findViewById(R.id.saltar);
         preferencias = App.getInstance().getPrefs();
         db = App.getAppDatabase();
         preferencias = App.getInstance().getPrefs();
@@ -131,15 +133,11 @@ public class OnboardingActivity extends LoaderActivity
 
     @Override
     public void onBackPressed() {
-        /*if (mPager.getCurrentItem() == 0) {
-            super.onBackPressed();
-        } else {
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        }*/
-        Fragment currentFragment = getCurrentFragment();
-        if (currentFragment instanceof StartFragment) {
-            startActivity(OnboardingActivity.createIntent(this));
-            finish();
+        startActivity(OnboardingActivity.createIntent(this));
+        Fragment currentFragment =getCurrentFragment();
+        if (currentFragment instanceof StartFragment){
+            showNext(true);
+
         }
         super.onBackPressed();
     }
@@ -177,11 +175,20 @@ public class OnboardingActivity extends LoaderActivity
 
     }
 
+    public void showNext(boolean flag){
+        if (flag){
+            saltar.setVisibility(View.VISIBLE);
+        }else {
+            saltar.setVisibility(View.GONE);
+        }
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.skeep_intro:
                 router.showStart(Direction.FORDWARD);
+                showNext(false);
+                break;
         }
     }
 

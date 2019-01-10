@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="MyCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/texthint</item>
+        <item name="colorControlActivated">@color/colorBlueAccent</item>
+    </style>
+
 </resources>

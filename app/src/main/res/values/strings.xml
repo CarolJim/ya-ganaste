@@ -1744,4 +1744,14 @@
     <string name="blue">Blue</string>
     <string name="green">Green</string>
 
+    <!--Sidebard-->
+    <string name="settings_security">Ajustes de Seguridad</string>
+    <string name="titleBiometrics">Huella Digital</string>
+    <string name="subtitleBiometrics">Autorizar operaciones con biométricos</string>
+    <string name="titleBalances">Mostrar Saldos</string>
+    <string name="subtitleBalances">Ver tu saldo en accesos rápidos</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
