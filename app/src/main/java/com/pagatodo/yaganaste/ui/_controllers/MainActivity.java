@@ -49,28 +49,43 @@ public class MainActivity extends ToolBarActivity implements ForcedUpdateChecker
         String action = Objects.requireNonNull(getIntent().getExtras()).getString(SELECTION);
 
         assert action != null;
-        if (action.equals(MAIN_SCREEN)) {
-            Preferencias prefs = App.getInstance().getPrefs();
 
-            if ((prefs.containsData(IS_OPERADOR))||(prefs.containsData(HAS_SESSION) || !RequestHeaders.getTokenauth().isEmpty())) {
-                Intent intent = new Intent(this, AccountActivity.class);
-                intent.putExtra(SELECTION, GO_TO_LOGIN);
-                intent.putExtra(IS_FROM_TIMER, getIntent().getExtras().getBoolean(IS_FROM_TIMER, false));
-                setResult(RESULT_OK);
-                startActivity(intent);
-                finish();
-            } else {
-                ForcedUpdateChecker.with(this).onUpdateNeeded(this).check();
-                //loadFragment(MainFragment.newInstance(), true);
-                Intent intent = new Intent(this,SplashActivity.class);
-                startActivity(intent);
-                finish();
-                if (getIntent().getExtras().getBoolean(IS_FROM_TIMER, false)) {
-                    //UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo), this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
-                    UI.showAlertDialog(this, getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo),
-                            R.string.title_aceptar, (dialogInterface, i) -> {
-                            });
+        if (action!=null) {
+            if (action.equals(MAIN_SCREEN)) {
+                Preferencias prefs = App.getInstance().getPrefs();
+
+                if ((prefs.containsData(IS_OPERADOR)) || (prefs.containsData(HAS_SESSION) || !RequestHeaders.getTokenauth().isEmpty())) {
+                    Intent intent = new Intent(this, AccountActivity.class);
+                    intent.putExtra(SELECTION, GO_TO_LOGIN);
+                    intent.putExtra(IS_FROM_TIMER, getIntent().getExtras().getBoolean(IS_FROM_TIMER, false));
+                    setResult(RESULT_OK);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    ForcedUpdateChecker.with(this).onUpdateNeeded(this).check();
+                    //loadFragment(MainFragment.newInstance(), true);
+                    Intent intent = new Intent(this, SplashActivity.class);
+                    startActivity(intent);
+                    finish();
+                    if (getIntent().getExtras().getBoolean(IS_FROM_TIMER, false)) {
+                        //UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo), this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
+                        UI.showAlertDialog(this, getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo),
+                                R.string.title_aceptar, (dialogInterface, i) -> {
+                                });
+                    }
                 }
+            }
+        }else{
+            ForcedUpdateChecker.with(this).onUpdateNeeded(this).check();
+            //loadFragment(MainFragment.newInstance(), true);
+            Intent intent = new Intent(this, SplashActivity.class);
+            startActivity(intent);
+            finish();
+            if (getIntent().getExtras().getBoolean(IS_FROM_TIMER, false)) {
+                //UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo), this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
+                UI.showAlertDialog(this, getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo),
+                        R.string.title_aceptar, (dialogInterface, i) -> {
+                        });
             }
         }
     }

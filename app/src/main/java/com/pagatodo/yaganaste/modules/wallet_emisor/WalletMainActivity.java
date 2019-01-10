@@ -35,12 +35,14 @@ import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.wallet_emisor.BlockCard.BlockCardFragment;
+import com.pagatodo.yaganaste.modules.wallet_emisor.virtualcardaccount.MyVirtualCardAccountFragment;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
+import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DatosNegocioFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DetailTransactionFragment;
@@ -161,7 +163,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
-public class WalletMainActivity extends LoaderActivity implements View.OnClickListener {
+public class WalletMainActivity extends LoaderActivity implements View.OnClickListener , FingerprintAuthenticationDialogFragment.generateCodehuella {
 
     public final static String EVENT_GO_NIP_CHANGE = "EVENT_GO_NIP_CHANGE";
     public final static String EVENT_GO_CONFIG_REPAYMENT = "EVENT_GO_CONFIG_REPAYMENT";
@@ -764,5 +766,14 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 | CertificateException | IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    @Override
+    public void generatecodehue(Fragment fm) {
+        if (fm instanceof MyVirtualCardAccountFragment)
+            ((MyVirtualCardAccountFragment) fm).loadOtpHuella();
+
+
     }
 }

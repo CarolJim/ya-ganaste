@@ -122,7 +122,7 @@ public class OptionMenuItem {
 
 
     public enum INDICATION {
-        RAW, RADIOBUTTON
+        RAW, RADIOBUTTON,CHECK
     }
 
     final public static int ID_SEGURIDAD = 1;

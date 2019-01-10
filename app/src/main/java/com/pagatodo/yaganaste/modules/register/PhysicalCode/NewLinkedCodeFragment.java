@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -77,6 +78,13 @@ public class NewLinkedCodeFragment extends GenericFragment implements TextWatche
         RegisterUserNew registerAgent = RegisterUserNew.getInstance();
         editNameQR.setText(registerAgent.getNombreNegocio());
         textNameQR.setText(registerAgent.getNombreNegocio());
+
+        editNameQR.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
+        imm.showSoftInput(editNameQR, InputMethodManager.SHOW_IMPLICIT);
+
+
         if (getArguments() != null){
             textPlate = getArguments().getString("DISPLAY");
             assert textPlate != null;

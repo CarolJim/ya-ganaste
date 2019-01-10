@@ -216,6 +216,8 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         super.onCreate(savedInstanceState);
         loginContainerManager = ((LoginManagerContainerFragment) getParentFragment()).getLoginContainerManager();
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
+
+
         if (accountPresenter != null) {
             accountPresenter.setIView(this);
             // Consultamos el estado del Singleton, que tiene el estado de nuestra tarjeta
