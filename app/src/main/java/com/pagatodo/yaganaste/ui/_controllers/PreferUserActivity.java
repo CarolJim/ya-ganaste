@@ -449,6 +449,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             } else if (currentFragment instanceof MyCardFragment) {
                 onEvent(PREFER_USER_LISTA, null);
             } else if (currentFragment instanceof MyChangeNip) {
+                onEvent(PREFER_USER_CHANGE_NIP_BACK, null);
                 if (((MyChangeNip) currentFragment).isCustomKeyboardVisible()) {
                     // ((MyChangeNip) currentFragment).hideKeyboard();
                 } else {
