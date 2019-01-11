@@ -52,6 +52,9 @@ public class ApiTrans extends Api {
         URL_SERVER_TRANS = urlServerTrans;
     }
 
+    public static String getUrlServerTrans(){
+        return URL_SERVER_TRANS;
+    }
     public static void setPinTrans(String pinTrans) {
         PIN_TRANS = pinTrans;
     }

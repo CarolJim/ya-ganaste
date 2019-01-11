@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".modules.wallet_emisor.PaymentToQR.operations.QrOperationActivity">
+    tools:context=".modules.emisor.PaymentToQR.operations.QrOperationActivity">
 
     <include
         android:id="@+id/toolbarQR"

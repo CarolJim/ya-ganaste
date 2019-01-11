@@ -89,8 +89,8 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ASOCIATE_PHN;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
-import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
-import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
+import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
+import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE_COMERCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;

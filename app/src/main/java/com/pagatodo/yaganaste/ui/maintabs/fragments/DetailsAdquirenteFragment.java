@@ -37,8 +37,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE_CANCELATION;
-import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_TO_MOV_ADQ;
-import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_TO_SEND_TICKET;
+import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.EVENT_GO_TO_MOV_ADQ;
+import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.EVENT_GO_TO_SEND_TICKET;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 

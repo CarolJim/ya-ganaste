@@ -23,7 +23,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_TO_MOV_ADQ;
+import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.EVENT_GO_TO_MOV_ADQ;
 
 
 public class SendTicketFragment extends SupportFragment implements View.OnClickListener,
