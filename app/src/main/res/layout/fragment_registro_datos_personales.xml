@@ -426,6 +426,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_weight="1"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginBottom="2dp"
                                 android:background="@color/whiteColor"
                                 android:gravity="center"
                                 android:orientation="horizontal">
@@ -461,6 +463,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:layout_marginRight="2dp"
+
                                 android:background="@color/whiteColor"
                                 android:gravity="center">
 
