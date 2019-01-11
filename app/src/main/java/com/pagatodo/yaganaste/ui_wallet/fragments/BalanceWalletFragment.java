@@ -657,8 +657,18 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
 
     }
     public void showDialogPassword() {
+    String mensaje ="";
+        if (cardStatusId.equals("1")) {
+            // Operacion para Bloquear tarjeta
+            mensaje = getContext().getResources().getString(R.string.ingresa_pass_block);
+        } else {
+            // Operacion para Desbloquear tarjeta
+            mensaje = getContext().getResources().getString(R.string.ingresa_pass_desblock);
+        }
         dialogPassword = new DialogSetPasswordLogin();
         dialogPassword.setListener(this);
+        dialogPassword.setTitle(mensaje);
+
         dialogPassword.show(getActivity().getFragmentManager(), "Dialog Set Password");
     }
     @Override

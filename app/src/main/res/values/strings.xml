@@ -617,8 +617,8 @@
     <string name="cambia_contraseda">Genera una nueva contraseña</string>
 
     <string name="ingresa_tu_contrasenia">Ingresa tu contraseña para autorizarlo</string>
-    <string name="ingresa_pass_block">Ingresa tu contraseña para \nbloquear temporalmente tu tarjeta</string>
-    <string name="ingresa_pass_desblock">Ingresa tu contraseña para \ndesbloquear tu tarjeta</string>
+    <string name="ingresa_pass_block">Ingresa tu contraseña para\nbloquear tu tarjeta</string>
+    <string name="ingresa_pass_desblock">Ingresa tu contraseña para\ndesbloquear tu tarjeta</string>
     <string name="envio_dinero"><b>Envío de dinero</b></string>
 
     <string name="autorizacion_completa">¡Autorización exitosa!</string>
@@ -1432,10 +1432,10 @@
     <string name="hint_search">Buscar</string>
 
     <!-- Registro Emisor  -->
-    <string name="correo_electronico">Correo electrónico</string>
+    <string name="correo_electronico">Correo Electrónico</string>
     <string name="correo_electronico_confirm">Confirmar correo</string>
     <string name="contrasena">Contraseña</string>
-    <string name="contrasena_confirma">Confirma contraseña</string>
+    <string name="contrasena_confirma">Confirma tu Contraseña</string>
 
     <string name="contrasena_usuario">Contraseña (6 dígitos)</string>
     <string name="contrasena_confirma_usuario">Confirmar contraseña (6 dígitos)</string>
