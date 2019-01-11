@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
     <style name="AppThemeIn" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorAccent</item>
@@ -34,6 +35,11 @@
         <item name="android:textCursorDrawable">@drawable/color_cursor</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColorHint">@android:color/white</item>
+    </style>
+
+    <style name="MyCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/texthint</item>
+        <item name="colorControlActivated">@color/colorBlueAccent</item>
     </style>
 
 </resources>

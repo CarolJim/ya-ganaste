@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".modules.sidebar.SettingsOfSecurity.SecuritySettignsFragment">
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/title_menu"
+        style="@style/generic_text_style_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="@string/settings_security"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/account_disassociate"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/border"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_menu">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="2"
+            android:text="@string/txt_change_pass"
+            android:textColor="@color/gray_slate" />
+
+        <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/goChangeNip"
+            android:layout_width="17dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="20dp"
+            app:srcCompat="@drawable/arrow_canvas_blue" />
+    </LinearLayout>
+
+    <com.pagatodo.view_manager.components.LabelArrowCheckbox
+        android:id="@+id/checkBoxBiometrics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        app:labelSubtilte="@string/subtitleBiometrics"
+        app:lablelTitle="@string/titleBiometrics"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_disassociate"
+        tools:ignore="MissingConstraints">
+
+    </com.pagatodo.view_manager.components.LabelArrowCheckbox>
+
+    <com.pagatodo.view_manager.components.LabelArrowCheckbox
+        android:id="@+id/checkBalances"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        app:labelSubtilte="@string/subtitleBalances"
+        app:lablelTitle="@string/titleBalances"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxBiometrics">
+
+    </com.pagatodo.view_manager.components.LabelArrowCheckbox>
+
+</android.support.constraint.ConstraintLayout>

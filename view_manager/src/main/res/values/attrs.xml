@@ -7,6 +7,7 @@
     <declare-styleable name="LabelArrow">
         <attr name="lablelTitle" format="reference"/>
         <attr name="labelSubtilte" format="reference"/>
+        <attr name="checked" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="LabelSubtitle">
         <attr name="labelTitleSingle" format="reference"/>

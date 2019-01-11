@@ -9,7 +9,9 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -62,9 +64,11 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
     EditText editBussinesName;
     @BindView(R.id.txtgiro)
     LinearLayout txtgiro;
+    @BindView(R.id.txtgirolya)
+    LinearLayout txtgirolya;
     @BindView(R.id.spiner1)
     ImageView spiner1;
-
+    boolean flag = false;
     @BindView(R.id.btnNextDatosNegocio)
     StyleButton btnNextDatosNegocio;
     @BindView(R.id.text_nombrenegoci)
@@ -94,6 +98,25 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
     }
 
 
+    private View.OnTouchListener spinnerOnTouch = new View.OnTouchListener() {
+        public boolean onTouch(View v, MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                //Your code
+            }
+            return false;
+        }
+    };
+    private static View.OnKeyListener spinnerOnKey = new View.OnKeyListener() {
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+                //your code
+                return true;
+            } else {
+                return false;
+            }
+        }
+    };
+
 
     @Override
     public void initViews() {
@@ -104,7 +127,57 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
             validateForm();
         });
 
-        spiner1.setOnClickListener(view -> spinnerBussineLine.performClick());
+
+
+        spinnerBussineLine.setOnTouchListener(spinnerOnTouch);
+        spinnerBussineLine.setOnKeyListener(spinnerOnKey);
+
+
+
+
+        txtgirolya.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                return false;
+            }
+        });
+
+        spinnerBussineLine.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                return false;
+            }
+        });
+        txtgiro.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                return false;
+            }
+        });spiner1.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                return false;
+            }
+        });
+        textgiro.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                return false;
+            }
+        });
+
+        spiner1.setOnClickListener(view ->
+                spinnerBussineLine.performClick());
 
         if (girosComercio == null) {
             girosComercio = new ArrayList<>();
@@ -151,10 +224,18 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
         });
 
         spinnerBussineLine.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            String nombrenegocio = editBussinesName.getText().toString();
 
+
+                if(flag){
+                    InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                }
+
+            String nombrenegocio = editBussinesName.getText().toString();
                 if (position > 0 && !nombrenegocio.isEmpty()){
                     btnNextDatosNegocio.setBackgroundResource(R.drawable.button_rounded_blue);
                     txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
@@ -165,7 +246,7 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
                 if (position > 0 ){
                     txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
                 }
-
+            flag = true;
             }
 
             @Override
@@ -176,6 +257,14 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
 
         });
         txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
+
+
+
+        editBussinesName.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
+        imm.showSoftInput(editBussinesName, InputMethodManager.SHOW_IMPLICIT);
+
     }
 
 
@@ -197,7 +286,8 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
     }
     @Override
     public void onSpinnerClick() {
-
+        InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 
     @Override
@@ -207,7 +297,8 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
 
     @Override
     public void hideKeyBoard() {
-
+        InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 
     @Override
@@ -261,11 +352,6 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
         getDataForm();
         boolean isValid = true;
         if (nombre.isEmpty()) {
-            //   showValidationError(editBussinesName.getId(), getString(R.string.datos_negocio_nombre));
-            // editBussinesName.setIsInvalid();
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-            //showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
             text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_error);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_nombre), Snackbar.LENGTH_SHORT);
             isValid = false;

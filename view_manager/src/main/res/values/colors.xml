@@ -9,4 +9,6 @@
     <color name="gray_slate">#46606a</color>
     <color name="colorYaGanaste">#00a1e1</color>
     <color name="texthint">#adadad</color>
+    <color name="colorBlueAccent">#00A1E1</color>
+
 </resources>

@@ -528,7 +528,7 @@
                 style="@style/buttonSquareRoundedBluenewRegister"
                 android:background="@drawable/button_rounded_gray"
                 android:gravity="center"
-                android:text="@string/confirmardatos" />
+                android:text="@string/next" />
         </LinearLayout>
 
 

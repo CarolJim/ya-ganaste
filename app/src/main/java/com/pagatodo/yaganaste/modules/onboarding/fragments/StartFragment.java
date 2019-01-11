@@ -33,11 +33,12 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StartFragment extends Fragment implements OnboardingContracts.Presenter,View.OnClickListener {
+public class StartFragment extends Fragment implements OnboardingContracts.Presenter, View.OnClickListener {
     private static OnboardingActivity actv;
     private View rootView;
     ImageView onBack;
-    private Button btn_init_session,create_account;
+    private Button btn_init_session, create_account;
+
     public StartFragment() {
         // Required empty public constructor
     }
@@ -62,8 +63,8 @@ public class StartFragment extends Fragment implements OnboardingContracts.Prese
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_start, container, false);
         onBack = (ImageView) rootView.findViewById(R.id.onBack);
-        btn_init_session=(Button)rootView.findViewById(R.id.btn_init_session);
-        create_account=(Button)rootView.findViewById(R.id.create_account);
+        btn_init_session = (Button) rootView.findViewById(R.id.btn_init_session);
+        create_account = (Button) rootView.findViewById(R.id.create_account);
         initViews();
         return rootView;
     }
@@ -78,12 +79,15 @@ public class StartFragment extends Fragment implements OnboardingContracts.Prese
 
     }
 
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
 
             case R.id.onBack:
                 startActivity(OnboardingActivity.createIntent(getActivity()));
+                actv.finish();
+                actv.showNext(true);
                 break;
             case R.id.btn_init_session:
                 Intent intent = new Intent(getActivity(), AccountActivity.class);

@@ -43,13 +43,13 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="32dp"
                     android:visibility="visible"
-                    android:background="@drawable/ic_circle_border_shadow">
+                    android:background="@drawable/ico_my_account">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imgLoginExistProfile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:srcCompat="@drawable/ico_my_account" />
+                         />
                 </LinearLayout>
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -188,7 +188,7 @@
                         <EditText
                             android:id="@+id/editUserPasswordnew"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="33dp"
                             android:layout_marginBottom="9dp"
                             android:background="@android:color/transparent"
                             android:imeOptions="actionDone"
@@ -242,7 +242,8 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtLoginExistUserRecoverPass"
                     style="@style/textDescInputs"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:padding="@dimen/margin_medium"
@@ -250,8 +251,8 @@
                     android:textAlignment="center" />
                 <EditText
                     android:id="@+id/asignar_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="70px"
+                    android:layout_width="1px"
+                    android:layout_height="1px"
                     android:visibility="visible"
                     android:inputType="number"
                     android:maxLength="6" />
@@ -271,12 +272,15 @@
         android:gravity="center"
         android:orientation="vertical">
 
+
+
+
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnLoginExistUser"
-            style="@style/buttonSquareRoundedBlue"
-            android:layout_marginBottom="@dimen/margin_error"
-            android:background="@drawable/button_rounded_blue"
-            android:text="@string/next" />
+            style="@style/buttonSquareRoundedBluenewRegister"
+            android:background="@drawable/button_rounded_gray"
+            android:gravity="center"
+            android:text="@string/nextButton" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/txtVersionApp"

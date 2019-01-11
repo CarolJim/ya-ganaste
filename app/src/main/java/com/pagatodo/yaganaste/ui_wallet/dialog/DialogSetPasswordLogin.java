@@ -62,7 +62,7 @@ public class DialogSetPasswordLogin  extends DialogFragment implements View.OnCl
         edtPas = (EditText) view.findViewById(R.id.editUserPasswordnew);
         txtInput = (TextInputLayout) view.findViewById(R.id.text_passwordnew);
         btnAuth.setOnClickListener(this);
-        //txtTitleNotification.setText(title);
+        txtTitleNotification.setText(title);
         edtPas.setOnFocusChangeListener((view1, hasFocus) -> {
             if (hasFocus) {
                 txtInput.setBackgroundResource(R.drawable.inputtext_active);
