@@ -2,7 +2,7 @@ package com.pagatodo.yaganaste.modules.sidebar.SettingsOfSecurity;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
-import com.pagatodo.yaganaste.modules.wallet_emisor.ChangeNip.MyChangeNip;
+import com.pagatodo.yaganaste.modules.emisor.ChangeNip.MyChangeNip;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 

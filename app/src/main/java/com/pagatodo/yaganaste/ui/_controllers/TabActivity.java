@@ -40,9 +40,13 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.modules.emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
 import com.pagatodo.yaganaste.ui.account.AprovPresenter;
+import com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment;
+import com.pagatodo.yaganaste.ui.account.login.BlockCardFragment;
+import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
@@ -52,7 +56,7 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
-import com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity;
+import com.pagatodo.yaganaste.modules.emisor.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.fragments.OperadorTabFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
@@ -127,7 +131,7 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.SELECT_FILE_PHOT
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
         IAprovView<ErrorObject>, IResetNIPView<ErrorObject>, OnClickItemHolderListener,
-        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener, IFBView, BottomNavigationView.OnNavigationItemSelectedListener{
+        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener, IFBView, BottomNavigationView.OnNavigationItemSelectedListener, FingerprintAuthenticationDialogFragment.generateCodehuella{
 
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_ERROR_DOCUMENTS = "EVENT_ERROR_DOCUMENTS";
@@ -846,5 +850,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             }
         }
         return false;
+    }
+
+    @Override
+    public void generatecodehue(Fragment fm) {
+        if (fm instanceof MyVirtualCardAccountFragment)
+            ((MyVirtualCardAccountFragment) fm).loadOtpHuella();
+
+
     }
 }

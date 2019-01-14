@@ -584,7 +584,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         if (!userExist) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo_existe), Snackbar.LENGTH_SHORT);
             text_email.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }

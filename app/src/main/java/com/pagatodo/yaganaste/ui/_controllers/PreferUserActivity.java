@@ -30,7 +30,7 @@ import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyAccountFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
-import com.pagatodo.yaganaste.modules.wallet_emisor.ChangeNip.MyChangeNip;
+import com.pagatodo.yaganaste.modules.emisor.ChangeNip.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.MyEmailFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpAcercaApp;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanos;
@@ -457,6 +457,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             } else if (currentFragment instanceof MyCardFragment) {
                 onEvent(PREFER_USER_LISTA, null);
             } else if (currentFragment instanceof MyChangeNip) {
+                onEvent(PREFER_USER_CHANGE_NIP_BACK, null);
                 if (((MyChangeNip) currentFragment).isCustomKeyboardVisible()) {
                     // ((MyChangeNip) currentFragment).hideKeyboard();
                 } else {

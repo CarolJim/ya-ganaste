@@ -186,10 +186,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.URL_BD_ODIN_USERS;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_PROVISIONED;
 
-/**
- * Created by flima on 22/03/2017.
- */
-
 public class AccountInteractorNew implements IAccountIteractorNew, IRequestResult {
 
     private String TAG = AccountInteractorNew.class.getName();
@@ -461,6 +457,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onError(ASIGNAR_NIP, App.getContext().getString(R.string.no_internet_access));
         }
     }
+
+
 
     @Override
     public void getSMSNumber() {

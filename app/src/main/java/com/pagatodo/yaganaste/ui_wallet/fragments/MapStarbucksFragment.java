@@ -48,7 +48,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.StarbucksStores;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity;
+import com.pagatodo.yaganaste.modules.emisor.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IStarbucksMapsView;
 import com.pagatodo.yaganaste.ui_wallet.presenter.StarbucksMapPresenter;
 import com.pagatodo.yaganaste.utils.UI;
@@ -62,7 +62,7 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment.REQUEST_ID_MULTIPLE_PERMISSIONS;
-import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.REQUEST_CHECK_SETTINGS;
+import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.REQUEST_CHECK_SETTINGS;
 
 public class MapStarbucksFragment extends GenericFragment implements OnCompleteListener<LocationSettingsResponse>,
         IStarbucksMapsView, View.OnClickListener, TextView.OnEditorActionListener, GoogleMap.OnMarkerClickListener,

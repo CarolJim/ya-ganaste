@@ -29,8 +29,8 @@
                     android:layout_height="172dp"
                     android:layout_marginBottom="16dp"
                     android:background="@color/colorAccent"
-                    android:padding="31dp"
                     android:visibility="gone"
+                    android:padding="31dp"
                     app:srcCompat="@drawable/ic_logo_header" />
 
 
@@ -42,14 +42,14 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="32dp"
-                    android:background="@drawable/ic_circle_border_shadow"
-                    android:visibility="visible">
+                    android:visibility="visible"
+                    android:background="@drawable/ico_my_account">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imgLoginExistProfile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:srcCompat="@drawable/ico_my_account" />
+                         />
                 </LinearLayout>
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -72,6 +72,9 @@
                     android:layout_marginBottom="26dp"
                     android:text="@string/set_credentials_login_2"
                     android:textAlignment="center" />
+
+
+
 
 
                 <android.support.design.widget.TextInputLayout
@@ -110,6 +113,7 @@
                 </android.support.design.widget.TextInputLayout>
 
 
+
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_password"
                     android:layout_width="276dp"
@@ -119,10 +123,10 @@
                     android:background="@drawable/inputtext_normal"
                     android:gravity="center_vertical"
                     android:hint="@string/txt_escribe_tu_pass"
+                    android:visibility="gone"
                     android:maxLines="1"
                     android:textColorHint="@color/texthint"
                     android:theme="@style/TextLabel"
-                    android:visibility="gone"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/colorAccent"
                     tools:ignore="UnusedAttribute">
@@ -150,18 +154,20 @@
                     android:layout_height="wrap_content"
                     android:text="@string/password"
                     android:textAlignment="center"
-                    android:textColor="@color/gray_text_wallet_3"
                     android:textSize="16sp"
+                    android:textColor="@color/gray_text_wallet_3"
                     android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:layout_gravity="start"
                     android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <include layout="@layout/asignar_pin_layout" />
+                    >
+                    <include
+                        layout="@layout/asignar_pin_layout"
+                        />
 
 
                     <android.support.design.widget.TextInputLayout
@@ -172,17 +178,17 @@
                         android:background="@drawable/inputtext_normal"
                         android:gravity="center_vertical"
                         android:hint="@string/txt_escribe_tu_pass"
+                        android:visibility="visible"
                         android:maxLines="1"
                         android:textColorHint="@color/texthint"
                         android:theme="@style/TextLabel"
-                        android:visibility="visible"
                         app:passwordToggleTint="@color/colorAccent"
                         tools:ignore="UnusedAttribute">
 
                         <EditText
                             android:id="@+id/editUserPasswordnew"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="33dp"
                             android:layout_marginBottom="9dp"
                             android:background="@android:color/transparent"
                             android:imeOptions="actionDone"
@@ -197,24 +203,27 @@
                     </android.support.design.widget.TextInputLayout>
 
                     <LinearLayout
-                        android:id="@+id/llay_eye_pass"
                         android:layout_width="53dp"
                         android:layout_height="53dp"
-                        android:layout_marginLeft="8dp"
                         android:layout_weight="1"
+                        android:gravity="center"
+                        android:id="@+id/llay_eye_pass"
+                        android:layout_marginLeft="8dp"
                         android:background="@drawable/inputtext_normal"
-                        android:gravity="center">
+                        >
 
                         <ImageView
-                            android:id="@+id/eye_img"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:src="@drawable/icon_eye_pass" />
+                            android:id="@+id/eye_img"
+                            android:src="@drawable/icon_eye_pass"
+                            />
 
 
                     </LinearLayout>
 
                 </LinearLayout>
+
 
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -233,20 +242,20 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtLoginExistUserRecoverPass"
                     style="@style/textDescInputs"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:padding="@dimen/margin_medium"
                     android:text="@string/recover_pass"
                     android:textAlignment="center" />
-
                 <EditText
                     android:id="@+id/asignar_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="70px"
+                    android:layout_width="1px"
+                    android:layout_height="1px"
+                    android:visibility="visible"
                     android:inputType="number"
-                    android:maxLength="6"
-                    android:visibility="visible" />
+                    android:maxLength="6" />
 
 
             </LinearLayout>
@@ -263,12 +272,15 @@
         android:gravity="center"
         android:orientation="vertical">
 
+
+
+
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnLoginExistUser"
-            style="@style/buttonSquareRoundedBlue"
-            android:layout_marginBottom="@dimen/margin_error"
-            android:background="@drawable/button_rounded_blue"
-            android:text="@string/next" />
+            style="@style/buttonSquareRoundedBluenewRegister"
+            android:background="@drawable/button_rounded_gray"
+            android:gravity="center"
+            android:text="@string/nextButton" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/txtVersionApp"
