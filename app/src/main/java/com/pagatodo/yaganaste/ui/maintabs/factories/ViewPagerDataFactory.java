@@ -12,7 +12,7 @@ import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.interfaces.enums.MainTabOperador;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.interfaces.enums.VoidTab;
-import com.pagatodo.yaganaste.modules.wallet_emisor.PaymentToQR.QrManagerFragment;
+import com.pagatodo.yaganaste.modules.emisor.PaymentToQR.QrManagerFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;

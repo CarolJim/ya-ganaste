@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.pagatodo.view_manager.R;
-import com.pagatodo.view_manager.controllers.dataholders.LabelArrowDataHolder;
-import com.pagatodo.view_manager.holders.LabelArrowHolder;
+import com.pagatodo.view_manager.controllers.dataholders.LabelDataHolder;
+import com.pagatodo.view_manager.holders.LabelHolder;
 
 public class LabelArrow extends LinearLayout {
     public LabelArrow(Context context) {
@@ -31,7 +31,7 @@ public class LabelArrow extends LinearLayout {
     private void init(AttributeSet attrs){
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View rootView = inflater.inflate(R.layout.label_arrow,this,false);
-        LabelArrowHolder holder = new LabelArrowHolder(rootView);
+        LabelHolder holder = new LabelHolder(rootView);
         if (attrs != null) {
             TypedArray a = getContext().getTheme().obtainStyledAttributes(
                     attrs,
@@ -40,8 +40,7 @@ public class LabelArrow extends LinearLayout {
             try {
                 String resTextTitle = a.getString(R.styleable.LabelArrow_lablelTitle);
                 String resTextSubtitle = a.getString(R.styleable.LabelArrow_labelSubtilte);
-                holder.bind(new LabelArrowDataHolder(resTextTitle,resTextSubtitle),null);
-
+                holder.bind(new LabelDataHolder(resTextTitle,resTextSubtitle),null);
             } finally {
                 a.recycle();
             }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">view_manager</string>
+    <string name="hint_new_nip">Confirma tu NIP</string>
 </resources>

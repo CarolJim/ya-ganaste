@@ -135,15 +135,15 @@
     <string name="cupoObtenerEstadoDeDocumentos">/ObtenerDocumentosCupo</string>
     <string name="cupoActualizaDocumentosCupo">/ActualizaDocumentosCupo</string>
     <string name="cupoActualizaReferenciasCupo">/ActualizarReferenciaCupo</string>
-
-
     <!--Métodos de WS QR-->
     <string name="getQrs">/gtQRSYG</string>
     <string name="validateQr">/vldtLnkPltYG</string>
     <string name="linkedQr">/lnkQRYG</string>
     <string name="newQr">/nwQRYG</string>
     <string name="updateQR">/pdtQR</string>
-
+    <!-- Activacion de tarjeta fisica -->
+    <string name="bloqueoTarjetaDifinitivo">/BloqueoTarjetaDefinitivo</string>
+    <string name="reemplazarTarjetaDirecto">/ReemplazarTarjetaDirecto</string>
     <!-- Cadenas de Notificaciones -->
     <string name="queryNotifUser">ConsultarNotificacionesUsuario</string>
 
@@ -1738,6 +1738,9 @@
     <string name="label_option_per_title">Bloqueo Permanente</string>
     <string name="label_option_per_subtitle">Cancela tu tarjeta y solicita un nuevo plástico</string>
     <string name="label_change_nip_des">Genera un nuevo NIP para\ntu tarjeta Ya Ganaste</string>
+    <string name="text_error_active_card">Los datos no son correctos, favor de introducirlos nuevamente</string>
+    <string name="hint_new_nip">NIP (4 números)</string>
+    <string name="hint_confirm_nip">Confirma tu NIP</string>
 
     <!--Onboarding-->
     <string name="red">Red</string>

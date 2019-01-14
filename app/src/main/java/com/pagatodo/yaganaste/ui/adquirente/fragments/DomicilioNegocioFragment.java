@@ -27,7 +27,7 @@ import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
-import com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity;
+import com.pagatodo.yaganaste.modules.emisor.WalletMainActivity;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;

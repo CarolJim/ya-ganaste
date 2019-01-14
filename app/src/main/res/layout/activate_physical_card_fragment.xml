@@ -38,24 +38,160 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayout"
-        android:layout_width="match_parent"
+        android:layout_width="320dp"
         android:layout_height="55dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:background="@drawable/inputtext_normal"
         android:hint="@string/label_number_card"
+        android:maxLines="1"
+        android:textColorHint="@color/texthint"
+        android:theme="@style/TextLabel"
+        android:visibility="visible"
+
+        android:paddingTop="8dp"
+        android:gravity="bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10">
+        app:layout_constraintTop_toBottomOf="@+id/imageView10"
+        app:passwordToggleTint="@color/colorAccent"
+        tools:ignore="RtlSymmetry,UnusedAttribute"
+        >
 
-        <android.support.design.widget.TextInputEditText
+        <EditText
+            android:id="@+id/edit_number_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:imeOptions="actionDone"/>
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/transparent"
+            android:hint="@string/label_number_card"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:letterSpacing="0.5"
+            android:maxLength="16"
+            android:singleLine="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/gray_slate"
+            android:textSize="18sp"
+            tools:ignore="Autofill,LabelFor,RtlSymmetry"
+            android:layout_marginEnd="5dp">
+            <requestFocus/>
+        </EditText>
+
+
+
     </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout">
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/height_cursor"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="22dp"
+            android:background="@color/gray_off" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/height_cursor"
+            android:layout_marginStart="19dp"
+            android:layout_marginLeft="@dimen/space_cursor"
+            android:background="@color/gray_off" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/height_cursor"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="@dimen/space_cursor"
+            android:background="@color/gray_off" />
+
+        <View
+            android:layout_width="@dimen/width_cursor"
+            android:layout_height="@dimen/height_cursor"
+            android:layout_marginStart="@dimen/space_cursor"
+            android:layout_marginLeft="@dimen/space_cursor"
+            android:background="@color/gray_off" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/height_cursor"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="22dp"
+            android:background="@color/gray_off" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/height_cursor"
+            android:layout_marginStart="@dimen/space_cursor"
+            android:layout_marginLeft="@dimen/space_cursor"
+            android:background="@color/gray_off" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/height_cursor"
+            android:layout_marginStart="@dimen/space_cursor"
+            android:layout_marginLeft="@dimen/space_cursor"
+            android:background="@color/gray_off" />
+
+        <View
+            android:layout_width="@dimen/width_cursor"
+            android:layout_height="@dimen/height_cursor"
+            android:layout_marginStart="@dimen/space_cursor"
+            android:layout_marginLeft="@dimen/space_cursor"
+            android:background="@color/gray_off" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/height_cursor"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="22dp"
+            android:background="@color/gray_off" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/height_cursor"
+            android:layout_marginStart="@dimen/space_cursor"
+            android:layout_marginLeft="@dimen/space_cursor"
+            android:background="@color/gray_off" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/height_cursor"
+            android:layout_marginStart="@dimen/space_cursor"
+            android:layout_marginLeft="@dimen/space_cursor"
+            android:background="@color/gray_off" />
+
+        <View
+            android:layout_width="@dimen/width_cursor"
+            android:layout_height="@dimen/height_cursor"
+            android:layout_marginStart="@dimen/space_cursor"
+            android:layout_marginLeft="@dimen/space_cursor"
+            android:background="@color/gray_off" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/height_cursor"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="22dp"
+            android:background="@color/gray_off" />
+
+
+
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -72,7 +208,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+    <com.pagatodo.view_manager.buttons.ButtonContinue
         android:id="@+id/btn_continue_active_card"
         android:layout_width="219dp"
         android:layout_height="51dp"
@@ -81,7 +217,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/button_yes"
+        android:background="@drawable/btn_desactive"
         android:text="@string/next"
         android:textAllCaps="false"
         android:textColor="@color/whiteColor"

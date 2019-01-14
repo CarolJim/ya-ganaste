@@ -25,9 +25,9 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_TO_ADMIN_STARBUCKS;
-import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_TO_FORGET_PASSWORD_STARBUCKS;
-import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_TO_REGISTER_STARBUCKS;
+import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.EVENT_GO_TO_ADMIN_STARBUCKS;
+import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.EVENT_GO_TO_FORGET_PASSWORD_STARBUCKS;
+import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.EVENT_GO_TO_REGISTER_STARBUCKS;
 
 
 /**

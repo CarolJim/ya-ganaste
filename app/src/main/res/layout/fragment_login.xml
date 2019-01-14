@@ -157,6 +157,7 @@
                     android:textSize="16sp"
                     android:textColor="@color/gray_text_wallet_3"
                     android:visibility="gone" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -166,7 +167,6 @@
                     >
                     <include
                         layout="@layout/asignar_pin_layout"
-
                         />
 
 

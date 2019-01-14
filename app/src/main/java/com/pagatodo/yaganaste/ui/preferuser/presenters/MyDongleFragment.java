@@ -43,8 +43,8 @@ import butterknife.ButterKnife;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.view.View.GONE;
-import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_CONFIG_REPAYMENT;
-import static com.pagatodo.yaganaste.modules.wallet_emisor.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
+import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.EVENT_GO_CONFIG_REPAYMENT;
+import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
 import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.EMV_DETECTED;

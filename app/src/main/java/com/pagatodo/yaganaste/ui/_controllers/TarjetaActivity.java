@@ -18,7 +18,7 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
-import com.pagatodo.yaganaste.modules.wallet_emisor.ChangeNip.MyChangeNip;
+import com.pagatodo.yaganaste.modules.emisor.ChangeNip.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanosCorreo;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
 import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;

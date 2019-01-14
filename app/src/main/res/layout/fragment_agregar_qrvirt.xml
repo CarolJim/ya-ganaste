@@ -6,7 +6,7 @@ android:id="@+id/activity_lets_start"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
-tools:context=".modules.wallet_emisor.PaymentToQR.operations.AgregarQRVirtual.AgregarQRVirtFragment">
+tools:context=".modules.emisor.PaymentToQR.operations.AgregarQRVirtual.AgregarQRVirtFragment">
 
 <!-- TODO: Update blank fragment layout -->
 
