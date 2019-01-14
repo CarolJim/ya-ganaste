@@ -2,12 +2,23 @@ package com.pagatodo.yaganaste.modules.register.CorreoUsuario;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.text.style.AlignmentSpan;
+import android.text.style.ImageSpan;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,6 +27,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,10 +43,13 @@ import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
+import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.CustomPassSixDigits;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.ArrayList;
 
@@ -48,25 +63,18 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
  * A simple {@link Fragment} subclass.
  */
 public class RegistroCorreoFragment extends GenericFragment implements View.OnClickListener, ValidationForms, IUserDataRegisterView,
-        View.OnFocusChangeListener, CustomPassSixDigits.OnCodeChangedListener {
+        View.OnFocusChangeListener, AsignarNipTextWatcher.changeTxtWtxher {
 
     private static RegActivity activityf;
     @BindView(R.id.text_email)
     TextInputLayout text_email;
-    @BindView(R.id.customPassSixDigits)
-    CustomPassSixDigits customPassSixDigits;
     @BindView(R.id.edit_email)
     EditText editMail;
     @BindView(R.id.btnNextDatosUsuario)
     StyleButton btnNextDatosUsuario;
     @BindView(R.id.titulo_datos_usuario)
     TextView titulo_datos_usuario;
-    @BindView(R.id.edit_text_aux)
-    EditText edit_text_aux;
-    @BindView(R.id.edit_text_aux_confirm)
-    EditText edit_text_aux_confirm;
-    @BindView(R.id.password)
-    LinearLayout password;
+
     @BindView(R.id.text_password)
     TextInputLayout edt_psw;
     @BindView(R.id.edit_password)
@@ -77,11 +85,68 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     EditText edit_psw_confirm;
     @BindView(R.id.activity_lets_start)
     LinearLayout linear_pass;
-    @BindView(R.id.password_confirm)
-    LinearLayout password_confirm;
-    @BindView(R.id.customPassSixDigitsConfirm)
-    CustomPassSixDigits customPassSixDigitsConfirm;
 
+
+    @BindView(R.id.text_passwordnewReg)
+    TextInputLayout text_passwordnew;
+    @BindView(R.id.text_passwordnewRegConfirm)
+    TextInputLayout text_passwordnewRegConfirm;
+
+
+    @BindView(R.id.llay_eye_pass)
+    LinearLayout llay_eye_pass;
+
+    @BindView(R.id.contPass)
+    LinearLayout contPass;
+    @BindView(R.id.contPassConfirm)
+    LinearLayout contPassConfirm;
+
+    @BindView(R.id.asignar_tv1)
+    TextView tv1Num;
+    @BindView(R.id.asignar_tv2)
+    TextView tv2Num;
+    @BindView(R.id.asignar_tv3)
+    TextView tv3Num;
+    @BindView(R.id.asignar_tv4)
+    TextView tv4Num;
+    @BindView(R.id.asignar_tv5)
+    TextView tv5Num;
+    @BindView(R.id.asignar_tv6)
+    TextView tv6Num;
+    @BindView(R.id.eye_img)
+    ImageView eye_img;
+
+    @BindView(R.id.asignar_edittext)
+    EditText asignar_edittext;
+    @BindView(R.id.asignar_edittextConfirm)
+    EditText asignar_edittextConfirm;
+
+    private boolean passwordshow = true;
+
+    @BindView(R.id.asignar_tv1Confirm)
+    TextView tv1NumConfirm;
+    @BindView(R.id.asignar_tv2Confirm)
+    TextView tv2NumConfirm;
+    @BindView(R.id.asignar_tv3Confirm)
+    TextView tv3NumConfirm;
+    @BindView(R.id.asignar_tv4Confirm)
+    TextView tv4NumConfirm;
+    @BindView(R.id.asignar_tv5Confirm)
+    TextView tv5NumConfirm;
+    @BindView(R.id.asignar_tv6Confirm)
+    TextView tv6NumConfirm;
+    @BindView(R.id.eye_imgConfirm)
+    ImageView eye_imgConfirm;
+    @BindView(R.id.asignar_control_layoutConfirm)
+    LinearLayout asignar_control_layoutConfirm;
+    @BindView(R.id.llypassConfirm)
+    LinearLayout llypass_passConfirm;
+
+    @BindView(R.id.asignar_control_layout)
+    LinearLayout asignar_control_layout;
+
+    @BindView(R.id.llypass)
+    LinearLayout llypass_pass;
 
     boolean emailvalid = true;
     private View rootview;
@@ -95,6 +160,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     private String psd = "";
     private String psd_con = "";
     private boolean fillcode = false;
+    Bitmap bitmapBullet;
 
     public static RegistroCorreoFragment newInstance() {
         return new RegistroCorreoFragment();
@@ -133,40 +199,104 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        customPassSixDigitsConfirm.getTitlepass().setText("Confirma tu Contraseña");
         btnNextDatosUsuario.setOnClickListener(this);
-        customPassSixDigits.setOnClickListener(this);
-        customPassSixDigits.setListener(this);
-        customPassSixDigitsConfirm.setOnClickListener(this);
-        customPassSixDigitsConfirm.setListener(this);
+        editMail.setOnFocusChangeListener(this::onFocusChange);
 
+        asignar_edittext.setFocusableInTouchMode(true);
+        asignar_edittext.requestFocus();
+        asignar_edittext.addTextChangedListener
+                (new AsignarNipTextWatcher(asignar_edittext, tv1Num, tv2Num, tv3Num, tv4Num, tv5Num, tv6Num, this));
 
+        asignar_edittextConfirm.setFocusableInTouchMode(true);
+        asignar_edittextConfirm.requestFocus();
+        asignar_edittextConfirm.addTextChangedListener
+                (new AsignarNipTextWatcher(asignar_edittextConfirm, tv1NumConfirm, tv2NumConfirm, tv3NumConfirm, tv4NumConfirm, tv5NumConfirm, tv6NumConfirm, this));
 
-        editMail.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        asignar_control_layout.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    accountPresenter.validateEmail(editMail.getText().toString());
-                    isChecked();
-                    if (customPassSixDigits.getText().length()>=1) {
-                        customPassSixDigits.clearCode();
-                    } else {
-                        edit_psw.requestFocus();
-                    }
-                    return true;
-                }
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                asignar_edittext.requestFocusFromTouch();
+                InputMethodManager lManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                lManager.showSoftInput(asignar_edittext, 0);
+
+
+                return false;
+            }
+        });
+        asignar_control_layoutConfirm.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                asignar_edittextConfirm.requestFocusFromTouch();
+                InputMethodManager lManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                lManager.showSoftInput(asignar_edittextConfirm, 0);
                 return false;
             }
         });
 
 
+        asignar_edittext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().length() == 6) {
+                    UI.hideKeyBoard(getActivity());
+                    if (!UtilsNet.isOnline(getActivity())) {
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
+                    } else {
+                        //  Servicio para consumir usuario y contraseña
+                        validateForm();
+                        edit_psw_confirm.requestFocus();
+
+                    }
+                }
+                //text_password.setBackgroundResource(R.drawable.inputtext_active);
+                edt_psw_confirm.setBackgroundResource(R.drawable.inputtext_active);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        asignar_edittextConfirm.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().length() == 6) {
+                    validateForm();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        // Asignamos el OnEditorActionListener a este CustomEditext para el efecto de consumir el servicio
+        //asignar_edittext.setOnEditorActionListener(new LoginFragment.DoneOnEditorActionListener());
+
+
         edit_psw.setOnFocusChangeListener((view, b) -> {
             if (b) {
-                password.setVisibility(View.VISIBLE);
                 edt_psw.setVisibility(View.GONE);
-                customPassSixDigits.getCode1().requestFocus();
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(customPassSixDigits.getCode1(), InputMethodManager.SHOW_IMPLICIT);
+                text_passwordnew.setVisibility(View.GONE);
+                llypass_pass.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                LinearLayout.LayoutParams margin = (LinearLayout.LayoutParams) contPass.getLayoutParams();
+                margin.leftMargin = 30;
+                margin.rightMargin = 30;
+                contPass.setLayoutParams(margin);
+                llypass_pass.setVisibility(View.VISIBLE);
+                llypass_pass.setBackgroundResource(R.drawable.inputtext_active);
+                llypass_pass.requestFocus();
+
             } else {
 
             }
@@ -175,191 +305,166 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
 
         edit_psw_confirm.setOnFocusChangeListener((view, b) -> {
             if (b) {
-                //password.setVisibility(View.VISIBLE);
-                password_confirm.setVisibility(View.VISIBLE);
                 edt_psw_confirm.setVisibility(View.GONE);
-                customPassSixDigitsConfirm.getCode1().requestFocus();
+                text_passwordnewRegConfirm.setVisibility(View.GONE);
+                llypass_passConfirm.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                LinearLayout.LayoutParams margin = (LinearLayout.LayoutParams) contPassConfirm.getLayoutParams();
+                margin.leftMargin = 30;
+                margin.rightMargin = 30;
+                margin.topMargin = 20;
+                contPassConfirm.setLayoutParams(margin);
+                llypass_passConfirm.setVisibility(View.VISIBLE);
+                llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_active);
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(customPassSixDigitsConfirm.getCode1(), InputMethodManager.SHOW_IMPLICIT);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
+                imm.showSoftInput(llypass_passConfirm, InputMethodManager.SHOW_IMPLICIT);
+                llypass_passConfirm.requestFocus();
+
+
             } else {
 
             }
             isChecked();
         });
 
+        /*
+        llay_eye_pass.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
 
-        customPassSixDigits.getCode1().setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (customPassSixDigits.getCode1().getText().length() == 1) {
-                        customPassSixDigits.getCode2().requestFocus();
-                    } else {
-                        customPassSixDigits.getCode1().requestFocus();
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-        customPassSixDigits.getCode2().setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (customPassSixDigits.getCode2().getText().length() == 1) {
-                        customPassSixDigits.getCode3().requestFocus();
-                    } else {
-                        customPassSixDigits.getCode2().requestFocus();
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-        customPassSixDigits.getCode3().setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (customPassSixDigits.getCode3().getText().length() == 1) {
-                        customPassSixDigits.getCode4().requestFocus();
-                    } else {
-                        customPassSixDigits.getCode3().requestFocus();
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-        customPassSixDigits.getCode4().setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (customPassSixDigits.getCode4().getText().length() == 1) {
-                        customPassSixDigits.getCode5().requestFocus();
-                    } else {
-                        customPassSixDigits.getCode4().requestFocus();
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-        customPassSixDigits.getCode5().setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (customPassSixDigits.getCode5().getText().length() == 1) {
-                        customPassSixDigits.getCode6().requestFocus();
-                    } else {
-                        customPassSixDigits.getCode5().requestFocus();
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-        customPassSixDigits.getCode6().setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (customPassSixDigits.getCode6().getText().length() == 1) {
-                        customPassSixDigitsConfirm.getCode1().requestFocus();
-                    }
-                    else {
-                        customPassSixDigits.getCode6().requestFocus();
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
+                bitmapBullet = BitmapFactory.decodeResource(App.getContext().getResources(),
+                        R.drawable.ico_asterisk_white);
+                int medidaTextSize = 0;
 
 
-        customPassSixDigitsConfirm.getCode1().setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (customPassSixDigitsConfirm.getCode1().getText().length() == 1) {
-                        customPassSixDigitsConfirm.getCode2().requestFocus();
-                    } else {
-                        customPassSixDigitsConfirm.getCode1().requestFocus();
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-        customPassSixDigitsConfirm.getCode2().setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (customPassSixDigitsConfirm.getCode2().getText().length() == 1) {
-                        customPassSixDigitsConfirm.getCode3().requestFocus();
-                    } else {
-                        customPassSixDigitsConfirm.getCode2().requestFocus();
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-        customPassSixDigitsConfirm.getCode3().setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (customPassSixDigitsConfirm.getCode3().getText().length() == 1) {
-                        customPassSixDigitsConfirm.getCode4().requestFocus();
-                    } else {
-                        customPassSixDigitsConfirm.getCode3().requestFocus();
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-        customPassSixDigitsConfirm.getCode4().setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (customPassSixDigitsConfirm.getCode4().getText().length() == 1) {
-                        customPassSixDigitsConfirm.getCode5().requestFocus();
-                    } else {
-                        customPassSixDigitsConfirm.getCode4().requestFocus();
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-        customPassSixDigitsConfirm.getCode5().setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (customPassSixDigitsConfirm.getCode5().getText().length() == 1) {
-                        customPassSixDigitsConfirm.getCode6().requestFocus();
-                    } else {
-                        customPassSixDigitsConfirm.getCode5().requestFocus();
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-        customPassSixDigitsConfirm.getCode6().setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (customPassSixDigitsConfirm.getCode6().getText().length() == 1) {
+                 Obtenemos la resolucion de la pantalla y enviamos la medida necesaria
 
-                    }
-                    return true;
+                DisplayMetrics metrics = App.getContext().getResources().getDisplayMetrics();
+                switch (metrics.densityDpi) {
+                    case DisplayMetrics.DENSITY_LOW:
+                        break;
+                    case DisplayMetrics.DENSITY_MEDIUM:
+                        medidaTextSize = obtenerMedidas(tv1Num, 2);
+                        break;
+                    case DisplayMetrics.DENSITY_HIGH:
+                        medidaTextSize = obtenerMedidas(tv1Num, 3);
+                        break;
+                    case DisplayMetrics.DENSITY_XHIGH:
+                        medidaTextSize = obtenerMedidas(tv1Num, 4);
+                        break;
+                    case DisplayMetrics.DENSITY_XXHIGH:
+                        medidaTextSize = obtenerMedidas(tv1Num, 5);
+                        break;
+                    case DisplayMetrics.DENSITY_XXXHIGH:
+                        medidaTextSize = obtenerMedidas(tv1Num, 5);
+                        break;
+                    default:
+                        medidaTextSize = obtenerMedidas(tv1Num, 5);
+                        break;
                 }
+
+                bitmapBullet = Bitmap.createScaledBitmap(bitmapBullet, medidaTextSize, medidaTextSize, true);
+
+
+                String pass = asignar_edittext.getText().toString();
+                if (passwordshow) {
+                    passwordshow = false;
+                } else {
+                    passwordshow = true;
+                }
+                if (!passwordshow) {
+
+                    if (pass.length() == 1)
+                        tv1Num.setText(pass.substring(0, 1));
+                    if (pass.length() == 2) {
+                        tv1Num.setText(pass.substring(0, 1));
+                        tv2Num.setText(pass.substring(1, 2));
+                    }
+                    if (pass.length() == 3) {
+                        tv1Num.setText(pass.substring(0, 1));
+                        tv2Num.setText(pass.substring(1, 2));
+                        tv3Num.setText(pass.substring(2, 3));
+                    }
+
+                    if (pass.length() == 4) {
+                        tv1Num.setText(pass.substring(0, 1));
+                        tv2Num.setText(pass.substring(1, 2));
+                        tv3Num.setText(pass.substring(2, 3));
+                        tv4Num.setText(pass.substring(3, 4));
+                    }
+
+                    if (pass.length() == 5) {
+                        tv1Num.setText(pass.substring(0, 1));
+                        tv2Num.setText(pass.substring(1, 2));
+                        tv3Num.setText(pass.substring(2, 3));
+                        tv4Num.setText(pass.substring(3, 4));
+                        tv5Num.setText(pass.substring(4, 5));
+                    }
+                    if (pass.length() == 6) {
+                        tv1Num.setText(pass.substring(0, 1));
+                        tv2Num.setText(pass.substring(1, 2));
+                        tv3Num.setText(pass.substring(2, 3));
+                        tv4Num.setText(pass.substring(3, 4));
+                        tv5Num.setText(pass.substring(4, 5));
+                        tv6Num.setText(pass.substring(5, 6));
+                    }
+
+                    eye_img.setImageResource(R.drawable.icon_eye_pass_blok);
+
+                } else {
+                    SpannableStringBuilder ssb = new SpannableStringBuilder(" "); // 20
+                    ssb.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                    ssb.setSpan(new ImageSpan(bitmapBullet), 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                    if (pass.length() == 1)
+                        tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                    if (pass.length() == 2) {
+                        tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                    }
+                    if (pass.length() == 3) {
+                        tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                    }
+                    if (pass.length() == 4) {
+                        tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                    }
+                    if (pass.length() == 5) {
+                        tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        tv5Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                    }
+
+                    if (pass.length() == 6) {
+                        tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        tv5Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                        tv6Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                    }
+
+                    eye_img.setImageResource(R.drawable.icon_eye_pass);
+                }
+
                 return false;
             }
-        });
+        });*/
+
 
         setValidationRules();
 
+    }
+
+    public int obtenerMedidas(TextView mTextView, int mInt) {
+        Paint paint = new Paint();
+        paint.setTextSize(mTextView.getTextSize());
+        return ((int) (-paint.ascent() + paint.descent() * mInt));
     }
 
     @Override
@@ -436,7 +541,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             if (hasFocus) {
                 emailValidatedByWS = false;
                 text_email.setBackgroundResource(R.drawable.inputtext_active);
-
             } else {
                 if (!UtilsNet.isOnline(getActivity())) {
                     showValidationError(editMail.getId(), getString(R.string.no_internet_access));
@@ -485,6 +589,10 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             isValid = false;
         }
 
+        if (asignar_edittext.getText().toString().isEmpty()) {
+            edt_psw.setBackgroundResource(R.drawable.inputtext_error);
+            isValid = false;
+        }
         if (psd.isEmpty()) {
             UI.showErrorSnackBar(getActivity(), getString(R.string.psd), Snackbar.LENGTH_SHORT);
             edt_psw.setBackgroundResource(R.drawable.inputtext_error);
@@ -497,11 +605,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         }
         if (psd.length() != 6 || psd_con.length() != 6) {
             UI.showErrorSnackBar(getActivity(), getString(R.string.psd_no_six_digits), Snackbar.LENGTH_SHORT);
-            customPassSixDigits.clearCode();
-            customPassSixDigitsConfirm.clearCode();
-            customPassSixDigits.getCode1().requestFocus();
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(customPassSixDigits.getCode1(), InputMethodManager.SHOW_IMPLICIT);
             isValid = false;
         }
 
@@ -542,158 +645,10 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     @Override
     public void getDataForm() {
         email = editMail.getText().toString();
-        psd = customPassSixDigits.getText().toString();
-        psd_con = customPassSixDigitsConfirm.getText().toString();
-    }
-
-    @Override
-    public void onCodeChanged() {
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (customPassSixDigitsConfirm.getText().toString().length() == 6) {
-
-            imm.hideSoftInputFromWindow(rootview.getWindowToken(), 0);
-            if (TextUtils.equals(customPassSixDigits.getText(), customPassSixDigitsConfirm.getText())) {
-                isChecked();
-            } else {
-                customPassSixDigitsConfirm.clearCode();
-                customPassSixDigitsConfirm.getCode1().requestFocus();
-                imm.showSoftInput(customPassSixDigitsConfirm.getCode1(), InputMethodManager.SHOW_IMPLICIT);
-                UI.showErrorSnackBar(getActivity(), getString(R.string.password_invalid), Snackbar.LENGTH_LONG);
-            }
-        }
-        this.customPassSixDigits.getCode1().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (fillcode = true) {
-                    customPassSixDigits.clearCode();
-                    return true;
-                }
-                return false;
-            }
-        });
-        this.customPassSixDigits.getCode2().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (fillcode = true) {
-                    customPassSixDigits.clearCode();
-                    return true;
-                }
-                return false;
-            }
-        });
-        this.customPassSixDigits.getCode3().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (fillcode = true) {
-                    customPassSixDigits.clearCode();
-                    return true;
-                }
-                return false;
-            }
-        });
-        this.customPassSixDigits.getCode4().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (fillcode = true) {
-                    customPassSixDigits.clearCode();
-                    return true;
-                }
-                return false;
-            }
-        });
-        this.customPassSixDigits.getCode5().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (fillcode = true) {
-                    customPassSixDigits.clearCode();
-                    return true;
-                }
-                return false;
-            }
-        });
-        this.customPassSixDigits.getCode6().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (fillcode = true) {
-                    customPassSixDigits.clearCode();
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        this.customPassSixDigitsConfirm.getCode1().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (fillcode = true) {
-                    customPassSixDigitsConfirm.clearCode();
-                    return true;
-                }
-                return false;
-            }
-        });
-        this.customPassSixDigitsConfirm.getCode2().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (fillcode = true) {
-                    customPassSixDigitsConfirm.clearCode();
-                    return true;
-                }
-                return false;
-            }
-        });
-        this.customPassSixDigitsConfirm.getCode3().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (fillcode = true) {
-                    customPassSixDigitsConfirm.clearCode();
-                    return true;
-                }
-                return false;
-            }
-        });
-        this.customPassSixDigitsConfirm.getCode4().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (fillcode = true) {
-                    customPassSixDigitsConfirm.clearCode();
-                    return true;
-                }
-                return false;
-            }
-        });
-        this.customPassSixDigitsConfirm.getCode5().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (fillcode = true) {
-                    customPassSixDigitsConfirm.clearCode();
-                    return true;
-                }
-                return false;
-            }
-        });
-        this.customPassSixDigitsConfirm.getCode6().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (fillcode = true) {
-                    customPassSixDigitsConfirm.clearCode();
-                    return true;
-                }
-                return false;
-            }
-        });
-
-    }
-
-
-    @Override
-    public void setVisivility() {
-        edt_psw_confirm.setVisibility(View.GONE);
-        password_confirm.setVisibility(View.VISIBLE);
-        customPassSixDigitsConfirm.getCode1().requestFocus();
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(customPassSixDigitsConfirm.getCode1(), InputMethodManager.SHOW_IMPLICIT);
-        fillcode = true;
+        //psd = customPassSixDigits.getText().toString();
+        //psd_con = customPassSixDigitsConfirm.getText().toString();
+        psd = asignar_edittext.getText().toString();
+        psd_con = asignar_edittextConfirm.getText().toString();
     }
 
     public void isChecked() {
@@ -707,11 +662,11 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             isValid = false;
             btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_gray);
         }
-        if (psd == null || psd.equals("") || psd.length() != 6) {
+        if (asignar_edittext == null || asignar_edittext.equals("") || asignar_edittext.length() != 6) {
             isValid = false;
             btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_gray);
         }
-        if (psd_con == null || psd_con.equals("") || psd_con.length() != 6) {
+        if (!asignar_edittext.equals(asignar_edittextConfirm)) {
             isValid = false;
             btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_gray);
         }
@@ -722,4 +677,20 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     }
 
 
+    @Override
+    public void changeeye() {
+        eye_img.setImageResource(R.drawable.icon_eye_pass);
+    }
+
+    @Override
+    public void fill() {
+        UI.hideKeyBoard(getActivity());
+        if (!UtilsNet.isOnline(getActivity())) {
+            UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
+        } else {
+            //  Servicio para consumir usuario y contraseña
+            validateForm();
+            //asignar_edittext.setText("");
+        }
+    }
 }

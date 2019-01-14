@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioRespon
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.modules.sidebar.HelpYaGanaste.HelpYaGanasteFragment;
 import com.pagatodo.yaganaste.modules.sidebar.Settings.SettingsFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
@@ -178,11 +179,13 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             loadFragment(QRFragment.newInstance());
         } else if (getIntent().getIntExtra(MENU, 0) == MENU_CONTACTO) {
             //loadFragment(ContactoFragment.newInstance());
-            loadFragment(TutorialsFragment.newInstance());
+            //loadFragment(TutorialsFragment.newInstance());
+            loadFragment(HelpYaGanasteFragment.newInstance());
         } else {
             loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
             //loadFragment(SecuritySettignsFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
-            loadFragment(SettingsFragment.newInstance());
+
+            //loadFragment(SettingsFragment.newInstance());
         }
 
         mContext = this;
