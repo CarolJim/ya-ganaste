@@ -7,12 +7,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
 
-import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -55,18 +55,19 @@ public class UploadCircleDocumentView extends RelativeLayout {
          * ImageView y no de AppCompatImageView
          */
         // Check if we're running on Android 5.0 or higher
+        View view;
         if (Build.VERSION.SDK_INT >= 21) {
-            li.inflate(R.layout.item_circle_file, this, true);
+            view = li.inflate(R.layout.item_circle_file, this, true);
         } else {
             // Layout alternativo para < Lolipop
-            li.inflate(R.layout.item_circle_file_4_4, this, true);
+            view = li.inflate(R.layout.item_circle_file_4_4, this, true);
         }
 
 
-        layoutImg= ButterKnife.findById(this, R.id.layoutImg); // Icono total
-        circleImageView = ButterKnife.findById(this, R.id.imgItemGalleryMark); // Icono total
-        circleImageStatus = ButterKnife.findById(this, R.id.imgItemGalleryStatus); // Icono Status
-        imgCamera = ButterKnife.findById(this, R.id.imgItemGalleryPay); // Icono central
+        layoutImg= view.findViewById(R.id.layoutImg); // Icono total
+        circleImageView = view.findViewById(R.id.imgItemGalleryMark); // Icono total
+        circleImageStatus = view.findViewById(R.id.imgItemGalleryStatus); // Icono Status
+        imgCamera = view.findViewById(R.id.imgItemGalleryPay); // Icono central
     }
 
     /**

@@ -4,11 +4,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
-
-import butterknife.ButterKnife;
 
 /**
  * Created by flima on 03/04/2017.
@@ -37,8 +36,8 @@ public class ErrorMessage extends RelativeLayout {
     private void init() {
         String infService = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
-        li.inflate(R.layout.error_validation_message, this, true);
-        textMessage = ButterKnife.findById(this, R.id.txtError);
+        View view = li.inflate(R.layout.error_validation_message, this, true);
+        textMessage = view.findViewById(R.id.txtError);
         //textMessage.setTextSize(TypedValue.COMPLEX_UNIT_SP, App.getContext().getResources().getDimension(R.dimen.error_custom_validation_editext_size));
         //imgError = ButterKnife.findById(this, R.id.imgError);
     }
