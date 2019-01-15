@@ -122,7 +122,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/btn_desactive"
+        android:background="@drawable/button_rounded_blue"
         android:text="@string/next"
         android:textAllCaps="false"
         android:textColor="@color/whiteColor"
