@@ -245,7 +245,7 @@ public class ElementView implements ElementGlobal {
     public static ArrayList<ElementView> getListEmisor() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_EMISOR, R.drawable.icono_movimientos, R.string.operation_movimientos));
-        elementViews.add(new ElementView(OPTION_DEPOSITO, R.drawable.ico_my_account, R.string.operation_deposito));
+        elementViews.add(new ElementView(OPTION_DEPOSITO, R.drawable.icon_user, R.string.operation_deposito));
         elementViews.add(new ElementView(OPTION_PAGO_QR, R.drawable.ico_scan_qr, R.string.operation_payment_qr));
         //elementViews.add(new ElementView(OPTION_ESTADOS_CUENTA, R.drawable.ic_edo_cuenta, R.string.operation_estado_cuenta));
         return elementViews;

@@ -10,7 +10,7 @@
         android:id="@+id/imgLoginExistProfile"
         android:layout_width="61dp"
         android:layout_height="61dp"
-        android:src="@mipmap/icon_user"
+        android:src="@mipmap/icon_user_fail"
         android:layout_centerHorizontal="true"
         app:civ_border_color="@color/colorAccent"
         android:layout_marginTop="47dp"/>

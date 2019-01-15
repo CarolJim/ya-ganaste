@@ -103,7 +103,7 @@ public class AdapterSearchCarrierRV extends RecyclerView.Adapter<AdapterSearchCa
     private void setImagePicasso(ImageView imageViewBorder, String urlLogo) {
         Picasso.with(App.getContext()).load(App.getContext().getString(R.string.url_images_logos) + urlLogo)
                 .placeholder(R.mipmap.logo_ya_ganaste)
-                .error(R.mipmap.icon_user)
+                .error(R.mipmap.icon_user_fail)
                 .into(imageViewBorder);
     }
 

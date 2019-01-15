@@ -201,16 +201,16 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         ButterKnife.bind(this, rootview);
         btnNextDatosUsuario.setOnClickListener(this);
         editMail.setOnFocusChangeListener(this::onFocusChange);
+        edit_psw.setOnFocusChangeListener(this::onFocusChange);
+        edit_psw_confirm.setOnFocusChangeListener(this::onFocusChange);
 
         asignar_edittext.setFocusableInTouchMode(true);
-        asignar_edittext.requestFocus();
         asignar_edittext.addTextChangedListener
-                (new AsignarNipTextWatcher(asignar_edittext, tv1Num, tv2Num, tv3Num, tv4Num, tv5Num, tv6Num, this));
+                (new AsignarNipTextWatcher(asignar_edittext, tv1Num, tv2Num, tv3Num, tv4Num, tv5Num, tv6Num, this, false));
 
         asignar_edittextConfirm.setFocusableInTouchMode(true);
-        asignar_edittextConfirm.requestFocus();
         asignar_edittextConfirm.addTextChangedListener
-                (new AsignarNipTextWatcher(asignar_edittextConfirm, tv1NumConfirm, tv2NumConfirm, tv3NumConfirm, tv4NumConfirm, tv5NumConfirm, tv6NumConfirm, this));
+                (new AsignarNipTextWatcher(asignar_edittextConfirm, tv1NumConfirm, tv2NumConfirm, tv3NumConfirm, tv4NumConfirm, tv5NumConfirm, tv6NumConfirm, this, true));
 
         asignar_control_layout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -235,6 +235,43 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         });
 
 
+        editMail.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                editMail.setFocusableInTouchMode(true);
+                editMail.requestFocus();
+                llypass_pass.setBackgroundResource(R.drawable.inputtext_normal);
+                llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_normal);
+                return false;
+            }
+        });
+        llypass_passConfirm.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                asignar_edittextConfirm.setFocusableInTouchMode(true);
+                asignar_edittextConfirm.requestFocus();
+                text_email.setBackgroundResource(R.drawable.inputtext_normal);
+                llypass_pass.setBackgroundResource(R.drawable.inputtext_normal);
+                llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_active);
+
+                return false;
+            }
+        });
+
+        llypass_pass.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                asignar_edittextConfirm.setFocusableInTouchMode(true);
+                asignar_edittext.requestFocus();
+                llypass_pass.setBackgroundResource(R.drawable.inputtext_active);
+                text_email.setBackgroundResource(R.drawable.inputtext_normal);
+                llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_normal);
+
+                return false;
+            }
+        });
+
+
         asignar_edittext.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -247,14 +284,27 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                     if (!UtilsNet.isOnline(getActivity())) {
                         UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
                     } else {
-                        //  Servicio para consumir usuario y contraseña
-                        validateForm();
-                        edit_psw_confirm.requestFocus();
-
+                        edt_psw_confirm.setVisibility(View.GONE);
+                        text_passwordnewRegConfirm.setVisibility(View.GONE);
+                        llypass_passConfirm.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                        LinearLayout.LayoutParams margin = (LinearLayout.LayoutParams) contPassConfirm.getLayoutParams();
+                        margin.leftMargin = 30;
+                        margin.rightMargin = 30;
+                        margin.topMargin = 20;
+                        contPassConfirm.setLayoutParams(margin);
+                        llypass_passConfirm.setVisibility(View.VISIBLE);
+                        asignar_edittextConfirm.requestFocus();
+                        llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_active);
+                        llypass_pass.setBackgroundResource(R.drawable.inputtext_normal);
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
+                        imm.showSoftInput(asignar_edittextConfirm, InputMethodManager.SHOW_IMPLICIT);
+                        isChecked();
                     }
                 }
+
                 //text_password.setBackgroundResource(R.drawable.inputtext_active);
-                edt_psw_confirm.setBackgroundResource(R.drawable.inputtext_active);
+                //edt_psw_confirm.setBackgroundResource(R.drawable.inputtext_active);
             }
 
             @Override
@@ -271,7 +321,10 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().length() == 6) {
-                    validateForm();
+                    //validateForm();
+                    text_email.setBackgroundResource(R.drawable.inputtext_normal);
+                    llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_normal);
+                    isChecked();
                 }
             }
 
@@ -283,49 +336,15 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         // Asignamos el OnEditorActionListener a este CustomEditext para el efecto de consumir el servicio
         //asignar_edittext.setOnEditorActionListener(new LoginFragment.DoneOnEditorActionListener());
 
-
-        edit_psw.setOnFocusChangeListener((view, b) -> {
-            if (b) {
-                edt_psw.setVisibility(View.GONE);
-                text_passwordnew.setVisibility(View.GONE);
-                llypass_pass.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                LinearLayout.LayoutParams margin = (LinearLayout.LayoutParams) contPass.getLayoutParams();
-                margin.leftMargin = 30;
-                margin.rightMargin = 30;
-                contPass.setLayoutParams(margin);
-                llypass_pass.setVisibility(View.VISIBLE);
-                llypass_pass.setBackgroundResource(R.drawable.inputtext_active);
-                llypass_pass.requestFocus();
-
-            } else {
-
+        editMail.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                llypass_pass.setBackgroundResource(R.drawable.inputtext_normal);
+                llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_normal);
             }
-            isChecked();
         });
 
-        edit_psw_confirm.setOnFocusChangeListener((view, b) -> {
-            if (b) {
-                edt_psw_confirm.setVisibility(View.GONE);
-                text_passwordnewRegConfirm.setVisibility(View.GONE);
-                llypass_passConfirm.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                LinearLayout.LayoutParams margin = (LinearLayout.LayoutParams) contPassConfirm.getLayoutParams();
-                margin.leftMargin = 30;
-                margin.rightMargin = 30;
-                margin.topMargin = 20;
-                contPassConfirm.setLayoutParams(margin);
-                llypass_passConfirm.setVisibility(View.VISIBLE);
-                llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_active);
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
-                imm.showSoftInput(llypass_passConfirm, InputMethodManager.SHOW_IMPLICIT);
-                llypass_passConfirm.requestFocus();
 
 
-            } else {
-
-            }
-            isChecked();
-        });
 
         /*
         llay_eye_pass.setOnTouchListener(new View.OnTouchListener() {
@@ -470,8 +489,9 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnNextDatosUsuario) {
-            validateForm();
             isChecked();
+            validateForm();
+
         }
     }
 
@@ -558,10 +578,63 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                     accountPresenter.validateEmail(editMail.getText().toString());
                 } else if (ValidateForm.isValidEmailAddress(editMail.getText().toString().trim().toLowerCase()) && emailValidatedByWS) {
                     text_email.setBackgroundResource(R.drawable.inputtext_normal);
+                    //text_email.setBackgroundResource(R.drawable.inputtext_active);
                 }
+                text_email.setBackgroundResource(R.drawable.inputtext_normal);
             }
             isChecked();
         });
+
+        edit_psw_confirm.setOnFocusChangeListener((view, b) -> {
+            if (b) {
+                edt_psw_confirm.setVisibility(View.GONE);
+                text_passwordnewRegConfirm.setVisibility(View.GONE);
+                llypass_passConfirm.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                LinearLayout.LayoutParams margin = (LinearLayout.LayoutParams) contPassConfirm.getLayoutParams();
+                margin.leftMargin = 30;
+                margin.rightMargin = 30;
+                margin.topMargin = 20;
+                contPassConfirm.setLayoutParams(margin);
+                llypass_passConfirm.setVisibility(View.VISIBLE);
+                llypass_pass.setBackgroundResource(R.drawable.inputtext_normal);
+                text_email.setBackgroundResource(R.drawable.inputtext_normal);
+                llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_active);
+                asignar_edittextConfirm.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
+                imm.showSoftInput(asignar_edittextConfirm, InputMethodManager.SHOW_IMPLICIT);
+
+
+            } else {
+
+            }
+            isChecked();
+        });
+
+        edit_psw.setOnFocusChangeListener((view, b) -> {
+            if (b) {
+                edt_psw.setVisibility(View.GONE);
+                text_passwordnew.setVisibility(View.GONE);
+                llypass_pass.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                LinearLayout.LayoutParams margin = (LinearLayout.LayoutParams) contPass.getLayoutParams();
+                margin.leftMargin = 30;
+                margin.rightMargin = 30;
+                contPass.setLayoutParams(margin);
+                llypass_pass.setVisibility(View.VISIBLE);
+                llypass_pass.setBackgroundResource(R.drawable.inputtext_active);
+                text_email.setBackgroundResource(R.drawable.inputtext_normal);
+                llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_normal);
+                asignar_edittext.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
+                imm.showSoftInput(asignar_edittext, InputMethodManager.SHOW_IMPLICIT);
+
+            } else {
+
+            }
+            isChecked();
+        });
+
     }
 
     @Override
@@ -571,26 +644,30 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         if (email.isEmpty()) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            //UI.showErrorSnackBar(getActivity(), getString(R.string.ingress_your_mail), Snackbar.LENGTH_SHORT);
             UI.showErrorSnackBar(getActivity(), getString(R.string.ingress_your_mail), Snackbar.LENGTH_SHORT);
             text_email.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
         if (!ValidateForm.isValidEmailAddress(email)) {
             text_email.setBackgroundResource(R.drawable.inputtext_error);
-            //btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_gray);
+            text_email.requestFocus();
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
         if (!userExist) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo_existe), Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.ingress_your_mail), Snackbar.LENGTH_SHORT);
             text_email.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
-
         if (asignar_edittext.getText().toString().isEmpty()) {
             edt_psw.setBackgroundResource(R.drawable.inputtext_error);
+            isValid = false;
+        }
+        if (asignar_edittextConfirm.getText().toString().isEmpty()) {
+            edt_psw_confirm.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
         if (psd.isEmpty()) {
@@ -603,6 +680,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             edt_psw_confirm.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
+
         if (psd.length() != 6 || psd_con.length() != 6) {
             UI.showErrorSnackBar(getActivity(), getString(R.string.psd_no_six_digits), Snackbar.LENGTH_SHORT);
             isValid = false;
@@ -612,6 +690,10 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             UI.showErrorSnackBar(getActivity(), getString(R.string.confirmar_contrase), Snackbar.LENGTH_SHORT);
             edt_psw_confirm.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
+        }
+        if (!userExist || asignar_edittext.length() == 6 || asignar_edittextConfirm.length() == 6) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         }
         if (isValid) {
             setLogData();
@@ -666,11 +748,14 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             isValid = false;
             btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_gray);
         }
-        if (!asignar_edittext.equals(asignar_edittextConfirm)) {
+        if (!asignar_edittext.getText().toString().equals(asignar_edittextConfirm.getText().toString())) {
             isValid = false;
             btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_gray);
         }
-
+        if (!userExist || asignar_edittext.length() == 6 || asignar_edittextConfirm.length() == 6) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        }
         if (isValid) {
             btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_blue);
         }
@@ -689,7 +774,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
         } else {
             //  Servicio para consumir usuario y contraseña
-            validateForm();
+            isChecked();
             //asignar_edittext.setText("");
         }
     }

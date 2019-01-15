@@ -109,7 +109,7 @@ public class SessionActivity extends ToolBarActivity implements TabsView, OnEven
     @Override
     protected void onResume() {
         super.onResume();
-        //Glide.with(this).load(FlowUser.getImageProfileURL() + "?" + UtilsExtensions.getCurrentTime()).placeholder(R.mipmap.icon_user).dontAnimate().error(R.mipmap.icon_user).into(imgToolbarProfile);
+        //Glide.with(this).load(FlowUser.getImageProfileURL() + "?" + UtilsExtensions.getCurrentTime()).placeholder(R.mipmap.icon_user_fail).dontAnimate().error(R.mipmap.icon_user_fail).into(imgToolbarProfile);
     }
 
     @Override

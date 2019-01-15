@@ -21,9 +21,6 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ClienteResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioResponse;
-import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.CropActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
@@ -194,7 +191,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
         if (mUserImage != null && !mUserImage.isEmpty()) {
             Picasso.with(getContext())
                     .load(mUserImage)
-                    .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+                    .placeholder(R.mipmap.icon_user_fail).error(R.mipmap.icon_user_fail)
                     .into(iv_photo_item);
         }
 

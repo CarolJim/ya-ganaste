@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/radio_image_pago_payment_tab"
                     android:layout_gravity="center"
-                    android:src="@mipmap/icon_user"
+                    android:src="@mipmap/icon_user_fail"
                     app:civ_border_color="@color/colorAccent"
                     app:civ_border_width="@dimen/border_width" />
 

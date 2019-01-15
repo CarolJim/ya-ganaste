@@ -137,7 +137,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         /*mUserImage = SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL();
 
         if (mUserImage != null && !mUserImage.isEmpty()) {
-            Glide.with(this).load(mUserImage).placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+            Glide.with(this).load(mUserImage).placeholder(R.mipmap.icon_user_fail).error(R.mipmap.icon_user_fail)
                     .dontAnimate().into(imageView);
         }*/
     }
