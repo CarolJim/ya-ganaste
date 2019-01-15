@@ -1754,6 +1754,9 @@
     <string name="subtitleBiometrics">Autorizar operaciones con biométricos</string>
     <string name="titleBalances">Mostrar Saldos</string>
     <string name="subtitleBalances">Ver tu saldo en accesos rápidos</string>
+    <string name="settings">Configuraciones</string>
+    <string name="config_card_reader">Configurar Lector de Tarjetas</string>
+    <string name="unlink_phone">Desvincular Celular</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -26,7 +26,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,7 +38,6 @@ import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -52,7 +50,6 @@ import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
-import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.squareup.picasso.Picasso;
@@ -711,15 +708,15 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         String mUserImage = preferencias.loadData(URL_PHOTO_USER);
         if (preferencias.loadData(GENERO) == "H" || preferencias.loadData(GENERO) == "h") {
             Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
-                    .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_el)
+                    .placeholder(R.mipmap.icon_user_fail).error(R.drawable.avatar_el)
                     .into(imgLoginExistProfile);
         } else if (preferencias.loadData(GENERO) == "M" || preferencias.loadData(GENERO) == "m") {
             Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
-                    .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_ella)
+                    .placeholder(R.mipmap.icon_user_fail).error(R.drawable.avatar_ella)
                     .into(imgLoginExistProfile);
         } else {
             Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
-                    .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+                    .placeholder(R.mipmap.icon_user_fail).error(R.mipmap.icon_user_fail)
                     .into(imgLoginExistProfile);
         }
 

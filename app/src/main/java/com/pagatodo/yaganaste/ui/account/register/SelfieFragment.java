@@ -4,13 +4,10 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -19,7 +16,6 @@ import com.pagatodo.yaganaste.App;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.CropActivity;
@@ -27,23 +23,19 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
-import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
-import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.squareup.picasso.Picasso;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
-import butterknife.BindBitmap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_ADDRESS_DATA;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SELFIE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
@@ -205,7 +197,7 @@ public class SelfieFragment extends GenericFragment implements View.OnClickListe
         if (mUserImage != null && !mUserImage.isEmpty()) {
             Picasso.with(getActivity())
                     .load(mUserImage)
-                    .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+                    .placeholder(R.mipmap.icon_user_fail).error(R.mipmap.icon_user_fail)
                     .into(iv_photo_item);
 
         }

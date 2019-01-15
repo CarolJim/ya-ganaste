@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,7 +33,6 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.IAddRequestPayment;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
@@ -148,7 +146,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
         if (!imagenavatar.equals("")) {
             Picasso.with(getContext())
                     .load(imagenavatar)
-                    .placeholder(R.mipmap.icon_user)
+                    .placeholder(R.mipmap.icon_user_fail)
                     .into(imgUser);
         }
         // Favorites

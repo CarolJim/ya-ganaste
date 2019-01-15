@@ -105,8 +105,8 @@ public class RequestPaymentHorizontalAdapter extends RecyclerView.Adapter<Reques
     }
 
     private void setImagePicasoFav(ImageView imageView, String urlLogo) {
-        Picasso.with(App.getContext()).load(urlLogo).placeholder(R.mipmap.icon_user)
-                .error(R.mipmap.icon_user)
+        Picasso.with(App.getContext()).load(urlLogo).placeholder(R.mipmap.icon_user_fail)
+                .error(R.mipmap.icon_user_fail)
                 .into(imageView);
     }
 

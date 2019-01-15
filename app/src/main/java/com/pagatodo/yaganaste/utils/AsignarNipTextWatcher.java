@@ -36,6 +36,7 @@ public class AsignarNipTextWatcher implements TextWatcher {
     TextView tv4Num;
     TextView tv5Num;
     TextView tv6Num;
+    boolean fill;
     String newText = "";
     String oldText = "";
     EditText etGen;
@@ -60,6 +61,55 @@ public class AsignarNipTextWatcher implements TextWatcher {
         this.tv6Num = tv6Num;
         this.listener = listener;
 
+        /*Log.d("ds","WNIP "+tv1Num.getWidth());
+        float textSize = tv1Num.getTextSize();
+        int textSizeInt = (int) textSize;
+         Log.d("ds","textSizeInt "+ textSizeInt);*/
+
+        bitmapBullet = BitmapFactory.decodeResource(App.getContext().getResources(),
+                R.drawable.ico_asterisk_white);
+        int medidaTextSize = 0;
+
+        /**
+         * Obtenemos la resolucion de la pantalla y enviamos la medida necesaria
+         */
+        DisplayMetrics metrics = App.getContext().getResources().getDisplayMetrics();
+        switch (metrics.densityDpi) {
+            case DisplayMetrics.DENSITY_LOW:
+                break;
+            case DisplayMetrics.DENSITY_MEDIUM:
+                medidaTextSize = obtenerMedidas(tv1Num, 2);
+                break;
+            case DisplayMetrics.DENSITY_HIGH:
+                medidaTextSize = obtenerMedidas(tv1Num, 3);
+                break;
+            case DisplayMetrics.DENSITY_XHIGH:
+                medidaTextSize = obtenerMedidas(tv1Num, 4);
+                break;
+            case DisplayMetrics.DENSITY_XXHIGH:
+                medidaTextSize = obtenerMedidas(tv1Num, 5);
+                break;
+            case DisplayMetrics.DENSITY_XXXHIGH:
+                medidaTextSize = obtenerMedidas(tv1Num, 5);
+                break;
+            default:
+                medidaTextSize = obtenerMedidas(tv1Num, 5);
+                break;
+        }
+
+        bitmapBullet = Bitmap.createScaledBitmap(bitmapBullet, medidaTextSize, medidaTextSize, true);
+        posCount = 0;
+    }public AsignarNipTextWatcher(EditText etGen, TextView tv1Num, TextView tv2Num,
+                                 TextView tv3Num, TextView tv4Num,TextView tv5Num, TextView tv6Num ,changeTxtWtxher listener,boolean fill) {
+        this.etGen = etGen;
+        this.tv1Num = tv1Num;
+        this.tv2Num = tv2Num;
+        this.tv3Num = tv3Num;
+        this.tv4Num = tv4Num;
+        this.tv5Num = tv5Num;
+        this.tv6Num = tv6Num;
+        this.listener = listener;
+        this.fill = fill;
         /*Log.d("ds","WNIP "+tv1Num.getWidth());
         float textSize = tv1Num.getTextSize();
         int textSizeInt = (int) textSize;
@@ -148,6 +198,7 @@ public class AsignarNipTextWatcher implements TextWatcher {
 
                     case 6:
                     tv6Num.setText("" + s.charAt(s.toString().length() - 1));
+                    if (fill)
                     listener.fill();
                     break;
             }

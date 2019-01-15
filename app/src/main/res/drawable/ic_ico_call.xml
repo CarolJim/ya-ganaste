@@ -1,0 +1,19 @@
+<vector android:height="24dp" android:viewportHeight="52"
+    android:viewportWidth="52" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#FFF" android:fillType="evenOdd" android:pathData="M41,15.256C41,8.748 34.501,2 26.5,2 18.499,2 12,8.748 12,15.256v9.72s1.392,0.922 3.515,1.768c0.012,5.117 2.724,9.498 7.103,12.106 0.072,0.043 0.163,0.085 0.234,0.127a7.36,7.36 0,0 0,7.514 -0.016c0.049,-0.03 0.078,-0.058 0.127,-0.088a14.31,14.31 0,0 0,5.087 -5.22c0.44,0.1 0.798,0.16 1.026,0.16 2.911,0 4.394,-3.534 4.394,-3.534V15.256z"/>
+    <path android:fillColor="#00000000" android:fillType="evenOdd"
+        android:pathData="M41,27V15.69C41,9.115 34.501,2 26.5,2 18.499,2 12,9.115 12,15.69v9.524M18.5,36v4M33.5,36v4M36.092,38.045l-9.64,8.171 2.951,4.105 9.64,-8.172zM16.763,38.304l9.495,8.34 -3.021,4.052 -9.495,-8.34z"
+        android:strokeColor="#0091CB" android:strokeWidth="2"/>
+    <path android:fillColor="#B4EAFF" android:fillType="evenOdd"
+        android:pathData="M11.309,29H12v-9h-0.691C9.1,20 7,21.914 7,23.902v1.253C7,27.143 9.1,29 11.309,29zM40.728,29H40v-9h0.692C43.061,20 45,21.744 45,23.877v1.278C45,27.27 43.078,29 40.728,29z"
+        android:strokeColor="#0091CB" android:strokeWidth="2"/>
+    <path android:fillColor="#00000000" android:fillType="evenOdd"
+        android:pathData="M37,23.478v3.153c0,5.025 -2.634,9.687 -7.001,12.261 -0.05,0.029 -0.079,0.057 -0.128,0.085a7.483,7.483 0,0 1,-7.524 0.017c-0.071,-0.041 -0.162,-0.083 -0.234,-0.125C17.719,36.296 15,31.623 15,26.576V20M20,9c0,6.125 12.61,14 19,14M15,19c0.795,-2.571 4.335,-6 7,-6"
+        android:strokeColor="#0091CB" android:strokeWidth="2"/>
+    <path android:fillColor="#00000000" android:fillType="evenOdd"
+        android:pathData="M26,35h8.965c1.984,0 3.768,-1.381 4.505,-3.486L40,30v-2"
+        android:strokeColor="#0091CB" android:strokeWidth="2"/>
+    <path android:fillColor="#B4EAFF" android:fillType="evenOdd"
+        android:pathData="M28,36h-3a2,2 0,0 1,-2 -2v-1a2,2 0,0 1,2 -2h3a2,2 0,0 1,2 2v1a2,2 0,0 1,-2 2z"
+        android:strokeColor="#0091CB" android:strokeWidth="2"/>
+</vector>

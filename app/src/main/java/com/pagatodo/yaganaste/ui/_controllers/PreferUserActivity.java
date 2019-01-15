@@ -16,6 +16,8 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioRespon
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.modules.sidebar.HelpYaGanaste.HelpYaGanasteFragment;
+import com.pagatodo.yaganaste.modules.sidebar.Settings.SettingsFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -177,10 +179,13 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             loadFragment(QRFragment.newInstance());
         } else if (getIntent().getIntExtra(MENU, 0) == MENU_CONTACTO) {
             //loadFragment(ContactoFragment.newInstance());
-            loadFragment(TutorialsFragment.newInstance());
+            //loadFragment(TutorialsFragment.newInstance());
+            loadFragment(HelpYaGanasteFragment.newInstance());
         } else {
             loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
             //loadFragment(SecuritySettignsFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
+
+            //loadFragment(SettingsFragment.newInstance());
         }
 
         mContext = this;
@@ -353,7 +358,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 //loadFragment(SecurityFragment.newInstance(MENU_SEGURIDAD), Direction.BACK, false);
                 //loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""), Direction.BACK, false);
-                loadFragment(SecuritySettignsFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""), Direction.BACK, false);
+                //loadFragment(SecuritySettignsFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""), Direction.BACK, false);
+                loadFragment(SecuritySettignsFragment.newInstance(), Direction.BACK, false);
 
                 break;
 
@@ -396,7 +402,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
             case "PREFER_NOTIFICACIONES_BACK":
                 //loadFragment(SecurityFragment.newInstance(MENU_AJUSTES, ""), Direction.BACK, false);
-                loadFragment(SecuritySettignsFragment.newInstance(MENU_AJUSTES, ""), Direction.BACK, false);
+                //loadFragment(SecuritySettignsFragment.newInstance(MENU_AJUSTES, ""), Direction.BACK, false);
+                loadFragment(SecuritySettignsFragment.newInstance(),Direction.BACK, false);
                 break;
             /** Eventos BACK **/
             case "PREFER_USER_LISTA":
@@ -405,7 +412,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 break;
             case "PREFER_SECURITY_SUCCESS_PASS":
                 //loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), Recursos.MESSAGE_CHANGE_PASS), Direction.BACK, false);
-                loadFragment(SecuritySettignsFragment.newInstance(getIntent().getIntExtra(MENU, 0), Recursos.MESSAGE_CHANGE_PASS), Direction.BACK, false);
+                //loadFragment(SecuritySettignsFragment.newInstance(getIntent().getIntExtra(MENU, 0), Recursos.MESSAGE_CHANGE_PASS), Direction.BACK, false);
+                loadFragment(SecuritySettignsFragment.newInstance(), Direction.BACK, false);
                 break;
             case "DISABLE_BACK":
                 if (data.toString().equals("true")) {

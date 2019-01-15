@@ -40,14 +40,12 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
-import com.pagatodo.yaganaste.ui.account.login.BlockCardFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.account.login.LoginManagerContainerFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
-import com.pagatodo.yaganaste.ui_wallet.dialog.DialogSetPassword;
 import com.pagatodo.yaganaste.ui_wallet.dialog.DialogSetPasswordLogin;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ICardBalance;
@@ -95,7 +93,6 @@ import eu.davidea.flipview.FlipView;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_ADMIN_ADQ;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_CHECK_MONEY_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_VENTAS;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENT;
@@ -121,7 +118,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
-import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SHORTCUT_CHARGE;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
@@ -848,7 +844,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         Picasso.with(getContext())
                 .load(StringUtils.procesarURLString(mUserImage))
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
-                .error(R.mipmap.icon_user)
+                .error(R.mipmap.icon_user_fail)
                 .into(crlProfileBalance);
     }
 

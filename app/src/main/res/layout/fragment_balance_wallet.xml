@@ -33,7 +33,7 @@
                     android:id="@+id/img_profile_balance"
                     android:layout_width="67dp"
                     android:layout_height="67dp"
-                    android:src="@mipmap/icon_user" />
+                    android:src="@mipmap/icon_user_fail" />
             </LinearLayout>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView

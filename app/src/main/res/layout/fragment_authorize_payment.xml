@@ -46,7 +46,7 @@
                     android:layout_height="@dimen/radio_image_pago_payment_tab"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:src="@mipmap/icon_user" />
+                    android:src="@mipmap/icon_user_fail" />
 
                 <ImageView
                     android:id="@+id/imageView4"

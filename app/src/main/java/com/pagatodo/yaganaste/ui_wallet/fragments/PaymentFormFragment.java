@@ -531,7 +531,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         if (!imagenavatar.equals("")) {
             Picasso.with(App.getContext())
                     .load(imagenavatar)
-                    .placeholder(R.mipmap.icon_user)
+                    .placeholder(R.mipmap.icon_user_fail)
                     .into(imgUserPhoto);
         }
 
@@ -539,7 +539,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             if (!favoritos.getImagenURL().equals("")) {
                 Picasso.with(getContext())
                         .load(favoritos.getImagenURL())
-                        .placeholder(R.mipmap.icon_user)
+                        .placeholder(R.mipmap.icon_user_fail)
                         .into(circuleDataPhoto);
                 txtIniciales.setVisibility(View.GONE);
             } else {
@@ -553,7 +553,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             if (!comercioResponse.getLogoURLColor().equals("")) {
                 Picasso.with(App.getContext())
                         .load(App.getContext().getString(R.string.url_images_logos) + comercioResponse.getLogoURLColor())
-                        .placeholder(R.mipmap.icon_user)
+                        .placeholder(R.mipmap.icon_user_fail)
                         .into(imageDataPhoto);
             }
             txtIniciales.setVisibility(View.GONE);
@@ -603,7 +603,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             if (!mPhoto.equals("")) {
                 Picasso.with(App.getContext())
                         .load(mPhoto)
-                        .placeholder(R.mipmap.icon_user)
+                        .placeholder(R.mipmap.icon_user_fail)
                         .into(circuleDataPhoto);
             }
             //  circuleDataPhoto.setBorderColor(Color.parseColor(favoritos.getColorMarca()));
@@ -614,7 +614,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             if (!mPhoto.equals("")) {
                 Picasso.with(App.getContext())
                         .load(App.getContext().getString(R.string.url_images_logos) + mPhoto)
-                        .placeholder(R.mipmap.icon_user)
+                        .placeholder(R.mipmap.icon_user_fail)
                         .into(imageDataPhoto);
             }
             //  circuleDataPhoto.setBorderColor(Color.parseColor(comercioResponse.getColorMarca()));

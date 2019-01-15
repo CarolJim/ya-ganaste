@@ -64,7 +64,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/button_no"
-            android:text="@string/inicia_sesion"
+            android:text="@string/set_credentials_login"
             android:textAllCaps="false"
             android:textColor="@color/blue_text_wallet"
             android:textSize="16sp" />

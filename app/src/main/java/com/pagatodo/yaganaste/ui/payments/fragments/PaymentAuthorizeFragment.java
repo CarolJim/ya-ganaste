@@ -208,14 +208,14 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         if (!App.getInstance().getPrefs().loadData(URL_PHOTO_USER).isEmpty()) {
             Picasso.with(App.getContext())
                     .load(App.getInstance().getPrefs().loadData(URL_PHOTO_USER))
-                    .placeholder(R.mipmap.icon_user)
+                    .placeholder(R.mipmap.icon_user_fail)
                     .into(imgPagosUserProfile);
         }
         if (favoritos != null && !favoritos.getImagenURL().equals("")) {
             txtIniciales.setVisibility(View.GONE);
             Picasso.with(App.getContext())
                     .load(favoritos.getImagenURL())
-                    .placeholder(R.mipmap.icon_user)
+                    .placeholder(R.mipmap.icon_user_fail)
                     .into(imgCircleToSendReceiver);
         } else {
             imgCircleToSendReceiver.setBorderColor(android.graphics.Color.parseColor(envio.getComercio().getColorMarca()));

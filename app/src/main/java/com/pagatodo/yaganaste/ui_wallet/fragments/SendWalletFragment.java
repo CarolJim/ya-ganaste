@@ -27,7 +27,6 @@ import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -108,7 +107,7 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
             if (!favoritos.getImagenURL().equals("")) {
                 Picasso.with(getContext())
                         .load(favoritos.getImagenURL())
-                        .placeholder(R.mipmap.icon_user)
+                        .placeholder(R.mipmap.icon_user_fail)
                         .into(crlImageFavorite);
             } else {
                 txtInicialesFav.setVisibility(View.VISIBLE);

@@ -44,8 +44,6 @@ import com.pagatodo.yaganaste.modules.emisor.VirtualCardAccount.MyVirtualCardAcc
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
 import com.pagatodo.yaganaste.ui.account.AprovPresenter;
-import com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment;
-import com.pagatodo.yaganaste.ui.account.login.BlockCardFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
@@ -635,19 +633,19 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         if (App.getInstance().getPrefs().loadData(GENERO) == "H" || App.getInstance().getPrefs().loadData(GENERO) == "h") {
             String mUserImage = App.getInstance().getPrefs().loadData(URL_PHOTO_USER);
             Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
-                    .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_el)
+                    .placeholder(R.mipmap.icon_user_fail).error(R.drawable.avatar_el)
                     .into(imgLoginExistProfile);
 
         } else if (App.getInstance().getPrefs().loadData(GENERO) == "M" || App.getInstance().getPrefs().loadData(GENERO) == "m") {
             String mUserImage = App.getInstance().getPrefs().loadData(URL_PHOTO_USER);
             Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
-                    .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_ella)
+                    .placeholder(R.mipmap.icon_user_fail).error(R.drawable.avatar_ella)
                     .into(imgLoginExistProfile);
 
         } else {
             String mUserImage = App.getInstance().getPrefs().loadData(URL_PHOTO_USER);
             Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
-                    .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+                    .placeholder(R.mipmap.icon_user_fail).error(R.mipmap.icon_user_fail)
                     .into(imgLoginExistProfile);
         }
     }
