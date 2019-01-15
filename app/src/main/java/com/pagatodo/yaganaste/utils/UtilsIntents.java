@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.support.v4.app.ActivityCompat;
+import androidx.core.app.ActivityCompat;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;

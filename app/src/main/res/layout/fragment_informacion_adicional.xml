@@ -147,7 +147,7 @@
                     android:tint="@color/colorAccent" />
             </LinearLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_cargo"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -179,7 +179,7 @@
                     android:theme="@style/NewEdittextwallet"
                     tools:ignore="LabelFor,RtlSymmetry" />
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <LinearLayout

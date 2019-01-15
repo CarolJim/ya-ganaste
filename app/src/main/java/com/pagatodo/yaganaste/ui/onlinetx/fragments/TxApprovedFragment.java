@@ -2,8 +2,8 @@ package com.pagatodo.yaganaste.ui.onlinetx.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.view.ContextThemeWrapper;
+import androidx.annotation.Nullable;
+import androidx.appcompat.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

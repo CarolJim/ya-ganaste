@@ -1,7 +1,7 @@
 package com.pagatodo.yaganaste.utils;
 
-import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
+import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
 
 import com.pagatodo.yaganaste.App;
 

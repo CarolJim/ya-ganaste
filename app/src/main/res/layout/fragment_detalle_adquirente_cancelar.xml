@@ -18,7 +18,7 @@
             android:orientation="vertical">
 
 
-            <android.support.v4.widget.Space
+            <androidx.legacy.widget.Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_form_top" />
 
@@ -84,7 +84,7 @@
 
             </LinearLayout>
 
-            <android.support.v4.widget.Space
+            <androidx.legacy.widget.Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_big" />
 
@@ -103,7 +103,7 @@
                     android:gravity="end"
                     android:text="@string/txt_concepto" />
 
-                <android.support.v4.widget.Space
+                <androidx.legacy.widget.Space
                     android:layout_width="@dimen/margin_xsmall"
                     android:layout_height="match_parent" />
 
@@ -131,7 +131,7 @@
                     android:gravity="end"
                     android:text="@string/txt_fecha" />
 
-                <android.support.v4.widget.Space
+                <androidx.legacy.widget.Space
                     android:layout_width="@dimen/margin_xsmall"
                     android:layout_height="match_parent" />
 
@@ -159,7 +159,7 @@
                     android:gravity="end"
                     android:text="@string/txt_hora" />
 
-                <android.support.v4.widget.Space
+                <androidx.legacy.widget.Space
                     android:layout_width="@dimen/margin_xsmall"
                     android:layout_height="match_parent" />
 
@@ -184,7 +184,7 @@
         android:layout_marginBottom="@dimen/btn_navigation_bottom"
         android:orientation="vertical">
 
-        <android.support.v4.widget.Space
+        <androidx.legacy.widget.Space
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_regular" />
 
@@ -213,7 +213,7 @@
                 android:textSize="@dimen/size_text_style_2_value"
                 android:visibility="visible" />
 
-            <android.support.v4.widget.Space
+            <androidx.legacy.widget.Space
                 android:layout_width="@dimen/btns_separation"
                 android:layout_height="match_parent" />
 

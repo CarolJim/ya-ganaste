@@ -2,7 +2,7 @@ package com.pagatodo.yaganaste.ui_wallet.views;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;

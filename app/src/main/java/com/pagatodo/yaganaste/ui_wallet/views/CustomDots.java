@@ -1,8 +1,8 @@
 package com.pagatodo.yaganaste.ui_wallet.views;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;

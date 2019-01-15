@@ -1,4 +1,4 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -261,7 +261,7 @@
                 android:orientation="horizontal"
                 android:visibility="visible">
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_num_telefono"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -289,7 +289,7 @@
                         android:textColor="@color/grayColor"
                         android:theme="@style/NewEdittextwallet" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <RelativeLayout
                     android:id="@+id/layoutImageContact"
@@ -361,7 +361,7 @@
                         android:orientation="horizontal"
                         android:visibility="visible">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_num_telefono2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -392,7 +392,7 @@
                                 android:textColorHint="@color/hint_color"
                                 android:theme="@style/NewEdittextwallet" />
 
-                        </android.support.design.widget.TextInputLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -407,7 +407,7 @@
                         android:orientation="horizontal"
                         android:visibility="visible">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_num_telefono3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -438,7 +438,7 @@
                                 android:textColor="@color/grayColor"
                                 android:theme="@style/NewEdittextwallet" />
 
-                        </android.support.design.widget.TextInputLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
 
                         <RelativeLayout
@@ -470,7 +470,7 @@
                         android:orientation="horizontal"
                         android:visibility="visible">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_num_telefono9"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -502,7 +502,7 @@
                                 android:textColor="@color/grayColor"
                                 android:theme="@style/NewEdittextwallet" />
 
-                        </android.support.design.widget.TextInputLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -547,7 +547,7 @@
                             android:textColor="@color/adadad"
                             app:tipo="Descripcion" />
 
-                        <android.support.v4.widget.Space
+                        <androidx.legacy.widget.Space
                             android:layout_width="3dp"
                             android:layout_height="3dp" />
 
@@ -584,4 +584,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

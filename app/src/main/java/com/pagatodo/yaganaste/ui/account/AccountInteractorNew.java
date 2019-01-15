@@ -2,7 +2,7 @@ package com.pagatodo.yaganaste.ui.account;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;

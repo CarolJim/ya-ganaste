@@ -1,7 +1,7 @@
 package com.pagatodo.yaganaste.utils.customviews;
 
 import android.app.DialogFragment;
-import android.support.v7.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 import android.view.View;
 import android.widget.AdapterView;
 

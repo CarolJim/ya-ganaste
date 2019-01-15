@@ -50,7 +50,7 @@
             android:orientation="vertical"
             android:padding="4dp">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_input_concepto"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -80,7 +80,7 @@
                     android:theme="@style/NewEdittextwallet"
                     tools:ignore="RtlSymmetry" />
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!--<com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/edtConcept"
@@ -171,7 +171,7 @@
         android:orientation="horizontal"
         android:visibility="gone">
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_arrow_previous"
             android:layout_width="@dimen/activity_horizontal_double_margin"
             android:layout_height="32dp"
@@ -180,7 +180,7 @@
             android:visibility="invisible"
             app:srcCompat="@drawable/arrow_canvas_blue" />
 
-        <android.support.v4.widget.Space
+        <androidx.legacy.widget.Space
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />

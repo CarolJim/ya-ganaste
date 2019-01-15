@@ -2,7 +2,7 @@ package com.pagatodo.yaganaste.utils.customviews;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatEditText;
 import android.text.Spannable;
 import android.text.TextWatcher;
 import android.text.method.MovementMethod;

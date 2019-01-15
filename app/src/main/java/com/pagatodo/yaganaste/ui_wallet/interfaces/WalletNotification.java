@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet.interfaces;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataInfoAgente;

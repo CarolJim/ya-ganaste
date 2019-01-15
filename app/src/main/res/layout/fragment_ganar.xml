@@ -52,7 +52,7 @@
             android:orientation="horizontal">
 
 
-            <android.support.v4.widget.Space
+            <androidx.legacy.widget.Space
                 android:layout_width="@dimen/btns_separation"
                 android:layout_height="match_parent" />
 

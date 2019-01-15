@@ -1,7 +1,7 @@
 package com.pagatodo.yaganaste.interfaces.enums;
 
 import android.content.Context;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;

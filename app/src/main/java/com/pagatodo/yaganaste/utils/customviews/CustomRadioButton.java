@@ -13,7 +13,7 @@ import com.pagatodo.yaganaste.utils.FontCache;
  * Created by icruz on 20/02/2018.
  */
 
-public class CustomRadioButton extends android.support.v7.widget.AppCompatRadioButton {
+public class CustomRadioButton extends androidx.appcompat.widget.AppCompatRadioButton {
 
     public CustomRadioButton(Context context) {
         super(context);

@@ -20,7 +20,7 @@
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/onboarding" />
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_onboarding"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

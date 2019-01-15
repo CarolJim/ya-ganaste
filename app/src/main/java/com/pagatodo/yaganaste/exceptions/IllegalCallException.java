@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.exceptions;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * @author Juan Guerra on 24/03/2017.

@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.freja.token.presenter;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * @author Juan Guerra on 11/04/2017.

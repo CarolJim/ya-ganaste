@@ -89,7 +89,7 @@
                 -->
 
                 <!-- Elemento de nobre del favorito. SIEMPRE visible en todos los campos -->
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_num_telefono2"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -123,10 +123,10 @@
                         android:textColor="@color/texthint_edittext"
                         android:textSize="14sp" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Elemento para escoger servicio del favorito. Compañia o Banco. SIEMPRE visible -->
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txt_lyt_list_serv"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -160,11 +160,11 @@
                         android:textSize="14sp"
                         android:windowSoftInputMode="stateHidden" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Elemento auxiliar VISUAL que muestra el tipo de servicio que vamos a guardar, en AddNew NO SE muestra
                 solo debe verse en AddNewFromPago. Y solo en Envios -->
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/add_favorites_linear_tipo"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -198,7 +198,7 @@
                         android:windowSoftInputMode="stateHidden"
                         app:maxLength="50" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Elemento oculto, se usa para validar que tenemos SET de idTipoEnvio, el campo anterior lo
                 pinta textualmente, este se encarga de tener la referencia numerica, este se usa para
@@ -240,7 +240,7 @@
                     android:orientation="horizontal"
                     android:visibility="gone">
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/txt_til_tae"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -273,7 +273,7 @@
                             android:singleLine="true"
                             android:textColor="@color/texthint_edittext"
                             android:textSize="14sp" />
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <RelativeLayout
                         android:id="@+id/layoutImageContact"
@@ -318,7 +318,7 @@
                     android:orientation="horizontal"
                     android:visibility="gone">
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/referencianumber"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -347,7 +347,7 @@
                             android:singleLine="true"
                             android:textColor="@color/texthint_edittext"
                             android:textSize="14sp" />
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <RelativeLayout
                         android:id="@+id/layoutImageReference"
@@ -398,7 +398,7 @@
                     android:orientation="horizontal"
                     android:visibility="gone">
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_num_telefono"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -430,7 +430,7 @@
                             android:textColor="@color/texthint_edittext"
                             android:textSize="14sp" />
 
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <RelativeLayout
                         android:id="@+id/layoutImageContact2"
@@ -557,7 +557,7 @@
                 android:text="@string/backButton"
                 android:visibility="gone" />
 
-            <android.support.v4.widget.Space
+            <androidx.legacy.widget.Space
                 android:layout_width="@dimen/btns_separation"
                 android:layout_height="match_parent"
                 android:visibility="gone" />

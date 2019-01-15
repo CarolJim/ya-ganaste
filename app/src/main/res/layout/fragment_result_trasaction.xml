@@ -19,7 +19,7 @@
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:padding="@dimen/generic_padig">
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgResult"
             android:layout_width="140dp"
             android:layout_height="140dp"
@@ -94,7 +94,7 @@
             android:visibility="gone"
             android:weightSum="100">
 
-            <android.support.v4.widget.Space
+            <androidx.legacy.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="30" />
@@ -118,7 +118,7 @@
                 android:textColor="@color/whiteColor"
                 android:textSize="16sp" />
 
-            <android.support.v4.widget.Space
+            <androidx.legacy.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="30" />

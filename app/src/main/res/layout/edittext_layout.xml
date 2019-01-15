@@ -19,7 +19,7 @@
                 android:layout_width="@dimen/custom_validation_edittext_imagelay_width"
                 android:layout_height="match_parent">
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageViewValidation"
                     android:layout_width="15dp"
                     android:layout_height="@dimen/custom_validation_edittext_image_height"

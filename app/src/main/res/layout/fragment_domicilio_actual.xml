@@ -48,7 +48,7 @@
                 android:textSize="14sp"
                 app:tipo="Text" />
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_calle"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -82,7 +82,7 @@
                     android:textColor="@color/grayColor"
                     android:theme="@style/NewEdittextwallet" />
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <LinearLayout
@@ -94,7 +94,7 @@
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/text_num_exterior"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -126,9 +126,9 @@
                         android:textColor="@color/grayColor"
                         android:theme="@style/NewEdittextwallet" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/text_num_interior"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -162,9 +162,9 @@
                         android:textColor="@color/grayColor"
                         android:theme="@style/NewEdittextwallet" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/text_cp"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -200,7 +200,7 @@
                         android:textColor="@color/grayColor"
                         android:theme="@style/NewEdittextwallet" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
@@ -361,7 +361,7 @@
                             app:isSingleLine="true"
                             app:maxLength="12" />
 
-                        <android.support.v4.widget.Space
+                        <androidx.legacy.widget.Space
                             android:layout_width="@dimen/generic_padig"
                             android:layout_height="match_parent" />
 

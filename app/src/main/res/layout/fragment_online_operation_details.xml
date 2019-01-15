@@ -16,11 +16,11 @@
         android:gravity="center_horizontal"
         style="@style/generic_text_style_3" />
 
-    <android.support.v4.widget.Space
+    <androidx.legacy.widget.Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/space" />
 
-    <android.support.v4.widget.Space
+    <androidx.legacy.widget.Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/space" />
 
@@ -31,7 +31,7 @@
         style="@style/generic_text_style_1"
         tools:text="Envio de Dinero" />
 
-    <android.support.v4.widget.Space
+    <androidx.legacy.widget.Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/space" />
 
@@ -41,7 +41,7 @@
         android:text="@string/monto"
         style="@style/generic_text_style_2" />
 
-    <android.support.v4.widget.Space
+    <androidx.legacy.widget.Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_between_forms" />
 
@@ -56,7 +56,7 @@
         app:dotBottom="false"
         app:symbolSmaller="true" />
 
-    <android.support.v4.widget.Space
+    <androidx.legacy.widget.Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/space" />
 
@@ -66,7 +66,7 @@
         style="@style/generic_text_style_2"
         android:text= "@string/a_la_cuenta"/>
 
-    <android.support.v4.widget.Space
+    <androidx.legacy.widget.Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/space" />
 
@@ -77,7 +77,7 @@
         style="@style/generic_text_style_3"
         tools:text="**** **** **** 8765" />
 
-    <android.support.v4.widget.Space
+    <androidx.legacy.widget.Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/space" />
 
@@ -88,7 +88,7 @@
         android:text="@string/ingresa_tu_contrasenia"
         style="@style/generic_text_style_3" />
 
-    <android.support.v4.widget.Space
+    <androidx.legacy.widget.Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_between_forms" />
 
@@ -103,7 +103,7 @@
         app:hintText="@string/txt_escribe_tu_pass"
         app:isTextEnabled="true"/>
 
-    <android.support.v4.widget.Space
+    <androidx.legacy.widget.Space
         android:layout_width="match_parent"
         android:layout_height = "0dp"
         android:layout_weight="1"/>

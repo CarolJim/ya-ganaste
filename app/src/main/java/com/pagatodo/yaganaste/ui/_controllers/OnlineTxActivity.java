@@ -3,7 +3,7 @@ package com.pagatodo.yaganaste.ui._controllers;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.Menu;
 
 import com.pagatodo.yaganaste.R;

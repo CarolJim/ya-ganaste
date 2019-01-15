@@ -4,7 +4,7 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;

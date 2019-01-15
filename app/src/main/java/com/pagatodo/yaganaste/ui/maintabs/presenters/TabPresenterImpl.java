@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.ui._manager.GenericPresenterMain;

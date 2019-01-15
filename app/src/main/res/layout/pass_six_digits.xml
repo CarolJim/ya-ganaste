@@ -31,7 +31,7 @@
         android:orientation="horizontal">
 
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:imeOptions="actionNext"
             android:id="@+id/textPass1"
             android:layout_width="0dp"
@@ -56,7 +56,7 @@
 
         </LinearLayout>
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textPass2"
             android:layout_width="0dp"
             android:layout_height="35dp"
@@ -81,7 +81,7 @@
 
         </LinearLayout>
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textPass3"
             android:layout_width="0dp"
             android:layout_height="35dp"
@@ -108,7 +108,7 @@
 
         </LinearLayout>
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textPass4"
             android:layout_width="0dp"
             android:layout_height="35dp"
@@ -133,7 +133,7 @@
 
         </LinearLayout>
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textPass5"
             android:layout_width="0dp"
             android:layout_height="35dp"
@@ -159,7 +159,7 @@
 
         </LinearLayout>
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textPass6"
             android:layout_width="0dp"
             android:layout_height="35dp"

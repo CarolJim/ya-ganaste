@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatSeekBar;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.AppCompatSeekBar;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -22,7 +22,7 @@ public class SeekBarNoTouch extends AppCompatSeekBar {
     }
 
     public SeekBarNoTouch(Context context, AttributeSet attrs) {
-        this(context, attrs, android.support.v7.appcompat.R.attr.seekBarStyle);
+        this(context, attrs, androidx.appcompat.appcompat.R.attr.seekBarStyle);
     }
 
     public SeekBarNoTouch(Context context, AttributeSet attrs, int defStyleAttr) {

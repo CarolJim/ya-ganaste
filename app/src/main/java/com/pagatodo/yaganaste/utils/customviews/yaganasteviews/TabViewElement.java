@@ -1,7 +1,7 @@
 package com.pagatodo.yaganaste.utils.customviews.yaganasteviews;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutCompat;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
 
 /**

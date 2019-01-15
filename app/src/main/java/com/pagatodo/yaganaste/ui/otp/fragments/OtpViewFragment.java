@@ -3,7 +3,7 @@ package com.pagatodo.yaganaste.ui.otp.fragments;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;

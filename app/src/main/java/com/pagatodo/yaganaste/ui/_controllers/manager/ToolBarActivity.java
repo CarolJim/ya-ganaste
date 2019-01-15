@@ -1,10 +1,10 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
 import android.content.Intent;
-import android.support.annotation.CallSuper;
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.CallSuper;
+import androidx.annotation.LayoutRes;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
