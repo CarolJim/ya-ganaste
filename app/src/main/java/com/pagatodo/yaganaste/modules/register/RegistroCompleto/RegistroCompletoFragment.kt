@@ -44,6 +44,7 @@ class RegistroCompletoFragment : GenericFragment(), RegistroCompletoContracts.Pr
 
     override fun initViews() {
         activity.hideStepBar()
+        activity.showBack(false)
         binding.btnFinishRegister.setOnClickListener(this)
     }
 
