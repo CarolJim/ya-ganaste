@@ -319,13 +319,13 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                     dataIniciarSesion.emisor = dataUser.emisor
                     dataIniciarSesion.usuario = dataUser.usuario
                     presenter.onUserCreated()
-                    var registerUserSingleton = RegisterUserNew.getInstance()
+                    /*var registerUserSingleton = RegisterUserNew.getInstance()
                     registerUserSingleton.email=""
                     registerUserSingleton.nombre=""
                     registerUserSingleton.apellidoPaterno=""
                     registerUserSingleton.apellidoMaterno=""
                     registerUserSingleton.genero=""
-                    registerUserSingleton.fechaNacimiento=""
+                    registerUserSingleton.fechaNacimiento=""*/
 
                 } else {
                     presenter.onErrorService(response.mensaje)

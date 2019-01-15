@@ -164,6 +164,7 @@
     <string name="deseaDesasociarDispositivo">¿Estás seguro que deseas desvincular tu dispositivo?</string>
     <string name="deseaRealizarLlamada">¿Desea llamar ahora?</string>
     <string name="sel_fotografia">Seleccionar fotografía</string>
+    <string name="take_fotografia">Cambiar foto</string>
     <string name="error_take_photo">Imagen duplicada, intenta con una diferente</string>
     <string name="myUserText">Mi Usuario</string>
     <string name="desvincular">Desvincular</string>
@@ -350,8 +351,8 @@
     <string name="titulo_dialogo_huella_generacion_codigo">Generar código de seguridad</string>
     <string name="authorize_generacion_codigo_huella_digital">Coloque su huella digital para verificar su identidad</string>
     <string name="action_picture">Seleccionar Fotografía</string>
-    <string name="action_take_picture">Abrir Cámara</string>
-    <string name="action_select_picture">Abrir Galería</string>
+    <string name="action_take_picture">Tomar foto</string>
+    <string name="action_select_picture">Elegir una foto</string>
     <string name="action_select_picture_cancel">Cancelar</string>
 
     <!--datos_usuario-->

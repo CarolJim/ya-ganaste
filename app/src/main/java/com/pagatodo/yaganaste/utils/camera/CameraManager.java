@@ -17,7 +17,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -177,12 +179,13 @@ public class CameraManager {
     /*Agregamos selección de carrete*/
     private void selectImageSource(final int documentId) {
         final CharSequence[] items = {mContext.getString(R.string.action_take_picture),
-                mContext.getString(R.string.action_select_picture),
-                mContext.getString(R.string.action_select_picture_cancel)};
+                mContext.getString(R.string.action_select_picture)/*,
+                mContext.getString(R.string.action_select_picture_cancel)*/};
         LayoutInflater titleInflater = mContext.getLayoutInflater();
         View dialogTittle = titleInflater.inflate(R.layout.tittle_dialog, null);
         dialogTittle.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
+
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
         dialogBuilder.setCustomTitle(dialogTittle);
@@ -205,7 +208,15 @@ public class CameraManager {
         AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.setCancelable(false);
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "CANCELAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
         alertDialog.show();
+
     }
 
 

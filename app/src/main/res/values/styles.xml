@@ -647,6 +647,14 @@
         <item name="tipo">Text</item>
     </style>
 
+    <style name="generic_text_style_2_dialog">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="android:button">@color/transparent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="tipo">Text</item>
+    </style>
+
 
     <!-- Estilo para titulos de fragments -->
     <style name="title_fragment">
