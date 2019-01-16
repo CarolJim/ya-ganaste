@@ -40,10 +40,6 @@ public class RegRouter implements RegContracts.Router {
     public void showUserData(Direction direction) {
         activity.loadFragment(RegistroCorreoFragment.newInstance(), R.id.fragment_container,
                 direction, false);
-
-        /*activity.loadFragment(AgregaQRFragmentisma.newInstance(), R.id.fragment_container,
-                direction, false);
-*/
     }
 
     /**

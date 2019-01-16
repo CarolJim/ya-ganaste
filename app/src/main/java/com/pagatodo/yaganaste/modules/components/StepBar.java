@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.modules.components;
 
 import android.content.Context;
-import android.os.Build;
 import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.Gravity;
