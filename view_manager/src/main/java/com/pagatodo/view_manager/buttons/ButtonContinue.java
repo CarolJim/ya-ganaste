@@ -2,7 +2,7 @@ package com.pagatodo.view_manager.buttons;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 

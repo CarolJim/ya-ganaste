@@ -2,9 +2,6 @@ package com.pagatodo.yaganaste.modules.register.PhysicalCode;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -17,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.QRs;
 import com.pagatodo.yaganaste.data.model.RegisterUserNew;
@@ -28,6 +26,8 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -80,6 +80,7 @@ public class NewLinkedCodeFragment extends GenericFragment implements TextWatche
         textNameQR.setText(registerAgent.getNombreNegocio());
 
         editNameQR.requestFocus();
+        editNameQR.setSelection(editNameQR.getText().length());
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
         imm.showSoftInput(editNameQR, InputMethodManager.SHOW_IMPLICIT);
@@ -100,7 +101,6 @@ public class NewLinkedCodeFragment extends GenericFragment implements TextWatche
         editNameQR.setOnEditorActionListener(this);
         editNameQR.setOnFocusChangeListener(this);
         btnContinue.setOnClickListener(this);
-
     }
 
     private String lastCode(String code){

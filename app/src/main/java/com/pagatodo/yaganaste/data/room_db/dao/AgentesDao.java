@@ -1,15 +1,15 @@
 package com.pagatodo.yaganaste.data.room_db.dao;
 
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.Query;
+import androidx.room.Dao;
+import androidx.room.Ignore;
+import androidx.room.Insert;
+import androidx.room.Query;
 
 import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 
 import java.util.List;
 
-import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
+import static androidx.room.OnConflictStrategy.IGNORE;
 
 @Dao
 public interface AgentesDao {

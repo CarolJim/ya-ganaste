@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.data.dto;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 

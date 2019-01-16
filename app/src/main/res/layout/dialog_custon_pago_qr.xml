@@ -76,7 +76,7 @@
             android:orientation="horizontal"
             android:weightSum="2.3">
 
-            <android.support.v4.widget.Space
+            <androidx.legacy.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.1" />
@@ -96,7 +96,7 @@
                 app:cornerRadius="@dimen/btn_corner_radius"
                 app:intercepterOnclick="true" />
 
-            <android.support.v4.widget.Space
+            <androidx.legacy.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.1" />
@@ -116,7 +116,7 @@
                 app:cornerRadius="@dimen/btn_corner_radius"
                 app:intercepterOnclick="true" />
 
-            <android.support.v4.widget.Space
+            <androidx.legacy.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.1" />

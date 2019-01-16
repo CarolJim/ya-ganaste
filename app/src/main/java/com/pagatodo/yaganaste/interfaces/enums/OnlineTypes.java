@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.interfaces.enums;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

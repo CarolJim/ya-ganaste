@@ -1,7 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 import android.app.Activity;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.ui_wallet.holders.GenericHolder;

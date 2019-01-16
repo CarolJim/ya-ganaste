@@ -67,7 +67,7 @@
 
 
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/text_email"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -95,8 +95,8 @@
                         android:singleLine="true"
                         android:textColor="@color/grayColor"
                         android:theme="@style/NewEdittextwallet" />
-                </android.support.design.widget.TextInputLayout>
-                <android.support.design.widget.TextInputLayout
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/text_password"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -129,7 +129,7 @@
                         android:singleLine="true"
                         android:textColor="@color/grayColor"
                         android:theme="@style/NewEdittextwallet" />
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -142,7 +142,7 @@
                     android:textColor="@color/colortexto"
                     android:textSize="11sp" />
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/text_passwordconfirm"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -177,7 +177,7 @@
                         android:textColor="@color/grayColor"
                         android:theme="@style/NewEdittextwallet" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -281,7 +281,7 @@
                         android:text="@string/backButton"
                         android:visibility="gone" />
 
-                    <android.support.v4.widget.Space
+                    <androidx.legacy.widget.Space
                         android:layout_width="@dimen/btns_separation"
                         android:layout_height="match_parent" />
 

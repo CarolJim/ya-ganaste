@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -46,7 +47,7 @@ public class UploadDocumentViewfavorito extends RelativeLayout {
     private void init() {
         String infService = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
-
+        View view;
         /**
          * Se agrega una validacion para obtener la version de Android que usamos, para cargar un
          * layout alternativo en < Lolipop. Se hace el cambio porque el CircleImageView extiende de
@@ -54,15 +55,15 @@ public class UploadDocumentViewfavorito extends RelativeLayout {
          */
         // Check if we're running on Android 5.0 or higher
         if (Build.VERSION.SDK_INT >= 21) {
-            li.inflate(R.layout.item_file, this, true);
+            view = li.inflate(R.layout.item_file, this, true);
         } else {
             // Layout alternativo para < Lolipop
-            li.inflate(R.layout.item_file_4_4, this, true);
+            view = li.inflate(R.layout.item_file_4_4, this, true);
         }
 
-        circleImageView = ButterKnife.findById(this, R.id.imgItemGalleryMark); // Icono total
-        circleImageStatus = ButterKnife.findById(this, R.id.imgItemGalleryStatus); // Icono Status
-        imgCamera = ButterKnife.findById(this, R.id.imgItemGalleryPay); // Icono central
+        circleImageView = view.findViewById(R.id.imgItemGalleryMark); // Icono total
+        circleImageStatus = view.findViewById(R.id.imgItemGalleryStatus); // Icono Status
+        imgCamera = view.findViewById(R.id.imgItemGalleryPay); // Icono central
     }
 
     /**

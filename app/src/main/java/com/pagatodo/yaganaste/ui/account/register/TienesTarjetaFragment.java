@@ -4,7 +4,7 @@ package com.pagatodo.yaganaste.ui.account.register;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.IdRes;
+import androidx.annotation.IdRes;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;

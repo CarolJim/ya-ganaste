@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.interfaces.enums;
 
-import android.support.annotation.AnimRes;
+import androidx.annotation.AnimRes;
 
 import com.pagatodo.yaganaste.R;
 

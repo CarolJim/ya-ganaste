@@ -32,7 +32,7 @@
             app:numberCard="asd"/>
 
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ico_bloqueado"
             android:layout_width="43dp"
             android:layout_height="43dp"

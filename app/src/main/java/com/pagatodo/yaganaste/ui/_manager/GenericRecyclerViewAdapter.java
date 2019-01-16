@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.ui._manager;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 

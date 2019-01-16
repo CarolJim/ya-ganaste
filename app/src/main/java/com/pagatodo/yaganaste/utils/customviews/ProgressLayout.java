@@ -2,13 +2,11 @@ package com.pagatodo.yaganaste.utils.customviews;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +18,7 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 
-import butterknife.ButterKnife;
+import androidx.annotation.RequiresApi;
 
 /**
  * Created by flima on 24/03/2017.
@@ -50,10 +48,10 @@ public class ProgressLayout extends LinearLayout implements View.OnClickListener
     private void init() {
         String infService = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
-        li.inflate(R.layout.progress_layout, this, true);
-        imgBlur = ButterKnife.findById(this, R.id.img_blur_progress);
-        txtMessage = ButterKnife.findById(this, R.id.txtMessage);
-        frameProgresGif = ButterKnife.findById(this, R.id.frameProgresGif);
+        View view = li.inflate(R.layout.progress_layout, this, true);
+        imgBlur = view.findViewById(R.id.img_blur_progress);
+        txtMessage = view.findViewById(R.id.txtMessage);
+        frameProgresGif = view.findViewById(R.id.frameProgresGif);
 
        /* if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
             BitmapDrawable drawable = (BitmapDrawable) imgBlur.getDrawable();

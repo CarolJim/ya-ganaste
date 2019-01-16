@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
-import android.arch.persistence.room.Database;
+import androidx.room.Database;
 import android.content.Context;
 
 import com.pagatodo.yaganaste.App;

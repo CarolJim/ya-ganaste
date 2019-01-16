@@ -72,7 +72,7 @@ tools:context=".modules.emisor.PaymentToQR.operations.AgregarQRVirtual.AgregarQR
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/styleTextView5" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_name_qr"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -110,7 +110,7 @@ tools:context=".modules.emisor.PaymentToQR.operations.AgregarQRVirtual.AgregarQR
                 >
             </EditText>
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
     </LinearLayout>
@@ -142,7 +142,7 @@ tools:context=".modules.emisor.PaymentToQR.operations.AgregarQRVirtual.AgregarQR
             android:text="@string/backButton"
             android:visibility="gone" />
 
-        <android.support.v4.widget.Space
+        <androidx.legacy.widget.Space
             android:layout_width="@dimen/btns_separation"
             android:layout_height="match_parent" />
 

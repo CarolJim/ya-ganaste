@@ -3,12 +3,12 @@ package com.pagatodo.yaganaste.utils.customviews;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
 
-import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -42,10 +42,10 @@ public class ReferenciaView extends RelativeLayout {
     private void init() {
         String infService = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
-        li.inflate(R.layout.referencia_view, this, true);
+        View view = li.inflate(R.layout.referencia_view, this, true);
 
-        imagenStatus = ButterKnife.findById(this, R.id.imgStatus);
-        imgEstadoActual = ButterKnife.findById(this, R.id.imgEstadoActual);
+        imagenStatus = view.findViewById(R.id.imgStatus);
+        imgEstadoActual = view.findViewById(R.id.imgEstadoActual);
     }
 
 

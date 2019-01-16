@@ -1,7 +1,7 @@
 package com.pagatodo.yaganaste.utils.customviews.yaganasteviews;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;

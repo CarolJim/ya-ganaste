@@ -2,7 +2,7 @@ package com.pagatodo.yaganaste.ui._adapters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v4.view.PagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

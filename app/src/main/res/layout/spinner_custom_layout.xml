@@ -26,7 +26,7 @@
         android:layout_height="match_parent"
         android:visibility="gone">
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageViewCustomSpinner"
             android:layout_width="18dp"
             android:layout_height="18dp"

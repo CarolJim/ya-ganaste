@@ -17,7 +17,7 @@ import com.pagatodo.yaganaste.utils.FontCache;
  * Created by Jordan on 10/05/2017.
  */
 
-public class CustomSeekBarEnviar extends android.support.v7.widget.AppCompatSeekBar {
+public class CustomSeekBarEnviar extends androidx.appcompat.widget.AppCompatSeekBar {
     private int mThumbSize;
     private TextPaint mTextPaint;
     private String titleText;

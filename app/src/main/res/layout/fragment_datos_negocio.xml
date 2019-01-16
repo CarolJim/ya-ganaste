@@ -53,7 +53,7 @@
                     android:textSize="14sp"
                     app:tipo="Text" />
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/text_nombrenegoci"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -82,7 +82,7 @@
                         android:textColor="@color/grayColor"
                         android:theme="@style/NewEdittextwallet" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editBussinesNameold"
@@ -242,7 +242,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/text_lada"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
@@ -277,9 +277,9 @@
                             android:theme="@style/NewEdittextwallet"
                             tools:ignore="RtlSymmetry" />
 
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/text_telefono"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
@@ -312,7 +312,7 @@
                             android:textColor="@color/grayColor"
                             android:theme="@style/NewEdittextwallet" />
 
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText

@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.data.room_db.entities;
 
-import android.arch.persistence.room.ColumnInfo;
+import androidx.room.ColumnInfo;
 
 import com.google.gson.annotations.SerializedName;
 

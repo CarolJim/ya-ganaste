@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.factories;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;

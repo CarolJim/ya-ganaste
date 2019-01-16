@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet.presenter;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.model.SingletonUser;

@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -97,7 +97,7 @@
                     </HorizontalScrollView>
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:id="@+id/containerEnviosForm"
@@ -152,7 +152,7 @@
                             android:background="#c4c4c4"
                             android:visibility="invisible" />
 
-                        <android.support.v7.widget.AppCompatImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/imageViewCustomSpinner"
                             android:layout_width="12dp"
                             android:layout_height="12dp"
@@ -180,7 +180,7 @@
                     android:orientation="horizontal"
                     android:visibility="visible">
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/txt_lyt_cardnumber"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -210,7 +210,7 @@
                             android:textColor="@color/grayColor"
                             android:theme="@style/NewEdittextwallet" />
 
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <RelativeLayout
                         android:id="@+id/layoutImageContact"
@@ -264,7 +264,7 @@
                     </RelativeLayout>
                 </LinearLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txt_lyt_list_serv"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -299,9 +299,9 @@
                         android:theme="@style/NewEdittextwallet"
                         android:windowSoftInputMode="stateHidden" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txt_lyt_receiver_name"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -336,7 +336,7 @@
                         android:textColor="@color/grayColor"
                         android:theme="@style/NewEdittextwallet" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
                     android:id="@+id/envio_from_slide_view_ll"
@@ -345,7 +345,7 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/envio_from_slide_view_l1"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -381,9 +381,9 @@
                             android:textColor="@color/grayColor"
                             android:theme="@style/NewEdittextwallet" />
 
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/fragment_envios_referencia_layout"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -418,7 +418,7 @@
                             android:textColor="@color/grayColor"
                             android:theme="@style/NewEdittextwallet" />
 
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 

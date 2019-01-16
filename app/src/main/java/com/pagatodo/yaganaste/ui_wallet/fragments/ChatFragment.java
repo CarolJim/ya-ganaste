@@ -3,8 +3,8 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -40,7 +40,7 @@ import ai.api.model.Status;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.support.annotation.Dimension.SP;
+import static androidx.annotation.Dimension.SP;
 
 public class ChatFragment extends GenericFragment implements AIListener, View.OnClickListener{
 

@@ -28,7 +28,7 @@
             android:textSize="18sp"
             app:tipo="Text" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_email"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -61,9 +61,9 @@
                 android:textColor="@color/grayColor"
                 android:theme="@style/NewEdittextwallet" />
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_password"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -99,7 +99,7 @@
                 android:theme="@style/NewEdittextwallet" />
 
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/txtContrasenaReg"
@@ -123,7 +123,7 @@
             <include layout="@layout/asignar_pin_layout" />
 
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_passwordnewReg"
                 android:layout_width="276dp"
                 android:layout_height="53dp"
@@ -153,7 +153,7 @@
                     android:textColor="@color/texthint"
                     android:theme="@style/NewEdittextwallet" />
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
                 android:id="@+id/llay_eye_pass"
@@ -177,7 +177,7 @@
         </LinearLayout>
 
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_passwordconfirm"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -215,7 +215,7 @@
                 android:theme="@style/NewEdittextwallet" />
 
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/txtContrasenaRegConfirm"
             android:layout_width="match_parent"
@@ -238,7 +238,7 @@
             <include layout="@layout/asignar_pin_confirm_layout" />
 
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_passwordnewRegConfirm"
                 android:layout_width="276dp"
                 android:layout_height="53dp"
@@ -268,7 +268,7 @@
                     android:textColor="@color/texthint"
                     android:theme="@style/NewEdittextwallet" />
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
                 android:id="@+id/llay_eye_passConfirm"
@@ -334,7 +334,7 @@
                 android:text="@string/backButton"
                 android:visibility="gone" />
 
-            <android.support.v4.widget.Space
+            <androidx.legacy.widget.Space
                 android:layout_width="@dimen/btns_separation"
                 android:layout_height="match_parent" />
 

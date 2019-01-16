@@ -7,11 +7,11 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.content.ContextCompat
 import android.telephony.SmsManager
 import android.view.LayoutInflater
 import android.view.View
@@ -107,7 +107,7 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
                         else -> iteractor.createUser()
                     }
                 } else {
-                    UI.showErrorSnackBar(activity!!, getString(R.string.no_internet_access), Snackbar.LENGTH_LONG)
+                    UI.showErrorSnackBar(activity!!, getString(R.string.no_internet_access), com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
                 }
             }
         }
@@ -206,7 +206,7 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
 
     override fun onErrorService(message: String) {
         hideLoader()
-        UI.showErrorSnackBar(activity!!, message, Snackbar.LENGTH_SHORT)
+        UI.showErrorSnackBar(activity!!, message, com.google.android.material.snackbar.Snackbar.LENGTH_SHORT)
     }
 
     override fun onVerificationSmsFailed(message: String) {
@@ -248,9 +248,9 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
             override fun onReceive(context: Context, intent: Intent) {
                 when (resultCode) {
                     Activity.RESULT_OK ->
-                        UI.showSuccessSnackBar(activity!!, "SMS entregado", Snackbar.LENGTH_SHORT)
+                        UI.showSuccessSnackBar(activity!!, "SMS entregado", com.google.android.material.snackbar.Snackbar.LENGTH_SHORT)
                     Activity.RESULT_CANCELED -> {
-                        UI.showErrorSnackBar(activity!!, "SMS no entregado", Snackbar.LENGTH_SHORT)
+                        UI.showErrorSnackBar(activity!!, "SMS no entregado", com.google.android.material.snackbar.Snackbar.LENGTH_SHORT)
                     }
                 }
                 activity!!.unregisterReceiver(this)
@@ -266,7 +266,7 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
             when (resultCode) {
                 Activity.RESULT_OK -> {
                     hideLoader()
-                    UI.showSuccessSnackBar(activity!!, "Mensaje Enviado", Snackbar.LENGTH_SHORT)
+                    UI.showSuccessSnackBar(activity!!, "Mensaje Enviado", com.google.android.material.snackbar.Snackbar.LENGTH_SHORT)
                     Handler().postDelayed({ iteractor.verifyActivationSms() }, CHECK_SMS_VALIDATE_DELAY)
                 }
                 SmsManager.RESULT_ERROR_GENERIC_FAILURE -> goToLoginAlert(getString(R.string.fallo_envio))

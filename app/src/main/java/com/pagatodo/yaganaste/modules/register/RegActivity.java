@@ -4,8 +4,10 @@ package com.pagatodo.yaganaste.modules.register;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.fragment.app.Fragment;
+
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -202,4 +204,5 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
     public void onErrorValidatePlate(String error) {
         UI.showErrorSnackBar(this,error,Snackbar.LENGTH_SHORT);
     }
+
 }
