@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
-    android:background="@color/colorAccent"
+    android:background="@color/fbfbfb"
     android:focusableInTouchMode="true"
     android:padding="@dimen/activity_horizontal_margin"
     tools:context=".ui._controllers.AccountActivity">
@@ -105,14 +105,13 @@
                             android:gravity="center"
                             android:text="Terminar"
                             android:textAllCaps="false" />
-
             -->
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_continueEnvio"
                 android:layout_width="214dp"
                 android:layout_height="45dp"
-                android:background="@drawable/white_round_button"
+                android:background="@drawable/button_rounded_blue"
                 android:text="@string/txt_comenzar"
                 android:textAllCaps="false"
                 android:textColor="@color/whiteColor"

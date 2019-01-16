@@ -192,6 +192,7 @@ public class TransactionResultFragment extends GenericFragment implements View.O
             StyleButton btnPrimary = createButton(pageResultData.getBtnPrimaryType());
             btnPrimary.setOnClickListener(this);
             btnPrimary.setId(idBtnPrimary);
+            btnPrimary.setBackgroundResource(R.drawable.button_rounded_blue);
             btnPrimary.setText(pageResultData.getNamerBtnPrimary());
             llContentBtns.addView(new Space(getContext()), spaceParams);
             llContentBtns.addView(btnPrimary, params);
@@ -201,6 +202,7 @@ public class TransactionResultFragment extends GenericFragment implements View.O
                 StyleButton btnSecondary = createButton(pageResultData.getBtnSecundaryType());
                 btnSecondary.setOnClickListener(this);
                 btnSecondary.setId(idBtnSecondary);
+                btnSecondary.setBackgroundResource(R.drawable.button_rounded_blue);
                 btnSecondary.setText(pageResultData.getNamerBtnSecondary());
                 llContentBtns.addView(btnSecondary, params);
                 llContentBtns.addView(new Space(getContext()), spaceParams);

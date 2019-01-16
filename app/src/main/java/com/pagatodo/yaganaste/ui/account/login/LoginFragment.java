@@ -215,6 +215,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         ss = new SpannableString(getString(R.string.recover_pass));
         ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 0, 25, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(new UnderlineSpan(), 0, 25, 0);
+        edtUserName.setText("");
         txtLoginExistUserRecoverPass.setText(ss);
         txtLoginOperadorOtroUsuario.setOnClickListener(this);
 

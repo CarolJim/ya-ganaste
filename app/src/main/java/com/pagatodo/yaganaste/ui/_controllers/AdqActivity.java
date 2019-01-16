@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -92,9 +93,13 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
             case EVENT_GO_GET_SIGNATURE:
                 loadFragment(GetSignatureFragment.newInstance(), Direction.FORDWARD, false);
                 showBack(false);
+                showImageToolbar(false);
+                toolbarLayout.setVisibility(View.GONE);
                 break;
             case EVENT_GO_DETAIL_TRANSACTION:
                 loadFragment(DetailTransactionFragment.newInstance(), Direction.FORDWARD, false);
+                toolbarLayout.setVisibility(View.VISIBLE);
+                showImageToolbar(true);
                 showBack(false);
                 break;
             case EVENT_GO_MAINTAB:
