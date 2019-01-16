@@ -8,6 +8,9 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -39,10 +42,12 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CATALOG_VERSION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TIMEOUT;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_REGISTER;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_REGISTER_YG;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SPLASH;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 public class SplashActivity extends LoaderActivity implements IRequestResult, FileDownloadListener,
         IGetInfoFromFirebase {
@@ -58,6 +63,44 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.splash_activity_layout);
         imgLogo = (ImageView) findViewById(R.id.img_logo_splash);
+
+
+        App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/ConnectionTimeout").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    int connectionTimeout = dataSnapshot.getValue(Integer.class);
+                    App.getInstance().getPrefs().saveDataInt(CONNECTION_TIMEOUT, connectionTimeout);
+                } else {
+                    App.getInstance().getPrefs().saveDataInt(CONNECTION_TIMEOUT, 25000);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        // Validar visualización de Logs
+        App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/ShowLogs").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    boolean showLogs = dataSnapshot.getValue(Boolean.class);
+                    App.getInstance().getPrefs().saveDataBool(SHOW_LOGS_PROD, !BuildConfig.DEBUG ? showLogs : true);
+                } else {
+                    App.getInstance().getPrefs().saveDataBool(SHOW_LOGS_PROD, true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
         /*Bundle intent = getIntent().getExtras();
         if (intent != null && intent.get("id") != null) {
             // Recibimos todos los datos que estan en nuestro Intent
