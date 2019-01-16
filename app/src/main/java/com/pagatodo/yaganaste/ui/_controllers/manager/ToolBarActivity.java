@@ -25,7 +25,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     public static final int CODE_LOG_OUT = 3124;
     public static final int RESULT_LOG_OUT = 3125;
     public static final String EVENT_CHANGE_TOOLBAR_VISIBILITY = "eventChangeToolbarVisibility";
-    private View toolbarLayout;
+    public View toolbarLayout;
     public String mUserImage;
     private ImageView imgNotif, imgToolbar, imgOk;
     private StyleTextView omitir;
@@ -82,11 +82,11 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     }
 
     public void showToolbarShadow(boolean mBoolean) {
-        toolbarShadow.setVisibility(mBoolean ? View.VISIBLE : View.GONE);
+        this.toolbarShadow.setVisibility(mBoolean ? View.VISIBLE : View.GONE);
     }
 
     public void showImageToolbar(boolean mBoolean) {
-        imgToolbar.setVisibility(mBoolean ? View.VISIBLE : View.GONE);
+        this.imgToolbar.setVisibility(mBoolean ? View.VISIBLE : View.GONE);
     }
 
     public void showBack(boolean isBackShowing) {

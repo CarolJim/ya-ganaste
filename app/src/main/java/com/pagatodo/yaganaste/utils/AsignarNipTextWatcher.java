@@ -252,7 +252,7 @@ public class AsignarNipTextWatcher implements TextWatcher {
             listener.changeeye();
         } else {
             // Proceso de borrado de numeros,
-            handler.removeCallbacks(myRunnable);
+//            handler.removeCallbacks(myRunnable);
             int countString = etGen.getText().toString().length();
             switch (countString) {
                 case 0:

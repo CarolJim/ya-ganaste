@@ -133,11 +133,11 @@ public class OnboardingActivity extends LoaderActivity
 
     @Override
     public void onBackPressed() {
-        startActivity(OnboardingActivity.createIntent(this));
+        //startActivity(OnboardingActivity.createIntent(this));
         Fragment currentFragment =getCurrentFragment();
         if (currentFragment instanceof StartFragment){
             showNext(true);
-
+            startActivity(OnboardingActivity.createIntent(this));
         }
 
         super.onBackPressed();

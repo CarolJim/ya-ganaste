@@ -61,10 +61,17 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_vincular_cuenta, container, false)
         binding.btnSendSms.setOnClickListener(this)
         (activity!! as RegActivity).nextStep()
+        (activity!! as RegActivity).backvisivility(false)
+
+
+
         return binding.root
     }
 
-    override fun initViews() {}
+    override fun initViews() {
+
+
+    }
 
     override fun onResume() {
         super.onResume()
@@ -152,6 +159,22 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         hideLoader()
         iteractor.assignmentQrs()
         router.presentLinkedAccountScreen()
+        var registerUserSingleton = RegisterUserNew.getInstance()
+        registerUserSingleton.email=""
+        registerUserSingleton.nombre=""
+        registerUserSingleton.apellidoPaterno=""
+        registerUserSingleton.apellidoMaterno=""
+        registerUserSingleton.genero=""
+        registerUserSingleton.fechaNacimiento=""
+        registerUserSingleton.fechaNacimientoToShow=""
+        registerUserSingleton.nombreNegocio=""
+        registerUserSingleton.curp=""
+        registerUserSingleton.colonia=""
+        registerUserSingleton.calle=""
+        registerUserSingleton.numExterior=""
+        registerUserSingleton.codigoPostal=""
+        registerUserSingleton.idColonia=""
+
     }
 
     override fun onAprovFailed(obj: Any?, tag: String) {
