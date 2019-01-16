@@ -2,23 +2,21 @@ package com.pagatodo.yaganaste.modules.register.CorreoUsuario;
 
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+
 import androidx.fragment.app.Fragment;
+
 import android.text.Editable;
-import android.text.Layout;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.style.AlignmentSpan;
-import android.text.style.ImageSpan;
-import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -30,7 +28,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
@@ -43,15 +40,10 @@ import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
-import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
-import com.pagatodo.yaganaste.utils.customviews.CustomPassSixDigits;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
-import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -199,6 +191,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+
         btnNextDatosUsuario.setOnClickListener(this);
         editMail.setOnFocusChangeListener(this::onFocusChange);
         edit_psw.setOnFocusChangeListener(this::onFocusChange);
@@ -242,9 +235,14 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 editMail.requestFocus();
                 llypass_pass.setBackgroundResource(R.drawable.inputtext_normal);
                 llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_normal);
+
                 return false;
             }
         });
+
+
+
+
         llypass_passConfirm.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -271,7 +269,24 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             }
         });
 
+        editMail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 0) {
+                    isChecked();
+                }
+            }
+        });
         asignar_edittext.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -342,8 +357,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_normal);
             }
         });
-
-
 
 
         /*
@@ -557,6 +570,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
 
     @Override
     public void setValidationRules() {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         editMail.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 emailValidatedByWS = false;
@@ -565,13 +579,15 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 if (!UtilsNet.isOnline(getActivity())) {
                     showValidationError(editMail.getId(), getString(R.string.no_internet_access));
                 } else if (editMail.getText().toString().isEmpty()) {
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    //InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                     text_email.setBackgroundResource(R.drawable.inputtext_error);
                     UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
                 } else if (!ValidateForm.isValidEmailAddress(editMail.getText().toString().trim().toLowerCase()) && !emailValidatedByWS) {
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                    //InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    //imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(btnNextDatosUsuario.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
                     text_email.setBackgroundResource(R.drawable.inputtext_error);
                     UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
                 } else if (ValidateForm.isValidEmailAddress(editMail.getText().toString().trim().toLowerCase()) && !emailValidatedByWS) {
@@ -580,9 +596,12 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                     text_email.setBackgroundResource(R.drawable.inputtext_normal);
                     //text_email.setBackgroundResource(R.drawable.inputtext_active);
                 }
+                //isChecked();
                 text_email.setBackgroundResource(R.drawable.inputtext_normal);
+
             }
             isChecked();
+
         });
 
         edit_psw_confirm.setOnFocusChangeListener((view, b) -> {
@@ -600,7 +619,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 text_email.setBackgroundResource(R.drawable.inputtext_normal);
                 llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_active);
                 asignar_edittextConfirm.requestFocus();
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                //InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
                 imm.showSoftInput(asignar_edittextConfirm, InputMethodManager.SHOW_IMPLICIT);
 
@@ -625,7 +644,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 text_email.setBackgroundResource(R.drawable.inputtext_normal);
                 llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_normal);
                 asignar_edittext.requestFocus();
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                //InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
                 imm.showSoftInput(asignar_edittext, InputMethodManager.SHOW_IMPLICIT);
 
@@ -754,7 +773,8 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         }
         if (!userExist || asignar_edittext.length() == 6 || asignar_edittextConfirm.length() == 6) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            //imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            imm.hideSoftInputFromWindow(btnNextDatosUsuario.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
         if (isValid) {
             btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_blue);
@@ -778,4 +798,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             //asignar_edittext.setText("");
         }
     }
+
+
 }

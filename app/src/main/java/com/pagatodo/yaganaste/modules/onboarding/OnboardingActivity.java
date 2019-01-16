@@ -139,6 +139,7 @@ public class OnboardingActivity extends LoaderActivity
             showNext(true);
 
         }
+
         super.onBackPressed();
     }
 
