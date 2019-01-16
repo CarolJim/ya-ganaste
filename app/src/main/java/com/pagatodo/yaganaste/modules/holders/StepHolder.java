@@ -17,6 +17,7 @@ public class StepHolder extends GenericHolder {
 
     private LinearLayout stepState;
     private LinearLayout check;
+    private LinearLayout stepActive;
     private TextView numText;
     private TextView textNumCheck;
     private AnimatedVectorDrawable drawable;
@@ -32,6 +33,7 @@ public class StepHolder extends GenericHolder {
         this.stepState = this.itemView.findViewById(R.id.step_inactive);
         this.numText = this.itemView.findViewById(R.id.text_num);
         this.check = this.itemView.findViewById(R.id.step_check);
+        this.stepActive = this.itemView.findViewById(R.id.step_active);
         this.textNumCheck = this.itemView.findViewById(R.id.text_num_check);
     }
 
@@ -53,8 +55,13 @@ public class StepHolder extends GenericHolder {
                         this.check.setVisibility(View.GONE);
                         break;
                     case active:
-                        this.stepState.setVisibility(View.VISIBLE);
-                        this.stepState.setBackgroundResource(R.drawable.bck_step_active);
+
+                        this.stepState.setVisibility(View.GONE);
+                        //this.stepState.setBackgroundResource(R.drawable.bck_step_active);
+                        this.stepActive.setVisibility(View.VISIBLE);
+                        /*float scalingFactor = 0.5f; // scale down to half the size
+                        this.stepActive.setScaleX(scalingFactor);
+                        this.stepActive.setScaleY(scalingFactor);*/
                         this.numText.setText(stepBarItem.getNumText());
                         this.numText.setTextColor(Color.parseColor("#FFFFFF"));
                         this.check.setVisibility(View.GONE);
@@ -82,16 +89,28 @@ public class StepHolder extends GenericHolder {
                     this.stepState.setBackgroundResource(R.drawable.bck_step_inactive);
                     this.numText.setTextColor(Color.parseColor("#9e9e9e"));
                     this.check.setVisibility(View.GONE);
+                    this.stepActive.setVisibility(View.GONE);
                     break;
                 case active:
-                    this.stepState.setVisibility(View.VISIBLE);
+                    /*this.stepState.setVisibility(View.VISIBLE);
                     this.stepState.setBackgroundResource(R.drawable.bck_step_active);
+                    this.numText.setTextColor(Color.parseColor("#FFFFFF"));
+                    this.check.setVisibility(View.GONE);*/
+
+                    this.stepState.setVisibility(View.GONE);
+                    //this.stepState.setBackgroundResource(R.drawable.bck_step_active);
+                    this.stepActive.setVisibility(View.VISIBLE);
+                    /*float scalingFactor = 0.8f; // scale down to half the size
+                    this.stepActive.setScaleX(scalingFactor);
+                    this.stepActive.setScaleY(scalingFactor);*/
+
                     this.numText.setTextColor(Color.parseColor("#FFFFFF"));
                     this.check.setVisibility(View.GONE);
                     break;
                 case check:
                     this.check.setVisibility(View.VISIBLE);
                     this.stepState.setVisibility(View.GONE);
+                    this.stepActive.setVisibility(View.GONE);
                     break;
             }
        // }

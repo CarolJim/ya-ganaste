@@ -5,6 +5,8 @@ import android.Manifest;
 import android.content.Context;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
+
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -89,7 +91,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_my_change_nip, container, false);
 

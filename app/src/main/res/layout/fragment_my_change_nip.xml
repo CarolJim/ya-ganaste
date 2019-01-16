@@ -29,36 +29,35 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center"
         android:text="@string/label_change_nip_des"
         android:textColor="@color/gray_slate"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <com.google.android.material.textfield.TextInputEditText
+    <com.pagatodo.view_manager.components.InputSecret
         android:id="@+id/textInputEditText"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_width="276dp"
+        android:layout_height="53dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:imeOptions="actionDone"
-        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/styleTextView13" />
+
     <LinearLayout
+        android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="8dp"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -97,9 +96,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/margin_doble"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
+            android:layout_marginBottom="@dimen/margin_doble"
             android:visibility="visible" />
 
         <LinearLayout
@@ -156,12 +155,12 @@
         android:layout_below="@id/content_linearlayout"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center"
         android:text="@string/olvidaste_nip"
-        android:textColor="@color/texthint"
+        android:textColor="@color/gray_slate"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
@@ -177,10 +176,22 @@
         android:text="@string/numero"
         android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/olvidaste_nip" />
 
 
+    <com.pagatodo.view_manager.components.StepBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_myemail_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputEditText">
+
+    </com.pagatodo.view_manager.components.StepBar>
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/fragment_myemail_btn"
         style="@style/buttonSquareRoundedBlue"

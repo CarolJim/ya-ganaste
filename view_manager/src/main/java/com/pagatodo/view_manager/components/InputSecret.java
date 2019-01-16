@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -18,7 +19,7 @@ import com.pagatodo.view_manager.R;
 
 import java.util.Objects;
 
-public class InputSecret extends LinearLayout implements TextWatcher, View.OnFocusChangeListener{
+public class InputSecret extends FrameLayout implements TextWatcher, View.OnFocusChangeListener{
 
     private TextInputLayout inputLayout;
     private TextInputEditText inputEditText;
@@ -44,7 +45,7 @@ public class InputSecret extends LinearLayout implements TextWatcher, View.OnFoc
     }
 
     private void init(AttributeSet attrs){
-        this.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+        //this.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.input_secret,this,false);
         inputLayout = view.findViewById(R.id.text_input_layout);
