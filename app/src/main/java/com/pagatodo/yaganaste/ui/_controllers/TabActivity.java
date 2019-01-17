@@ -95,6 +95,7 @@ import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_AJUSTES;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CODE;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CONTACTO;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_DATAUSER;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_SEGURIDAD;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_TERMINOS;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
@@ -105,6 +106,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CODE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CONTACTO;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_MY_DATA;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
@@ -657,6 +659,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             case ID_SEGURIDAD:
                 actionMenu(MENU_SEGURIDAD);
                 break;
+                case ID_MY_DATA:
+                actionMenu(MENU_DATAUSER);
+                break;
             case ID_AJUSTES:
                 actionMenu(MENU_AJUSTES);
                 break;
@@ -672,8 +677,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             case ID_CONTACTO:
                 actionMenu(MENU_CONTACTO);
                 break;
-
-
             default:
                 Toast.makeText(this, "PROXIMAMENTE", Toast.LENGTH_SHORT).show();
                 break;

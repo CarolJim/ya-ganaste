@@ -58,6 +58,7 @@ import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_AJUSTES;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CODE;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CONTACTO;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_DATAUSER;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_TERMINOS;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
@@ -178,6 +179,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         } else if (getIntent().getIntExtra(MENU, 0) == MENU_CODE) {
             loadFragment(QRFragment.newInstance());
         } else if (getIntent().getIntExtra(MENU, 0) == MENU_CONTACTO) {
+            //loadFragment(ContactoFragment.newInstance());
+            //loadFragment(TutorialsFragment.newInstance());
+            loadFragment(HelpYaGanasteFragment.newInstance());
+        } else if (getIntent().getIntExtra(MENU, 0) == MENU_DATAUSER) {
             //loadFragment(ContactoFragment.newInstance());
             //loadFragment(TutorialsFragment.newInstance());
             loadFragment(HelpYaGanasteFragment.newInstance());

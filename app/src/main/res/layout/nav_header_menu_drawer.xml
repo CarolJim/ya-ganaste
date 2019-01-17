@@ -7,16 +7,32 @@
     android:background="@color/colorAccent">
 
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:orientation="horizontal"
+    android:id="@+id/llperfil"
+    android:gravity="center_horizontal|top"
+    >
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgLoginExistProfile"
-        android:layout_width="61dp"
-        android:layout_height="61dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         app:srcCompat="@drawable/icon_user"
         android:layout_centerHorizontal="true"
         app:civ_border_color="@color/colorAccent"
-        android:layout_marginTop="47dp"/>
+        android:layout_marginTop="37dp"/>
+
+    <ImageView
+        android:layout_width="23dp"
+        android:layout_height="19dp"
+        android:src="@drawable/menu_icon_camara"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="-14dp"
+        />
+
+</LinearLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txt_name_user"
@@ -25,8 +41,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ismael Cruz"
-        android:layout_marginTop="8dp"
-        android:layout_below="@id/imgLoginExistProfile"
+
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/llperfil"
         android:layout_centerHorizontal="true"/>
+
+
 
 </RelativeLayout>

@@ -62,6 +62,7 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
     public static final int MENU_CODE = 5;
     public static final int MENU_CONTACTO = 6;
     final public static int MENU_NOTIFICACIONES = 3;
+    final public static int MENU_DATAUSER = 7;
     private int TYPE_MENU;
 
     @BindView(R.id.content_linearlayout)
