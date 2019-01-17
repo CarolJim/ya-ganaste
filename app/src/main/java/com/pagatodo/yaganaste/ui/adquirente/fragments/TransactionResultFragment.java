@@ -117,7 +117,7 @@ public class TransactionResultFragment extends GenericFragment implements View.O
               if (pageResultData.getIdResurceIcon() == R.drawable.ic_check_success) {
                   check.setAnimation(R.raw.check);
               } else {
-                  check.setAnimation(R.raw.alert);
+                  check.setAnimation(R.raw.ok);
               }
 
           }

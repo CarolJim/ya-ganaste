@@ -16,6 +16,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUserNew;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
@@ -57,6 +58,7 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
         RegisterUserNew.getInstance().setqRs(new ArrayList<>());
         stepBar = findViewById(R.id.step_bar);
         router = new RegRouter(this);
+        App aplicacion = new App();
         interactor = new RegInteractor(this,this);
         initViews();
     }

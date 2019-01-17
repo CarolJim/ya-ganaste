@@ -425,6 +425,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
             imm.showSoftInput(edtUserName, InputMethodManager.SHOW_IMPLICIT);
+            text_email.setBackgroundResource(R.drawable.inputtext_active);
             text_passwordnew.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {

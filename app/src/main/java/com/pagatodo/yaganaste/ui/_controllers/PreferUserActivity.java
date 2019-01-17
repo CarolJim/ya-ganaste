@@ -59,6 +59,7 @@ import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_AJUSTES;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CODE;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CONTACTO;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_DATAUSER;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_TERMINOS;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
@@ -182,10 +183,14 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             //loadFragment(ContactoFragment.newInstance());
             //loadFragment(TutorialsFragment.newInstance());
             loadFragment(HelpYaGanasteFragment.newInstance());
+        } else if (getIntent().getIntExtra(MENU, 0) == MENU_DATAUSER) {
+            //loadFragment(ContactoFragment.newInstance());
+            //loadFragment(TutorialsFragment.newInstance());
+            loadFragment(HelpYaGanasteFragment.newInstance());
         } else {
-            //loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
+            loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
             //loadFragment(SecuritySettignsFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
-            loadFragment(ChangePasswordFragment.newInstance(),R.id.container);
+            //loadFragment(ChangePasswordFragment.newInstance(),R.id.container);
             //loadFragment(SettingsFragment.newInstance());
         }
 
@@ -360,6 +365,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 //loadFragment(SecurityFragment.newInstance(MENU_SEGURIDAD), Direction.BACK, false);
                 //loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""), Direction.BACK, false);
                 //loadFragment(SecuritySettignsFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""), Direction.BACK, false);
+
                 loadFragment(SecuritySettignsFragment.newInstance(), Direction.BACK, false);
 
                 break;

@@ -72,6 +72,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CATALOG_VERSION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TIMEOUT;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SPLASH;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
@@ -112,6 +113,27 @@ public class OnboardingActivity extends LoaderActivity
         preferencias = App.getInstance().getPrefs();
         db = App.getAppDatabase();
         preferencias = App.getInstance().getPrefs();
+
+
+        // Validar tiempo de conexión para peticiones a servicios
+        App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/ConnectionTimeout").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    int connectionTimeout = dataSnapshot.getValue(Integer.class);
+                    App.getInstance().getPrefs().saveDataInt(CONNECTION_TIMEOUT, connectionTimeout);
+                } else {
+                    App.getInstance().getPrefs().saveDataInt(CONNECTION_TIMEOUT, 25000);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
         // new DatabaseManager().checkCountries();
         //new ForcedUpdateChecker(this).getUrls(this);
 

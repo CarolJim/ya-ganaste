@@ -1332,6 +1332,8 @@
     <string name="navigation_drawer_menu_acerca">Acerca de</string>
     <string name="navigation_drawer_menu_contacto">Ayuda</string>
     <string name="navigation_drawer_logout">Cerrar sesión</string>
+    <string name="navigation_drawer_mydata">Mis Datos</string>
+    <string name="navigation_drawer_menu_settings">Configuraciones</string>
 
     <string name="security_huella_option">Huella digital</string>
     <string name="shortcuts_option">Mostrar saldos</string>
