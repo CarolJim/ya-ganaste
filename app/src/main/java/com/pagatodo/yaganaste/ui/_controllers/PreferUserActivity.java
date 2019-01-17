@@ -182,10 +182,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             //loadFragment(TutorialsFragment.newInstance());
             loadFragment(HelpYaGanasteFragment.newInstance());
         } else {
-            loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
+            //loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
             //loadFragment(SecuritySettignsFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
 
-            //loadFragment(SettingsFragment.newInstance());
+            loadFragment(SettingsFragment.newInstance());
         }
 
         mContext = this;
@@ -359,6 +359,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 //loadFragment(SecurityFragment.newInstance(MENU_SEGURIDAD), Direction.BACK, false);
                 //loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""), Direction.BACK, false);
                 //loadFragment(SecuritySettignsFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""), Direction.BACK, false);
+
                 loadFragment(SecuritySettignsFragment.newInstance(), Direction.BACK, false);
 
                 break;
