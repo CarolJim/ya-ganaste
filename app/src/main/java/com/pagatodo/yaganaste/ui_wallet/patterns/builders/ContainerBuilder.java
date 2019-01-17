@@ -64,8 +64,8 @@ public class ContainerBuilder {
         int res = R.layout.option_menu_tem_view;
         if (SingletonUser.getInstance().getDataUser().getUsuario() != null && SingletonUser.getInstance().getDataUser().getUsuario().getRoles().size() > 0
                 && SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
-            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, R.string.navigation_drawer_menu_seguridad));
-            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_AJUSTES, R.mipmap.ic_ajustes, R.string.navigation_drawer_menu_ajustes));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_sign_in, R.string.navigation_drawer_mydata));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_AJUSTES, R.mipmap.ic_ajustes, R.string.navigation_drawer_menu_settings));
             s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_CONTACTO, R.mipmap.ico_ayuda, R.string.navigation_drawer_menu_contacto));
             s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_ACERCA_DE, R.mipmap.ic_acerca, R.string.navigation_drawer_menu_acerca));
             s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_close_session, R.string.navigation_drawer_logout, false));

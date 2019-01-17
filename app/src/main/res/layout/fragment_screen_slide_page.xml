@@ -7,11 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".modules.onboarding.fragments.ScreenSlidePageFragment">
 
-    <ImageView
-        android:id="@+id/image_slide"
-        android:scaleType="centerCrop"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/app_name"/>
+        <ImageView
+            android:id="@+id/image_slide"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

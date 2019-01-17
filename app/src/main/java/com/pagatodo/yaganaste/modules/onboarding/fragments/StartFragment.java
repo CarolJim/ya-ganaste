@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
@@ -36,7 +37,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 public class StartFragment extends Fragment implements OnboardingContracts.Presenter, View.OnClickListener {
     private static OnboardingActivity actv;
     private View rootView;
-    ImageView onBack;
+    private LinearLayout onBack;
     private Button btn_init_session, create_account;
 
     public StartFragment() {
@@ -62,7 +63,7 @@ public class StartFragment extends Fragment implements OnboardingContracts.Prese
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_start, container, false);
-        onBack = (ImageView) rootView.findViewById(R.id.onBack);
+        onBack = (LinearLayout) rootView.findViewById(R.id.onBack);
         btn_init_session = (Button) rootView.findViewById(R.id.btn_init_session);
         create_account = (Button) rootView.findViewById(R.id.create_account);
         initViews();
