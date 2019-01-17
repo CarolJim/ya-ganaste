@@ -2,16 +2,18 @@ package com.pagatodo.view_manager.components;
 
 import android.content.Context;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.LinearLayoutCompat;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -19,7 +21,7 @@ import com.pagatodo.view_manager.R;
 
 import java.util.Objects;
 
-public class InputSecret extends FrameLayout implements TextWatcher, View.OnFocusChangeListener{
+public class InputSecret extends LinearLayout implements TextWatcher, View.OnFocusChangeListener{
 
     private TextInputLayout inputLayout;
     private TextInputEditText inputEditText;
@@ -47,7 +49,8 @@ public class InputSecret extends FrameLayout implements TextWatcher, View.OnFocu
     private void init(AttributeSet attrs){
         //this.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View view = inflater.inflate(R.layout.input_secret,this,false);
+        //LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.input_secret,this,false   );
         inputLayout = view.findViewById(R.id.text_input_layout);
         inputEditText = view.findViewById(R.id.edit_input_layout);
         astOne = view.findViewById(R.id.ast_one);
