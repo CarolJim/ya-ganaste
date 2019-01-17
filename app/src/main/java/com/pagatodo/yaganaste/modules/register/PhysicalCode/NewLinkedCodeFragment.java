@@ -35,13 +35,13 @@ public class NewLinkedCodeFragment extends GenericFragment implements TextWatche
         TextView.OnEditorActionListener,View.OnFocusChangeListener {
 
     @BindView(R.id.edit_text_name_qr)
-    public EditText editNameQR;
+    EditText editNameQR;
     @BindView(R.id.text_number_qr)
-    public TextInputLayout textInput;
+    TextInputLayout textInput;
     @BindView(R.id.name_qr_text)
-    public StyleTextView textNameQR;
+    StyleTextView textNameQR;
     @BindView(R.id.button_continue)
-    public StyleButton btnContinue;
+    StyleButton btnContinue;
 
     private View rootView;
     private RegActivity activity;
@@ -80,8 +80,9 @@ public class NewLinkedCodeFragment extends GenericFragment implements TextWatche
         textNameQR.setText(registerAgent.getNombreNegocio());
 
         editNameQR.requestFocus();
+        textInput.setBackgroundResource(R.drawable.inputtext_active);
         editNameQR.setSelection(editNameQR.getText().length());
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
         imm.showSoftInput(editNameQR, InputMethodManager.SHOW_IMPLICIT);
 
@@ -149,9 +150,24 @@ public class NewLinkedCodeFragment extends GenericFragment implements TextWatche
             RegisterUserNew.getInstance().getqRs().add(new QRs(editNameQR.getText().toString().trim(),textPlate, true,""));
             activity.getRouter().showSMSAndroid();
         } else {
-            RegisterUserNew.getInstance().getqRs().add(new QRs(editNameQR.getText().toString().trim(),textPlate, false,""));
-            activity.getRouter().showLinkedCodes();
+            if (!isRepit()){
+                RegisterUserNew.getInstance().getqRs().add(new QRs(editNameQR.getText().toString().trim(),textPlate, false,""));
+                activity.getRouter().showLinkedCodes();
+            } else {
+                activity.onErrorValidatePlate("El QR ya fue agregado");
+            }
         }
+    }
+
+    private boolean isRepit(){
+        boolean isRepit = false;
+        for (QRs qRs:RegisterUserNew.getInstance().getqRs()){
+            if (qRs.getPlate().equalsIgnoreCase(textPlate)){
+                isRepit = true;
+                break;
+            }
+        }
+        return isRepit;
     }
 
     @Override

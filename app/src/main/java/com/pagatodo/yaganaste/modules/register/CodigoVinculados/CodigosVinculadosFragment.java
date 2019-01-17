@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
 public class CodigosVinculadosFragment extends GenericFragment implements OnHolderListener<QrItem> {
 
     @BindView(R.id.qr_rcv)
-    public RecyclerView qrRcv;
+    RecyclerView qrRcv;
 
     private RegActivity activity;
     private View rootView;
