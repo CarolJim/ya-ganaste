@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.sidebar.SettingsOfSecurity.SecuritySettignsFragment;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.ui.preferuser.DesasociarPhoneFragment;
 
 import butterknife.ButterKnife;
 
@@ -71,6 +72,16 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
             case R.id.goSettings_security:
                 //router.showSettingsOfSecurity(Direction.FORDWARD);
                 activity.loadFragment(SecuritySettignsFragment.newInstance(),R.id.container,false);
+                break;
+
+                case R.id.goUnlink_phone:
+                //router.showSettingsOfSecurity(Direction.FORDWARD);
+                activity.loadFragment(DesasociarPhoneFragment.newInstance(),R.id.container,false);
+                break;
         }
+
+
+
+
     }
 }

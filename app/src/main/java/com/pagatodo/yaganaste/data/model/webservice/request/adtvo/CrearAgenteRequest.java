@@ -65,11 +65,12 @@ public class CrearAgenteRequest implements Serializable {
     }
 
     /* Empleado para registro de agente agregador */
-    public CrearAgenteRequest(int tipoAgente, String nombreComercio, String numeroTelefono, int giro, String folio) {
+    public CrearAgenteRequest(int tipoAgente, String nombreComercio, String numeroTelefono, int giro, int subgiro,String folio) {
         this.tipoAgente = tipoAgente;
         this.nombreComercio = nombreComercio;
         this.numeroTelefono = numeroTelefono;
         this.giro = giro;
+        this.subGiro = subgiro;
         this.folio = folio;
     }
 
