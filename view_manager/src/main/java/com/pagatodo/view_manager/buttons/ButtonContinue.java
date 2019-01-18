@@ -29,6 +29,7 @@ public class ButtonContinue extends AppCompatButton {
         this.inactive();
         this.setTextColor(Color.parseColor("#FFFFFF"));
         this.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+        this.setAllCaps(false);
     }
 
     public void active(){
