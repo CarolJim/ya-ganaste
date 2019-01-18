@@ -56,7 +56,7 @@
                     android:id="@+id/textNameUser"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginBottom="20dp"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent"
@@ -166,7 +166,7 @@
                     android:gravity="center"
                     >
                     <include
-                        layout="@layout/asignar_pin_layout"
+                        layout="@layout/asignar_pin_layout_login"
                         />
 
 
@@ -245,7 +245,7 @@
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="36dp"
                     android:padding="@dimen/margin_medium"
                     android:text="@string/recover_pass"
                     android:textAlignment="center" />

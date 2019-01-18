@@ -1438,9 +1438,10 @@
     <string name="correo_electronico">Correo Electrónico</string>
     <string name="correo_electronico_confirm">Confirmar correo</string>
     <string name="contrasena">Contraseña</string>
+    <string name="contrasenally">Contraseña (6 Números)</string>
     <string name="contrasena_confirma">Confirma tu Contraseña</string>
 
-    <string name="contrasena_usuario">Contraseña (6 dígitos)</string>
+    <string name="contrasena_usuario">Contraseña (6 números)</string>
     <string name="contrasena_confirma_usuario">Confirmar contraseña (6 dígitos)</string>
 
     <string name="titulo_datos_usuario">Registra tus datos de usuario\npara que puedas iniciar sesión.</string>
