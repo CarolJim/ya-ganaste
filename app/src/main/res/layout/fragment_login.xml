@@ -166,7 +166,7 @@
                     android:gravity="center"
                     >
                     <include
-                        layout="@layout/asignar_pin_layout"
+                        layout="@layout/asignar_pin_layout_login"
                         />
 
 
