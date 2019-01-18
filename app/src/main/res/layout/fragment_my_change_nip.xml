@@ -53,100 +53,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/styleTextView13" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="30dp" />
-
-        <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-            android:id="@+id/errorOldNipMessage"
-            style="@style/generic_text_style_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:textAlignment="center"
-            android:visibility="visible" />
-
-        <include layout="@layout/asignar_nip2_change" />
-
-        <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-            android:id="@+id/errorNewNipMessage"
-            style="@style/generic_text_style_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:visibility="visible" />
-
-        <include layout="@layout/asignar_nip3_change" />
-
-        <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-            android:id="@+id/errorNewNipConfirmMessage"
-            style="@style/generic_text_style_2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginBottom="@dimen/margin_doble"
-            android:visibility="visible" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/asignar_edittext"
-                android:layout_width="1px"
-                android:layout_height="1px"
-                android:ems="10"
-                android:inputType="numberPassword"
-                android:maxLength="4" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/asignar_edittext2"
-                android:layout_width="1px"
-                android:layout_height="1px"
-                android:layout_marginTop="20dp"
-                android:ems="4"
-                android:inputType="numberPassword"
-                android:maxLength="4" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/asignar_edittext3"
-                android:layout_width="1px"
-                android:layout_height="1px"
-                android:layout_marginTop="20dp"
-                android:ems="4"
-                android:inputType="numberPassword"
-                android:maxLength="4" />
-
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/content_linearlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView2"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:visibility="gone"
-        android:paddingRight="10dp">
-
-    </LinearLayout>
-
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/olvidaste_nip"
         style="@style/generic_text_style_5"
@@ -155,6 +61,7 @@
         android:layout_below="@id/content_linearlayout"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center"
@@ -180,18 +87,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/olvidaste_nip" />
 
-
-    <com.pagatodo.view_manager.components.StepBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.pagatodo.view_manager.components.InputSecret
+        android:layout_width="276dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_myemail_btn"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEditText">
+        app:layout_constraintTop_toBottomOf="@+id/olvidaste_nip" />
 
-    </com.pagatodo.view_manager.components.StepBar>
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/fragment_myemail_btn"
         style="@style/buttonSquareRoundedBlue"

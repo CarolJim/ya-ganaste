@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.modules.emisor.ChangeNip.MyChangeNip;
+import com.pagatodo.yaganaste.modules.sidebar.ChangePassword.ChangePasswordFragment;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.utils.UI;
@@ -86,7 +87,7 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.goChangeNip:
-                activity.loadFragment(MyChangeNip.newInstance(), R.id.container, false);
+                activity.loadFragment(ChangePasswordFragment.newInstance(), R.id.container, false);
         }
     }
 }

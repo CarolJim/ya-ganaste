@@ -13,4 +13,7 @@
         <attr name="labelTitleSingle" format="reference"/>
         <attr name="labelSubtitleSingle" format="reference"/>
     </declare-styleable>
+    <declare-styleable name="InputSecretPass">
+        <attr name="labelHint" format="reference"/>
+    </declare-styleable>
 </resources>
