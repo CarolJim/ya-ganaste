@@ -1760,6 +1760,10 @@
     <string name="config_card_reader">Configurar Lector de Tarjetas</string>
     <string name="unlink_phone">Desvincular Celular</string>
     <string name="change_pass_indication">Por tu seguridad es necesario que ingreses\ntu contraseña actual antes de cambiarla</string>
+    <string name="change_photo">Cambiar mi Foto de Perfil</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

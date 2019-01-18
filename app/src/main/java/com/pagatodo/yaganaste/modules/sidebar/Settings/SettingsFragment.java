@@ -3,7 +3,9 @@ package com.pagatodo.yaganaste.modules.sidebar.Settings;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.sidebar.SettingsOfSecurity.SecuritySettignsFragment;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.ui.preferuser.DesasociarPhoneFragment;
 
 import butterknife.ButterKnife;
 
@@ -30,7 +33,7 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
         // Required empty public constructor
     }
 
-    public static SettingsFragment newInstance(){
+    public static SettingsFragment newInstance() {
         SettingsFragment settingsFragment = new SettingsFragment();
         return settingsFragment;
     }
@@ -38,7 +41,7 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity=(PreferUserActivity)context;
+        activity = (PreferUserActivity) context;
     }
 
     @Override
@@ -70,7 +73,12 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
         switch (v.getId()) {
             case R.id.goSettings_security:
                 //router.showSettingsOfSecurity(Direction.FORDWARD);
-                activity.loadFragment(SecuritySettignsFragment.newInstance(),R.id.container,false);
+                activity.loadFragment(SecuritySettignsFragment.newInstance(), R.id.container, Direction.FORDWARD, false);
+                break;
+            case R.id.goUnlink_phone:
+                //router.showSettingsOfSecurity(Direction.FORDWARD);
+                activity.loadFragment(DesasociarPhoneFragment.newInstance(), R.id.container, Direction.FORDWARD, false);
+                break;
         }
     }
 }

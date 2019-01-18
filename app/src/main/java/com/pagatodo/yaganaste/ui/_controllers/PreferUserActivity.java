@@ -17,6 +17,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.sidebar.ChangePassword.ChangePasswordFragment;
+import com.pagatodo.yaganaste.modules.sidebar.DataAccount.AccountDataFragment;
 import com.pagatodo.yaganaste.modules.sidebar.HelpYaGanaste.HelpYaGanasteFragment;
 import com.pagatodo.yaganaste.modules.sidebar.Settings.SettingsFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
@@ -186,12 +187,15 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         } else if (getIntent().getIntExtra(MENU, 0) == MENU_DATAUSER) {
             //loadFragment(ContactoFragment.newInstance());
             //loadFragment(TutorialsFragment.newInstance());
-            loadFragment(HelpYaGanasteFragment.newInstance());
+
+            //loadFragment(HelpYaGanasteFragment.newInstance());
+
+            loadFragment(AccountDataFragment.newInstance(),R.id.container,Direction.FORDWARD,false);
         } else {
-            loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
+            //loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
             //loadFragment(SecuritySettignsFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
             //loadFragment(ChangePasswordFragment.newInstance(),R.id.container);
-            //loadFragment(SettingsFragment.newInstance());
+            loadFragment(SettingsFragment.newInstance(),R.id.container,Direction.FORDWARD,false);
         }
 
         mContext = this;
