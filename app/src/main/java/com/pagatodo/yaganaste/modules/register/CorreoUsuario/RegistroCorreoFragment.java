@@ -350,10 +350,20 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().length() == 6) {
-                    text_email.setBackgroundResource(R.drawable.inputtext_normal);
-                    llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_normal);
+
+                    if (asignar_edittext.getText().toString().equals(asignar_edittextConfirm.getText().toString())) {
+                        text_email.setBackgroundResource(R.drawable.inputtext_normal);
+                        llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_normal);
+                    }else {
+                        llypass_pass.setVisibility(View.GONE);
+                        llypass_passConfirm.setVisibility(View.GONE);
+                        edt_psw.setVisibility(View.VISIBLE);
+                        edt_psw_confirm.setVisibility(View.VISIBLE);
+                        asignar_edittext.setText("");
+                        asignar_edittextConfirm.setText("");
+                        isChecked();
+                    }
                     isChecked();
-                    validateForm();
                 }
             }
 
@@ -706,12 +716,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         }
         if (!asignar_edittext.getText().toString().equals(asignar_edittextConfirm.getText().toString())) {
             isValid = false;
-            llypass_pass.setVisibility(View.GONE);
-            llypass_passConfirm.setVisibility(View.GONE);
-            edt_psw.setVisibility(View.VISIBLE);
-            edt_psw_confirm.setVisibility(View.VISIBLE);
-            asignar_edittext.setText("");
-            asignar_edittextConfirm.setText("");
             UI.showErrorSnackBar(getActivity(), getString(R.string.password_invalid), Snackbar.LENGTH_SHORT);
         }
         if (psd.isEmpty()) {
