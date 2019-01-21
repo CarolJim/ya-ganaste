@@ -353,7 +353,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                     text_email.setBackgroundResource(R.drawable.inputtext_normal);
                     llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_normal);
                     isChecked();
-                    //validateForm();
+                    validateForm();
                 }
             }
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
@@ -25,7 +26,7 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
 
     private PreferUserActivity activity;
     private SettingsRouter router;
-    private ImageView goSettings_security, goConfig_card_reader, goUnlink_phone, goCancel_account;
+    private LinearLayout goSettings_security, goConfig_card_reader, goUnlink_phone, goCancel_account;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -48,10 +49,10 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         ButterKnife.bind(this, rootView);
-        goSettings_security = (ImageView) rootView.findViewById(R.id.goSettings_security);
-        goConfig_card_reader = (ImageView) rootView.findViewById(R.id.goConfig_card_reader);
-        goUnlink_phone = (ImageView) rootView.findViewById(R.id.goUnlink_phone);
-        goCancel_account = (ImageView) rootView.findViewById(R.id.goCancel_account);
+        goSettings_security = (LinearLayout) rootView.findViewById(R.id.settings_security);
+        goConfig_card_reader = (LinearLayout) rootView.findViewById(R.id.config_card_reader);
+        goUnlink_phone = (LinearLayout) rootView.findViewById(R.id.unlink_phone);
+        goCancel_account = (LinearLayout) rootView.findViewById(R.id.cancel_account);
 
 
         initViews();
@@ -69,12 +70,11 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.goSettings_security:
+            case R.id.settings_security:
                 //router.showSettingsOfSecurity(Direction.FORDWARD);
                 activity.loadFragment(SecuritySettignsFragment.newInstance(),R.id.container,false);
                 break;
-
-                case R.id.goUnlink_phone:
+                case R.id.unlink_phone:
                 //router.showSettingsOfSecurity(Direction.FORDWARD);
                 activity.loadFragment(DesasociarPhoneFragment.newInstance(),R.id.container,false);
                 break;
