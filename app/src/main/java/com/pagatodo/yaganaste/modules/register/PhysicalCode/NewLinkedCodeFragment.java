@@ -176,7 +176,7 @@ public class NewLinkedCodeFragment extends GenericFragment implements TextWatche
             if (validate()){
                 proccessData();
             } else {
-                textInput.setBackgroundResource(R.drawable.inputtext_error);
+                textInput.setBackgroundResource(R.drawable.input_text_error);
             }
         }
         return false;

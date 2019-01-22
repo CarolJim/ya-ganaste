@@ -26,32 +26,25 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.RegisterUserNew;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
-import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
-import com.pagatodo.yaganaste.net.UtilsNet;
-import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
-import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialogregistro;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomClickableSpan;
-import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.Custom_postal_code;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -64,7 +57,6 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialogregistro.Legales.PRIVACIDAD;
 
 /**
@@ -190,7 +182,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_num_ext), Snackbar.LENGTH_SHORT);
-                        text_num_exterior.setBackgroundResource(R.drawable.inputtext_error);
+                        text_num_exterior.setBackgroundResource(R.drawable.input_text_error);
                     } else {
                         //hideValidationError(editExtNumber.getId());
                         //  editExtNumber.setIsValid();
@@ -211,7 +203,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                     editIntNumber.requestFocus();
                 } else {
                     /*if (editIntNumber.getText().toString().isEmpty()) {
-                        text_num_interior.setBackgroundResource(R.drawable.inputtext_error);
+                        text_num_interior.setBackgroundResource(R.drawable.input_text_error);
                     } else {*/
                     text_num_interior.setBackgroundResource(R.drawable.inputtext_normal);
                     //}
@@ -234,7 +226,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_calle), Snackbar.LENGTH_SHORT);
-                        text_calle.setBackgroundResource(R.drawable.inputtext_error);
+                        text_calle.setBackgroundResource(R.drawable.input_text_error);
 
                         //   editStreet.setIsInvalid();
                     } else {
@@ -417,7 +409,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
-                        text_cp.setBackgroundResource(R.drawable.inputtext_error);
+                        text_cp.setBackgroundResource(R.drawable.input_text_error);
                     } else {
                         hideValidationError(editZipCode.getId());
                         text_cp.setBackgroundResource(R.drawable.inputtext_normal);
@@ -484,7 +476,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_calle), Snackbar.LENGTH_SHORT);
-            text_calle.setBackgroundResource(R.drawable.inputtext_error);
+            text_calle.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
         if (numExt.isEmpty()) {
@@ -493,14 +485,14 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_num_ext), Snackbar.LENGTH_SHORT);
-            text_num_exterior.setBackgroundResource(R.drawable.inputtext_error);
+            text_num_exterior.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
         if (codigoPostal.isEmpty()) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
-            component_postal_code.setBackgroundResource(R.drawable.inputtext_error);
+            component_postal_code.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
 
@@ -509,7 +501,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_colonia), Snackbar.LENGTH_SHORT);
-            txtcoloria.setBackgroundResource(R.drawable.inputtext_error);
+            txtcoloria.setBackgroundResource(R.drawable.input_text_error);
 
             isValid = false;
         }

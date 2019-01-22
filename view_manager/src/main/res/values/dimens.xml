@@ -2,5 +2,5 @@
 <resources>
     <dimen name="item_offset">5dp</dimen>
     <dimen name="high_layer_input">50dp</dimen>
-    <dimen name="margin_layer_input">6dp</dimen>
+    <dimen name="margin_layer_input">10dp</dimen>
 </resources>

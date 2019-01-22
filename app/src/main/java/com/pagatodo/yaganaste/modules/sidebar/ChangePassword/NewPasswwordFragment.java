@@ -10,6 +10,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.pagatodo.view_manager.buttons.ButtonContinue;
+import com.pagatodo.view_manager.components.InputSecret;
 import com.pagatodo.view_manager.components.InputSecretPass;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -40,7 +42,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.HAS_PUSH;
 import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
-public class NewPasswwordFragment extends GenericFragment implements IMyPassView, IResetNIPView, IChangeNipView {
+public class NewPasswwordFragment extends GenericFragment implements InputSecret.InputSecretListener,
+        IMyPassView, IResetNIPView, IChangeNipView {
 
     private View rootView;
     private PreferUserActivity activity;
@@ -54,6 +57,8 @@ public class NewPasswwordFragment extends GenericFragment implements IMyPassView
     InputSecretPass inputSecretPassNew;
     @BindView(R.id.input_secret_confirm)
     InputSecretPass inputSecretPassConfirm;
+    @BindView(R.id.next_btn)
+    ButtonContinue nextBtn;
 
     public static NewPasswwordFragment newInstance(String hit){
         NewPasswwordFragment fragment = new NewPasswwordFragment();
@@ -101,7 +106,10 @@ public class NewPasswwordFragment extends GenericFragment implements IMyPassView
             if (i == EditorInfo.IME_ACTION_DONE
                     || keyEvent.getAction() == KeyEvent.ACTION_DOWN
                     && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                if (inputSecretPassNew.getTextEdit().length() == 6){
+                /*if (inputSecretPassNew.getTextEdit().length() == 6){
+                    inputSecretPassConfirm.setRequestFocus();
+                }*/
+                if (validate()){
                     inputSecretPassConfirm.setRequestFocus();
                 }
                 return true;
@@ -126,27 +134,40 @@ public class NewPasswwordFragment extends GenericFragment implements IMyPassView
             // Return true if you have consumed the action, else false.
             return false;
         });
+
+        inputSecretPassNew.setInputSecretListener(() -> {
+            if (inputSecretPassConfirm.getTextEdit().length() == 6){
+                nextBtn.active();
+            } else {
+                nextBtn.inactive();
+            }
+        });
+        inputSecretPassConfirm.setInputSecretListener(this);
+
     }
 
     private boolean validate(){
         boolean isValid = true;
         if (inputSecretPassNew.getTextEdit().length() < 6){
             isValid = false;
+            inputSecretPassNew.isError();
             showError("Introdusca una contraseña valida");
-        }
-        if (inputSecretPassConfirm.getTextEdit().length() < 6){
+        } else if (inputSecretPassConfirm.getTextEdit().length() < 6){
+            isValid = false;
+            inputSecretPassConfirm.isError();
+            showError("Introdusca una contraseña valida");
+
+        } else if (!inputSecretPassNew.getTextEdit().equalsIgnoreCase(inputSecretPassConfirm.getTextEdit())){
             isValid = false;
             showError("Introdusca una contraseña valida");
-        }
-        if (!inputSecretPassNew.getTextEdit().equalsIgnoreCase(inputSecretPassConfirm.getTextEdit())){
-            isValid = false;
-            showError("Introdusca una contraseña valida");
+            inputSecretPassConfirm.isError();
         }
         return isValid;
     }
 
     private void showError(String msj){
         UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),msj,Snackbar.LENGTH_LONG);
+        hideKeyBoard();
     }
 
 
@@ -176,7 +197,7 @@ public class NewPasswwordFragment extends GenericFragment implements IMyPassView
     @Override
     public void sendErrorPassToView(String mensaje) {
         if (mensaje.contains("Contraseña")) {
-            //editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+            //editActual.inputLayout.setBackgroundResource(R.drawable.input_text_error);
             showError(getString(R.string.error_service_verify_pass));
         } else {
             showError(mensaje);
@@ -244,5 +265,20 @@ public class NewPasswwordFragment extends GenericFragment implements IMyPassView
         hideLoader();
         UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()),"Bien",Snackbar.LENGTH_SHORT);
         //onEventListener.onEvent("PREFER_SECURITY_SUCCESS_PASS", false);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        hideKeyBoard();
+    }
+
+    @Override
+    public void inputListener() {
+        if (inputSecretPassNew.getTextEdit().length() == 6){
+            nextBtn.active();
+        } else {
+            nextBtn.inactive();
+        }
     }
 }

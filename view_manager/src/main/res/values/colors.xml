@@ -10,5 +10,6 @@
     <color name="colorYaGanaste">#00a1e1</color>
     <color name="texthint">#adadad</color>
     <color name="colorBlueAccent">#00A1E1</color>
+    <color name="red_error">#D50000</color>
 
 </resources>

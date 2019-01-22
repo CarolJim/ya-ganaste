@@ -2,6 +2,7 @@ package com.pagatodo.view_manager.holders;
 
 import androidx.annotation.NonNull;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.pagatodo.view_manager.R;
@@ -14,7 +15,7 @@ public class LabelArrowCheckHolder extends GenericHolder<LabelArrowCheckboxDataH
 
     private TextView textTitle;
     private TextView textSubtitle;
-    private View check;
+    private CheckBox check;
 
     public LabelArrowCheckHolder(@NonNull View itemView) {
         super(itemView);
@@ -32,5 +33,9 @@ public class LabelArrowCheckHolder extends GenericHolder<LabelArrowCheckboxDataH
     public void bind(LabelArrowCheckboxDataHolder item, OnHolderListener<LabelArrowCheckboxDataHolder> listener) {
         this.textTitle.setText(item.getLabelTitle());
         this.textSubtitle.setText(item.getLabelSubtitle());
+    }
+
+    public CheckBox getCheckbox(){
+        return this.check;
     }
 }

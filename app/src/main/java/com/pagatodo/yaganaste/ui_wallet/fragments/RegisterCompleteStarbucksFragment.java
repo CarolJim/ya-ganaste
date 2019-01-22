@@ -158,13 +158,13 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
                         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         //showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
-                        text_email.setBackgroundResource(R.drawable.inputtext_error);
+                        text_email.setBackgroundResource(R.drawable.input_text_error);
                         UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
                     } else if (!ValidateForm.isValidEmailAddress(editMail.getText().toString()) ) {
 
                         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                        text_email.setBackgroundResource(R.drawable.inputtext_error);
+                        text_email.setBackgroundResource(R.drawable.input_text_error);
                         UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
                     } else if (ValidateForm.isValidEmailAddress(editMail.getText().toString())) {
                         text_email.setBackgroundResource(R.drawable.inputtext_normal);
@@ -191,7 +191,7 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
                         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_pass), Snackbar.LENGTH_SHORT);
-                        text_password.setBackgroundResource(R.drawable.inputtext_error);
+                        text_password.setBackgroundResource(R.drawable.input_text_error);
                     }  else if (!ValidateForm.isValidPasswordsatrbucks(editPassword.getText().toString())) {
                         // hideValidationError(editPassword.getId());
                         // editPassword.setIsValid();
@@ -217,7 +217,7 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
                         // showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
                         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                        text_password.setBackgroundResource(R.drawable.inputtext_error);
+                        text_password.setBackgroundResource(R.drawable.input_text_error);
                 }else {
                         text_password.setBackgroundResource(R.drawable.inputtext_normal);
                     }
@@ -234,27 +234,27 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
           if (password.isEmpty()) {
               isvalid = false;
               UI.showErrorSnackBar(getActivity(), getString(R.string.password_required), Snackbar.LENGTH_SHORT);
-              text_passwordconfirm.setBackgroundResource(R.drawable.inputtext_error);
+              text_passwordconfirm.setBackgroundResource(R.drawable.input_text_error);
           } else if (!ValidateForm.isValidPasswordsatrbucks(editPassword.getText().toString())) {
               isvalid = false;
               UI.showErrorSnackBar(getActivity(), getString(R.string.password_incorrect_format), Snackbar.LENGTH_SHORT);
-              text_password.setBackgroundResource(R.drawable.inputtext_error);
+              text_password.setBackgroundResource(R.drawable.input_text_error);
           }
       }else {
           isvalid=false;
           UI.showErrorSnackBar(getActivity(), getString(R.string.confirmar_contrase), Snackbar.LENGTH_SHORT);
-          text_password.setBackgroundResource(R.drawable.inputtext_error);
+          text_password.setBackgroundResource(R.drawable.input_text_error);
       }
       if (!email.isEmpty()) {
           if (!ValidateForm.isValidEmailAddress(editMail.getText().toString())) {
               UI.showErrorSnackBar(getActivity(), getString(R.string.check_your_mail), Snackbar.LENGTH_SHORT);
               isvalid=false;
-              editMail.setBackgroundResource(R.drawable.inputtext_error);
+              editMail.setBackgroundResource(R.drawable.input_text_error);
           }
       }else {
           UI.showErrorSnackBar(getActivity(), getString(R.string.txt_mail_requerid), Snackbar.LENGTH_SHORT);
           isvalid=false;
-          editMail.setBackgroundResource(R.drawable.inputtext_error);
+          editMail.setBackgroundResource(R.drawable.input_text_error);
       }
       if (!radioBtnYes.isChecked()&&!radioBtnNo.isChecked()){
           UI.showErrorSnackBar(getActivity(), getString(R.string.suscribirte_starbucks), Snackbar.LENGTH_SHORT);

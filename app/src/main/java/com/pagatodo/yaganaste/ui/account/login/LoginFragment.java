@@ -218,9 +218,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         edtUserName.setText("");
         txtLoginExistUserRecoverPass.setText(ss);
         txtLoginOperadorOtroUsuario.setOnClickListener(this);
-
-
-
         asignar_edittext.addTextChangedListener(new AsignarNipTextWatcher(asignar_edittext, tv1Num, tv2Num, tv3Num, tv4Num, tv5Num, tv6Num,this));
 
         asignar_control_layout.setOnTouchListener(new View.OnTouchListener() {

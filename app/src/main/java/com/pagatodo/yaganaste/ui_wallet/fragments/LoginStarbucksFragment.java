@@ -159,18 +159,18 @@ public class LoginStarbucksFragment extends GenericFragment implements View.OnCl
         boolean isValid = true;
         if (correo.isEmpty()) {
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
-            text_correo.setBackgroundResource(R.drawable.inputtext_error);
+            text_correo.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         } else if (!ValidateForm.isValidEmailAddress(correo)) {
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo_formato), Snackbar.LENGTH_SHORT);
-            text_correo.setBackgroundResource(R.drawable.inputtext_error);
+            text_correo.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         } else {
             text_correo.setBackgroundResource(R.drawable.inputtext_normal);
         }
         if (contrasena.isEmpty()) {
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_pass), Snackbar.LENGTH_SHORT);
-            text_password.setBackgroundResource(R.drawable.inputtext_error);
+            text_password.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         } else {
             text_password.setBackgroundResource(R.drawable.inputtext_normal);

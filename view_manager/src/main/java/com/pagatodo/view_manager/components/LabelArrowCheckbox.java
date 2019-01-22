@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
 import com.pagatodo.view_manager.R;
@@ -13,6 +14,9 @@ import com.pagatodo.view_manager.controllers.dataholders.LabelArrowCheckboxDataH
 import com.pagatodo.view_manager.holders.LabelArrowCheckHolder;
 
 public class LabelArrowCheckbox extends LinearLayout {
+
+    private LabelArrowCheckHolder holder;
+
     public LabelArrowCheckbox(Context context) {
         super(context);
         init(null);
@@ -30,8 +34,8 @@ public class LabelArrowCheckbox extends LinearLayout {
 
     private void init(AttributeSet attrs){
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View rootView=inflater.inflate(R.layout.checkbox,this,false);
-        LabelArrowCheckHolder holder = new LabelArrowCheckHolder(rootView);
+        View rootView = inflater.inflate(R.layout.checkbox,this,false);
+        holder = new LabelArrowCheckHolder(rootView);
         if (attrs!=null){
             TypedArray a =getContext().getTheme().obtainStyledAttributes(
                     attrs,
@@ -48,4 +52,9 @@ public class LabelArrowCheckbox extends LinearLayout {
         }
         holder.inflate(this);
     }
+
+    public CheckBox getCheckBox(){
+        return holder.getCheckbox();
+    }
+
 }

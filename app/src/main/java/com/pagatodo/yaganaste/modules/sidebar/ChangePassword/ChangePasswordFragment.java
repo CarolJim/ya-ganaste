@@ -83,6 +83,7 @@ public class ChangePasswordFragment extends GenericFragment {
             // Return true if you have consumed the action, else false.
             return false;
         });
+        inputSecretPassCurrent.setOnClickListener(v -> inputSecretPassCurrent.setRequestFocus());
 
     }
 
@@ -96,7 +97,9 @@ public class ChangePasswordFragment extends GenericFragment {
         boolean isValid = true;
         if (!validatePass()){
             isValid = false;
-            UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),"Por favor verifica que la contraseña actual sea correcta",Snackbar.LENGTH_SHORT);
+            inputSecretPassCurrent.isError();
+            UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),
+                    "Por favor verifica que la contraseña actual sea correcta",Snackbar.LENGTH_SHORT);
             //activity.showError("Por favor verifica que la contraseña actual sea correcta");
         }
         return isValid;
@@ -113,4 +116,9 @@ public class ChangePasswordFragment extends GenericFragment {
         Objects.requireNonNull(imm).hideSoftInputFromWindow(inputSecretPassCurrent.getInputEditText().getWindowToken(), 0);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        hideKeyBoard();
+    }
 }

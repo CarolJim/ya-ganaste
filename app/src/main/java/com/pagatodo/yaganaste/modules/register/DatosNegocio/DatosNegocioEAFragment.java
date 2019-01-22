@@ -352,13 +352,13 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
         getDataForm();
         boolean isValid = true;
         if (nombre.isEmpty()) {
-            text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_error);
+            text_nombrenegoci.setBackgroundResource(R.drawable.input_text_error);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_nombre), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
         if (giroArrayAdapter.getItem(spinnerBussineLine.getSelectedItemPosition()).getIdGiro() == -1) {
             //showValidationError(spinnerBussineLine.getId(), getString(R.string.datos_negocio_giro));
-            txtgiro.setBackgroundResource(R.drawable.inputtext_error);
+            txtgiro.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
         if (isValid) {

@@ -2,8 +2,6 @@ package com.pagatodo.yaganaste.ui_wallet.dialog;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.google.android.material.textfield.TextInputLayout;
@@ -13,12 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IDialogSetPassword;
-import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -65,7 +61,7 @@ public class DialogSetPassword extends DialogFragment implements View.OnClickLis
             if (hasFocus) {
                 txtInput.setBackgroundResource(R.drawable.inputtext_active);
             } else if (edtPas.getText().length() < 6) {
-                txtInput.setBackgroundResource(R.drawable.inputtext_error);
+                txtInput.setBackgroundResource(R.drawable.input_text_error);
             } else {
                 txtInput.setBackgroundResource(R.drawable.inputtext_normal);
             }
@@ -97,7 +93,7 @@ public class DialogSetPassword extends DialogFragment implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if (edtPas.getText().toString().isEmpty() || edtPas.getText().length() < 6) {
-            txtInput.setBackgroundResource(R.drawable.inputtext_error);
+            txtInput.setBackgroundResource(R.drawable.input_text_error);
         } else {
             listener.onPasswordSet(edtPas.getText().toString());
             this.dismiss();

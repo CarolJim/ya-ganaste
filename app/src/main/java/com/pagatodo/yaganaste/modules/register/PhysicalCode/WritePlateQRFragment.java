@@ -300,7 +300,7 @@ public class WritePlateQRFragment extends GenericFragment implements View.OnFocu
                 //activity.getRouter().showNewLinkedCode(editTextWrQr.getText().toString());
                 activity.getInteractor().onValidateQr(asignar_edittext.getText().toString());
             } else {
-                inputQr.setBackgroundResource(R.drawable.inputtext_error);
+                inputQr.setBackgroundResource(R.drawable.input_text_error);
             }
         });
         asignar_edittext.setOnFocusChangeListener(this);
@@ -310,7 +310,7 @@ public class WritePlateQRFragment extends GenericFragment implements View.OnFocu
                     //activity.getRouter().showNewLinkedCode(editTextWrQr.getText().toString());
                     activity.getInteractor().onValidateQr(asignar_edittext.getText().toString());
                 } else {
-                    inputQr.setBackgroundResource(R.drawable.inputtext_error);
+                    inputQr.setBackgroundResource(R.drawable.input_text_error);
                 }
             }
             return false;
