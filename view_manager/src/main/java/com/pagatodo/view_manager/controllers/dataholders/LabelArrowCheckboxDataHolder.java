@@ -1,5 +1,7 @@
 package com.pagatodo.view_manager.controllers.dataholders;
 
+import android.widget.CheckBox;
+
 public class LabelArrowCheckboxDataHolder {
 
     private String labelTitle;
@@ -26,6 +28,7 @@ public class LabelArrowCheckboxDataHolder {
 
     public void setLabelSubtitle(String labelSubtitle) {
         this.labelSubtitle = labelSubtitle;
+
     }
 
     public boolean isCheckbox() {
@@ -36,3 +39,5 @@ public class LabelArrowCheckboxDataHolder {
         this.checkbox = checkbox;
     }
 }
+
+
