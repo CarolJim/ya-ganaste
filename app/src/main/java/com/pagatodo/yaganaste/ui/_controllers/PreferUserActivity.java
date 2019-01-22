@@ -195,8 +195,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         } else {
             //loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
             //loadFragment(SecuritySettignsFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
-            loadFragment(ChangePasswordFragment.newInstance(),R.id.container);
-            //loadFragment(SettingsFragment.newInstance());
+            //loadFragment(ChangePasswordFragment.newInstance(),R.id.container);
+            loadFragment(SettingsFragment.newInstance());
             //loadFragment(ChangePasswordFragment.newInstance(),R.id.container);
             //loadFragment(SettingsFragment.newInstance(),R.id.container,Direction.FORDWARD,false);
         }
