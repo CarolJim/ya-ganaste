@@ -361,6 +361,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                         edt_psw_confirm.setVisibility(View.VISIBLE);
                         asignar_edittext.setText("");
                         asignar_edittextConfirm.setText("");
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.password_invalid), Snackbar.LENGTH_SHORT);
                         isChecked();
                     }
                     isChecked();

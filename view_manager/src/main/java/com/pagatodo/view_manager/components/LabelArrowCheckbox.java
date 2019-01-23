@@ -14,7 +14,7 @@ import com.pagatodo.view_manager.controllers.dataholders.LabelArrowCheckboxDataH
 import com.pagatodo.view_manager.holders.LabelArrowCheckHolder;
 
 public class LabelArrowCheckbox extends LinearLayout {
-    CheckBox checkBox;
+    boolean checkBox;
     public LabelArrowCheckbox(Context context) {
         super(context);
         init(null);
@@ -43,7 +43,7 @@ public class LabelArrowCheckbox extends LinearLayout {
                 String resTextTitle=a.getString(R.styleable.LabelArrow_lablelTitle);
                 String resTextSubtitle=a.getString(R.styleable.LabelArrow_labelSubtilte);
                 //Boolean resChecked=a.getBoolean(R.styleable.LabelArrow_checked,true);
-                boolean checkBox=a.getBoolean(R.styleable.LabelArrow_checked,true);
+                checkBox=a.getBoolean(R.styleable.LabelArrow_checked,true);
                 //checkBox=a.getBoolean(R.styleable.LabelArrow_checked,true);
                 holder.bind(new LabelArrowCheckboxDataHolder(resTextTitle,resTextSubtitle,checkBox),null);
             }finally {
@@ -53,7 +53,5 @@ public class LabelArrowCheckbox extends LinearLayout {
         holder.inflate(this);
     }
 
-    public CheckBox getCheckBox() {
-        return checkBox;
-    }
+
 }

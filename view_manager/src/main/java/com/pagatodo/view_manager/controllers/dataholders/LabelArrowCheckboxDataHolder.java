@@ -6,7 +6,7 @@ public class LabelArrowCheckboxDataHolder {
 
     private String labelTitle;
     private String labelSubtitle;
-    private boolean checkbox;
+    private Boolean checkbox;
 
     public LabelArrowCheckboxDataHolder(String labelTitle, String labelSubtitle, boolean checkbox) {
         this.labelTitle = labelTitle;
@@ -31,11 +31,11 @@ public class LabelArrowCheckboxDataHolder {
 
     }
 
-    public boolean isCheckbox() {
+    public Boolean getCheckbox() {
         return checkbox;
     }
 
-    public void setCheckbox(boolean checkbox) {
+    public void setCheckbox(Boolean checkbox) {
         this.checkbox = checkbox;
     }
 }

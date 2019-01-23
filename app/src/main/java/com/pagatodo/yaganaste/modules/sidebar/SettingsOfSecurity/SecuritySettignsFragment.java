@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 
+import com.pagatodo.view_manager.components.LabelArrow;
 import com.pagatodo.view_manager.components.LabelArrowCheckbox;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
@@ -44,8 +45,9 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
     private SidebarRouter router;
     protected OnEventListener onEventListener;
     private ImageView goChangeNip;
-    private LabelArrowCheckbox checkBoxBiometrics,checkBalances;
-    private CheckBox fingerprint, balances;
+    private LabelArrowCheckbox checkBoxBiometrics, checkBalances;
+    private CheckBox biometrics,balances;
+
 
     public SecuritySettignsFragment() {
         // Required empty public constructor
@@ -79,7 +81,8 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
         ButterKnife.bind(this, rootView);
         goChangeNip = (ImageView) rootView.findViewById(R.id.goChangeNip);
         checkBoxBiometrics = (LabelArrowCheckbox) rootView.findViewById(R.id.checkBoxBiometrics);
-        checkBalances = (LabelArrowCheckbox) rootView.findViewById(R.id.checkBalances);
+        //checkBalances = (LabelArrowCheckbox) rootView.findViewById(R.id.checkBalances);
+        biometrics= (CheckBox) rootView.findViewById(R.id.check);
 
         initViews();
         return rootView;
@@ -95,8 +98,6 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
                 UI.showSuccessSnackBar(getActivity(), msj, Snackbar.LENGTH_SHORT);
             }
         }
-
-
 
     }
 
