@@ -48,6 +48,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_REGISTER;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_REGISTER_YG;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SPLASH;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_PROVISIONED;
 
@@ -143,6 +144,9 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         preferencias = App.getInstance().getPrefs();
         // new DatabaseManager().checkCountries();
         new ForcedUpdateChecker(this).getUrls(this);
+
+
+
     }
 
     @Override
@@ -183,8 +187,6 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
             /*intent = new Intent(SplashActivity.this, MainActivity.class);
             intent.putExtra(SELECTION, MAIN_SCREEN);*/
             intent = new Intent(SplashActivity.this, OnboardingActivity.class);
-            if ((prefs.containsData(HAS_SESSION) || !RequestHeaders.getTokenauth().isEmpty())) {
-            }
             //intent.putExtra(SELECTION, MAIN_SCREEN);
             //}
         } else {

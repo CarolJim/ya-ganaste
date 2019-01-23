@@ -184,7 +184,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         } else if (getIntent().getIntExtra(MENU, 0) == MENU_CONTACTO) {
             //loadFragment(ContactoFragment.newInstance());
             //loadFragment(TutorialsFragment.newInstance());
-            loadFragment(HelpYaGanasteFragment.newInstance());
+            loadFragment(HelpYaGanasteFragment.newInstance(),R.id.container,Direction.FORDWARD,false);
         } else if (getIntent().getIntExtra(MENU, 0) == MENU_DATAUSER) {
             //loadFragment(ContactoFragment.newInstance());
             //loadFragment(TutorialsFragment.newInstance());
@@ -196,7 +196,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             //loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
             //loadFragment(SecuritySettignsFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
             //loadFragment(ChangePasswordFragment.newInstance(),R.id.container);
-            loadFragment(SettingsFragment.newInstance());
+            loadFragment(SettingsFragment.newInstance(),R.id.container,Direction.FORDWARD,false);
             //loadFragment(ChangePasswordFragment.newInstance(),R.id.container);
             //loadFragment(SettingsFragment.newInstance(),R.id.container,Direction.FORDWARD,false);
         }

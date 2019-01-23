@@ -20,6 +20,7 @@ import android.widget.ImageView;
 
 import com.pagatodo.view_manager.components.LabelArrow;
 import com.pagatodo.view_manager.components.LabelArrowCheckbox;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
@@ -34,6 +35,8 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENSAJE;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,7 +49,7 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
     protected OnEventListener onEventListener;
     private ImageView goChangeNip;
     private LabelArrowCheckbox checkBoxBiometrics, checkBalances;
-    private CheckBox biometrics,balances;
+    private CheckBox biometrics, balances;
 
 
     public SecuritySettignsFragment() {
@@ -81,8 +84,8 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
         ButterKnife.bind(this, rootView);
         goChangeNip = (ImageView) rootView.findViewById(R.id.goChangeNip);
         checkBoxBiometrics = (LabelArrowCheckbox) rootView.findViewById(R.id.checkBoxBiometrics);
-        //checkBalances = (LabelArrowCheckbox) rootView.findViewById(R.id.checkBalances);
-        biometrics= (CheckBox) rootView.findViewById(R.id.check);
+        checkBalances = (LabelArrowCheckbox) rootView.findViewById(R.id.checkBalances);
+        biometrics = (CheckBox) rootView.findViewById(R.id.check);
 
         initViews();
         return rootView;
@@ -98,7 +101,26 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
                 UI.showSuccessSnackBar(getActivity(), msj, Snackbar.LENGTH_SHORT);
             }
         }
-
+        checkBoxBiometrics.getCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, true);
+                }else {
+                    App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, false);
+                }
+            }
+        });
+        checkBalances.getCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    App.getInstance().getPrefs().saveDataBool(SHOW_BALANCE, true);
+                }else {
+                    App.getInstance().getPrefs().saveDataBool(SHOW_BALANCE, false);
+                }
+            }
+        });
     }
 
     @Override
