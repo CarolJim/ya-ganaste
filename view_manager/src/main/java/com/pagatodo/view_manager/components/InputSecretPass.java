@@ -2,7 +2,6 @@ package com.pagatodo.view_manager.components;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -14,18 +13,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.pagatodo.view_manager.R;
-import com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder;
 
 import java.util.Objects;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class InputSecretPass extends LinearLayout implements View.OnClickListener, TextWatcher,View.OnFocusChangeListener{
 
-    private TextInputLayout inputLayout;
     private TextInputEditText inputEditText;
+    private ConstraintLayout rootView;
     private ImageView astOne;
     private ImageView astTwo;
     private ImageView astThree;
@@ -38,10 +36,12 @@ public class InputSecretPass extends LinearLayout implements View.OnClickListene
     private TextView textFour;
     private TextView textFive;
     private TextView textSix;
-
     private ImageView imageviewEye;
     private LinearLayout linearText;
     private LinearLayout linearAst;
+    private LinearLayout linearLines;
+    private TextView textviewHint;
+    private TextView textLabel;
     private int resD;
     private InputSecret.InputSecretListener listener;
 
@@ -63,8 +63,12 @@ public class InputSecretPass extends LinearLayout implements View.OnClickListene
     private void init(AttributeSet attrs){
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.input_secret_pass,this,false   );
-        inputLayout = view.findViewById(R.id.text_input_layout);
+        //inputLayout = view.findViewById(R.id.text_input_layout);
         inputEditText = view.findViewById(R.id.edit_input_layout);
+        rootView = view.findViewById(R.id.root_view);
+        textviewHint = view.findViewById(R.id.textview_hint);
+        textLabel = view.findViewById(R.id.text_label);
+
         astOne = view.findViewById(R.id.ast_one);
         astTwo = view.findViewById(R.id.ast_two);
         astThree = view.findViewById(R.id.ast_three);
@@ -82,6 +86,8 @@ public class InputSecretPass extends LinearLayout implements View.OnClickListene
         imageviewEye = view.findViewById(R.id.imageview_eye);
         linearText = view.findViewById(R.id.linear_text);
         linearAst = view.findViewById(R.id.linear_ast);
+        linearLines = view.findViewById(R.id.layer_lines);
+
         initView();
         if (attrs != null) {
             TypedArray a = getContext().getTheme().obtainStyledAttributes(
@@ -95,25 +101,63 @@ public class InputSecretPass extends LinearLayout implements View.OnClickListene
                 a.recycle();
             }
         }
-
-
+        rootView.setOnClickListener(this);
         this.addView(view);
     }
 
     private void initView(){
         hidePass();
-        active();
+        //active();
         imageviewEye.setOnClickListener(this);
         inputEditText.addTextChangedListener(this);
         inputEditText.setOnFocusChangeListener(this);
 
     }
 
-    public void setHint(String hitnText){
-        inputLayout.setHint(hitnText);
+    public TextInputEditText getInputEditText(){
+        return this.inputEditText;
     }
+    public String getTextEdit(){
+        String text = textOne.getText().toString() + textTwo.getText().toString() +
+                textThree.getText().toString() + textFour.getText().toString() + textFive.getText().toString() +
+                textSix.getText().toString();
+        return text.trim();
+    }
+
+    public void setRequestFocus(){
+        inputEditText.requestFocus();
+
+    }
+
+    public void setHint(String hitnText){
+        textLabel.setText(hitnText);
+        textviewHint.setText(hitnText);
+    }
+
     public void active(){
-        inputLayout.setBackgroundResource(R.drawable.input_text_active);
+        rootView.setBackgroundResource(R.drawable.input_text_active);
+        textviewHint.setVisibility(INVISIBLE);
+        linearLines.setVisibility(VISIBLE);
+        linearAst.setVisibility(VISIBLE);
+        textLabel.setVisibility(VISIBLE);
+    }
+
+    public void desactive(){
+
+        rootView.setBackgroundResource(R.drawable.input_text_normal);
+        if (Objects.requireNonNull(inputEditText.getText()).toString().isEmpty()){
+            textLabel.setVisibility(INVISIBLE);
+            textviewHint.setVisibility(VISIBLE);
+            linearLines.setVisibility(INVISIBLE);
+        } else {
+            textLabel.setVisibility(VISIBLE);
+            textviewHint.setVisibility(INVISIBLE);
+        }
+
+    }
+
+    public void isError(){
+        rootView.setBackgroundResource(R.drawable.input_text_error);
     }
 
     public void hidePass(){
@@ -145,6 +189,8 @@ public class InputSecretPass extends LinearLayout implements View.OnClickListene
             } else if (resD == R.drawable.ic_eye_open){
                 hidePass();
             }
+        } else if (i == R.id.root_view){
+            active();
         }
 
     }
@@ -212,12 +258,15 @@ public class InputSecretPass extends LinearLayout implements View.OnClickListene
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus){
-            inputLayout.setBackgroundResource(R.drawable.input_text_active);
+            active();
             if (!Objects.requireNonNull(inputEditText.getText()).toString().isEmpty()) {
                 inputEditText.setSelection(inputEditText.getText().length());
             }
         } else {
-            inputLayout.setBackgroundResource(R.drawable.input_text_normal);
+            desactive();
+            if (Objects.requireNonNull(inputEditText.getText()).toString().length() < 6){
+                isError();
+            }
         }
     }
 
@@ -230,7 +279,11 @@ public class InputSecretPass extends LinearLayout implements View.OnClickListene
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         switch (Objects.requireNonNull(inputEditText.getText()).toString().length()){
             case 1:
-                astOne.setVisibility(View.VISIBLE);
+                if (resD == R.drawable.ic_eye_close){
+                    astOne.setVisibility(View.VISIBLE);
+                } else {
+                    astOne.setVisibility(View.INVISIBLE);
+                }
                 astTwo.setVisibility(View.INVISIBLE);
                 textTwo.setText("");
                 textOne.setText(s.toString());
@@ -238,29 +291,51 @@ public class InputSecretPass extends LinearLayout implements View.OnClickListene
             case 2:
                 astThree.setVisibility(View.INVISIBLE);
                 textThree.setText("");
-                astTwo.setVisibility(View.VISIBLE);
+                if (resD == R.drawable.ic_eye_close){
+                    astTwo.setVisibility(View.VISIBLE);
+                } else {
+                    astTwo.setVisibility(View.INVISIBLE);
+                }
+
                 textTwo.setText(s.toString().substring(1));
                 break;
             case 3:
                 astFour.setVisibility(View.INVISIBLE);
                 textFour.setText("");
-                astThree.setVisibility(View.VISIBLE);
+                if (resD == R.drawable.ic_eye_close){
+                    astThree.setVisibility(View.VISIBLE);
+                } else {
+                    astThree.setVisibility(View.INVISIBLE);
+                }
                 textThree.setText(s.toString().substring(2));
                 break;
             case 4:
                 astFive.setVisibility(View.INVISIBLE);
-                astFour.setVisibility(View.VISIBLE);
+                if (resD == R.drawable.ic_eye_close){
+                    astFour.setVisibility(View.VISIBLE);
+                } else {
+                    astFour.setVisibility(View.INVISIBLE);
+                }
                 textFour.setText(s.toString().substring(3));
                 textFive.setText("");
                 break;
             case 5:
                 astSix.setVisibility(View.INVISIBLE);
-                astFive.setVisibility(View.VISIBLE);
+                if (resD == R.drawable.ic_eye_close){
+                    astFive.setVisibility(View.VISIBLE);
+                } else {
+                    astFive.setVisibility(View.INVISIBLE);
+                }
                 textFive.setText(s.toString().substring(4));
                 textSix.setText("");
                 break;
             case 6:
-                astSix.setVisibility(View.VISIBLE);
+                rootView.setBackgroundResource(R.drawable.input_text_active);
+                if (resD == R.drawable.ic_eye_close){
+                    astSix.setVisibility(View.VISIBLE);
+                } else {
+                    astSix.setVisibility(View.INVISIBLE);
+                }
                 textSix.setText(s.toString().substring(5));
                 if (this.listener != null){
                     this.listener.inputListener();
@@ -268,6 +343,8 @@ public class InputSecretPass extends LinearLayout implements View.OnClickListene
                 break;
             default:
                 astOne.setVisibility(View.INVISIBLE);
+                textOne.setText("");
+                active();
                 break;
         }
     }
@@ -275,5 +352,9 @@ public class InputSecretPass extends LinearLayout implements View.OnClickListene
     @Override
     public void afterTextChanged(Editable s) {
 
+    }
+
+    public void setInputSecretListener(InputSecret.InputSecretListener listener){
+        this.listener = listener;
     }
 }

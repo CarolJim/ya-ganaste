@@ -131,7 +131,7 @@ public class InputTexAdapter extends ArrayAdapter<String> {
                     viewHolder.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
 
                 }else {
-                    viewHolder.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                    viewHolder.inputLayout.setBackgroundResource(R.drawable.input_text_error);
                 }
             }
         });*/

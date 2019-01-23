@@ -15,7 +15,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.core.content.ContextCompat;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatSpinner;
 import android.view.KeyEvent;
@@ -24,7 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,7 +38,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.RegisterUserNew;
 import com.pagatodo.yaganaste.data.room_db.entities.CountryF;
 import com.pagatodo.yaganaste.data.room_db.entities.Paises;
@@ -50,23 +47,18 @@ import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.IRenapoView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.Genero;
-import com.pagatodo.yaganaste.modules.register.CorreoUsuario.RegistroCorreoFragment;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
-import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
-import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
 import com.pagatodo.yaganaste.ui.account.register.adapters.EnumSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoCountry;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoStates;
-import com.pagatodo.yaganaste.ui_wallet.views.Color;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.CountriesDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
-import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -82,7 +74,6 @@ import butterknife.ButterKnife;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_DATA_USER_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
@@ -221,7 +212,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_fecha), Snackbar.LENGTH_SHORT);
-                        txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+                        txtfecha.setBackgroundResource(R.drawable.input_text_error);
                         return;
                     }
 
@@ -231,7 +222,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_mayor_edad), Snackbar.LENGTH_SHORT);
-                        txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+                        txtfecha.setBackgroundResource(R.drawable.input_text_error);
 
                         return;
                     }
@@ -526,7 +517,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_nombre), Snackbar.LENGTH_SHORT);
-                        text_nombre.setBackgroundResource(R.drawable.inputtext_error);
+                        text_nombre.setBackgroundResource(R.drawable.input_text_error);
                         //    editNames.setIsInvalid();
                     } else {
                         //  hideValidationError(editNames.getId());
@@ -560,7 +551,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_paterno), Snackbar.LENGTH_SHORT);
-                        text_apater.setBackgroundResource(R.drawable.inputtext_error);
+                        text_apater.setBackgroundResource(R.drawable.input_text_error);
                         // showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
                         //       editFirstLastName.setIsInvalid();
                     } else {
@@ -643,7 +634,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_genero), Snackbar.LENGTH_SHORT);
-            generTitle.setBackgroundResource(R.drawable.inputtext_error);
+            generTitle.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
 
@@ -653,7 +644,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_nombre), Snackbar.LENGTH_SHORT);
-            text_nombre.setBackgroundResource(R.drawable.inputtext_error);
+            text_nombre.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
         if (apPaterno.isEmpty()) {
@@ -662,7 +653,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_paterno), Snackbar.LENGTH_SHORT);
-            text_apater.setBackgroundResource(R.drawable.inputtext_error);
+            text_apater.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
 
@@ -671,7 +662,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_fecha), Snackbar.LENGTH_SHORT);
-            txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+            txtfecha.setBackgroundResource(R.drawable.input_text_error);
             //editBirthDay.setIsInvalid();
             isValid = false;
         }
@@ -686,7 +677,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                 UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_mayor_edad), Snackbar.LENGTH_SHORT);
-                txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+                txtfecha.setBackgroundResource(R.drawable.input_text_error);
                 //
                 showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_mayor_edad));
                 // editBirthDay.setIsInvalid();
@@ -701,7 +692,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_fecha), Snackbar.LENGTH_SHORT);
-            txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+            txtfecha.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
 
@@ -712,7 +703,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_estado), Snackbar.LENGTH_SHORT);
-            txtlugarnacimiento.setBackgroundResource(R.drawable.inputtext_error);
+            txtlugarnacimiento.setBackgroundResource(R.drawable.input_text_error);
 
             isValid = false;
         }
@@ -722,7 +713,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                 UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_estado), Snackbar.LENGTH_SHORT);
-                txtlugarnacimiento.setBackgroundResource(R.drawable.inputtext_error);
+                txtlugarnacimiento.setBackgroundResource(R.drawable.input_text_error);
                 // showValidationError(R.id.editCountry, getString(R.string.datos_personal_pais));
                 isValid = false;
             }
@@ -813,7 +804,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
             } else {
                 editCountry.setText("");
                 lytCountry.setVisibility(VISIBLE);
-                lytCountry.setBackgroundResource(R.drawable.inputtext_error);
+                lytCountry.setBackgroundResource(R.drawable.input_text_error);
                 //errorCountryMessage.setVisibility(VISIBLE);
             }
             colorboton();

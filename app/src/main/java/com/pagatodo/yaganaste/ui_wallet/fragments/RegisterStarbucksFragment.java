@@ -142,22 +142,22 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
         boolean isValid = true;
         if (numerotarjeta.isEmpty()){
             UI.showErrorSnackBar(getActivity(),getString(R.string.numero_tarjeta_necesario), Snackbar.LENGTH_SHORT);
-            text_numero_tarjeta.setBackgroundResource(R.drawable.inputtext_error);
+            text_numero_tarjeta.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         } else if  (numerotarjeta.length()<16){
             UI.showErrorSnackBar(getActivity(),getString(R.string.tarjeta_valido), Snackbar.LENGTH_SHORT);
-            text_numero_tarjeta.setBackgroundResource(R.drawable.inputtext_error);
+            text_numero_tarjeta.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }else {
             text_numero_tarjeta.setBackgroundResource(R.drawable.inputtext_normal);
         }
         if (codigo.isEmpty()){
             UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_pin), Snackbar.LENGTH_SHORT);
-            text_codigo.setBackgroundResource(R.drawable.inputtext_error);
+            text_codigo.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }else if  (codigo.length()<8){
             UI.showErrorSnackBar(getActivity(),getString(R.string.pin_valido), Snackbar.LENGTH_SHORT);
-            text_codigo.setBackgroundResource(R.drawable.inputtext_error);
+            text_codigo.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }else {
             text_codigo.setBackgroundResource(R.drawable.inputtext_normal);

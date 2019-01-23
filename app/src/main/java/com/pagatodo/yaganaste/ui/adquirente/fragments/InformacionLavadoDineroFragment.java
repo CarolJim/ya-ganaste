@@ -68,7 +68,6 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
-import static com.pagatodo.yaganaste.utils.Recursos.EVENT_LOG_IN;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_REGISTER_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_COBROS;
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_DESTINO_RECURSOS;
@@ -305,26 +304,26 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
 
         if (spnCobrosMensuales.getSelectedItemPosition() == 0) {
             //showValidationError(errorCobrosMensuales.getId(), getString(R.string.text_error_cobros_mensual));
-            txtcobromensual.setBackgroundResource(R.drawable.inputtext_error);
+            txtcobromensual.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
 
         if (spnMontoMensual.getSelectedItemPosition() == 0) {
             // showValidationError(errorMontoMensual.getId(), getString(R.string.text_error_monto_mensual));
-            txtmontomensual.setBackgroundResource(R.drawable.inputtext_error);
+            txtmontomensual.setBackgroundResource(R.drawable.input_text_error);
 
             isValid = false;
         }
 
         if (spnOrigenRecursos.getSelectedItemPosition() == 0) {
             showValidationError(errorOrigenRecursos.getId(), getString(R.string.text_error_origen_recursos));
-            txtorigen.setBackgroundResource(R.drawable.inputtext_error);
+            txtorigen.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
 
         if (spnDestinoRecursos.getSelectedItemPosition() == 0) {
             showValidationError(errorDestinoRecursos.getId(), getString(R.string.text_error_destino_mensual));
-            txtdestino.setBackgroundResource(R.drawable.inputtext_error);
+            txtdestino.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
 

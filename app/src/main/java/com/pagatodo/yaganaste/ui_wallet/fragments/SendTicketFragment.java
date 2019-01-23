@@ -90,7 +90,7 @@ public class SendTicketFragment extends SupportFragment implements View.OnClickL
             UI.showErrorSnackBar(getActivity(), getString(R.string.check_your_mail), Snackbar.LENGTH_SHORT);
         } else if (!ValidateForm.isValidEmailAddress(editCorreo.getText().toString())) {
             //showValidationError(getString(R.string.check_your_mail));
-            lyt_correo.setBackgroundResource(R.drawable.inputtext_error);
+            lyt_correo.setBackgroundResource(R.drawable.input_text_error);
             UI.showErrorSnackBar(getActivity(), getString(R.string.check_your_mail), Snackbar.LENGTH_SHORT);
         } else {
             //String idTransicion, String name, String email

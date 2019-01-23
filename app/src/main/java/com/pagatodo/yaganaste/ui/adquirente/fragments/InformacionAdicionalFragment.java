@@ -270,16 +270,16 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     public void showValidationError(int id, Object o) {
         switch (id) {
             /*case R.id.editCountry:
-                txtmexica.setBackgroundResource(R.drawable.inputtext_error);
+                txtmexica.setBackgroundResource(R.drawable.input_text_error);
                 errorCountryMessage.setMessageText(o.toString());
                 break;
             case R.id.spParentesco:
                 errorParentescoMessage.setMessageText(o.toString());
-                txtparentesco.setBackgroundResource(R.drawable.inputtext_error);
+                txtparentesco.setBackgroundResource(R.drawable.input_text_error);
                 break;
             case R.id.editCargo:
                 errorCargoMessage.setMessageText(o.toString());
-                text_cargo.setBackgroundResource(R.drawable.inputtext_error);
+                text_cargo.setBackgroundResource(R.drawable.input_text_error);
                 break;*/
         }
         UI.hideKeyBoard(getActivity());

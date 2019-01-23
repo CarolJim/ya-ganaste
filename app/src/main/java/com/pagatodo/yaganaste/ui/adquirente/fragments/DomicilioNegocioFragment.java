@@ -266,7 +266,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
 
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                        text_calle.setBackgroundResource(R.drawable.inputtext_error);
+                        text_calle.setBackgroundResource(R.drawable.input_text_error);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_calle), Snackbar.LENGTH_SHORT);
                     } else {
                         hideValidationError(editBussinesStreet.getId());
@@ -290,7 +290,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
                         //editBussinesExtNumber.setIsInvalid();
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                        text_num_exterior.setBackgroundResource(R.drawable.inputtext_error);
+                        text_num_exterior.setBackgroundResource(R.drawable.input_text_error);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_num_ext), Snackbar.LENGTH_SHORT);
                     } else {
                         text_num_exterior.setBackgroundResource(R.drawable.inputtext_normal);
@@ -312,7 +312,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
                     if (editBussinesZipCode.getText().toString().isEmpty()) {
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                        text_cp.setBackgroundResource(R.drawable.inputtext_error);
+                        text_cp.setBackgroundResource(R.drawable.input_text_error);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
                         // showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
                         //   editBussinesZipCode.setIsInvalid();
@@ -344,7 +344,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
                         // showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                        text_cp.setBackgroundResource(R.drawable.inputtext_error);
+                        text_cp.setBackgroundResource(R.drawable.input_text_error);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
                         if (listaColonias != null) {
                             listaColonias.clear();
@@ -380,7 +380,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             //   editBussinesStreet.setIsInvalid();
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-            text_calle.setBackgroundResource(R.drawable.inputtext_error);
+            text_calle.setBackgroundResource(R.drawable.input_text_error);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_calle), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
@@ -390,7 +390,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             //  editBussinesExtNumber.setIsInvalid();
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-            text_num_exterior.setBackgroundResource(R.drawable.inputtext_error);
+            text_num_exterior.setBackgroundResource(R.drawable.input_text_error);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_num_ext), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
@@ -406,14 +406,14 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             // editBussinesZipCode.setIsInvalid();
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-            text_cp.setBackgroundResource(R.drawable.inputtext_error);
+            text_cp.setBackgroundResource(R.drawable.input_text_error);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
 
         if (spBussinesColonia.getSelectedItemPosition() == 0 || colonia.isEmpty()) {
             //  showValidationError(spBussinesColonia.getId(), getString(R.string.datos_domicilio_colonia));
-            txtcoloria.setBackgroundResource(R.drawable.inputtext_error);
+            txtcoloria.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
 

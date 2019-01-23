@@ -12,15 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IDialogSetPassword;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DialogSetPasswordLogin  extends DialogFragment implements View.OnClickListener {
@@ -67,7 +64,7 @@ public class DialogSetPasswordLogin  extends DialogFragment implements View.OnCl
             if (hasFocus) {
                 txtInput.setBackgroundResource(R.drawable.inputtext_active);
             } else if (edtPas.getText().length() < 6) {
-                txtInput.setBackgroundResource(R.drawable.inputtext_error);
+                txtInput.setBackgroundResource(R.drawable.input_text_error);
             } else {
                 txtInput.setBackgroundResource(R.drawable.inputtext_normal);
             }

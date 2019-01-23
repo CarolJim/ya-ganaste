@@ -3,12 +3,11 @@ package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
-import android.telephony.PhoneNumberFormattingTextWatcher;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,6 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.SubGiro;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IDatosNegView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
@@ -36,10 +34,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.DatosNegocioPresenter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.SubBussinesLineSpinnerAdapter;
-import com.pagatodo.yaganaste.utils.NumberTagPase;
-import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -298,7 +293,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                     //showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
-                    text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_error);
+                    text_nombrenegoci.setBackgroundResource(R.drawable.input_text_error);
                     UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_nombre), Snackbar.LENGTH_SHORT);
                 } else {
                     //hideValidationError(editBussinesName.getId());
@@ -323,12 +318,12 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                     //        editBussinesPhone.setIsInvalid();
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                    text_telefono.setBackgroundResource(R.drawable.inputtext_error);
+                    text_telefono.setBackgroundResource(R.drawable.input_text_error);
                     UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_telefono), Snackbar.LENGTH_SHORT);
                 } else if (telefono.length() < 7) {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                    text_telefono.setBackgroundResource(R.drawable.inputtext_error);
+                    text_telefono.setBackgroundResource(R.drawable.input_text_error);
                     UI.showErrorSnackBar(getActivity(), getString(R.string.datos_telefono_incorrecto), Snackbar.LENGTH_SHORT);
                     //showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
                     // editBussinesPhone.setIsInvalid();
@@ -354,12 +349,12 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                    text_lada.setBackgroundResource(R.drawable.inputtext_error);
+                    text_lada.setBackgroundResource(R.drawable.input_text_error);
                     UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_lada), Snackbar.LENGTH_SHORT);
                 } else if (!isLada(lada)) {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                    text_lada.setBackgroundResource(R.drawable.inputtext_error);
+                    text_lada.setBackgroundResource(R.drawable.input_text_error);
                     UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_lada), Snackbar.LENGTH_SHORT);
 
                 } else if (isLada(lada)) {
@@ -381,18 +376,18 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             //showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
-            text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_error);
+            text_nombrenegoci.setBackgroundResource(R.drawable.input_text_error);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_nombre), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
         if (giroArrayAdapter.getItem(spinnerBussineLine.getSelectedItemPosition()).getIdGiro() == -1) {
             //showValidationError(spinnerBussineLine.getId(), getString(R.string.datos_negocio_giro));
-            txtgiro.setBackgroundResource(R.drawable.inputtext_error);
+            txtgiro.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
         if (subgiroArrayAdapter.getItem(spinnerSubBussineLine.getSelectedItemPosition()).getIdSubgiro() == -1) {
             //showValidationError(spinnerSubBussineLine.getId(), getString(R.string.datos_negocio_subgiro));
-            txtsubgiro.setBackgroundResource(R.drawable.inputtext_error);
+            txtsubgiro.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
         telefono = editBussinesPhone.getText().toString();
@@ -403,14 +398,14 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             //    editBussinesPhone.setIsInvalid();
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-            text_telefono.setBackgroundResource(R.drawable.inputtext_error);
+            text_telefono.setBackgroundResource(R.drawable.input_text_error);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_telefono_incorrecto), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
         if (telefono.isEmpty()) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-            text_telefono.setBackgroundResource(R.drawable.inputtext_error);
+            text_telefono.setBackgroundResource(R.drawable.input_text_error);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_telefono), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
@@ -421,7 +416,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         if (lada.length() < 2 || editBussinesLada.getText().toString().equalsIgnoreCase("000")) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-            text_lada.setBackgroundResource(R.drawable.inputtext_error);
+            text_lada.setBackgroundResource(R.drawable.input_text_error);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_lada_incorrecto), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
@@ -429,7 +424,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         if (lada.isEmpty()) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-            text_telefono.setBackgroundResource(R.drawable.inputtext_error);
+            text_telefono.setBackgroundResource(R.drawable.input_text_error);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_lada), Snackbar.LENGTH_SHORT);
             isValid = false;
         }

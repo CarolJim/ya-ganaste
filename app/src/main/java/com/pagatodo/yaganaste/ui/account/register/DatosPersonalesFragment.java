@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,7 +32,6 @@ import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
@@ -220,7 +218,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_fecha), Snackbar.LENGTH_SHORT);
-                        txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+                        txtfecha.setBackgroundResource(R.drawable.input_text_error);
                         return;
                     }
 
@@ -230,7 +228,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_mayor_edad), Snackbar.LENGTH_SHORT);
-                        txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+                        txtfecha.setBackgroundResource(R.drawable.input_text_error);
 
                         return;
                     }
@@ -448,7 +446,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_nombre), Snackbar.LENGTH_SHORT);
-                        text_nombre.setBackgroundResource(R.drawable.inputtext_error);
+                        text_nombre.setBackgroundResource(R.drawable.input_text_error);
                         //    editNames.setIsInvalid();
                     } else {
                         //  hideValidationError(editNames.getId());
@@ -481,7 +479,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_paterno), Snackbar.LENGTH_SHORT);
-                        text_apater.setBackgroundResource(R.drawable.inputtext_error);
+                        text_apater.setBackgroundResource(R.drawable.input_text_error);
                         // showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
                         //       editFirstLastName.setIsInvalid();
                     } else {
@@ -516,7 +514,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_genero), Snackbar.LENGTH_SHORT);
-            generTitle.setBackgroundResource(R.drawable.inputtext_error);
+            generTitle.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
 
@@ -526,7 +524,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_nombre), Snackbar.LENGTH_SHORT);
-            text_nombre.setBackgroundResource(R.drawable.inputtext_error);
+            text_nombre.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
         if (apPaterno.isEmpty()) {
@@ -535,7 +533,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_paterno), Snackbar.LENGTH_SHORT);
-            text_apater.setBackgroundResource(R.drawable.inputtext_error);
+            text_apater.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
 
@@ -544,7 +542,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_fecha), Snackbar.LENGTH_SHORT);
-            txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+            txtfecha.setBackgroundResource(R.drawable.input_text_error);
             //editBirthDay.setIsInvalid();
             isValid = false;
         }
@@ -559,7 +557,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                 UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_mayor_edad), Snackbar.LENGTH_SHORT);
-                txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+                txtfecha.setBackgroundResource(R.drawable.input_text_error);
                 //
                 showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_mayor_edad));
                 // editBirthDay.setIsInvalid();
@@ -574,7 +572,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_fecha), Snackbar.LENGTH_SHORT);
-            txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+            txtfecha.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
 
@@ -585,7 +583,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_estado), Snackbar.LENGTH_SHORT);
-            txtlugarnacimiento.setBackgroundResource(R.drawable.inputtext_error);
+            txtlugarnacimiento.setBackgroundResource(R.drawable.input_text_error);
 
             isValid = false;
         }
@@ -595,7 +593,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                 UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_estado), Snackbar.LENGTH_SHORT);
-                txtlugarnacimiento.setBackgroundResource(R.drawable.inputtext_error);
+                txtlugarnacimiento.setBackgroundResource(R.drawable.input_text_error);
                 // showValidationError(R.id.editCountry, getString(R.string.datos_personal_pais));
                 isValid = false;
             }
@@ -633,7 +631,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 break;
             case R.id.editCountry:
                 //errorCountryMessage.setMessageText(error.toString());
-                lytCountry.setBackgroundResource(R.drawable.inputtext_error);
+                lytCountry.setBackgroundResource(R.drawable.input_text_error);
                 break;
         }
         UI.hideKeyBoard(getActivity());
@@ -688,7 +686,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             } else {
                 editCountry.setText("");
                 lytCountry.setVisibility(VISIBLE);
-                lytCountry.setBackgroundResource(R.drawable.inputtext_error);
+                lytCountry.setBackgroundResource(R.drawable.input_text_error);
                 //errorCountryMessage.setVisibility(VISIBLE);
             }
         } else {

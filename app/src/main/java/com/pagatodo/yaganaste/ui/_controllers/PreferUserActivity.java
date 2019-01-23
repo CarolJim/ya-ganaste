@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.Menu;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -195,7 +196,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             //loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
             //loadFragment(SecuritySettignsFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
             //loadFragment(ChangePasswordFragment.newInstance(),R.id.container);
-            loadFragment(SettingsFragment.newInstance(),R.id.container,Direction.FORDWARD,false);
+            loadFragment(SettingsFragment.newInstance());
+            //loadFragment(ChangePasswordFragment.newInstance(),R.id.container);
+            //loadFragment(SettingsFragment.newInstance(),R.id.container,Direction.FORDWARD,false);
         }
 
         mContext = this;
@@ -587,5 +590,12 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         // onEventListener.onEvent("DISABLE_BACK", false);
     }
 
+    public void showError(String msj){
+        UI.showErrorSnackBar(this,msj,Snackbar.LENGTH_SHORT);
+    }
+
+    public void showSuccess(String msj){
+        UI.showSuccessSnackBar(this,msj,Snackbar.LENGTH_SHORT);
+    }
 
 }

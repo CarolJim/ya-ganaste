@@ -130,7 +130,7 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
                 }else {
 
                     UI.showErrorSnackBar(getActivity(), getString(R.string.qr_name_add), Snackbar.LENGTH_SHORT);
-                    text_name_qr.setBackgroundResource(R.drawable.inputtext_error);
+                    text_name_qr.setBackgroundResource(R.drawable.input_text_error);
 
                 }
             }

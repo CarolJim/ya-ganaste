@@ -144,18 +144,18 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
         boolean isValid = true;
         if (SingletonUser.getInstance().getDataUser().getUsuario().isEsExtranjero() && !qNacionalidad.getResponseYes().isChecked()) {
             if (country == null) {
-                states.getInputLayout().setBackgroundResource(R.drawable.inputtext_error);
+                states.getInputLayout().setBackgroundResource(R.drawable.input_text_error);
                 isValid = false;
             }
         }
         if (qCargoPublico.getResponseYes().isChecked()) {
             if (textParentesco == null || textParentesco.getIdGiro() == -1) {
-                parentesco.getView().setBackgroundResource(R.drawable.inputtext_error);
+                parentesco.getView().setBackgroundResource(R.drawable.input_text_error);
                 isValid = false;
             }
 
             if (TextUtils.isEmpty(inputDataViewHolder.getEditText().getText())) {
-                inputDataViewHolder.getInputLayout().setBackgroundResource(R.drawable.inputtext_error);
+                inputDataViewHolder.getInputLayout().setBackgroundResource(R.drawable.input_text_error);
                 isValid = false;
             }
         }

@@ -282,7 +282,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_calle), Snackbar.LENGTH_SHORT);
-                        text_calle.setBackgroundResource(R.drawable.inputtext_error);
+                        text_calle.setBackgroundResource(R.drawable.input_text_error);
 
                         //   editStreet.setIsInvalid();
                     } else {
@@ -322,7 +322,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_num_ext), Snackbar.LENGTH_SHORT);
-                        text_num_exterior.setBackgroundResource(R.drawable.inputtext_error);
+                        text_num_exterior.setBackgroundResource(R.drawable.input_text_error);
                     } else {
                         //hideValidationError(editExtNumber.getId());
                         //  editExtNumber.setIsValid();
@@ -351,7 +351,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                     text_num_interior.setBackgroundResource(R.drawable.inputtext_active);
                 } else {
                     /*if (editIntNumber.getText().toString().isEmpty()) {
-                        text_num_interior.setBackgroundResource(R.drawable.inputtext_error);
+                        text_num_interior.setBackgroundResource(R.drawable.input_text_error);
                     } else {*/
                         text_num_interior.setBackgroundResource(R.drawable.inputtext_normal);
                     //}
@@ -382,7 +382,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
-                        text_cp.setBackgroundResource(R.drawable.inputtext_error);
+                        text_cp.setBackgroundResource(R.drawable.input_text_error);
                         //   editZipCode.setIsInvalid();
                     } else {
                         hideValidationError(editZipCode.getId());
@@ -409,7 +409,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
-                        text_cp.setBackgroundResource(R.drawable.inputtext_error);
+                        text_cp.setBackgroundResource(R.drawable.input_text_error);
                     } else if (editZipCode.getText().toString().length() > MIN_LENGHT_VALIDATION_CP) {
                         hideValidationError(editZipCode.getId());
                         // editZipCode.setIsValid();
@@ -483,7 +483,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_calle), Snackbar.LENGTH_SHORT);
-            text_calle.setBackgroundResource(R.drawable.inputtext_error);
+            text_calle.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
         if (numExt.isEmpty()) {
@@ -492,7 +492,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_num_ext), Snackbar.LENGTH_SHORT);
-            text_num_exterior.setBackgroundResource(R.drawable.inputtext_error);
+            text_num_exterior.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
        /* if (!editZipCode.isValidText()) {
@@ -508,7 +508,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
-            text_cp.setBackgroundResource(R.drawable.inputtext_error);
+            text_cp.setBackgroundResource(R.drawable.input_text_error);
 
             isValid = false;
         }
@@ -519,7 +519,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_colonia), Snackbar.LENGTH_SHORT);
-            txtcoloria.setBackgroundResource(R.drawable.inputtext_error);
+            txtcoloria.setBackgroundResource(R.drawable.input_text_error);
 
 
             isValid = false;

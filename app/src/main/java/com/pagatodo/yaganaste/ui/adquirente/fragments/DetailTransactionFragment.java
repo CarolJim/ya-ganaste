@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -14,7 +13,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,7 +24,6 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.net.RequestHeaders;
-import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
@@ -199,7 +196,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
             return;
         } else if (!emailToSend.isEmpty() && !ValidateForm.isValidEmailAddress(edtEmailSendticket.getText().toString())) {
             //showValidationError(getString(R.string.check_your_mail));
-            text_email.setBackgroundResource(R.drawable.inputtext_error);
+            text_email.setBackgroundResource(R.drawable.input_text_error);
             UI.showErrorSnackBar(getActivity(),getString(R.string.check_your_mail), Snackbar.LENGTH_SHORT);
             return;
         }

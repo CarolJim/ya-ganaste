@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.modules.register.CorreoUsuario;
 
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -551,7 +549,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         hideLoader();
         emailValidatedByWS = false;
         userExist = false;
-        text_email.setBackgroundResource(R.drawable.inputtext_error);
+        text_email.setBackgroundResource(R.drawable.input_text_error);
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo_existe), Snackbar.LENGTH_LONG);
@@ -607,14 +605,14 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 } else if (editMail.getText().toString().isEmpty()) {
                     //InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                    text_email.setBackgroundResource(R.drawable.inputtext_error);
+                    text_email.setBackgroundResource(R.drawable.input_text_error);
                     UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
 
                 } else if (!ValidateForm.isValidEmailAddress(editMail.getText().toString().trim().toLowerCase()) && !emailValidatedByWS) {
                     //InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     //imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                     imm.hideSoftInputFromWindow(btnNextDatosUsuario.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                    text_email.setBackgroundResource(R.drawable.inputtext_error);
+                    text_email.setBackgroundResource(R.drawable.input_text_error);
                     UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
                 } else if (ValidateForm.isValidEmailAddress(editMail.getText().toString().trim().toLowerCase()) && !emailValidatedByWS) {
                     accountPresenter.validateEmail(editMail.getText().toString());
@@ -691,11 +689,11 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             //UI.showErrorSnackBar(getActivity(), getString(R.string.ingress_your_mail), Snackbar.LENGTH_SHORT);
             UI.showErrorSnackBar(getActivity(), getString(R.string.ingress_your_mail), Snackbar.LENGTH_SHORT);
-            text_email.setBackgroundResource(R.drawable.inputtext_error);
+            text_email.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
         if (!ValidateForm.isValidEmailAddress(email)) {
-            text_email.setBackgroundResource(R.drawable.inputtext_error);
+            text_email.setBackgroundResource(R.drawable.input_text_error);
             text_email.requestFocus();
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
             isValid = false;
@@ -704,15 +702,15 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.ingress_your_mail), Snackbar.LENGTH_SHORT);
-            text_email.setBackgroundResource(R.drawable.inputtext_error);
+            text_email.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
         if (asignar_edittext.getText().toString().isEmpty()) {
-            edt_psw.setBackgroundResource(R.drawable.inputtext_error);
+            edt_psw.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
         if (asignar_edittextConfirm.getText().toString().isEmpty()) {
-            edt_psw_confirm.setBackgroundResource(R.drawable.inputtext_error);
+            edt_psw_confirm.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
         if (!asignar_edittext.getText().toString().equals(asignar_edittextConfirm.getText().toString())) {
@@ -721,12 +719,12 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         }
         if (psd.isEmpty()) {
             UI.showErrorSnackBar(getActivity(), getString(R.string.psd), Snackbar.LENGTH_SHORT);
-            edt_psw.setBackgroundResource(R.drawable.inputtext_error);
+            edt_psw.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
         if (psd_con.isEmpty()) {
             UI.showErrorSnackBar(getActivity(), getString(R.string.psd_con), Snackbar.LENGTH_SHORT);
-            edt_psw_confirm.setBackgroundResource(R.drawable.inputtext_error);
+            edt_psw_confirm.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
 
@@ -737,7 +735,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
 
         if (!psd_con.equals(psd)) {
             UI.showErrorSnackBar(getActivity(), getString(R.string.confirmar_contrase), Snackbar.LENGTH_SHORT);
-            //edt_psw_confirm.setBackgroundResource(R.drawable.inputtext_error);
+            //edt_psw_confirm.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
         if (!userExist || asignar_edittext.length() == 6 || asignar_edittextConfirm.length() == 6) {

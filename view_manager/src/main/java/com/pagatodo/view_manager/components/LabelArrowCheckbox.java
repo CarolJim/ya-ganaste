@@ -14,7 +14,9 @@ import com.pagatodo.view_manager.controllers.dataholders.LabelArrowCheckboxDataH
 import com.pagatodo.view_manager.holders.LabelArrowCheckHolder;
 
 public class LabelArrowCheckbox extends LinearLayout {
-    boolean checkBox;
+
+    private LabelArrowCheckHolder holder;
+
     public LabelArrowCheckbox(Context context) {
         super(context);
         init(null);
@@ -32,8 +34,8 @@ public class LabelArrowCheckbox extends LinearLayout {
 
     private void init(AttributeSet attrs){
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View rootView=inflater.inflate(R.layout.checkbox,this,false);
-        LabelArrowCheckHolder holder = new LabelArrowCheckHolder(rootView);
+        View rootView = inflater.inflate(R.layout.checkbox,this,false);
+        holder = new LabelArrowCheckHolder(rootView);
         if (attrs!=null){
             TypedArray a =getContext().getTheme().obtainStyledAttributes(
                     attrs,
@@ -42,10 +44,8 @@ public class LabelArrowCheckbox extends LinearLayout {
             try {
                 String resTextTitle=a.getString(R.styleable.LabelArrow_lablelTitle);
                 String resTextSubtitle=a.getString(R.styleable.LabelArrow_labelSubtilte);
-                //Boolean resChecked=a.getBoolean(R.styleable.LabelArrow_checked,true);
-                checkBox=a.getBoolean(R.styleable.LabelArrow_checked,true);
-                //checkBox=a.getBoolean(R.styleable.LabelArrow_checked,true);
-                holder.bind(new LabelArrowCheckboxDataHolder(resTextTitle,resTextSubtitle,checkBox),null);
+                Boolean resChecked=a.getBoolean(R.styleable.LabelArrow_checked,true);
+                holder.bind(new LabelArrowCheckboxDataHolder(resTextTitle,resTextSubtitle,resChecked),null);
             }finally {
                 a.recycle();
             }
@@ -53,5 +53,8 @@ public class LabelArrowCheckbox extends LinearLayout {
         holder.inflate(this);
     }
 
+    public CheckBox getCheckBox(){
+        return holder.getCheckbox();
+    }
 
 }

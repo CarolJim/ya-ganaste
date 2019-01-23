@@ -676,7 +676,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                     if (editAlias.getText().toString().isEmpty()) {
                         //showValidationError(editAlias.getId(), getString(R.string.addFavoritesErrorAlias));
                         //editAlias.setIsInvalid();
-                        til_name_favorite.setBackgroundResource(R.drawable.inputtext_error);
+                        til_name_favorite.setBackgroundResource(R.drawable.input_text_error);
                         UI.showErrorSnackBar(FavoritesActivity.this, getString(R.string.addFavoritesErrorAlias), Snackbar.LENGTH_SHORT);
                     } else {
                         hideValidationError(editAlias.getId());
@@ -703,7 +703,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                     } else {
                         if (editRefer.getText().isEmpty()) {
                             // showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
-                            add_favorites_tae_ll.setBackgroundResource(R.drawable.inputtext_error);
+                            add_favorites_tae_ll.setBackgroundResource(R.drawable.input_text_error);
                             editRefer.setIsInvalid();
                         } else {
                             hideValidationError(editRefer.getId());
@@ -726,7 +726,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                     } else {
                         if (editRefer.getText().isEmpty()) {
                             //  showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
-                            add_favorites_serv_ll.setBackgroundResource(R.drawable.inputtext_error);
+                            add_favorites_serv_ll.setBackgroundResource(R.drawable.input_text_error);
                             editRefer.setIsInvalid();
                         } else {
                             hideValidationError(editRefer.getId());
@@ -749,7 +749,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                     } else {
                         if (editRefer.getText().isEmpty()) {
                             //  showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
-                            layout_cardNumber.setBackgroundResource(R.drawable.inputtext_error);
+                            layout_cardNumber.setBackgroundResource(R.drawable.input_text_error);
                             editRefer.setIsInvalid();
                         } else {
                             hideValidationError(editRefer.getId());

@@ -12,9 +12,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -155,7 +152,7 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
             if (!hasFocus) {
                 if (editActual.editText.getText().toString().isEmpty()) {
                     showSnakBar(getResources().getString(R.string.cambiar_pass_actual));
-                    editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                    editActual.inputLayout.setBackgroundResource(R.drawable.input_text_error);
                 } else {
                     editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
                 }
@@ -168,7 +165,7 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
             if (!hasFocus) {
                 if (editNueva.editText.getText().toString().isEmpty()) {
                     showSnakBar(getResources().getString(R.string.datos_usuario_pass_new));
-                    editNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                    editNueva.inputLayout.setBackgroundResource(R.drawable.input_text_error);
                 } else {
                     editNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
                 }
@@ -181,12 +178,12 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
             if (!hasFocus) {
                 if (editConfir.editText.getText().toString().isEmpty()) {
                     showSnakBar(getResources().getString(R.string.datos_usuario_pass_c));
-                    editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                    editConfir.inputLayout.setBackgroundResource(R.drawable.input_text_error);
                 } else {
                     if (editConfir.editText.getText().toString().equalsIgnoreCase(editNueva.editText.getText().toString())) {
                         editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
                     } else {
-                        editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                        editConfir.inputLayout.setBackgroundResource(R.drawable.input_text_error);
                     }
                 }
             } else {
@@ -342,7 +339,7 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
     @Override
     public void sendErrorPassToView(String mensaje) {
         if (mensaje.contains("Contraseña")) {
-            editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+            editActual.inputLayout.setBackgroundResource(R.drawable.input_text_error);
             showSnakBar(getString(R.string.error_service_verify_pass));
         } else {
             showSnakBar(mensaje);
