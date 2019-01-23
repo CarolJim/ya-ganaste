@@ -44,6 +44,7 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
@@ -175,6 +176,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         return new LoginFragment();
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -211,6 +213,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         ButterKnife.bind(this, rootview);
         btnLogin.setOnClickListener(this);
         txtLoginExistUserRecoverPass.setOnClickListener(this);
+        ((AccountActivity) getActivity()).showToolbarHelp(false);
         SpannableString ss;
         ss = new SpannableString(getString(R.string.recover_pass));
         ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 0, 25, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

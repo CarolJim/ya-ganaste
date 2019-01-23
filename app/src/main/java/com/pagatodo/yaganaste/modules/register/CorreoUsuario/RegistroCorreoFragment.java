@@ -190,6 +190,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     public void initViews() {
         ButterKnife.bind(this, rootview);
 
+
         btnNextDatosUsuario.setOnClickListener(this);
         editMail.setOnFocusChangeListener(this::onFocusChange);
         edit_psw.setOnFocusChangeListener(this::onFocusChange);
@@ -202,6 +203,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         asignar_edittextConfirm.setFocusableInTouchMode(true);
         asignar_edittextConfirm.addTextChangedListener
                 (new AsignarNipTextWatcher(asignar_edittextConfirm, tv1NumConfirm, tv2NumConfirm, tv3NumConfirm, tv4NumConfirm, tv5NumConfirm, tv6NumConfirm, this, true));
+
 
         asignar_control_layout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -352,7 +354,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                     if (asignar_edittext.getText().toString().equals(asignar_edittextConfirm.getText().toString())) {
                         text_email.setBackgroundResource(R.drawable.inputtext_normal);
                         llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_normal);
-                    }else {
+                    } else {
                         llypass_pass.setVisibility(View.GONE);
                         llypass_passConfirm.setVisibility(View.GONE);
                         edt_psw.setVisibility(View.VISIBLE);
@@ -597,6 +599,10 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             if (hasFocus) {
                 emailValidatedByWS = false;
                 text_email.setBackgroundResource(R.drawable.inputtext_active);
+                editMail.setFocusableInTouchMode(true);
+                editMail.requestFocus();
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
+                imm.showSoftInput(editMail, InputMethodManager.SHOW_IMPLICIT);
                 //llypass_pass.setVisibility(View.GONE);
                 //edt_psw.setVisibility(View.VISIBLE);
             } else {
@@ -634,10 +640,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 edt_psw.setVisibility(View.GONE);
                 text_passwordnew.setVisibility(View.GONE);
                 llypass_pass.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                LinearLayout.LayoutParams margin = (LinearLayout.LayoutParams) contPass.getLayoutParams();
-                margin.leftMargin = 30;
-                margin.rightMargin = 30;
-                contPass.setLayoutParams(margin);
+
                 llypass_pass.setVisibility(View.VISIBLE);
                 llypass_pass.setBackgroundResource(R.drawable.inputtext_active);
                 text_email.setBackgroundResource(R.drawable.inputtext_normal);
@@ -658,8 +661,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 text_passwordnewRegConfirm.setVisibility(View.GONE);
                 llypass_passConfirm.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 LinearLayout.LayoutParams margin = (LinearLayout.LayoutParams) contPassConfirm.getLayoutParams();
-                margin.leftMargin = 30;
-                margin.rightMargin = 30;
                 margin.topMargin = 20;
                 contPassConfirm.setLayoutParams(margin);
                 llypass_passConfirm.setVisibility(View.VISIBLE);
