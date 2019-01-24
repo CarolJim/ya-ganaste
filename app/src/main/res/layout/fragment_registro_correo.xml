@@ -114,7 +114,8 @@
             android:id="@+id/contPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:visibility="visible">
@@ -124,9 +125,10 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_passwordnewReg"
-                android:layout_width="276dp"
+                android:layout_width="match_parent"
                 android:layout_height="53dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/inputtext_normal"
                 android:gravity="center_vertical"
                 android:hint="@string/txt_escribe_tu_pass"
@@ -229,7 +231,8 @@
             android:id="@+id/contPassConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:visibility="visible">
@@ -292,15 +295,15 @@
 
         <EditText
             android:id="@+id/asignar_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="70px"
+            android:layout_width="1px"
+            android:layout_height="1px"
             android:inputType="number"
             android:maxLength="6"
             android:visibility="visible" />
         <EditText
             android:id="@+id/asignar_edittextConfirm"
-            android:layout_width="match_parent"
-            android:layout_height="70px"
+            android:layout_width="1px"
+            android:layout_height="1px"
             android:inputType="number"
             android:maxLength="6"
             android:visibility="visible" />

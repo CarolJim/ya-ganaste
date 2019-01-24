@@ -7,8 +7,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -16,6 +19,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -109,7 +113,7 @@ public class OnboardingActivity extends LoaderActivity
         url = new ArrayList<>();
         skeepIntro = findViewById(R.id.skeep_intro);
         router = new OnboardingRouter(this);
-        saltar=findViewById(R.id.saltar);
+        saltar = findViewById(R.id.saltar);
         preferencias = App.getInstance().getPrefs();
         db = App.getAppDatabase();
         preferencias = App.getInstance().getPrefs();
@@ -138,7 +142,7 @@ public class OnboardingActivity extends LoaderActivity
         //new ForcedUpdateChecker(this).getUrls(this);
 
         Intent intent = null;
-        if ((preferencias.containsData(IS_OPERADOR))||(preferencias.containsData(HAS_SESSION) || !RequestHeaders.getTokenauth().isEmpty())) {
+        if ((preferencias.containsData(IS_OPERADOR)) || !RequestHeaders.getTokenauth().isEmpty()) {
             intent = new Intent(OnboardingActivity.this, MainActivity.class);
             intent.putExtra(SELECTION, MAIN_SCREEN);
             startActivity(intent);
@@ -156,8 +160,8 @@ public class OnboardingActivity extends LoaderActivity
     @Override
     public void onBackPressed() {
         //startActivity(OnboardingActivity.createIntent(this));
-        Fragment currentFragment =getCurrentFragment();
-        if (currentFragment instanceof StartFragment){
+        Fragment currentFragment = getCurrentFragment();
+        if (currentFragment instanceof StartFragment) {
             showNext(true);
             startActivity(OnboardingActivity.createIntent(this));
         }
@@ -198,13 +202,14 @@ public class OnboardingActivity extends LoaderActivity
 
     }
 
-    public void showNext(boolean flag){
-        if (flag){
+    public void showNext(boolean flag) {
+        if (flag) {
             saltar.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             saltar.setVisibility(View.GONE);
         }
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -254,7 +259,7 @@ public class OnboardingActivity extends LoaderActivity
                     preferencias.saveData(CATALOG_VERSION, response.getData().getVersion());
                     new DatabaseManager().insertComercios(response.getData().getComercios());
                 }
-               // callNextActivity();
+                // callNextActivity();
                 break;
             default:
                 break;
@@ -341,7 +346,7 @@ public class OnboardingActivity extends LoaderActivity
         @SuppressLint("ResourceType")
         @Override
         public Fragment getItem(int i) {
-            return new ScreenSlidePageFragment(list.get(i).getUrl_img(),i);
+            return new ScreenSlidePageFragment(list.get(i).getUrl_img(), i);
             //return new ScreenSlidePageFragment();
         }
 
@@ -375,7 +380,7 @@ public class OnboardingActivity extends LoaderActivity
 
             @Override
             public void onPageSelected(int i) {
-                if (i == 0){
+                if (i == 0) {
                     skeepIntro.setTextColor(Color.parseColor("#FFFFFF"));
                 } else {
                     skeepIntro.setTextColor(Color.parseColor("#00A1E1"));

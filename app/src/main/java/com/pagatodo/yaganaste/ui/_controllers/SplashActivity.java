@@ -47,7 +47,10 @@ import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_REGISTER;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_REGISTER_YG;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SPLASH;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_PROVISIONED;
 
 public class SplashActivity extends LoaderActivity implements IRequestResult, FileDownloadListener,
         IGetInfoFromFirebase {
@@ -56,6 +59,7 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
     private static final String TAG = "SplashActivity";
     boolean downloadFile = false;
     ImageView imgLogo;
+    private Preferencias prefs = App.getInstance().getPrefs();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,8 +142,11 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         preferencias = App.getInstance().getPrefs();
         db = App.getAppDatabase();
         preferencias = App.getInstance().getPrefs();
-       // new DatabaseManager().checkCountries();
+        // new DatabaseManager().checkCountries();
         new ForcedUpdateChecker(this).getUrls(this);
+
+
+
     }
 
     @Override
@@ -168,6 +175,7 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         callNextActivity();
     }
 
+    //if ((prefs.containsData(IS_OPERADOR)) || (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty())) {
     private void callNextActivity() {
         Intent intent = null;
         /*TODO Descomentar para validar flujo correctamente*/
@@ -195,7 +203,7 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(this).logEvent(EVENT_SPLASH, bundle);
         JSONObject props = new JSONObject();
-        if(!BuildConfig.DEBUG) {
+        if (!BuildConfig.DEBUG) {
             try {
                 props.put(CONNECTION_TYPE, Utils.getTypeConnection());
             } catch (JSONException e) {
