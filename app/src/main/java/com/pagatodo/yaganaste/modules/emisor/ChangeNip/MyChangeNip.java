@@ -9,15 +9,19 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import android.text.InputFilter;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.pagatodo.view_manager.buttons.ButtonContinue;
+import com.pagatodo.view_manager.components.inputs.InputSecret;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -42,6 +46,8 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.MY_PERMISSIONS_REQUEST_PHONE;
+import static com.pagatodo.yaganaste.utils.Recursos.OLD_NIP;
+import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 
 /**
  * Created by Team Android on 22/03/2017.
@@ -49,10 +55,12 @@ import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.MY_PERMIS
 public class MyChangeNip extends GenericFragment implements View.OnClickListener,
         IChangeNIPView {
 
-    @BindView(R.id.fragment_myemail_btn)
-    StyleButton finishBtn;
+    @BindView(R.id.btn_continue)
+    ButtonContinue finishBtn;
     @BindView(R.id.call_phone)
     TextView call_phone;
+    @BindView(R.id.textInputEditText)
+    InputSecret nipActual;
 
     private WalletMainActivity activity;
 
@@ -99,15 +107,29 @@ public class MyChangeNip extends GenericFragment implements View.OnClickListener
         ButterKnife.bind(this, rootview);
         finishBtn.setOnClickListener(this);
         call_phone.setOnClickListener(this);
+        nipActual.setRequestFocus();
+        showKeyboard();
+        nipActual.setActionListener((v, actionId, keyEvent) ->{
+            if (actionId== EditorInfo.IME_ACTION_DONE
+                    || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                    && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                hideKeyBoard(nipActual.getInputEditText());
+                if (validate()){
+
+                    /*mPreferPresenter.changePassToPresenter(
+                            Utils.cipherRSA(hit, PUBLIC_KEY_RSA),
+                            Utils.cipherRSA(inputSecretPassNew.getTextEdit(), PUBLIC_KEY_RSA)
+                    );*/
+                }
+                return true;
+            }
+            return false;
+        });
     }
 
-    private void hideKeyBoard() {
-        InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(Objects.requireNonNull(getView()).getWindowToken(), 0);
-    }
 
     private void showSnakErrorBar(String mensje) {
-        hideKeyBoard();
+        hideKeyBoard(nipActual.getInputEditText());
         UI.showErrorSnackBar(Objects.requireNonNull(getActivity()), mensje, Snackbar.LENGTH_LONG);
     }
 
@@ -128,6 +150,16 @@ public class MyChangeNip extends GenericFragment implements View.OnClickListener
 
    private boolean validate(){
         boolean isValid = true;
+
+        if (nipActual.getTextEdit().length() < 4){
+            isValid = false;
+            UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),"El NIP no es correcto",Snackbar.LENGTH_SHORT);
+        }
+        if (!nipActual.getTextEdit().equalsIgnoreCase(App.getInstance().getPrefs().loadData(OLD_NIP))){
+            isValid = false;
+            UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),"El NIP no es correcto",Snackbar.LENGTH_SHORT);
+        }
+
         return isValid;
    }
 
@@ -236,4 +268,9 @@ public class MyChangeNip extends GenericFragment implements View.OnClickListener
         }
     };
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        hideKeyBoard(nipActual.getInputEditText());
+    }
 }

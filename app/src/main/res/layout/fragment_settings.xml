@@ -118,7 +118,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:layout_weight="2"
-            android:text="@string/unlink_phone"
+            android:text="@string/cancelar_account"
             android:textColor="@color/gray_slate" />
 
         <androidx.appcompat.widget.AppCompatImageView

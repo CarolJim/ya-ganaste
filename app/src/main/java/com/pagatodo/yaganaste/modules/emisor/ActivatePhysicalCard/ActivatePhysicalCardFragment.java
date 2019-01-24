@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.pagatodo.view_manager.buttons.ButtonContinue;
+import com.pagatodo.view_manager.components.inputs.InputCardNumber;
+import com.pagatodo.view_manager.components.inputs.InputSecretListener;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.modules.emisor.WalletEmisorInteractor;
@@ -28,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ActivatePhysicalCardFragment extends SupportFragment implements View.OnClickListener,
-        EditText.OnEditorActionListener, TextWatcher {
+        EditText.OnEditorActionListener, InputSecretListener {
 
     private WalletMainActivity activity;
     private View rootView;
@@ -36,8 +38,8 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
 
     @BindView(R.id.btn_continue_active_card)
     ButtonContinue btnContinue;
-    @BindView(R.id.edit_number_card)
-    EditText editNumberCard;
+    @BindView(R.id.input_card)
+    InputCardNumber inputNumberCard;
 
 
     public static ActivatePhysicalCardFragment newInstance(){
@@ -73,13 +75,10 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
                 .getCuentas().get(0).getTarjetas().get(0).getNumero().trim().substring(0,6);*/
         String cardnum = SingletonUser.getInstance().getDataUser().getEmisor()
                 .getCuentas().get(0).getTarjetas().get(0).getNumero().trim();
-        editNumberCard.setText(cardnum);
-        editNumberCard.setSelection(editNumberCard.getText().length());
-        editNumberCard.requestFocus();
-        InputMethodManager imm = (InputMethodManager)  Objects.requireNonNull(getContext()).getSystemService(Context.INPUT_METHOD_SERVICE);
-        Objects.requireNonNull(imm).toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-        editNumberCard.setOnEditorActionListener(this);
-        editNumberCard.addTextChangedListener(this);
+        inputNumberCard.setRequest();
+        inputNumberCard.setInputSecretListener(this);
+        showKeyboard();
+
     }
 
 
@@ -87,8 +86,8 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
     @Override
     public void onClick(View view) {
         //this.activity.getRouter().onShowGeneratePIN();
-        hideKeyboard();
-        interactor.validateCard(editNumberCard.getText().toString().trim());
+        //hideKeyboard();
+        //interactor.validateCard(editNumberCard.getText().toString().trim());
     }
 
     @Override
@@ -98,8 +97,8 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
                 && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 if (validate()){
                     //this.activity.getRouter().onShowGeneratePIN();
-                    hideKeyboard();
-                    interactor.validateCard(editNumberCard.getText().toString().trim());
+                    hideKeyBoard(inputNumberCard.getEditText());
+                    //interactor.validateCard(editNumberCard.getText().toString().trim());
                 }
             return true;
         }
@@ -109,42 +108,28 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
 
     private boolean validate(){
         boolean isVailid = true;
-        if (editNumberCard.getText().toString().length() < 16){
+        /*if (editNumberCard.getText().toString().length() < 16){
             isVailid = false;
             hideKeyboard();
-            activity.showError(Objects.requireNonNull(getContext()).getResources().getString(R.string.text_error_active_card));
-        }
+              activity.showError(Objects.requireNonNull(getContext()).getResources().getString(R.string.text_error_active_card));
+        }*/
         return isVailid;
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        if (editNumberCard.getText().toString().length() == 16){
-            btnContinue.active();
-        } else {
-            btnContinue.inactive();
-        }
-    }
-
-    @Override
-    public void afterTextChanged(Editable editable) {
-
-    }
-
-    private void hideKeyboard(){
-        InputMethodManager imm = (InputMethodManager)Objects.requireNonNull(getContext()).getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-        Objects.requireNonNull(imm).hideSoftInputFromWindow(editNumberCard.getWindowToken(), 0);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        hideKeyboard();
+        //hideKeyboard();
+        hideKeyBoard(inputNumberCard.getEditText());
+    }
+
+    @Override
+    public void inputListenerFinish() {
+        btnContinue.active();
+    }
+
+    @Override
+    public void inputListenerBegin() {
+        btnContinue.inactive();
     }
 }

@@ -55,10 +55,13 @@
         android:visibility="visible"/>
 
     <View
+        android:id="@+id/line_five"
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="@color/gray_off"/>
+        android:background="@color/gray_off"
+        android:visibility="visible"/>
     <View
+        android:id="@+id/space_five"
         android:layout_width="0dp"
         android:layout_height="14dp"
         android:layout_weight="1"
@@ -67,11 +70,14 @@
         android:visibility="visible"/>
 
     <View
+        android:id="@+id/line_six"
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="@color/gray_off"/>
+        android:background="@color/gray_off"
+        android:visibility="visible"/>
 
     <View
+        android:id="@+id/space_six"
         android:layout_width="0dp"
         android:layout_height="14dp"
         android:layout_weight="1"

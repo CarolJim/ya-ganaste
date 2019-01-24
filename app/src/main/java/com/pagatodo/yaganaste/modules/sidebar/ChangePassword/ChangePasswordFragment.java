@@ -8,10 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.pagatodo.view_manager.components.InputSecretPass;
+import com.pagatodo.view_manager.components.inputs.InputSecretPass;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
@@ -27,7 +26,6 @@ import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
 public class ChangePasswordFragment extends GenericFragment {
@@ -105,7 +103,7 @@ public class ChangePasswordFragment extends GenericFragment {
         return isValid;
     }
 
-    private void showKeyboard(){
+    protected void showKeyboard(){
         InputMethodManager imm = (InputMethodManager)  App.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         Objects.requireNonNull(imm).toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
