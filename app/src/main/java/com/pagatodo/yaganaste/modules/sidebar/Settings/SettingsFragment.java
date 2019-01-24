@@ -72,16 +72,13 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
         switch (v.getId()) {
             case R.id.settings_security:
                 //router.showSettingsOfSecurity(Direction.FORDWARD);
-                activity.loadFragment(SecuritySettignsFragment.newInstance(),R.id.container,false);
+                activity.loadFragment(SecuritySettignsFragment.newInstance(),R.id.container,Direction.FORDWARD,false);
                 break;
                 case R.id.unlink_phone:
                 //router.showSettingsOfSecurity(Direction.FORDWARD);
-                activity.loadFragment(DesasociarPhoneFragment.newInstance(),R.id.container,false);
+                activity.loadFragment(DesasociarPhoneFragment.newInstance(),R.id.container,Direction.FORDWARD,false);
                 break;
         }
-
-
-
 
     }
 }
