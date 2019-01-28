@@ -3,7 +3,9 @@ package com.pagatodo.yaganaste.ui._controllers;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.Menu;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -49,12 +51,14 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.NotificacionesPrefFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.QRFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment;
 import com.pagatodo.yaganaste.modules.sidebar.SettingsOfSecurity.SecuritySettignsFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TutorialsFragment;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
+import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
@@ -184,19 +188,19 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         } else if (getIntent().getIntExtra(MENU, 0) == MENU_CONTACTO) {
             //loadFragment(ContactoFragment.newInstance());
             //loadFragment(TutorialsFragment.newInstance());
-            loadFragment(HelpYaGanasteFragment.newInstance(),R.id.container,Direction.FORDWARD,false);
+            loadFragment(HelpYaGanasteFragment.newInstance(), R.id.container, Direction.FORDWARD, false);
         } else if (getIntent().getIntExtra(MENU, 0) == MENU_DATAUSER) {
             //loadFragment(ContactoFragment.newInstance());
             //loadFragment(TutorialsFragment.newInstance());
 
             //loadFragment(HelpYaGanasteFragment.newInstance());
 
-            loadFragment(AccountDataFragment.newInstance(),R.id.container,Direction.FORDWARD,false);
+            loadFragment(AccountDataFragment.newInstance(), R.id.container, Direction.FORDWARD, false);
         } else {
             //loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
             //loadFragment(SecuritySettignsFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
             //loadFragment(ChangePasswordFragment.newInstance(),R.id.container);
-            loadFragment(SettingsFragment.newInstance(),R.id.container,Direction.FORDWARD,false);
+            loadFragment(SettingsFragment.newInstance(), R.id.container, Direction.FORDWARD, false);
             //loadFragment(ChangePasswordFragment.newInstance(),R.id.container);
             //loadFragment(SettingsFragment.newInstance(),R.id.container,Direction.FORDWARD,false);
         }
@@ -259,7 +263,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
          */
 
         switch (event) {
-
+            case "EVENT_GO_SELECT_DONGLE":
+                showToolbarHelp(false);
+                loadFragment(SelectDongleFragment.newInstance(), Direction.FORDWARD);
+                break;
             case "PREFER_USER_MY_DONGLE":
                 loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
                         Direction.FORDWARD, false);
@@ -309,11 +316,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 //loadFragment(MyUserFragment.newInstance(), Direction.BACK, false);
 
                 //loadFragment(SecurityFragment.newInstance(MENU_AJUSTES, ""), Direction.BACK, false);
-                loadFragment(SettingsFragment.newInstance(),R.id.container,Direction.BACK,false);
-                break;
-            case "PREFER_USER_MY_DONGLE_BACK":
-                //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                loadFragment(MyUserFragment.newInstance(), Direction.BACK, false);
+                loadFragment(SettingsFragment.newInstance(), R.id.container, Direction.BACK, false);
                 break;
 
             case "PREFER_USER_CLOSE":
@@ -419,9 +422,15 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "PREFER_NOTIFICACIONES_BACK":
                 //loadFragment(SecurityFragment.newInstance(MENU_AJUSTES, ""), Direction.BACK, false);
                 //loadFragment(SecuritySettignsFragment.newInstance(MENU_AJUSTES, ""), Direction.BACK, false);
-                loadFragment(SecuritySettignsFragment.newInstance(),Direction.BACK, false);
+                loadFragment(SecuritySettignsFragment.newInstance(), Direction.BACK, false);
                 break;
             /** Eventos BACK **/
+
+            case "PREFER_USER_MY_DONGLE_BACK":
+                loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                        Direction.BACK, false);
+                break;
+
             case "PREFER_USER_LISTA":
                 //loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage), Direction.BACK, false);
                 finish();
@@ -466,6 +475,12 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_LISTA, null);
             } else if (currentFragment instanceof DesasociarPhoneFragment) {
                 onEvent(PREFER_USER_DESASOCIAR_BACK, null);
+            }else if (currentFragment instanceof SecuritySettignsFragment) {
+                onEvent(PREFER_USER_DESASOCIAR_BACK, null);
+            } else if (currentFragment instanceof MyDongleFragment) {
+                onEvent(PREFER_USER_DESASOCIAR_BACK, null);
+            }else if (currentFragment instanceof SelectDongleFragment) {
+                onEvent(PREFER_USER_MY_DONGLE_BACK, null);
             } else if (currentFragment instanceof MyUserFragment) {
                 onEvent(PREFER_USER_LISTA, null);
             } else if (currentFragment instanceof MyAccountFragment) {
@@ -501,7 +516,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_TERMINOS_BACK, null);
             } else if (currentFragment instanceof CuentaReembolsoFragment) {
                 onEvent(PREFER_USER_CUENTA_REEMBOLSO_BACK, null);
-            //} else if (currentFragment instanceof SecurityFragment) {
+                //} else if (currentFragment instanceof SecurityFragment) {
             } else if (currentFragment instanceof SecuritySettignsFragment) {
                 onEvent(PREFER_USER_LISTA, null);
             } else if (currentFragment instanceof NotificacionesPrefFragment) {
@@ -590,12 +605,12 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         // onEventListener.onEvent("DISABLE_BACK", false);
     }
 
-    public void showError(String msj){
-        UI.showErrorSnackBar(this,msj,Snackbar.LENGTH_SHORT);
+    public void showError(String msj) {
+        UI.showErrorSnackBar(this, msj, Snackbar.LENGTH_SHORT);
     }
 
-    public void showSuccess(String msj){
-        UI.showSuccessSnackBar(this,msj,Snackbar.LENGTH_SHORT);
+    public void showSuccess(String msj) {
+        UI.showSuccessSnackBar(this, msj, Snackbar.LENGTH_SHORT);
     }
 
 }

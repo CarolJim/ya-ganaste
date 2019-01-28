@@ -56,6 +56,7 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
+import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IGetInfoFromFirebase;
 import com.pagatodo.yaganaste.utils.FileDownloadListener;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
@@ -165,7 +166,6 @@ public class OnboardingActivity extends LoaderActivity
             showNext(true);
             startActivity(OnboardingActivity.createIntent(this));
         }
-
         super.onBackPressed();
     }
 

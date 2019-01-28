@@ -3,21 +3,27 @@ package com.pagatodo.yaganaste.modules.sidebar.Settings;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.sidebar.SettingsOfSecurity.SecuritySettignsFragment;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.preferuser.DesasociarPhoneFragment;
+import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 
 import butterknife.ButterKnife;
+
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,13 +32,13 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
 
     private PreferUserActivity activity;
     private SettingsRouter router;
-    private LinearLayout goSettings_security, goConfig_card_reader, goUnlink_phone, goCancel_account;
+    private LinearLayout goSettings_security, goConfig_card_reader, goUnlink_phone;
 
     public SettingsFragment() {
         // Required empty public constructor
     }
 
-    public static SettingsFragment newInstance(){
+    public static SettingsFragment newInstance() {
         SettingsFragment settingsFragment = new SettingsFragment();
         return settingsFragment;
     }
@@ -40,7 +46,7 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity=(PreferUserActivity)context;
+        activity = (PreferUserActivity) context;
     }
 
     @Override
@@ -52,7 +58,6 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
         goSettings_security = (LinearLayout) rootView.findViewById(R.id.settings_security);
         goConfig_card_reader = (LinearLayout) rootView.findViewById(R.id.config_card_reader);
         goUnlink_phone = (LinearLayout) rootView.findViewById(R.id.unlink_phone);
-        goCancel_account = (LinearLayout) rootView.findViewById(R.id.cancel_account);
 
 
         initViews();
@@ -64,7 +69,6 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
         goSettings_security.setOnClickListener(this::onClick);
         goConfig_card_reader.setOnClickListener(this::onClick);
         goUnlink_phone.setOnClickListener(this::onClick);
-        goCancel_account.setOnClickListener(this::onClick);
     }
 
     @Override
@@ -72,15 +76,17 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
         switch (v.getId()) {
             case R.id.settings_security:
                 //router.showSettingsOfSecurity(Direction.FORDWARD);
-                activity.loadFragment(SecuritySettignsFragment.newInstance(),R.id.container,false);
+                activity.loadFragment(SecuritySettignsFragment.newInstance(), R.id.container, Direction.FORDWARD, false);
                 break;
-                case R.id.unlink_phone:
+            case R.id.unlink_phone:
                 //router.showSettingsOfSecurity(Direction.FORDWARD);
-                activity.loadFragment(DesasociarPhoneFragment.newInstance(),R.id.container,false);
+                activity.loadFragment(DesasociarPhoneFragment.newInstance(), R.id.container, Direction.FORDWARD, false);
+                break;
+            case R.id.config_card_reader:
+                activity.loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                        R.id.container, Direction.FORDWARD, false);
                 break;
         }
-
-
 
 
     }

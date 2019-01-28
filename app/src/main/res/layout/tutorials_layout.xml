@@ -77,18 +77,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/container_options" />
 
-    <com.pagatodo.view_manager.components.LabelArrowCheckbox
-        android:id="@+id/labelArrowCheck"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:labelSubtilte="@string/label_option_tem_subtitle"
-        app:lablelTitle="@string/label_option_tem_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/container_options">
-
-    </com.pagatodo.view_manager.components.LabelArrowCheckbox>
 
     <ScrollView
         android:id="@+id/scrollView"

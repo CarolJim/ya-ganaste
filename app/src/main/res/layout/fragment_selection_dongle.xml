@@ -5,25 +5,24 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/title_select_dongle"
-        style="@style/generic_text_style_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
+        android:textSize="18sp"
         android:gravity="center"
         android:text="@string/select_dongle_title"
         android:textColor="@color/colorAccent" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/desc_bluetooth_instructions"
-        style="@style/generic_text_style_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_select_dongle"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:text="@string/select_dongle_desc"
         android:textColor="@color/gray_text_wallet_3"
-        android:textSize="@dimen/wallet_text_size_5"/>
+        android:textSize="14sp"/>
 
     <View
         android:id="@+id/divider_1"
@@ -60,7 +59,7 @@
             android:orientation="vertical">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                style="@style/generic_text_style_2"
+                android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -68,7 +67,8 @@
                 android:textColor="@color/colorAccent" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                style="@style/generic_text_style_3"
+                android:textSize="12sp"
+                android:textColor="@color/gray_slate"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -120,7 +120,7 @@
             android:orientation="vertical">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                style="@style/generic_text_style_2"
+                android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -128,9 +128,10 @@
                 android:textColor="@color/colorAccent" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                style="@style/generic_text_style_3"
+                android:textSize="12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:textColor="@color/gray_slate"
                 android:gravity="center"
                 android:text="@string/normal_dongle_desc" />
         </LinearLayout>
