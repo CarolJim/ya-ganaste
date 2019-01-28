@@ -264,7 +264,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                         DtoStates item = singleSnapshot.getValue(DtoStates.class);
                         states.add(item);
                     }
-                    states.add(0, new DtoStates("0", "Lugar de nacimiento", "Prefijo"));
+                    states.add(0, new DtoStates("0", "Lugar de Nacimiento", "Prefijo"));
                     adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout,
                             states, RegistroDatosPersonalesFragment.this);
                     spinnerBirthPlace.setAdapter(adapterBirthPlace);

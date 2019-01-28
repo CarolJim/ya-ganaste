@@ -162,7 +162,7 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/showPhone"></LinearLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_marginTop="10dp"
         android:id="@+id/showDate"
         android:layout_width="match_parent"
@@ -199,6 +199,6 @@
         android:layout_marginRight="30dp"
         android:background="#e0e0e0"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/showDate"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/showDate"></LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

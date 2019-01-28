@@ -401,8 +401,8 @@
     <string name="curp">CURP</string>
     <!-- Datos Personales -->
     <string name="datos_personal_nombre">Ingresa tu nombre</string>
-    <string name="datos_personal_paterno">Primer apellido</string>
-    <string name="datos_personal_materno">Segundo apellido</string>
+    <string name="datos_personal_paterno">Primer Apellido</string>
+    <string name="datos_personal_materno">Segundo Apellido</string>
     <string name="datos_personal_fecha">Ingresa tu fecha de nacimiento</string>
     <string name="datos_personal_estado">Indica tu lugar de nacimiento</string>
     <string name="datos_personal_nacionalidad">Nacionalidad requerida, verifique su información</string>
@@ -1598,7 +1598,7 @@
     <string name="please_insert_pin">Pide a tu cliente que ingrese su PIN\ncon el teclado del lector</string>
 
     <!-- Seleccionar lector para cobros -->
-    <string name="select_dongle_title">Seleccionar lector</string>
+    <string name="select_dongle_title">Seleccionar Lector de Tarjetas</string>
     <string name="select_dongle_desc">Elije el lector predeterminado con el que\nrealizarás tus cobros. Puedes hacer éste\ncambio en cualquier momento.</string>
     <string name="bluetooth_dongle">Lector Inalámbrico</string>
     <string name="bluetooth_dongle_desc">Bluetooth chip &amp; pin</string>

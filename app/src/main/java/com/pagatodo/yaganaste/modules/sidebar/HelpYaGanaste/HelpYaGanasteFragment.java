@@ -38,7 +38,7 @@ public class HelpYaGanasteFragment extends SupportFragment implements View.OnCli
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_help_ya_ganaste, container, false);
         ButterKnife.bind(this, rootView);
-        chat = (LinearLayout) rootView.findViewById(R.id.chat);
+        //chat = (LinearLayout) rootView.findViewById(R.id.chat);
         email = (LinearLayout) rootView.findViewById(R.id.email);
         call = (LinearLayout) rootView.findViewById(R.id.call);
         initViews();
@@ -49,7 +49,7 @@ public class HelpYaGanasteFragment extends SupportFragment implements View.OnCli
     @Override
     public void initViews() {
 
-        chat.setOnClickListener(this::onClick);
+        //chat.setOnClickListener(this::onClick);
         email.setOnClickListener(this::onClick);
         call.setOnClickListener(this::onClick);
     }
@@ -57,9 +57,6 @@ public class HelpYaGanasteFragment extends SupportFragment implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.chat:
-                UtilsIntents.createCallIntent(getActivity());
-                break;
             case R.id.email:
                 UtilsIntents.sendEmail(getActivity());
                 break;

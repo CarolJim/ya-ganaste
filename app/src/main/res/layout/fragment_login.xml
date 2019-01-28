@@ -165,7 +165,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/text_passwordnew"
                         android:layout_width="0dp"
-                        android:layout_weight="30"
+                        android:layout_weight="20"
                         android:layout_height="53dp"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/inputtext_normal"
@@ -197,11 +197,11 @@
 
                     <LinearLayout
                         android:id="@+id/llay_eye_pass"
-                        android:layout_width="53dp"
+                        android:layout_width="0dp"
                         android:layout_height="53dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="10dp"
-                        android:layout_weight="1"
+                        android:layout_weight="4"
                         android:background="@drawable/inputtext_normal"
                         android:gravity="center">
 

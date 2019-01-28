@@ -84,7 +84,6 @@ public class StartFragment extends Fragment implements OnboardingContracts.Prese
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.onBack:
                 startActivity(OnboardingActivity.createIntent(getActivity()));
                 actv.finish();
@@ -101,4 +100,5 @@ public class StartFragment extends Fragment implements OnboardingContracts.Prese
 
         }
     }
+
 }
