@@ -7,7 +7,6 @@ import android.graphics.drawable.GradientDrawable;
 import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 public class ProgressStateView extends View implements ProgressStates{
@@ -34,7 +33,7 @@ public class ProgressStateView extends View implements ProgressStates{
 
     private void init(){
         sizeStep = 5;
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dp(14),dp(14));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dp(),dp());
         this.setLayoutParams(params);
 
     }
@@ -47,9 +46,9 @@ public class ProgressStateView extends View implements ProgressStates{
         return shape;
     }
 
-    private int dp(int px){
+    private int dp(){
         float scale = this.getResources().getDisplayMetrics().density;
-        return (int) (scale * px + 0.5f);
+        return (int) (scale * 14 + 0.5f);
     }
 
     @Override

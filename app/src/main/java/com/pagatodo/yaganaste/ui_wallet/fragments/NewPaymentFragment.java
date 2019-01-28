@@ -190,7 +190,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                     } else {
                         //btnSwitch.setChecked(false);
                         radiobutton_no.setChecked(true);
-                        createSimpleCustomDialog("", getResources().getString(R.string.no_internet_access), 0);
+                        createSimpleCustomDialog("", getResources().getString(R.string.no_internet_access));
                     }
                 }
             }
@@ -214,7 +214,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         updateFavorites();
                     } else {
                         btnSwitch.setChecked(false);
-                        createSimpleCustomDialog("", getResources().getString(R.string.no_internet_access), 0);
+                        createSimpleCustomDialog("", getResources().getString(R.string.no_internet_access));
                     }
                 } else {
                     updateCarriers();
@@ -258,12 +258,10 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
     /**
      * Crea dialogos sencillos sin acciones, solo informativos
-     *
-     * @param mTittle
+     *  @param mTittle
      * @param mMessage
-     * @param mAction
      */
-    private void createSimpleCustomDialog(String mTittle, String mMessage, int mAction) {
+    private void createSimpleCustomDialog(String mTittle, String mMessage) {
         //UI.createSimpleCustomDialog(mTittle, mMessage, getActivity().getSupportFragmentManager(), getFragmentTag());
 
         UI.showAlertDialog(getContext(), mTittle, mMessage, R.string.title_aceptar, (dialogInterface, i) -> {
@@ -763,7 +761,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         btnSwitch.setChecked(false);
         radiobutton_no.setChecked(true);
         updateCarriers();
-        createSimpleCustomDialog("", error.getData().toString(), 0);
+        createSimpleCustomDialog("", error.getData().toString());
     }
 
     @Override
@@ -775,7 +773,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         btnSwitch.setChecked(false);
         radiobutton_no.setChecked(true);
         updateCarriers();
-        createSimpleCustomDialog("", "Error en Consulta. Intente de Nuevo", 0);
+        createSimpleCustomDialog("", "Error en Consulta. Intente de Nuevo");
     }
 
     @Override

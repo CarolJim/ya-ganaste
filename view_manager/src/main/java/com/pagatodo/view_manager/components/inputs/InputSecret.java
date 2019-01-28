@@ -88,7 +88,9 @@ public class InputSecret extends InputLauncher{
         inputEditText.setOnFocusChangeListener(this);
     }
 
-   /* @Override
+
+
+    /* @Override
     public void active() {
         rootView.setBackgroundResource(R.drawable.input_text_active);
         textviewHint.setVisibility(INVISIBLE);
@@ -112,6 +114,11 @@ public class InputSecret extends InputLauncher{
 
     @Override
     public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+        if (Objects.requireNonNull(inputEditText.getText()).toString().length() < 4){
+            if (listener != null){
+                listener.inputListenerBegin();
+            }
+        }
         switch (Objects.requireNonNull(inputEditText.getText()).toString().length()){
             case 1:
                 astTwo.setVisibility(View.INVISIBLE);
@@ -137,6 +144,9 @@ public class InputSecret extends InputLauncher{
                     this.listener.inputListenerFinish();
                 }
                 textFour.setText(s.toString().substring(3));
+                if (listener != null){
+                    listener.inputListenerFinish();
+                }
                 break;
             default:
                 astOne.setVisibility(View.INVISIBLE);

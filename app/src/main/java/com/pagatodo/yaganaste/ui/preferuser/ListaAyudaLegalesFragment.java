@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.pagatodo.view_manager.components.LabelArrowSimple;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -16,6 +18,7 @@ import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -23,35 +26,26 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_TERMINOS;
 
 
-public class ListaAyudaLegalesFragment extends GenericFragment implements OnClickItemHolderListener {
+public class ListaAyudaLegalesFragment extends GenericFragment implements View.OnClickListener{
 
-    @BindView(R.id.content_linearlayout)
-    LinearLayout mLinearLayout;
-
+    @BindView(R.id.legal)
+    LabelArrowSimple legal;
+    @BindView(R.id.notice_privacy)
+    LabelArrowSimple noticePrivacy;
     @BindView(R.id.txtVersionApp)
-    StyleTextView version;
+    TextView version;
 
-    View rootview;
-
-    public ListaAyudaLegalesFragment() {
-
-    }
-
+    private View rootview;
 
     public static ListaAyudaLegalesFragment newInstance() {
-
-        ListaAyudaLegalesFragment fragmentListaLegales = new ListaAyudaLegalesFragment();
-        return fragmentListaLegales;
+        return new ListaAyudaLegalesFragment();
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_lista_ayuda_legales, container, false);
         initViews();
-
         return rootview;
     }
 
@@ -59,19 +53,17 @@ public class ListaAyudaLegalesFragment extends GenericFragment implements OnClic
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        //listView.setAdapter(ContainerBuilder.ACERCA_DE(getContext(),this));
-        ContainerBuilder.ACERCA_DE(getContext(),mLinearLayout,this);
         version.setText("Ya Ganaste Versión: " + BuildConfig.VERSION_NAME);
+        legal.setOnClickListener(this);
     }
 
     @Override
-    public void onItemClick(Object optionMenuItem) {
-        OptionMenuItem item = (OptionMenuItem) optionMenuItem;
-        switch (item.getIdItem()){
-            case 1:
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.legal:
                 onEventListener.onEvent(PREFER_USER_TERMINOS, 1);
                 break;
-            case 2:
+            case R.id.notice_privacy:
                 onEventListener.onEvent(PREFER_USER_PRIVACIDAD, 1);
                 break;
         }

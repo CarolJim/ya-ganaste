@@ -29,7 +29,7 @@ public class CompositeLayoutAddFavorites implements Component {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         this.linearLayout.setOrientation(LinearLayout.VERTICAL);
-        this.linearLayout.setPadding(dp(10), dp(10), dp(10), dp(10));
+        this.linearLayout.setPadding(dp(), dp(), dp(), dp());
 
     }
 
@@ -41,8 +41,8 @@ public class CompositeLayoutAddFavorites implements Component {
         }
     }
 
-    private int dp(int px){
+    private int dp(){
         float scale = this.linearLayout.getResources().getDisplayMetrics().density;
-        return (int) (scale * px + 0.5f);
+        return (int) (scale * 10 + 0.5f);
     }
 }

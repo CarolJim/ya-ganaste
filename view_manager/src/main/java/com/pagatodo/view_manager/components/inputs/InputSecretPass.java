@@ -220,6 +220,12 @@ public class InputSecretPass extends InputLauncher implements View.OnClickListen
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (Objects.requireNonNull(inputEditText.getText()).toString().length() < 6) {
+            if (this.listener != null) {
+                this.listener.inputListenerBegin();
+            }
+        }
+
         switch (Objects.requireNonNull(inputEditText.getText()).toString().length()){
             case 1:
                 if (resD == R.drawable.ic_eye_close){
@@ -290,6 +296,7 @@ public class InputSecretPass extends InputLauncher implements View.OnClickListen
                 astOne.setVisibility(View.INVISIBLE);
                 textOne.setText("");
                 active();
+
                 break;
         }
     }

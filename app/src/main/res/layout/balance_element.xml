@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/gray_border_rectangle"
     android:gravity="center"
+    android:layout_gravity="center|top"
     android:orientation="vertical"
     android:visibility="visible"
     app:cardBackgroundColor="@color/whiteColor">
@@ -22,7 +23,8 @@
             android:id="@+id/button_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/icon_tab_ya"></ImageView>
+            android:background="@mipmap/icon_tab_ya"
+            android:contentDescription="@string/app_name"/>
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/text_option"
@@ -31,7 +33,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="Estado Cuenta"
             android:textColor="@color/colorAccent" />
     </LinearLayout>
 

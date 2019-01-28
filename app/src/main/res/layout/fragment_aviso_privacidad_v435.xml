@@ -15,6 +15,18 @@
         android:text="@string/aviso_privacidad"
         android:textColor="@color/colorAccent" />
 
+    <View
+        android:id="@+id/dividerList"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/textView2"
+        android:background="@color/decoration_item_color" />
+
+    <LinearLayout
+        android:id="@+id/content_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dividerList"
+        android:orientation="vertical"></LinearLayout>
 
 </RelativeLayout>
-

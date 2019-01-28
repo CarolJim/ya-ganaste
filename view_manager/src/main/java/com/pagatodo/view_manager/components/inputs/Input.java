@@ -9,4 +9,6 @@ public interface Input{
     void setHint(String hintText);
     void isError();
     void setInputSecretListener(InputSecretListener listener);
+    void setText(String text);
+    String getText();
 }

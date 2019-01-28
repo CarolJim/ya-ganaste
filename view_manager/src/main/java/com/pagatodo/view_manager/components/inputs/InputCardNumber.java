@@ -23,6 +23,7 @@ public class InputCardNumber extends LinearLayout implements Input, View.OnFocus
     private AppCompatEditText editTextInput;
     private InputSecretListener listener;
     private LinearLayout textLayer;
+    private boolean isWrite;
 
     public InputCardNumber(Context context) {
         super(context);
@@ -39,7 +40,6 @@ public class InputCardNumber extends LinearLayout implements Input, View.OnFocus
         initView(attrs);
     }
 
-
     @Override
     public void initView(AttributeSet attrs) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -48,7 +48,7 @@ public class InputCardNumber extends LinearLayout implements Input, View.OnFocus
         editTextInput = rootView.findViewById(R.id.edit_text_input);
         //viewMain = rootView.findViewById(R.id.main);
         textLayer = rootView.findViewById(R.id.text_card_layer);
-
+        isWrite = true;
         if (attrs != null) {
             TypedArray a = getContext().getTheme().obtainStyledAttributes(
                     attrs,
@@ -69,6 +69,7 @@ public class InputCardNumber extends LinearLayout implements Input, View.OnFocus
         editTextInput.setOnFocusChangeListener(this);
         editTextInput.addTextChangedListener(this);
         setRequest();
+
     }
 
     public void setRequest(){
@@ -95,14 +96,34 @@ public class InputCardNumber extends LinearLayout implements Input, View.OnFocus
     }
 
     @Override
-    public void isError() {
+    public void setText(String text) {
 
+
+        int length = text.length();
+        for (int i = 0;i <= length;i++){
+            //((TextView) textLayer.getChildAt(i)).setText(text.charAt(i));
+            editTextInput.setText(text.substring(0,i));
+        }
+        editTextInput.setSelection(Objects.requireNonNull(editTextInput.getText()).toString().length());
+
+
+    }
+
+    @Override
+    public String getText() {
+        return Objects.requireNonNull(editTextInput.getText()).toString();
+    }
+
+    @Override
+    public void isError() {
+        this.setBackgroundResource(R.drawable.input_text_error);
     }
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus){
             active();
+            editTextInput.setSelection(Objects.requireNonNull(editTextInput.getText()).toString().length());
         } else {
             desactive();
         }
@@ -120,19 +141,18 @@ public class InputCardNumber extends LinearLayout implements Input, View.OnFocus
         if (lengh > 0 && lengh < 16) {
             ((TextView) textLayer.getChildAt(lengh )).setText("");
             ((TextView) textLayer.getChildAt(lengh - 1)).setText(text.substring(lengh - 1));
-            this.listener.inputListenerBegin();
+            if (this.listener != null) this.listener.inputListenerBegin();
         } else if (lengh == 0){
             ((TextView) textLayer.getChildAt(0)).setText("");
-            this.listener.inputListenerBegin();
+            if (this.listener != null) this.listener.inputListenerBegin();
         } else if (lengh == 16){
             ((TextView) textLayer.getChildAt(15)).setText(text.substring(15));
-            this.listener.inputListenerFinish();
+            if (this.listener != null) this.listener.inputListenerFinish();
         }
     }
 
     @Override
     public void afterTextChanged(Editable s) {
-
     }
 
     @Override

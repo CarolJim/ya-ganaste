@@ -80,7 +80,7 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
     public void initViews() {
         ButterKnife.bind(this, rootView);
         parent = layout;
-        parentesco = this.setSpinner(R.string.parentesco, new BussinesLineSpinnerAdapter(getContext(),
+        parentesco = this.setSpinner(new BussinesLineSpinnerAdapter(getContext(),
                 R.layout.spinner_layout, getList(), null), this);
         states = setInputText("");
         inputDataViewHolder = setInputText(getContext().getResources().getString(R.string.txt_cargo));
@@ -241,11 +241,11 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
     /**
      * Obtiene el diseño correspondiente al spinner
      */
-    private SpinnerHolder setSpinner(int texthint, BussinesLineSpinnerAdapter adapter, OnClickItemHolderListener listener) {
+    private SpinnerHolder setSpinner(BussinesLineSpinnerAdapter adapter, OnClickItemHolderListener listener) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View layout = inflater.inflate(R.layout.spinner_view_layout, parent, false);
         SpinnerHolder spinnerHolder = new SpinnerHolder(layout);
-        spinnerHolder.bind(new SpinnerHolder.SpinerItem(texthint, adapter), listener);
+        spinnerHolder.bind(new SpinnerHolder.SpinerItem(R.string.parentesco, adapter), listener);
         return spinnerHolder;
     }
 

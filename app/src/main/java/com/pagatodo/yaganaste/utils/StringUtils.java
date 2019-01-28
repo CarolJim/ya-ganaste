@@ -3,7 +3,7 @@ package com.pagatodo.yaganaste.utils;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.text.InputFilter;
+
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -19,8 +19,6 @@ import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static com.pagatodo.yaganaste.utils.Recursos.GROUP_FORMAT;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
@@ -55,14 +53,14 @@ public class StringUtils {
     }
 
     public static String getCurrencyValue(double value) {
-        return getCurrencyValueInFormat(value, 2, 1);
+        return getCurrencyValueInFormat(value, 2);
     }
 
     public static String getCurrencyValue(String value) {
         return getCurrencyValue(getDoubleValue(value));
     }
 
-    private static String getCurrencyValueInFormat(double value, int minFractionDigits, int minIntDigits) {
+    private static String getCurrencyValueInFormat(double value, int minFractionDigits) {
         Locale mx = Locale.getDefault();
         Locale.setDefault(Locale.US);
         DecimalFormat formatter = (DecimalFormat) NumberFormat.getCurrencyInstance();
@@ -72,7 +70,7 @@ public class StringUtils {
         formatter.setPositiveSuffix("");
         formatter.setMinimumFractionDigits(minFractionDigits);
         formatter.setMaximumFractionDigits(minFractionDigits);
-        formatter.setMinimumIntegerDigits(minIntDigits);
+        formatter.setMinimumIntegerDigits(1);
         formatter.setRoundingMode(RoundingMode.HALF_UP);
         Locale.setDefault(mx);
         return formatter.format(value);
@@ -83,7 +81,7 @@ public class StringUtils {
     }
 
     public static String getCurrencyNoFraction(double value) {
-        return getCurrencyValueInFormat(value, 0, 1);
+        return getCurrencyValueInFormat(value, 0);
     }
 
     public static Double getDoubleValue(String value) {

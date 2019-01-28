@@ -52,6 +52,10 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_BALANCE_CLOSED_LOOP = 110;
     static public final int OPTION_ESTADOS_CUENTA = 111;
     static public final int OPTION_ADD_NEW_FAV_SUCCES = 112;
+    static public final int OPTION_CHARGE_WITH_CARD = 113;
+    static public final int OPTION_MY_CARD_SALES = 114;
+    static public final int OPTION_TRANSFER_BALANCE = 115;
+
 
     static public final int OPTION_ADMON_EMISOR = 301;
     static public final int OPTION_ADMON_ADQ = 302;
@@ -69,6 +73,8 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_CONFIG_DONGLE = 14;
     static public final int OPTION_FIRST_ADQ = 15;
     static public final int OPTION_REENVOLSO_FIRST = 16;
+
+
 
     //Help
     static public final int OPTION_EMAIL = 501;
@@ -281,8 +287,8 @@ public class ElementView implements ElementGlobal {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
-        elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
-        elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.operation_cobro, nombreN));
+        //elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
+        //elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.operation_cobro, nombreN));
         if (!App.getInstance().getPrefs().loadDataBoolean(IS_OPERADOR, false) && isComercioUyu) {
             elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ico_operador, R.string.mis_operadores, list, nombreN, numeroAgente, idComercio));
             elementViews.add(new ElementView(OPTION_VENTAS_ADQ, R.drawable.ico_reportes, R.string.ventas_dia, list, nombreN, numeroAgente, idComercio));
@@ -293,14 +299,18 @@ public class ElementView implements ElementGlobal {
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
+        elementViews.add(new ElementView(OPTION_CHARGE_WITH_CARD, R.drawable.ic_chip_nip, R.string.realizar_cobro));
+        elementViews.add(new ElementView(OPTION_MY_CARD_SALES, R.drawable.ic_card, R.string.my_card_sales));
+        elementViews.add(new ElementView(OPTION_TRANSFER_BALANCE, R.drawable.ic_transfer, R.string.transfer_balance));
         if (agentes.size() < 2) {
-            elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
-            elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
+            //elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
+            //elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
         }
 
         if (!isAgente) {
             elementViews = ElementView.getListLectorEmi();
         } else {
+            idEstatusAgente = 12;
             if (isAgente && idEstatusAgente == IdEstatus.I6.getId()) {
                 elementViews = ElementView.getListEstadoContinuarRegistro(idComercio);
             }
@@ -368,7 +378,7 @@ public class ElementView implements ElementGlobal {
     //Proceso Aprobado
     public static ArrayList<ElementView> getListEstadoAprobado(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_FIRST_ADQ, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true, false, R.string.next, OPTION_ZONE_FIRST, idComercio));
+        elementViews.add(new ElementView(OPTION_FIRST_ADQ, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true, false, R.string.indication_adq_text_button, OPTION_ZONE_FIRST, idComercio));
         return elementViews;
     }
 
@@ -445,8 +455,9 @@ public class ElementView implements ElementGlobal {
     public static ArrayList<ElementView> getListAdqBalance(boolean isuyu) {
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.realizar_cobro));
-        elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
+        //elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.realizar_cobro));
+        elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, R.drawable.ic_chip_nip, R.string.realizar_cobro));
+        //elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
         if (!App.getInstance().getPrefs().loadDataBoolean(IS_OPERADOR, false) && isuyu) {
             elementViews.add(new ElementView(OPTION_VENTAS_ADQAFUERA, R.drawable.ico_reportes, R.string.ventas_dia));
         }

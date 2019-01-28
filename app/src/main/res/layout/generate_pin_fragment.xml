@@ -21,64 +21,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <!--<android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_nip"
-        android:layout_width="276dp"
-        android:layout_height="53dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="1"
-        app:counterTextAppearance="@style/TextLabel"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/inputtext_normal"
-        android:gravity="center_vertical"
-        android:hint="@string/hint_new_nip"
-        android:textColorHint="@color/texthint"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
-        android:visibility="gone"
-        app:counterOverflowTextAppearance="@style/CounterOverFlow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/styleTextView6">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/edit_nip_new"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="9dp"
-            android:background="@android:color/transparent"
-            android:imeOptions="actionDone"
-            android:inputType="numberPassword"
-            android:maxLength="4"
-            android:paddingLeft="15dp"
-            android:singleLine="true"
-            android:textColor="@color/whiteColor"
-            android:textSize="32sp"
-            android:gravity="center_vertical"
-            android:theme="@style/NewEdittextwallet"
-            android:cursorVisible="false"
-            android:paddingStart="15dp"
-            tools:ignore="Autofill,LabelFor,RtlSymmetry,UnusedAttribute">
-            <requestFocus/>
-        </android.support.design.widget.TextInputEditText>
-
-    </android.support.design.widget.TextInputLayout>
-    -->
-
-
     <com.pagatodo.view_manager.components.inputs.InputSecret
         android:id="@+id/input_secret"
-        android:layout_width="276dp"
-        android:layout_height="53dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        app:labelHintNip="@string/hint_new_nip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/styleTextView6" />
@@ -89,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center"
@@ -96,19 +49,19 @@
         android:textColor="@color/gray_slate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_secret"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/input_secret" />
 
     <com.pagatodo.view_manager.components.inputs.InputSecret
         android:id="@+id/input_secret_confirm"
-        android:layout_width="276dp"
-        android:layout_height="53dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:visibility="invisible"
+        app:labelHintNip="@string/hint_confirm_nip"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/styleTextView10" />

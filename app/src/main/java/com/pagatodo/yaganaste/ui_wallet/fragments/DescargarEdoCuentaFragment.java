@@ -143,7 +143,7 @@ public class DescargarEdoCuentaFragment extends GenericFragment implements Adapt
         month = adapter.getItem(i).getMonth();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (fingerprintManager.isHardwareDetected() && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)) {
-                if (initCipher(cipherNotInvalidated, KEY_NAME_NOT_INVALIDATED)) {
+                if (initCipher(cipherNotInvalidated)) {
                     // Show the fingerprint dialog. The user has the option to use the fingerprint with
                     // crypto, or you can fall back to using a server-side verified password.
                     authDialog = new FingerprintAuthenticationDialogFragment();
@@ -174,10 +174,10 @@ public class DescargarEdoCuentaFragment extends GenericFragment implements Adapt
         }
     }
 
-    private boolean initCipher(Cipher cipher, String keyName) {
+    private boolean initCipher(Cipher cipher) {
         try {
             keyStore.load(null);
-            SecretKey key = (SecretKey) keyStore.getKey(keyName, null);
+            SecretKey key = (SecretKey) keyStore.getKey(DescargarEdoCuentaFragment.KEY_NAME_NOT_INVALIDATED, null);
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return true;
         } catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException

@@ -27,10 +27,14 @@ public class LabelHolder extends GenericHolder<LabelDataHolder> {
 
     @Override
     public void bind(LabelDataHolder item, OnHolderListener<LabelDataHolder> listener) {
+        assert item.getLabelTitle() != null;
         if (item.getLabelTitle() != null || !item.getLabelTitle().isEmpty()){
             this.textTitle.setText(item.getLabelTitle());
         }
-        this.textSubtitle.setText(item.getLabelSubtitle());
+        if (item.getLabelSubtitle() != null && !item.getLabelSubtitle().isEmpty()){
+            this.textSubtitle.setText(item.getLabelSubtitle());
+        }
+
     }
 
     public void setTextSubtitle(String subtitle){

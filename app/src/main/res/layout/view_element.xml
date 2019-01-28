@@ -37,7 +37,7 @@
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:text="Estado Cuenta"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/gray_slate" />
     </LinearLayout>
 
 

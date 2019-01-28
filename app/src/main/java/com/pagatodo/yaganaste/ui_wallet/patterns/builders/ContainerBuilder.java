@@ -94,12 +94,12 @@ public class ContainerBuilder {
         return s.getArrayListOptionMenuSegurity();
     }
 
-    public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> ACERCA_DE(Context context, ViewGroup parent, OnClickItemHolderListener listener) {
+    /*public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> ACERCA_DE(Context context, ViewGroup parent, OnClickItemHolderListener listener) {
         Container s = new Container(context, listener);
         s.addOptionMenuSegurity(parent, new OptionMenuItem(1, R.string.legales, 0, RAW));
         s.addOptionMenuSegurity(parent, new OptionMenuItem(2, R.string.aviso_privacidad, 0, RAW));
         return s.getArrayListOptionMenuSegurity();
-    }
+    }*/
 
     public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> LEGALES(Context context, ViewGroup parent, OnClickItemHolderListener listener) {
         Container s = new Container(context, listener);

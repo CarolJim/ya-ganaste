@@ -4,7 +4,6 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 import android.app.KeyguardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
@@ -18,7 +17,6 @@ import androidx.annotation.RequiresApi;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import android.text.InputType;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -29,9 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.dspread.xpos.QPOSService;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,22 +39,14 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.TransactionAdqData;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
-import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintHandler;
-import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
-import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
-import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentAuthorizeManager;
-import com.pagatodo.yaganaste.ui_wallet.dto.DtoStates;
 import com.pagatodo.yaganaste.ui_wallet.pojos.TransactionQR;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
@@ -77,9 +65,7 @@ import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -379,7 +365,7 @@ public class PayQRFragment extends GenericFragment implements EditTextImeBackLis
                 createKey(DEFAULT_KEY_NAME, true);
                 createKey(KEY_NAME_NOT_INVALIDATED, false);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)) {
-                    if (initCipher(cipherNotInvalidated, KEY_NAME_NOT_INVALIDATED)) {
+                    if (initCipher(cipherNotInvalidated)) {
 
                         // Show the fingerprint dialog. The user has the option to use the fingerprint with
                         // crypto, or you can fall back to using a server-side verified password.
@@ -418,10 +404,10 @@ public class PayQRFragment extends GenericFragment implements EditTextImeBackLis
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean initCipher(Cipher cipher, String keyName) {
+    private boolean initCipher(Cipher cipher) {
         try {
             keyStore.load(null);
-            SecretKey key = (SecretKey) keyStore.getKey(keyName, null);
+            SecretKey key = (SecretKey) keyStore.getKey(PayQRFragment.KEY_NAME_NOT_INVALIDATED, null);
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return true;
         } catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException

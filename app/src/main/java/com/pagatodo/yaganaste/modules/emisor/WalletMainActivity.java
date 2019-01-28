@@ -25,6 +25,10 @@ import com.dspread.xpos.QPOSService;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Giros;
@@ -173,7 +177,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     public final static String EVENT_GO_NIP_CHANGE = "EVENT_GO_NIP_CHANGE";
     public final static String EVENT_GO_CONFIG_REPAYMENT = "EVENT_GO_CONFIG_REPAYMENT";
-    public final static String EVENT_GO_CONFIG_REPAYMENT_BACK = "EVENT_GO_CONFIG_REPAYMENT_BACK";
+    private final static String EVENT_GO_CONFIG_REPAYMENT_BACK = "EVENT_GO_CONFIG_REPAYMENT_BACK";
     public final static String EVENT_GO_SELECT_DONGLE = "EVENT_GO_SELECT_DONGLE";
     //public final static String EFVENT_GO_SELECT_DONGLE_BACK = "EVENT_GO_SELECT_DONGLE_BACK";
     public final static String EVENT_GO_CONFIG_DONGLE = "EVENT_GO_CONFIG_DONGLE";
@@ -181,8 +185,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_CARD_REPORT = "EVENT_GO_CARD_REPORD";
     public final static String EVENT_GO_DETAIL_EMISOR = "EVENT_GO_DETAIL_EMISOR";
     public final static String EVENT_GO_DETAIL_ADQ = "EVENT_GO_DETAIL_ADQ";
-    public final static String EVENT_GO_TO_FINALIZE_SUCCESS = "FINALIZAR_CANCELACION_SUCCESS";
-    public final static String EVENT_GO_TO_FINALIZE_ERROR = "FINALIZAR_CANCELACION_ERROR";
+    private final static String EVENT_GO_TO_FINALIZE_SUCCESS = "FINALIZAR_CANCELACION_SUCCESS";
+    private final static String EVENT_GO_TO_FINALIZE_ERROR = "FINALIZAR_CANCELACION_ERROR";
     public final static String EVENT_GO_TO_LOGIN_STARBUCKS = "EVENT_GO_TO_LOGIN_STARBUCKS";
     public final static String EVENT_GO_TO_REGISTER_COMPLETE_STARBUCKS = "EVENT_GO_TO_REGISTER_COMPLETE_STARBUCKS";
     public final static String EVENT_GO_TO_REGISTER_STARBUCKS = "EVENT_GO_TO_REGISTER_STARBUCKS";
@@ -190,7 +194,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_TO_ADMIN_STARBUCKS = "EVENT_GO_TO_ADMIN_STARBUCKS";
     public final static String EVENT_GO_TO_MOV_ADQ = "EVENT_GO_TO_MOV_ADQ";
     public final static String EVENT_GO_TO_SEND_TICKET = "EVENT_GO_TO_SEND_TICKET";
-    public final static String EVENT_GO_CHAT = "EVENT_GO_CHAT";
+    private final static String EVENT_GO_CHAT = "EVENT_GO_CHAT";
     public final static String EVENT_GO_VISUALIZER_EDO_CUENTA = "EVENT_GO_VISUALIZER_EDO_CUENTA";
     public final static String EVENT_GO_VISUALIZER_EDO_CUENTA_ERROR = "EVENT_GO_VISUALIZER_EDO_CUENTA_ERROR";
 
@@ -333,6 +337,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 Intent intent = new Intent(this, ScannVisionActivity.class);
                 intent.putExtra(ScannVisionActivity.QRObject, true);
                 this.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE_COMERCE);
+
                 break;
             case OPTION_ADMON_ADQ:
                 int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
@@ -462,6 +467,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                     } else {
                         UI.showErrorSnackBar(this, getString(R.string.transfer_qr_invalid), Snackbar.LENGTH_SHORT);
                     }
+                } else {
+                    finish();
                 }
             }
         }
@@ -476,10 +483,19 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         }
     }
 
-    protected void showMainTab() {
-        /*if (mainTab.getVisibility() == View.GONE) {
-            mainTab.setVisibility(View.VISIBLE);
-        }*/
+    public void parserQR(Barcode barcode){
+        try {
+            JsonElement jelement = new JsonParser().parse(barcode.displayValue);
+            JsonObject jobject = jelement.getAsJsonObject();
+            jobject = jobject.getAsJsonObject("Aux");
+            String plate = jobject.get("Pl").getAsString();
+            //interactor.onValidateQr(plate);
+        }catch (JsonParseException e){
+            e.printStackTrace();
+            //onErrorValidatePlate("QR Invalido");
+        } catch (NullPointerException e){
+            //onErrorValidatePlate("QR Invalido");
+        }
     }
 
     @Override
@@ -812,6 +828,5 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public void generatecodehue(Fragment fm) {
         if (fm instanceof MyVirtualCardAccountFragment)
             ((MyVirtualCardAccountFragment) fm).loadOtpHuella();
-
     }
 }

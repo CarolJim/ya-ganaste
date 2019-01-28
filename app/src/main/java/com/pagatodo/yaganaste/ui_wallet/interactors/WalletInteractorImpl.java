@@ -80,7 +80,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                     ApiTrans.consultarSaldo(this);
                     break;
                 case TYPE_ADQ:
-                    try {
+                     try {
                         Operadores operador = db.getOperadoresAdmin(agente);
                         saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
                         RequestHeaders.setIdCuentaAdq(operador.getIdUsuarioAdquirente());

@@ -284,7 +284,7 @@ public class IposListener implements QPOSServiceListener {
 
 
         boolean isCharging = posInfoData.get("isCharging") == null ? false : Boolean.parseBoolean(posInfoData.get("isCharging"));
-        sendBateryLevel(Recursos.READ_BATTERY_LEVEL, batteryLevel, isCharging, batteryporcentage);
+        sendBateryLevel(batteryLevel, isCharging, batteryporcentage);
         Log.i("IposListener: Bataca", "Bataca" + batteryLevel);
     }
 
@@ -483,10 +483,10 @@ public class IposListener implements QPOSServiceListener {
         Log.i("IposListener: ", "------ onUpdateMasterKeyResult");
     }
 
-    private void sendBateryLevel(int mensaje, int batery, boolean isCharging, String batteryPorcentage) {
+    private void sendBateryLevel(int batery, boolean isCharging, String batteryPorcentage) {
         Log.i("IposListener: ", "------ sendBateryLevel");
         Intent intent = new Intent(Recursos.IPOS_READER_STATES);
-        intent.putExtra(Recursos.MSJ, mensaje);
+        intent.putExtra(Recursos.MSJ, Recursos.READ_BATTERY_LEVEL);
         intent.putExtra(Recursos.BATTERY_LEVEL, batery);
         intent.putExtra(Recursos.READER_IS_CHARGING, isCharging);
         intent.putExtra(Recursos.BATTERY_PORCENTAGE, batteryPorcentage);

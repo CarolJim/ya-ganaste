@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.pagatodo.view_manager.buttons.ButtonContinue;
 import com.pagatodo.view_manager.components.inputs.InputSecret;
 import com.pagatodo.view_manager.components.inputs.InputSecretListener;
@@ -19,6 +20,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.modules.emisor.WalletMainActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.keyboard.UiKeyBoard;
 
 import java.util.Objects;
@@ -75,6 +77,7 @@ public class GeneratePINFragment extends SupportFragment implements InputSecretL
         inputSecretNew.setRequestFocus();
         UiKeyBoard.showKeyboard();
         inputSecretNew.setInputSecretListener(this);
+        inputSecretConfirm.desactive();
         inputSecretNew.setActionListener((textView, i, keyEvent) -> {
             if (i == EditorInfo.IME_ACTION_DONE
                     || keyEvent.getAction() == KeyEvent.ACTION_DOWN
@@ -105,19 +108,17 @@ public class GeneratePINFragment extends SupportFragment implements InputSecretL
             }
         });
 
-
         inputSecretConfirm.setActionListener((textView, i, keyEvent) -> {
             if (i == EditorInfo.IME_ACTION_DONE
                     || keyEvent.getAction() == KeyEvent.ACTION_DOWN
                     && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 if (validate()){
                     //this.activity.getRouter().onShowGeneratePIN();
-                    hideKeyboard();
                     //inputSecretConfirm.resquestFoucus();
-                /*this.interactor.onActiveCard(SingletonUser.getInstance().getDataUser().getEmisor()
+                     /*this.interactor.onActiveCard(SingletonUser.getInstance().getDataUser().getEmisor()
                         .getCuentas().get(0).getTarjetas().get(0).getNumero().trim());*/
                     //interactor.validateCard(editNumberCard.getText().toString().trim());
-                    interactor.onActiveCard("1234567890123456");
+                    //interactor.onActiveCard("1234567890123456");
                 }
                 return true;
             }
@@ -130,13 +131,22 @@ public class GeneratePINFragment extends SupportFragment implements InputSecretL
     private boolean validate(){
         hideKeyboard();
         if (inputSecretNew.getInputEditText().toString().length() < 4){
-            activity.showError("Los datos no son correctos, favor de introducirlos nuevamente");
-            //this.activity.showError();
-
+            inputSecretNew.isError();
+            UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),
+                    "Los datos no son correctos, favor de introducirlos nuevamente",
+                    Snackbar.LENGTH_SHORT);
             return false;
-        } else{
-            return true;
-        }
+        } else if (inputSecretConfirm.getInputEditText().toString().length() < 4) {
+            UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),
+                    "Los datos no son correctos, favor de introducirlos nuevamente",
+                    Snackbar.LENGTH_SHORT);
+            return false;
+        } else if(!inputSecretNew.getInputEditText().toString().equalsIgnoreCase(inputSecretConfirm.getInputEditText().toString())){
+            UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),
+                    "Los datos no son correctos, favor de introducirlos nuevamente",
+                    Snackbar.LENGTH_SHORT);
+            return false;
+        } else return true;
     }
 
     private void hideKeyboard(){

@@ -109,7 +109,16 @@ public abstract class InputLauncher extends LinearLayout implements Input, View.
     }
 
 
+    @Override
+    public void setText(String text) {
 
+    }
+
+    @Override
+    public String getText() {
+        return Objects.requireNonNull(inputEditText.getText()).toString();
+    }
+    
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 

@@ -1268,7 +1268,9 @@
     <string name="desbloquear_tarjeta">Desbloquear\ntarjeta</string>
     <string name="desbloquear_tarjeta_admin">Desbloquear tarjeta</string>
     <string name="generar_codigo">Generar código\nde seguridad</string>
-    <string name="realizar_cobro">Realizar un\ncobro rápido</string>
+    <string name="realizar_cobro">Cobrar con\ntarjeta</string>
+    <string name="my_card_sales">Mis Ventas\ncon Tarjeta</string>
+    <string name="transfer_balance">Transferir\nSaldo</string>
     <string name="calcular_comisiones">Calcular comisiones</string>
     <string name="tarjeta_yg">Tarjeta Ya Ganaste</string>
     <string name="lector_yg">Lector de Tarjetas Ya Ganaste</string>
@@ -1766,5 +1768,7 @@
     <string name="change_photo">Cambiar mi Foto de Perfil</string>
     <string name="hint_new_pass_label">Confirma tu Nueva Contraseña</string>
 
-
+    <string name="indicationes_adq">\u2022 ¡Acepta tarjetas Visa, Mastercard y más!\n\n\u2022 La comisión más baja del mercado\n\n\u2022 Recibe tu dinero de inmediato</string>
+    <string name="indication_adq_text_button">Vincular lector de tarjetas</string>
+    <string name="indication_adq_text_label"><u>¿Aún no Cuentas con un Lector de Tarjetas?</u></string>
 </resources>

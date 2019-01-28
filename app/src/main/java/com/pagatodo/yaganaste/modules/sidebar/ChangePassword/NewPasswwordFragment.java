@@ -136,19 +136,21 @@ public class NewPasswwordFragment extends GenericFragment implements InputSecret
             return false;
         });
 
+
+
         inputSecretPassNew.setInputSecretListener(new InputSecretListener() {
             @Override
             public void inputListenerFinish() {
+
                 if (inputSecretPassConfirm.getTextEdit().length() == 6){
                     nextBtn.active();
                 } else {
                     nextBtn.inactive();
                 }
             }
-
             @Override
             public void inputListenerBegin() {
-
+                nextBtn.inactive();
             }
         });
         inputSecretPassConfirm.setInputSecretListener(this);
@@ -293,6 +295,6 @@ public class NewPasswwordFragment extends GenericFragment implements InputSecret
 
     @Override
     public void inputListenerBegin() {
-
+        nextBtn.inactive();
     }
 }
