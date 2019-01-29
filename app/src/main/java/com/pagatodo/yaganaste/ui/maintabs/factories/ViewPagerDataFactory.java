@@ -6,6 +6,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
@@ -13,6 +14,7 @@ import com.pagatodo.yaganaste.interfaces.enums.MainTabOperador;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.interfaces.enums.VoidTab;
 import com.pagatodo.yaganaste.modules.emisor.PaymentToQR.QrManagerFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
@@ -90,8 +92,9 @@ public class ViewPagerDataFactory {
             fragmentList.add(NewPaymentFragment.newInstance());
             fragmentList.add(WalletTabFragment.newInstance());
             fragmentList.add(QrManagerFragment.newInstance());
+            //fragmentList.add(GetMountFragment.newInstance(SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(0).getNombreNegocio()));
         } else {
-            fragmentList.add(OperadorTabFragment.newInstance());
+            fragmentList.add(GetMountFragment.newInstance(SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(0).getNombreNegocio()));
         }
 
 
@@ -119,5 +122,4 @@ public class ViewPagerDataFactory {
         SESSION_EXIST,
         DEPOSITS
     }
-
 }

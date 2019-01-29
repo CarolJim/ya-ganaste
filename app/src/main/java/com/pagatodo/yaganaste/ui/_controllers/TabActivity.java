@@ -40,6 +40,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.modules.charge.ChargeActivity;
 import com.pagatodo.yaganaste.modules.emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
@@ -824,7 +825,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        if (lastFrag != menuItem.getItemId()) {
+        if(menuItem.getItemId() == R.id.navigation_charge){
+            startActivity(ChargeActivity.createIntent(this));
+        } else if (lastFrag != menuItem.getItemId()) {
             lastFrag = menuItem.getItemId();
             switch (menuItem.getItemId()) {
                 case R.id.navigation_send:
@@ -844,10 +847,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                     //navitaionBar.setSelectedItemId(R.id.navigation_my_qr);
                     mainViewPager.setCurrentItem(3);
                     return true;
-                case R.id.navigation_charge:
+                //case R.id.navigation_charge:
                     //navitaionBar.setSelectedItemId(R.id.navigation_charge);
-                    mainViewPager.setCurrentItem(4);
-                    return true;
+                    //mainViewPager.setCurrentItem(4);
+
+                  //  return true;
             }
         }
         return false;

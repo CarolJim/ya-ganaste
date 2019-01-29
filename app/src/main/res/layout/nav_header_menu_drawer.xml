@@ -20,17 +20,17 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         app:srcCompat="@drawable/icon_user"
-        android:layout_centerHorizontal="true"
         app:civ_border_color="@color/colorAccent"
         android:layout_marginTop="37dp"/>
 
     <ImageView
         android:layout_width="23dp"
         android:layout_height="19dp"
-        android:src="@drawable/icon_user"
+        app:srcCompat="@drawable/icon_user"
+        android:contentDescription="@string/app_name"
         android:layout_gravity="bottom"
         android:layout_marginLeft="-14dp"
-        />
+        android:layout_marginStart="-14dp" />
 
 </LinearLayout>
 
@@ -40,8 +40,6 @@
         android:textColor="@color/whiteColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ismael Cruz"
-
         android:layout_marginTop="10dp"
         android:layout_below="@id/llperfil"
         android:layout_centerHorizontal="true"/>

@@ -43,10 +43,12 @@ public class IndicationZoneViewHolder extends GenericHolder {
         this.button.setText(elementView.getTextbutton());
         // TODO: HABILITAR BOTON DE REGISTRO
         this.button.setOnClickListener(view -> listener.onItemClick(elementView));
-        this.mas_info.setOnClickListener(view -> {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.yaganaste.com"));
-            context.startActivity(browserIntent);
-        });
+        if (this.mas_info!=null) {
+            this.mas_info.setOnClickListener(view -> {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.yaganaste.com"));
+                context.startActivity(browserIntent);
+            });
+        }
     }
 
 

@@ -55,6 +55,7 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import androidx.fragment.app.Fragment;
 
 import static com.pagatodo.yaganaste.modules.sidebar.About.AboutInfoFragment.ABOUT_NOTICE_PRIVACY;
+import static com.pagatodo.yaganaste.modules.sidebar.About.AboutInfoFragment.ABOUT_lEGAL;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CODE;
@@ -330,7 +331,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 loadFragment(AboutInfoFragment.newInstance(ABOUT_NOTICE_PRIVACY), Direction.FORDWARD, false);
                 break;
             case "PREFER_USER_TERMINOS":
-                loadFragment(TerminosyCondicionesFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(AboutInfoFragment.newInstance(ABOUT_lEGAL), Direction.FORDWARD, false);
+                //loadFragment(TerminosyCondicionesFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case "PREFER_USER_TERMINOS_BACK":
                 loadFragment(ListaAyudaLegalesFragment.newInstance(), Direction.BACK, false);
@@ -351,6 +353,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                     // Toast.makeText(this, "Is OffLine Privacidad", Toast.LENGTH_SHORT).show();
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }*/
+                loadFragment(AboutInfoFragment.newInstance(ABOUT_NOTICE_PRIVACY), Direction.FORDWARD, false);
                 break;
             case "PREFER_USER_TERMINOS_CUENTA_YA":
                 boolean isOnline2 = Utils.isDeviceOnline();

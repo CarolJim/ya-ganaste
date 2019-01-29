@@ -55,6 +55,7 @@ public class ListaAyudaLegalesFragment extends GenericFragment implements View.O
         ButterKnife.bind(this, rootview);
         version.setText("Ya Ganaste Versión: " + BuildConfig.VERSION_NAME);
         legal.setOnClickListener(this);
+        noticePrivacy.setOnClickListener(this);
     }
 
     @Override
