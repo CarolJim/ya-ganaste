@@ -2,6 +2,8 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,22 +28,17 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
  */
 public class AvisoPrivacidadFragment extends GenericFragment implements OnClickItemHolderListener {
 
-    //private int Idestatus;
-    @BindView(R.id.content_linearlayout)
-    LinearLayout mLinearLayout;
 
-    View rootview;
 
-    public AvisoPrivacidadFragment() {
-    }
+    private View rootview;
+
     public static AvisoPrivacidadFragment newInstance(){
         return new AvisoPrivacidadFragment();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //Idestatus= SingletonUser.getInstance().getDataUser().getIdEstatus();
         rootview = inflater.inflate(R.layout.fragment_aviso_privacidad, container, false);
         initViews();
         return rootview;
@@ -52,7 +49,7 @@ public class AvisoPrivacidadFragment extends GenericFragment implements OnClickI
     public void initViews() {
         ButterKnife.bind(this, rootview);
         //listView.setAdapter(ContainerBuilder.LEGALES(getContext(),this));
-        ArrayList<OptionMenuItem.ViewHolderMenuSegurity> list = ContainerBuilder.LEGALES_PRIVACY(getContext(),mLinearLayout,this);
+        //ArrayList<OptionMenuItem.ViewHolderMenuSegurity> list = ContainerBuilder.LEGALES_PRIVACY(getContext(),mLinearLayout,this);
     }
 
     @Override

@@ -23,6 +23,7 @@ import java.util.List;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 
+@SuppressWarnings("SameParameterValue")
 public abstract class SupportFragment extends GenericFragment {
 
     private SupportComponent mSupportComponent;

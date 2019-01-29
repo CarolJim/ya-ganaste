@@ -479,7 +479,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 && getFragment(1) != null) {
             getFragment(1).onActivityResult(requestCode, resultCode, data);*/
         } else if (requestCode == CODE_CANCEL && resultCode == RESULT_CANCEL_OK) {
-            getFragment(TYPE_DETAILS).onActivityResult(requestCode, resultCode, data);
+            getFragment().onActivityResult(requestCode, resultCode, data);
         /*} else if (requestCode == Constants.ACTIVITY_LANDING) {
             if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
                     SingletonUser.getInstance().getDataUser().getEstatusAgente() == PTH_DOCTO_APROBADO &&
@@ -541,7 +541,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         return null;
     }
 
-    protected Fragment getFragment(int fragmentType) {
+    protected Fragment getFragment() {
         @SuppressLint("RestrictedApi") List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
         if (fragmentList != null) {
             for (Fragment fragment : fragmentList) {
@@ -549,8 +549,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                         || (fragmentType == TYPE_DETAILS && fragment instanceof HomeTabFragment)) {
                     return fragment;
                 }*/
-                if ((fragmentType == 1 && fragment instanceof DocumentsContainerFragment)
-                        || (fragmentType == TYPE_DETAILS)) {
+                if ((TabActivity.TYPE_DETAILS == 1 && fragment instanceof DocumentsContainerFragment)
+                        || (TabActivity.TYPE_DETAILS == TYPE_DETAILS)) {
                     return fragment;
                 }
             }

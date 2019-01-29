@@ -6,7 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
@@ -16,6 +19,8 @@ import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.UtilsIntents;
+
+import java.util.Objects;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 
@@ -85,4 +90,15 @@ public abstract class GenericFragment extends Fragment implements ISessionExpire
      * Método para inicializar los views del fragment
      */
     public abstract void initViews();
+
+    protected void showKeyboard(){
+        InputMethodManager imm = (InputMethodManager)  App.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        Objects.requireNonNull(imm).toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+    }
+
+    protected void hideKeyBoard(View view){
+        InputMethodManager imm = (InputMethodManager) App.getContext().getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        Objects.requireNonNull(imm).hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 }

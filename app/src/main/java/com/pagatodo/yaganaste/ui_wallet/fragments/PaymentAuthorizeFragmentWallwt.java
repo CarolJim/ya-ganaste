@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 import android.app.KeyguardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.hardware.fingerprint.FingerprintManager;
 import android.inputmethodservice.Keyboard;
@@ -225,7 +224,7 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
                 createKey(DEFAULT_KEY_NAME, true);
                 createKey(KEY_NAME_NOT_INVALIDATED, false);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)) {
-                    if (initCipher(cipherNotInvalidated, KEY_NAME_NOT_INVALIDATED)) {
+                    if (initCipher(cipherNotInvalidated)) {
 
                         // Show the fingerprint dialog. The user has the option to use the fingerprint with
                         // crypto, or you can fall back to using a server-side verified password.
@@ -264,10 +263,10 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean initCipher(Cipher cipher, String keyName) {
+    private boolean initCipher(Cipher cipher) {
         try {
             keyStore.load(null);
-            SecretKey key = (SecretKey) keyStore.getKey(keyName, null);
+            SecretKey key = (SecretKey) keyStore.getKey(PaymentAuthorizeFragmentWallwt.KEY_NAME_NOT_INVALIDATED, null);
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return true;
         } catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException

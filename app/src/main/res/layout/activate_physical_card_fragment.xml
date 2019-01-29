@@ -36,162 +36,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/styleTextView7" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
-        android:layout_width="320dp"
-        android:layout_height="55dp"
+
+    <com.pagatodo.view_manager.components.inputs.InputCardNumber
+        android:id="@+id/input_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:background="@drawable/inputtext_normal"
-        android:hint="@string/label_number_card"
-        android:maxLines="1"
-        android:textColorHint="@color/texthint"
-        android:theme="@style/TextLabel"
-        android:visibility="visible"
-
-        android:paddingTop="8dp"
-        android:gravity="bottom"
+        app:labelHintInput="@string/label_number_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10"
-        app:passwordToggleTint="@color/colorAccent"
-        tools:ignore="RtlSymmetry,UnusedAttribute"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/imageView10">
 
-        <EditText
-            android:id="@+id/edit_number_card"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:background="@android:color/transparent"
-            android:hint="@string/label_number_card"
-            android:imeOptions="actionDone"
-            android:inputType="number"
-            android:letterSpacing="0.5"
-            android:maxLength="16"
-            android:singleLine="true"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
-            android:textColor="@color/gray_slate"
-            android:textSize="18sp"
-            tools:ignore="Autofill,LabelFor,RtlSymmetry"
-            android:layout_marginEnd="5dp">
-            <requestFocus/>
-        </EditText>
+    </com.pagatodo.view_manager.components.inputs.InputCardNumber>
 
-
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:layout_height="40dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout">
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="@dimen/height_cursor"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="22dp"
-            android:background="@color/gray_off" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="@dimen/height_cursor"
-            android:layout_marginStart="19dp"
-            android:layout_marginLeft="@dimen/space_cursor"
-            android:background="@color/gray_off" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="@dimen/height_cursor"
-            android:layout_marginStart="18dp"
-            android:layout_marginLeft="@dimen/space_cursor"
-            android:background="@color/gray_off" />
-
-        <View
-            android:layout_width="@dimen/width_cursor"
-            android:layout_height="@dimen/height_cursor"
-            android:layout_marginStart="@dimen/space_cursor"
-            android:layout_marginLeft="@dimen/space_cursor"
-            android:background="@color/gray_off" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="@dimen/height_cursor"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="22dp"
-            android:background="@color/gray_off" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="@dimen/height_cursor"
-            android:layout_marginStart="@dimen/space_cursor"
-            android:layout_marginLeft="@dimen/space_cursor"
-            android:background="@color/gray_off" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="@dimen/height_cursor"
-            android:layout_marginStart="@dimen/space_cursor"
-            android:layout_marginLeft="@dimen/space_cursor"
-            android:background="@color/gray_off" />
-
-        <View
-            android:layout_width="@dimen/width_cursor"
-            android:layout_height="@dimen/height_cursor"
-            android:layout_marginStart="@dimen/space_cursor"
-            android:layout_marginLeft="@dimen/space_cursor"
-            android:background="@color/gray_off" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="@dimen/height_cursor"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="22dp"
-            android:background="@color/gray_off" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="@dimen/height_cursor"
-            android:layout_marginStart="@dimen/space_cursor"
-            android:layout_marginLeft="@dimen/space_cursor"
-            android:background="@color/gray_off" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="@dimen/height_cursor"
-            android:layout_marginStart="@dimen/space_cursor"
-            android:layout_marginLeft="@dimen/space_cursor"
-            android:background="@color/gray_off" />
-
-        <View
-            android:layout_width="@dimen/width_cursor"
-            android:layout_height="@dimen/height_cursor"
-            android:layout_marginStart="@dimen/space_cursor"
-            android:layout_marginLeft="@dimen/space_cursor"
-            android:background="@color/gray_off" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="@dimen/height_cursor"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="22dp"
-            android:background="@color/gray_off" />
-
-
-
-
-    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -201,12 +62,13 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:gravity="center"
         android:text="@string/label_des_activate_card"
         android:textColor="#46606a"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/input_card" />
 
     <com.pagatodo.view_manager.buttons.ButtonContinue
         android:id="@+id/btn_continue_active_card"

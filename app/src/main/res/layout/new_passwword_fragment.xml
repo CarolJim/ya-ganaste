@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.pagatodo.view_manager.components.InputSecretPass
+    <com.pagatodo.view_manager.components.inputs.InputSecretPass
         android:id="@+id/input_secret_current"
         android:layout_width="match_parent"
         android:layout_height="55dp"
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <com.pagatodo.view_manager.components.InputSecretPass
+    <com.pagatodo.view_manager.components.inputs.InputSecretPass
         android:id="@+id/input_secret_confirm"
         android:layout_width="match_parent"
         android:layout_height="55dp"

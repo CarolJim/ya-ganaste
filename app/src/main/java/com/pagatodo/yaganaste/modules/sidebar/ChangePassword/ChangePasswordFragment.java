@@ -8,10 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.pagatodo.view_manager.components.InputSecretPass;
+import com.pagatodo.view_manager.buttons.ButtonContinue;
+import com.pagatodo.view_manager.components.inputs.InputSecretListener;
+import com.pagatodo.view_manager.components.inputs.InputSecretPass;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
@@ -27,16 +28,17 @@ import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
-public class ChangePasswordFragment extends GenericFragment {
+public class ChangePasswordFragment extends GenericFragment implements View.OnClickListener, InputSecretListener {
 
     private View rootView;
     private PreferUserActivity activity;
 
     @BindView(R.id.input_secret_current)
     InputSecretPass inputSecretPassCurrent;
+    @BindView(R.id.btn_continue)
+    ButtonContinue btnContinue;
 
     public static ChangePasswordFragment newInstance(){
         return new ChangePasswordFragment();
@@ -84,7 +86,9 @@ public class ChangePasswordFragment extends GenericFragment {
             return false;
         });
         inputSecretPassCurrent.setOnClickListener(v -> inputSecretPassCurrent.setRequestFocus());
-
+        inputSecretPassCurrent.setInputSecretListener(this);
+        btnContinue.setOnClickListener(this);
+        btnContinue.inactive();
     }
 
     private boolean validatePass(){
@@ -105,7 +109,7 @@ public class ChangePasswordFragment extends GenericFragment {
         return isValid;
     }
 
-    private void showKeyboard(){
+    protected void showKeyboard(){
         InputMethodManager imm = (InputMethodManager)  App.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         Objects.requireNonNull(imm).toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
@@ -120,5 +124,26 @@ public class ChangePasswordFragment extends GenericFragment {
     public void onStop() {
         super.onStop();
         hideKeyBoard();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (validate()){
+                    /*this.interactor.onActiveCard(SingletonUser.getInstance().getDataUser().getEmisor()
+                            .getCuentas().get(0).getTarjetas().get(0).getNumero().trim());*/
+            //interactor.validateCard(editNumberCard.getText().toString().trim());
+            activity.loadFragment(NewPasswwordFragment.newInstance(inputSecretPassCurrent.getTextEdit()),R.id.container,Direction.FORDWARD,false);
+
+        }
+    }
+
+    @Override
+    public void inputListenerFinish() {
+        btnContinue.active();
+    }
+
+    @Override
+    public void inputListenerBegin() {
+        btnContinue.inactive();
     }
 }

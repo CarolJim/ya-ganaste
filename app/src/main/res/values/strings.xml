@@ -1268,7 +1268,9 @@
     <string name="desbloquear_tarjeta">Desbloquear\ntarjeta</string>
     <string name="desbloquear_tarjeta_admin">Desbloquear tarjeta</string>
     <string name="generar_codigo">Generar código\nde seguridad</string>
-    <string name="realizar_cobro">Realizar un\ncobro rápido</string>
+    <string name="realizar_cobro">Cobrar con\ntarjeta</string>
+    <string name="my_card_sales">Mis Ventas\ncon Tarjeta</string>
+    <string name="transfer_balance">Transferir\nSaldo</string>
     <string name="calcular_comisiones">Calcular comisiones</string>
     <string name="tarjeta_yg">Tarjeta Ya Ganaste</string>
     <string name="lector_yg">Lector de Tarjetas Ya Ganaste</string>
@@ -1507,6 +1509,7 @@
     <string name="nip_actual">NIP Actual</string>
     <string name="nip_nuevo">Nuevo NIP (4 dígitos)</string>
     <string name="nip_confima">Confirmar nuevo NIP (4 dígitos)</string>
+    <string name="nip_confirma">Confirma tu Nuevo NIP</string>
     <string name="success_nip">Tu NIP ha sido cambiado correctamente</string>
     <string name="correo_electronico_tiket">Correo electrónico del cliente (Opcional)</string>
 
@@ -1760,9 +1763,12 @@
     <string name="settings">Configuraciones</string>
     <string name="config_card_reader">Configurar Lector de Tarjetas</string>
     <string name="unlink_phone">Desvincular Celular</string>
+    <string name="cancelar_account">Cancelar Cuenta</string>
     <string name="change_pass_indication">Por tu seguridad es necesario que ingreses\ntu contraseña actual antes de cambiarla</string>
     <string name="change_photo">Cambiar mi Foto de Perfil</string>
     <string name="hint_new_pass_label">Confirma tu Nueva Contraseña</string>
 
-
+    <string name="indicationes_adq">\u2022 ¡Acepta tarjetas Visa, Mastercard y más!\n\n\u2022 La comisión más baja del mercado\n\n\u2022 Recibe tu dinero de inmediato</string>
+    <string name="indication_adq_text_button">Vincular lector de tarjetas</string>
+    <string name="indication_adq_text_label"><u>¿Aún no Cuentas con un Lector de Tarjetas?</u></string>
 </resources>

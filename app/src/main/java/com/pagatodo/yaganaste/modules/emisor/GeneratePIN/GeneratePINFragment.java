@@ -4,26 +4,23 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.google.android.material.textfield.TextInputLayout;
-import android.text.Editable;
-import android.text.TextWatcher;
+
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.pagatodo.view_manager.buttons.ButtonContinue;
-import com.pagatodo.view_manager.components.InputSecret;
+import com.pagatodo.view_manager.components.inputs.InputSecret;
+import com.pagatodo.view_manager.components.inputs.InputSecretListener;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.modules.emisor.WalletMainActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.keyboard.UiKeyBoard;
 
 import java.util.Objects;
@@ -31,7 +28,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GeneratePINFragment extends SupportFragment implements InputSecret.InputSecretListener,
+public class GeneratePINFragment extends SupportFragment implements InputSecretListener,
         GeneratePINContracts.Listener,View.OnClickListener{
 
     private View rootView;
@@ -77,9 +74,10 @@ public class GeneratePINFragment extends SupportFragment implements InputSecret.
         //editNipNew.requestFocus();
         btnContinue.setOnClickListener(this);
         btnContinue.inactive();
-        inputSecretNew.resquestFoucus();
+        inputSecretNew.setRequestFocus();
         UiKeyBoard.showKeyboard();
         inputSecretNew.setInputSecretListener(this);
+        inputSecretConfirm.desactive();
         inputSecretNew.setActionListener((textView, i, keyEvent) -> {
             if (i == EditorInfo.IME_ACTION_DONE
                     || keyEvent.getAction() == KeyEvent.ACTION_DOWN
@@ -87,7 +85,7 @@ public class GeneratePINFragment extends SupportFragment implements InputSecret.
                 if (validate()){
                     //this.activity.getRouter().onShowGeneratePIN();
                     //hideKeyboard();
-                    inputSecretConfirm.resquestFoucus();
+                    inputSecretConfirm.setRequestFocus();
                     /*this.interactor.onActiveCard(SingletonUser.getInstance().getDataUser().getEmisor()
                             .getCuentas().get(0).getTarjetas().get(0).getNumero().trim());*/
                     //interactor.validateCard(editNumberCard.getText().toString().trim());
@@ -98,24 +96,29 @@ public class GeneratePINFragment extends SupportFragment implements InputSecret.
             // Return true if you have consumed the action, else false.
             return false;
         });
-        inputSecretConfirm.setInputSecretListener(new InputSecret.InputSecretListener() {
+        inputSecretConfirm.setInputSecretListener(new InputSecretListener() {
             @Override
-            public void inputListener() {
+            public void inputListenerFinish() {
                 btnContinue.active();
             }
+
+            @Override
+            public void inputListenerBegin() {
+
+            }
         });
+
         inputSecretConfirm.setActionListener((textView, i, keyEvent) -> {
             if (i == EditorInfo.IME_ACTION_DONE
                     || keyEvent.getAction() == KeyEvent.ACTION_DOWN
                     && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 if (validate()){
                     //this.activity.getRouter().onShowGeneratePIN();
-                    hideKeyboard();
                     //inputSecretConfirm.resquestFoucus();
-                /*this.interactor.onActiveCard(SingletonUser.getInstance().getDataUser().getEmisor()
+                     /*this.interactor.onActiveCard(SingletonUser.getInstance().getDataUser().getEmisor()
                         .getCuentas().get(0).getTarjetas().get(0).getNumero().trim());*/
                     //interactor.validateCard(editNumberCard.getText().toString().trim());
-                    interactor.onActiveCard("1234567890123456");
+                    //interactor.onActiveCard("1234567890123456");
                 }
                 return true;
             }
@@ -127,20 +130,29 @@ public class GeneratePINFragment extends SupportFragment implements InputSecret.
 
     private boolean validate(){
         hideKeyboard();
-        if (inputSecretNew.getView().toString().length() < 4){
-            activity.showError("Los datos no son correctos, favor de introducirlos nuevamente");
-            //this.activity.showError();
-
+        if (inputSecretNew.getInputEditText().toString().length() < 4){
+            inputSecretNew.isError();
+            UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),
+                    "Los datos no son correctos, favor de introducirlos nuevamente",
+                    Snackbar.LENGTH_SHORT);
             return false;
-        } else{
-            return true;
-        }
+        } else if (inputSecretConfirm.getInputEditText().toString().length() < 4) {
+            UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),
+                    "Los datos no son correctos, favor de introducirlos nuevamente",
+                    Snackbar.LENGTH_SHORT);
+            return false;
+        } else if(!inputSecretNew.getInputEditText().toString().equalsIgnoreCase(inputSecretConfirm.getInputEditText().toString())){
+            UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),
+                    "Los datos no son correctos, favor de introducirlos nuevamente",
+                    Snackbar.LENGTH_SHORT);
+            return false;
+        } else return true;
     }
 
     private void hideKeyboard(){
         InputMethodManager imm = (InputMethodManager)Objects.requireNonNull(getContext()).getSystemService(
                 Context.INPUT_METHOD_SERVICE);
-        Objects.requireNonNull(imm).hideSoftInputFromWindow(inputSecretNew.getView().getWindowToken(), 0);
+        Objects.requireNonNull(imm).hideSoftInputFromWindow(inputSecretNew.getInputEditText().getWindowToken(), 0);
     }
     @Override
     public void onStop() {
@@ -150,7 +162,7 @@ public class GeneratePINFragment extends SupportFragment implements InputSecret.
     }
 
     @Override
-    public void inputListener() {
+    public void inputListenerFinish() {
         inputSecretConfirm.setVisibility(View.VISIBLE);
         //linearConfirm.setVisibility(View.VISIBLE);
         inputSecretConfirm.requestFocus();
@@ -180,5 +192,10 @@ public class GeneratePINFragment extends SupportFragment implements InputSecret.
     @Override
     public void onFail(String error) {
         activity.showError(error);
+    }
+
+    @Override
+    public void inputListenerBegin() {
+
     }
 }

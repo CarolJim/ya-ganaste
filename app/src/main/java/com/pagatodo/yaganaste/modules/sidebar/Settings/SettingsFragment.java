@@ -80,14 +80,12 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
                 break;
             case R.id.unlink_phone:
                 //router.showSettingsOfSecurity(Direction.FORDWARD);
-                activity.loadFragment(DesasociarPhoneFragment.newInstance(), R.id.container, Direction.FORDWARD, false);
+                activity.loadFragment(DesasociarPhoneFragment.newInstance(),R.id.container,Direction.FORDWARD,false);
                 break;
             case R.id.config_card_reader:
                 activity.loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
                         R.id.container, Direction.FORDWARD, false);
                 break;
         }
-
-
     }
 }

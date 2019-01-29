@@ -9,11 +9,20 @@
         <attr name="labelSubtilte" format="reference"/>
         <attr name="checked" format="boolean"/>
     </declare-styleable>
+    <declare-styleable name="LabelArrowSimple">
+        <attr name="labelTitle" format="reference"/>
+    </declare-styleable>
     <declare-styleable name="LabelSubtitle">
         <attr name="labelTitleSingle" format="reference"/>
         <attr name="labelSubtitleSingle" format="reference"/>
     </declare-styleable>
     <declare-styleable name="InputSecretPass">
         <attr name="labelHint" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="InputSecret">
+        <attr name="labelHintNip" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="InputCardNumber">
+        <attr name="labelHintInput" format="reference"/>
     </declare-styleable>
 </resources>

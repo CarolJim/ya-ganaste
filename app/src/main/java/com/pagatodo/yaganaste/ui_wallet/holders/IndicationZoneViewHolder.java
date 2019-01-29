@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
@@ -19,7 +20,7 @@ public class IndicationZoneViewHolder extends GenericHolder {
 
     private Context context;
     public StyleButton button;
-    private StyleTextView mas_info;
+    private TextView mas_info;
 
     public IndicationZoneViewHolder(Context context, View itemView) {
         super(itemView);
@@ -30,7 +31,7 @@ public class IndicationZoneViewHolder extends GenericHolder {
     @Override
     public void init() {
         this.button = itemView.findViewById(R.id.btn_begin_register);
-        this.mas_info = itemView.findViewById(R.id.mas_info);
+        this.mas_info = itemView.findViewById(R.id.text_link);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 import android.app.Activity;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -32,10 +34,10 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<GenericHolder> {
     }
 
 
+    @NonNull
     @Override
-    public GenericHolder onCreateViewHolder(ViewGroup parent, int position) {
+    public GenericHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
         if (!isBalance) {
-            //return ContainerBuilder.getViewHolder(context, parent, elementViews.get(position).getTypeOptions());
             return ContainerBuilder.getViewHolder(context, parent, elementViews.get(position).getTypeOptions());
         } else {
             return ContainerBuilder.getViewHolderBalance(context, parent);

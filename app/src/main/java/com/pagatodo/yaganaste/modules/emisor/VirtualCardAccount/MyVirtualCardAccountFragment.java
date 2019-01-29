@@ -382,7 +382,7 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
                 createKey(DEFAULT_KEY_NAME, true);
                 createKey(KEY_NAME_NOT_INVALIDATED, false);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)) {
-                    if (initCipher(cipherNotInvalidated, KEY_NAME_NOT_INVALIDATED)) {
+                    if (initCipher(cipherNotInvalidated)) {
                         // Show the fingerprint dialog. The user has the option to use the fingerprint with
                         // crypto, or you can fall back to using a server-side verified password.
                         fragment = new FingerprintAuthenticationDialogFragment();
@@ -438,15 +438,14 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
      * Initialize the {@link Cipher} instance with the created key in the
      * {@link #createKey(String, boolean)} method.
      *
-     * @param keyName the key name to init the cipher
      * @return {@code true} if initialization is successful, {@code false} if the lock screen has
      * been disabled or reset after the key was generated, or if a fingerprint got enrolled after
      * the key was generated.
      */
-    private boolean initCipher(Cipher cipher, String keyName) {
+    private boolean initCipher(Cipher cipher) {
         try {
             mKeyStore.load(null);
-            SecretKey key = (SecretKey) mKeyStore.getKey(keyName, null);
+            SecretKey key = (SecretKey) mKeyStore.getKey(MyVirtualCardAccountFragment.KEY_NAME_NOT_INVALIDATED, null);
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return true;
         } catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException

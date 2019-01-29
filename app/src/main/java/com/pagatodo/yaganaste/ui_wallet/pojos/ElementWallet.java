@@ -315,7 +315,7 @@ public class ElementWallet {
     public static ElementWallet getCardBalanceAdq(Agentes agentes) {
         Bitmap frontView, backView, x, y;
         if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
-            frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.register_chip);
+            frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.chip_pin);
             backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.lector_bt_back);
         } else {
             x = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.lector_front);

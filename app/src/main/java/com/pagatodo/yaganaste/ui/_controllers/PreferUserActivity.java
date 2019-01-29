@@ -3,9 +3,6 @@ package com.pagatodo.yaganaste.ui._controllers;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.Menu;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -19,10 +16,12 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioRespon
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
-import com.pagatodo.yaganaste.modules.sidebar.ChangePassword.ChangePasswordFragment;
+import com.pagatodo.yaganaste.modules.emisor.ChangeNip.MyChangeNip;
+import com.pagatodo.yaganaste.modules.sidebar.About.AboutInfoFragment;
 import com.pagatodo.yaganaste.modules.sidebar.DataAccount.AccountDataFragment;
 import com.pagatodo.yaganaste.modules.sidebar.HelpYaGanaste.HelpYaGanasteFragment;
 import com.pagatodo.yaganaste.modules.sidebar.Settings.SettingsFragment;
+import com.pagatodo.yaganaste.modules.sidebar.SettingsOfSecurity.SecuritySettignsFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -35,7 +34,6 @@ import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyAccountFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
-import com.pagatodo.yaganaste.modules.emisor.ChangeNip.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.MyEmailFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpAcercaApp;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanos;
@@ -49,20 +47,16 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.CancelAccountFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.CancelResultFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NotificacionesPrefFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.QRFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment;
-import com.pagatodo.yaganaste.modules.sidebar.SettingsOfSecurity.SecuritySettignsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.TutorialsFragment;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
-import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
-import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
+import androidx.fragment.app.Fragment;
+
+import static com.pagatodo.yaganaste.modules.sidebar.About.AboutInfoFragment.ABOUT_NOTICE_PRIVACY;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
-import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_AJUSTES;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CODE;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CONTACTO;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_DATAUSER;
@@ -332,7 +326,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 finish();
                 break;
             case "PREFER_USER_PRIVACIDAD":
-                loadFragment(AvisoPrivacidadFragment.newInstance(), Direction.FORDWARD, false);
+                //loadFragment(AvisoPrivacidadFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(AboutInfoFragment.newInstance(ABOUT_NOTICE_PRIVACY), Direction.FORDWARD, false);
                 break;
             case "PREFER_USER_TERMINOS":
                 loadFragment(TerminosyCondicionesFragment.newInstance(), Direction.FORDWARD, false);
@@ -346,7 +341,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
             case "PREFER_USER_PRIVACIDAD_CUENTA_YA":
                 boolean isOnline = Utils.isDeviceOnline();
-                if (isOnline) {
+
+                /*if (isOnline) {
                     //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                     LegalsDialog legalsDialog = LegalsDialog.newInstance(PRIVACIDAD);
                     legalsDialog.show(this.getFragmentManager(), LegalsDialog.TAG);
@@ -354,7 +350,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 } else {
                     // Toast.makeText(this, "Is OffLine Privacidad", Toast.LENGTH_SHORT).show();
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
-                }
+                }*/
                 break;
             case "PREFER_USER_TERMINOS_CUENTA_YA":
                 boolean isOnline2 = Utils.isDeviceOnline();

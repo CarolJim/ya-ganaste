@@ -1,11 +1,8 @@
 package com.pagatodo.yaganaste.interfaces.enums;
 
-import androidx.annotation.StringRes;
-
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 
@@ -16,17 +13,17 @@ import java.lang.reflect.Type;
  */
 
 public enum  OnlineTypes  {
-    ENVIO1(1, R.string.envio_dinero),
-    ENVIO2(2, R.string.envio_dinero),
-    ENVIO3(3, R.string.envio_dinero),
-    ENVIO4(4, R.string.envio_dinero);
+    ENVIO1(1),
+    ENVIO2(2),
+    ENVIO3(3),
+    ENVIO4(4);
 
     private int idType;
     private String name;
 
-    OnlineTypes(int idType, @StringRes int name){
+    OnlineTypes(int idType){
         this.idType = idType;
-        this.name = App.getInstance().getString(name);
+        this.name = App.getInstance().getString(R.string.envio_dinero);
     }
 
     public int getIdType() {

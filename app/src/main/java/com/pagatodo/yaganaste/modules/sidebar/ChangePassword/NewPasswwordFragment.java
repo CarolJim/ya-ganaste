@@ -11,8 +11,9 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.pagatodo.view_manager.buttons.ButtonContinue;
-import com.pagatodo.view_manager.components.InputSecret;
-import com.pagatodo.view_manager.components.InputSecretPass;
+import com.pagatodo.view_manager.components.inputs.InputSecret;
+import com.pagatodo.view_manager.components.inputs.InputSecretListener;
+import com.pagatodo.view_manager.components.inputs.InputSecretPass;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -42,7 +43,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.HAS_PUSH;
 import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
-public class NewPasswwordFragment extends GenericFragment implements InputSecret.InputSecretListener,
+public class NewPasswwordFragment extends GenericFragment implements InputSecretListener,
         IMyPassView, IResetNIPView, IChangeNipView {
 
     private View rootView;
@@ -135,10 +136,20 @@ public class NewPasswwordFragment extends GenericFragment implements InputSecret
             return false;
         });
 
-        inputSecretPassNew.setInputSecretListener(() -> {
-            if (inputSecretPassConfirm.getTextEdit().length() == 6){
-                nextBtn.active();
-            } else {
+
+
+        inputSecretPassNew.setInputSecretListener(new InputSecretListener() {
+            @Override
+            public void inputListenerFinish() {
+
+                if (inputSecretPassConfirm.getTextEdit().length() == 6){
+                    nextBtn.active();
+                } else {
+                    nextBtn.inactive();
+                }
+            }
+            @Override
+            public void inputListenerBegin() {
                 nextBtn.inactive();
             }
         });
@@ -172,7 +183,7 @@ public class NewPasswwordFragment extends GenericFragment implements InputSecret
 
 
 
-    private void showKeyboard(){
+    protected void showKeyboard(){
         InputMethodManager imm = (InputMethodManager)  App.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         Objects.requireNonNull(imm).toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
@@ -274,11 +285,16 @@ public class NewPasswwordFragment extends GenericFragment implements InputSecret
     }
 
     @Override
-    public void inputListener() {
+    public void inputListenerFinish() {
         if (inputSecretPassNew.getTextEdit().length() == 6){
             nextBtn.active();
         } else {
             nextBtn.inactive();
         }
+    }
+
+    @Override
+    public void inputListenerBegin() {
+        nextBtn.inactive();
     }
 }
