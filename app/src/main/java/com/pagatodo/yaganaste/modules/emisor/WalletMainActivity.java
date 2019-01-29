@@ -9,11 +9,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.snackbar.Snackbar;
+
 import androidx.fragment.app.Fragment;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -173,7 +177,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 
 public class WalletMainActivity extends LoaderActivity implements View.OnClickListener,
-        WalletEmisorContracts.Listener , FingerprintAuthenticationDialogFragment.generateCodehuella {
+        WalletEmisorContracts.Listener, FingerprintAuthenticationDialogFragment.generateCodehuella {
 
     public final static String EVENT_GO_NIP_CHANGE = "EVENT_GO_NIP_CHANGE";
     public final static String EVENT_GO_CONFIG_REPAYMENT = "EVENT_GO_CONFIG_REPAYMENT";
@@ -248,8 +252,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         toolbar.setBackgroundResource(R.drawable.background_toolbar);
     }
 
-    public void showError(String msj){
-        UI.showErrorSnackBar(this,msj,Snackbar.LENGTH_SHORT);
+    public void showError(String msj) {
+        UI.showErrorSnackBar(this, msj, Snackbar.LENGTH_SHORT);
     }
 
     private void init() {
@@ -287,7 +291,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             }
             //menu.findItem(R.id.action_reenviar_ticket).setVisible(true);
             //menu.findItem(R.id.action_cancelar_cobro).setVisible(true);
-        } else if (getCurrentFragment() instanceof BlockCardFragment){
+        } else if (getCurrentFragment() instanceof BlockCardFragment) {
 
         }
         return true;
@@ -483,17 +487,17 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         }
     }
 
-    public void parserQR(Barcode barcode){
+    public void parserQR(Barcode barcode) {
         try {
             JsonElement jelement = new JsonParser().parse(barcode.displayValue);
             JsonObject jobject = jelement.getAsJsonObject();
             jobject = jobject.getAsJsonObject("Aux");
             String plate = jobject.get("Pl").getAsString();
             //interactor.onValidateQr(plate);
-        }catch (JsonParseException e){
+        } catch (JsonParseException e) {
             e.printStackTrace();
             //onErrorValidatePlate("QR Invalido");
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             //onErrorValidatePlate("QR Invalido");
         }
     }
@@ -600,11 +604,11 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(SelectDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CONFIG_DONGLE:
-                /*if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                     loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
-                } else {*/
-                finish();
-                //}
+                } else {
+                    finish();
+                }
                 break;
             case EVENT_GO_TO_MOV_ADQ:
                 this.movTab = (MovTab) data;
@@ -808,7 +812,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     @Override
     public void onErrorRequest(String msj) {
-        InputMethodManager imm = (InputMethodManager)getSystemService(
+        InputMethodManager imm = (InputMethodManager) getSystemService(
                 Context.INPUT_METHOD_SERVICE);
         Objects.requireNonNull(imm).hideSoftInputFromWindow(findViewById(R.id.fragment_container).getWindowToken(), 0);
         //UI.showErrorSnackBar(this,msj,Snackbar.LENGTH_SHORT);
@@ -824,6 +828,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         Objects.requireNonNull(imm).hideSoftInputFromWindow(findViewById(R.id.fragment_container).getWindowToken(), 0);*/
 
     }
+
     @Override
     public void generatecodehue(Fragment fm) {
         if (fm instanceof MyVirtualCardAccountFragment)

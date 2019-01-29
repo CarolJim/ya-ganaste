@@ -1583,9 +1583,9 @@
     <string name="edit_word">Editar</string>
 
     <!-- Conectar Dongle Vía Bluetooth -->
-    <string name="title_pair_bluetooth">Enlaza tu lector</string>
+    <string name="title_pair_bluetooth">Enlazar Lector de Tarjetas</string>
     <string name="bluetooth_on">Bluetooth activado</string>
-    <string name="bluetooth_instructions">Enciende tu lector de tarjetas Ya Ganaste presionando el botón:</string>
+    <string name="bluetooth_instructions">Enciende tu lector de tarjetas Ya Ganaste\n presionando el botón:</string>
     <string name="bluetooth_instructions2">Manténlo presionado hasta que leas\nen pantalla “Bienvenido”</string>
     <string name="bluetooth_devices">Lectores Ya Ganaste encontrados:</string>
     <string name="searching_devices">Buscando lectores</string>

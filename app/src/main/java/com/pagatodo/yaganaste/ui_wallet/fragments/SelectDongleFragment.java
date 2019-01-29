@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.modules.emisor.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 public class SelectDongleFragment extends GenericFragment implements View.OnClickListener {
@@ -85,7 +86,7 @@ public class SelectDongleFragment extends GenericFragment implements View.OnClic
                 App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal());
                 imgTypeBt.setImageResource(R.drawable.rdb_pressed);
                 imgTypeNormal.setImageResource(R.drawable.rdb_not_pressed);
-                //onEventListener.onEvent(EVENT_GO_CONFIG_DONGLE, null);
+                onEventListener.onEvent(EVENT_GO_CONFIG_DONGLE, null);
                 break;
             case R.id.lyt_normal_dongle:
                 App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.AUDIO.ordinal());
