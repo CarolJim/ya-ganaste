@@ -38,7 +38,7 @@
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
         android:textSize="17sp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:tipo="Text" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -46,7 +46,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtCompanyName"
-        android:layout_marginTop="20dp"
         android:text="Abarrotes"
         android:textAlignment="center"
         android:textColor="@color/gray_text_wallet"

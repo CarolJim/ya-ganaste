@@ -11,7 +11,7 @@
         style="@style/generic_text_style_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:text="@string/title_pair_bluetooth"
         android:textColor="@color/colorAccent" />
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_pair_bluetooth"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/ico_bluetooth" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -41,15 +41,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/desc_bluetooth_on"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:text="@string/bluetooth_instructions"
         android:textColor="@color/gray_text_wallet_3"
-        android:textSize="@dimen/wallet_text_size_5" />
+        android:textSize="@dimen/wallet_text_size_6" />
 
     <ImageView
         android:id="@+id/img_dongle_button"
         android:layout_width="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/desc_bluetooth_instructions"
         android:layout_centerHorizontal="true"
@@ -61,10 +62,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/img_dongle_button"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="@string/bluetooth_instructions2"
         android:textColor="@color/gray_text_wallet_3"
-        android:textSize="@dimen/wallet_text_size_5" />
+        android:textSize="@dimen/wallet_text_size_6" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/founded_devices"
@@ -75,14 +77,16 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/bluetooth_devices"
-        android:textColor="@color/gray_text_wallet"
-        android:textSize="@dimen/wallet_text_size_5"
+        android:textColor="@color/colorBlueAccent"
+        android:textSize="@dimen/wallet_text_size_6"
         android:visibility="gone" />
 
     <ListView
         android:id="@+id/rcv_founded_devices"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:divider="@color/gray_slate"
+        android:dividerHeight="1px"
         android:layout_below="@id/founded_devices"
         android:layout_marginTop="5dp"
         android:visibility="gone" />

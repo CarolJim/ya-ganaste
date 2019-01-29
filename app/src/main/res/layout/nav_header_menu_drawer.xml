@@ -26,8 +26,8 @@
     <ImageView
         android:layout_width="23dp"
         android:layout_height="19dp"
-        app:srcCompat="@drawable/icon_user"
         android:contentDescription="@string/app_name"
+        app:srcCompat="@drawable/camera"
         android:layout_gravity="bottom"
         android:layout_marginLeft="-14dp"
         android:layout_marginStart="-14dp" />

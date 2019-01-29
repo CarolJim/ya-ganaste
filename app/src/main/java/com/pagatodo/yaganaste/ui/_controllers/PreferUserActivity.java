@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 
+import com.dspread.xpos.QPOSService;
 import com.google.android.material.snackbar.Snackbar;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -46,8 +47,10 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.fragments.CancelAccountFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.CancelResultFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NotificacionesPrefFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.QRFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
@@ -105,11 +108,16 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
     public static String PREFER_NOTIFICACIONES = "PREFER_NOTIFICACIONES";
     public static String PREFER_NOTIFICACIONES_BACK = "PREFER_NOTIFICACIONES_BACK";
+    public static String EVENT_GO_SELECT_DONGLE_BACK = "EVENT_GO_SELECT_DONGLE_BACK";
+
     public static String PREFER_DESVINCULAR = "PREFER_DESVINCULAR";
     public static String PREFER_SECURITY_SUCCESS_PASS = "PREFER_SECURITY_SUCCESS_PASS";
 
     public static String PREFER_CANCEL = "PREFER_CANCEL";
     public static String PREFER_CANCEL_RESULT = "PREFER_CANCEL_RESULT";
+    public static String EVENT_GO_CONFIG_REPAYMENT = "EVENT_GO_CONFIG_REPAYMENT";
+    public static String EVENT_GO_CONFIG_REPAYMENT_BACK = "EVENT_GO_CONFIG_REPAYMENT_BACK";
+
     /**
      * Acciones para dialogo de confirmacion en cerrar session
      */
@@ -371,6 +379,14 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 loadFragment(MyUserFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
+            case "EVENT_GO_CONFIG_DONGLE":
+                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                    loadFragment(PairBluetoothFragment.newInstance(), Direction.FORDWARD);
+                } else {
+                    finish();
+                }
+                break;
+
             case "PREFER_USER_MY_USER_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 //loadFragment(SecurityFragment.newInstance(MENU_SEGURIDAD), Direction.BACK, false);
@@ -423,7 +439,19 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 //loadFragment(SecuritySettignsFragment.newInstance(MENU_AJUSTES, ""), Direction.BACK, false);
                 loadFragment(SecuritySettignsFragment.newInstance(), Direction.BACK, false);
                 break;
+
+            case "EVENT_GO_CONFIG_REPAYMENT":
+                loadFragment(TimeRepaymentFragment.newInstance(), Direction.FORDWARD, false);
+                break;
             /** Eventos BACK **/
+
+            case "EVENT_GO_CONFIG_REPAYMENT_BACK":
+                loadFragment(TimeRepaymentFragment.newInstance(), Direction.BACK, false);
+                break;
+            case "EVENT_GO_SELECT_DONGLE_BACK":
+                showToolbarHelp(false);
+                loadFragment(SelectDongleFragment.newInstance(), Direction.BACK);
+                break;
 
             case "PREFER_USER_MY_DONGLE_BACK":
                 loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
@@ -474,11 +502,17 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_LISTA, null);
             } else if (currentFragment instanceof DesasociarPhoneFragment) {
                 onEvent(PREFER_USER_DESASOCIAR_BACK, null);
-            }else if (currentFragment instanceof SecuritySettignsFragment) {
+            } else if (currentFragment instanceof SecuritySettignsFragment) {
                 onEvent(PREFER_USER_DESASOCIAR_BACK, null);
             } else if (currentFragment instanceof MyDongleFragment) {
                 onEvent(PREFER_USER_DESASOCIAR_BACK, null);
-            }else if (currentFragment instanceof SelectDongleFragment) {
+            } else if (currentFragment instanceof PairBluetoothFragment) {
+                onEvent(EVENT_GO_SELECT_DONGLE_BACK, null);
+
+            }else if (currentFragment instanceof TimeRepaymentFragment) {
+                onEvent(PREFER_USER_MY_DONGLE_BACK, null);
+
+            } else if (currentFragment instanceof SelectDongleFragment) {
                 onEvent(PREFER_USER_MY_DONGLE_BACK, null);
             } else if (currentFragment instanceof MyUserFragment) {
                 onEvent(PREFER_USER_LISTA, null);

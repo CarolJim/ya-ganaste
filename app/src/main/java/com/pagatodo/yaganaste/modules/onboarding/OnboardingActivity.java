@@ -48,6 +48,7 @@ import com.pagatodo.yaganaste.data.room_db.AppDatabase;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
+import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.onboarding.fragments.ScreenSlidePageFragment;
 import com.pagatodo.yaganaste.modules.onboarding.fragments.StartFragment;
@@ -85,7 +86,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 
 public class OnboardingActivity extends LoaderActivity
         implements OnboardingContracts.Presenter, View.OnClickListener, FileDownloadListener,
-        IRequestResult, IGetInfoFromFirebase {
+        IRequestResult, IGetInfoFromFirebase, OnEventListener {
     private Preferencias preferencias;
     private AppDatabase db;
     private static final String TAG = "SplashActivity";
@@ -167,6 +168,7 @@ public class OnboardingActivity extends LoaderActivity
             startActivity(OnboardingActivity.createIntent(this));
         }
         super.onBackPressed();
+
     }
 
     @SuppressLint("ResourceAsColor")
