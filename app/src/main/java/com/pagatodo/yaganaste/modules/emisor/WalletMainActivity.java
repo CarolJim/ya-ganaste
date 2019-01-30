@@ -158,11 +158,12 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENT
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_BUSSINES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_STARBUCKS;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MY_CARD_SALES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_OPERADORES_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAGO_QR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAYMENT_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPENSAS;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_REENVOLSO_FIRST;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_REMBOLSO_FIRST;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SETTINGSCARD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_TUTORIALS;
@@ -262,7 +263,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     private void init() {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
@@ -319,7 +320,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case OPTION_MVIMIENTOS_EMISOR:
                 loadFragment(PersonalAccountFragment.newInstance(tabMonthMov), R.id.fragment_container);
                 break;
+
             case OPTION_MVIMIENTOS_ADQ:
+            case OPTION_MY_CARD_SALES:
                 //loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container);
                 isMyBussines = false;
                 loadFragment(PaymentsFragment.newInstance(tabMonthMov, isMyBussines), R.id.fragment_container);
@@ -407,7 +410,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
                 finish();
                 break;
-            case OPTION_REENVOLSO_FIRST:
+            case OPTION_REMBOLSO_FIRST:
                 setResult(PICK_WALLET_TAB_REQUEST);
                 setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
                 finish();

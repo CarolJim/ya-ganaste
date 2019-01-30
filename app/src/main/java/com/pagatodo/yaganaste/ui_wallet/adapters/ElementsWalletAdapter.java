@@ -23,8 +23,7 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<GenericHolder> {
     private List<ElementView> elementViews;
     private Activity context;
     private OnClickItemHolderListener listener;
-    private boolean isBalance = false;
-
+    private boolean isBalance;
 
     public ElementsWalletAdapter(Activity context, OnClickItemHolderListener listener, boolean isBalance) {
         this.context = context;
@@ -45,12 +44,12 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<GenericHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final GenericHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final GenericHolder holder, final int position) {
         holder.bind(elementViews.get(position), listener);
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
 

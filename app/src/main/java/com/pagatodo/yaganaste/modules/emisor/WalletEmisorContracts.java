@@ -2,9 +2,9 @@ package com.pagatodo.yaganaste.modules.emisor;
 
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 
-class WalletEmisorContracts {
+public class WalletEmisorContracts {
 
-    interface Listener{
+    public interface Listener{
         void showLoad();
         void hideLoad();
         void onSouccesValidateCard();
