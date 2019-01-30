@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.modules.sidebar.About;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -30,11 +32,12 @@ public class AboutInfoFragment extends GenericFragment {
     private static String TAG_ABOUT = "TAG_ABOUT";
     private View rootView;
     private int idAbout;
+    private PreferUserActivity activity;
 
     @BindView(R.id.txt_content_legal)
     StyleTextView txtContent;
-    @BindView(R.id.progressLayout)
-    ProgressLayout progres;
+    @BindView(R.id.title_fragment)
+    StyleTextView titleFragment;
 
     public static AboutInfoFragment newInstance(int tagAbout){
         AboutInfoFragment fragment = new AboutInfoFragment();
@@ -42,6 +45,12 @@ public class AboutInfoFragment extends GenericFragment {
         bundle.putInt(TAG_ABOUT,tagAbout);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        activity = (PreferUserActivity)  context;
     }
 
     @Override
@@ -63,18 +72,23 @@ public class AboutInfoFragment extends GenericFragment {
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
+        //if (idAbout == ABOUT_NOTICE_PRIVACY)
+        titleFragment.setText(idAbout == ABOUT_NOTICE_PRIVACY ?
+                Objects.requireNonNull(getContext()).getResources().getString(R.string.aviso_privacidad):
+                Objects.requireNonNull(getContext()).getResources().getString(R.string.termin_condiciones)
+        );
         getFirebaseLegals();
     }
 
     private void getFirebaseLegals() {
-        progres.setVisibility(View.VISIBLE);
+        activity.showLoader("");
         DatabaseReference ref = App.getDatabaseReference()
                 .child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR")
                 .child(idAbout == ABOUT_NOTICE_PRIVACY?"CPrvd":"CTrmns");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                progres.setVisibility(View.INVISIBLE);
+                activity.hideLoader();
                 if (dataSnapshot.exists()) {
                     txtContent.setText(Objects.requireNonNull(dataSnapshot.getValue()).toString());
                 }
@@ -82,7 +96,7 @@ public class AboutInfoFragment extends GenericFragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                progres.setVisibility(View.INVISIBLE);
+                activity.hideLoader();
             }
         });
     }

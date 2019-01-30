@@ -55,6 +55,7 @@ import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
@@ -433,7 +434,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void setErrorSaldo(String errorSaldo) {
-        UI.showErrorSnackBar(getActivity(), errorSaldo, Snackbar.LENGTH_SHORT);
+        UI.showErrorSnackBar(Objects.requireNonNull(getActivity()), errorSaldo, Snackbar.LENGTH_SHORT);
     }
 
     @Override
@@ -497,7 +498,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         Intent intent = new Intent(getContext(), WalletMainActivity.class);
         intent.putExtra(ITEM_OPERATION, element);
         startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);
-
     }
 }
 

@@ -20,9 +20,7 @@ import com.pagatodo.yaganaste.R;
 
 import androidx.annotation.RequiresApi;
 
-/**
- * Created by flima on 24/03/2017.
- */
+
 
 public class ProgressLayout extends LinearLayout implements View.OnClickListener {
 

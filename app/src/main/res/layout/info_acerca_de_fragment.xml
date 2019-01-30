@@ -7,15 +7,8 @@
     android:orientation="vertical"
     tools:context="com.pagatodo.yaganaste.ui._controllers.AccountActivity">
 
-    <include
-        android:id="@+id/toolbarLy"
-        layout="@layout/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/styleTextView15"
+        android:id="@+id/title_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -28,7 +21,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarLy" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -44,7 +37,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/styleTextView15">
+        app:layout_constraintTop_toBottomOf="@+id/title_fragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,14 +57,6 @@
         </LinearLayout>
     </ScrollView>
 
-
-
-
-    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
-        android:id="@+id/progressLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
