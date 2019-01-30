@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ_FIRST;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
@@ -72,7 +73,7 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_ADDFAVORITE_PAYMENT = 3001;
     static public final int OPTION_CONFIG_DONGLE = 14;
     static public final int OPTION_FIRST_ADQ = 15;
-    static public final int OPTION_REENVOLSO_FIRST = 16;
+    static public final int OPTION_REMBOLSO_FIRST = 16;
 
 
 
@@ -378,7 +379,7 @@ public class ElementView implements ElementGlobal {
     //Proceso Aprobado
     public static ArrayList<ElementView> getListEstadoAprobado(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_FIRST_ADQ, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true, false, R.string.indication_adq_text_button, OPTION_ZONE_FIRST, idComercio));
+        elementViews.add(new ElementView(TYPE_ADQ_FIRST, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true, false, R.string.indication_adq_text_button, OPTION_ZONE_FIRST, idComercio));
         return elementViews;
     }
 
@@ -392,7 +393,7 @@ public class ElementView implements ElementGlobal {
     // Seleccion de Lector
     public static ArrayList<ElementView> getListSeleccionarTipoReevolso(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_REENVOLSO_FIRST, R.drawable.ic_check_success, R.string.time_repayment_desc, R.string.ya_se_puede, true, false, R.string.next, OPTION_ZONE_REENBOLSO, idComercio));
+        elementViews.add(new ElementView(OPTION_REMBOLSO_FIRST, R.drawable.ic_check_success, R.string.time_repayment_desc, R.string.ya_se_puede, true, false, R.string.next, OPTION_ZONE_REENBOLSO, idComercio));
         return elementViews;
     }
 

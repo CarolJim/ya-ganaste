@@ -16,6 +16,7 @@ import com.pagatodo.view_manager.components.inputs.InputCardNumber;
 import com.pagatodo.view_manager.components.inputs.InputSecretListener;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.modules.emisor.WalletEmisorContracts;
 import com.pagatodo.yaganaste.modules.emisor.WalletEmisorInteractor;
 import com.pagatodo.yaganaste.modules.emisor.WalletMainActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
@@ -29,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ActivatePhysicalCardFragment extends SupportFragment implements View.OnClickListener,
-        EditText.OnEditorActionListener, InputSecretListener {
+        EditText.OnEditorActionListener, InputSecretListener, WalletEmisorContracts.Listener {
 
     private WalletMainActivity activity;
     private View rootView;
@@ -39,7 +40,6 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
     ButtonContinue btnContinue;
     @BindView(R.id.input_card)
     InputCardNumber inputNumberCard;
-
 
     public static ActivatePhysicalCardFragment newInstance(){
         return new ActivatePhysicalCardFragment();
@@ -54,7 +54,7 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        interactor = new WalletEmisorInteractor(activity);
+        interactor = new WalletEmisorInteractor(this);
     }
 
     @Nullable
@@ -72,8 +72,8 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
         btnContinue.inactive();
         /*String cardnum = SingletonUser.getInstance().getDataUser().getEmisor()
                 .getCuentas().get(0).getTarjetas().get(0).getNumero().trim().substring(0,6);*/
-        /*String cardnum = SingletonUser.getInstance().getDataUser().getEmisor()
-                .getCuentas().get(0).getTarjetas().get(0).getNumero().trim();*/
+        String cardnum = SingletonUser.getInstance().getDataUser().getEmisor()
+                .getCuentas().get(0).getTarjetas().get(0).getNumero().trim();
         inputNumberCard.setRequest();
         inputNumberCard.setInputSecretListener(this);
         inputNumberCard.setText("538984");
@@ -81,7 +81,6 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
         showKeyboard();
 
     }
-
 
 
     @Override
@@ -98,9 +97,9 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
                 && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 hideKeyBoard(inputNumberCard.getEditText());
                 if (validate()){
-                    this.activity.getRouter().onShowGeneratePIN();
+                    //this.activity.getRouter().onShowGeneratePIN();
 
-                    //interactor.validateCard(inputNumberCard.getText().trim());
+                    interactor.validateCard(inputNumberCard.getText().trim());
                 }
             return true;
         }
@@ -137,5 +136,26 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
     @Override
     public void inputListenerBegin() {
         btnContinue.inactive();
+    }
+
+    @Override
+    public void showLoad() {
+        this.activity.showLoader("");
+    }
+
+    @Override
+    public void hideLoad() {
+        this.activity.hideLoad();
+    }
+
+    @Override
+    public void onSouccesValidateCard() {
+
+    }
+
+    @Override
+    public void onErrorRequest(String msj) {
+        hideKeyBoard(getView());
+        UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),msj,Snackbar.LENGTH_SHORT);
     }
 }

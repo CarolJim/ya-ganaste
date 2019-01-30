@@ -70,6 +70,7 @@ import static com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFacto
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_BALANCE_CLOSED_LOOP;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ERROR_ADDRESS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ERROR_ADDRESS_DOCS;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_REMBOLSO_FIRST;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ_FIRST;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_BUSINESS;
@@ -146,8 +147,8 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void initViews() {
-        App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
-        App.getInstance().getPrefs().saveDataBool(FIST_ADQ_LOGIN, false);
+        //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
+        //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_LOGIN, false);
 
         viewPagerWallet = pageContainer.getViewPager();
         viewPagerWallet.setOffscreenPageLimit(3);
@@ -184,7 +185,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void setError(String message) {
-        UI.showErrorSnackBar(getActivity(), message, Snackbar.LENGTH_SHORT);
+        UI.showErrorSnackBar(Objects.requireNonNull(getActivity()), message, Snackbar.LENGTH_SHORT);
     }
 
     @Override
@@ -254,9 +255,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         if (itemOperation.getIdOperacion() == 12) {  // Error en documentación
             walletPresenter.getStatusDocuments();
         } else if (itemOperation.getIdOperacion() == TYPE_ADQ_FIRST) {
-            App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
+            //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
             //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
-            //timeRepaymentPresenter.getTypePayments();
+            timeRepaymentPresenter.getTypePayments();
         } else if (itemOperation.getIdOperacion() == OPTION_BALANCE_CLOSED_LOOP) {
             BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
             if (!adapter.isEnabled() && App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
@@ -274,8 +275,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
                         });
             }
         } else {
-            //goToWalletMainActivity();
-            timeRepaymentPresenter.getTypePayments();
+            goToWalletMainActivity();
         }
     }
 
@@ -293,7 +293,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void onSuccessGetTypes(ObtieneTiposReembolsoResponse response) {
         tiposReembolso = response.getReembolsos();
-        List<TiposReembolsoResponse> lstTmp = new ArrayList<>();
+        ArrayList<TiposReembolsoResponse> lstTmp = new ArrayList<>();
         for (int i = 0; i < tiposReembolso.size(); i++) {
             // Agregar a lista temporal solo los Objetos visibles
             if (tiposReembolso.get(i).isVisible()) {
@@ -309,30 +309,33 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void onSuccessUpdateType() {
-        UI.showSuccessSnackBar(getActivity(), getString(R.string.success_time_repayment_save), Snackbar.LENGTH_SHORT);
+        UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()), getString(R.string.success_time_repayment_save), Snackbar.LENGTH_SHORT);
         showLoader("");
         goToWalletMainActivity();
     }
 
     @Override
     public void onError(String error) {
-        UI.showErrorSnackBar(getActivity(), error, Snackbar.LENGTH_LONG);
+        UI.showErrorSnackBar(Objects.requireNonNull(getActivity()), error, Snackbar.LENGTH_LONG);
         showLoader("");
         goToWalletMainActivity();
     }
 
-    public void reembolso() {
+    private void reembolso() {
+        App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
+        App.getInstance().getPrefs().saveDataBool(FIST_ADQ_LOGIN, true);
+        App.getInstance().getPrefs().saveData(CONFIG_DONGLE_REEMBOLSO, "2");
         if (Utils.isDeviceOnline()) {
             if (Integer.parseInt(App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO)) != idTypeServer) {
                 //Modificacion para realisar el tipo de reembolso a inmediato
-                App.getInstance().getPrefs().saveData(CONFIG_DONGLE_REEMBOLSO, "2");
+                //App.getInstance().getPrefs().saveData(CONFIG_DONGLE_REEMBOLSO, "2");
                 timeRepaymentPresenter.updateTypeRepayment(Integer.parseInt(App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO)));
             } else {
-                UI.showSuccessSnackBar(getActivity(), getString(R.string.success_time_repayment_save), Snackbar.LENGTH_SHORT);
+                UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()), getString(R.string.success_time_repayment_save), Snackbar.LENGTH_SHORT);
                 goToWalletMainActivity();
             }
         } else {
-            UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(Objects.requireNonNull(getActivity()), getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
         }
     }
 

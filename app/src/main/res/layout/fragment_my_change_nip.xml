@@ -1,108 +1,177 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pagatodo.yaganaste.modules.emisor.ChangeNip.MyChangeNip">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/textView2"
         style="@style/title_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:gravity="center"
-        android:text="@string/title_fragment_nip"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/styleTextView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:gravity="center"
-        android:text="@string/label_change_nip_des"
-        android:textColor="@color/gray_slate"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <com.pagatodo.view_manager.components.inputs.InputSecret
-        android:id="@+id/textInputEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:gravity="center"
+        android:text="@string/title_fragment_nip"
+        android:textColor="@color/colorAccent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="30dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="30dp" />
+
+        <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+            android:id="@+id/errorOldNipMessage"
+            style="@style/generic_text_style_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:textAlignment="center"
+            android:visibility="visible" />
+
+        <include layout="@layout/asignar_nip2_change" />
+
+        <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+            android:id="@+id/errorNewNipMessage"
+            style="@style/generic_text_style_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:visibility="visible" />
+
+        <include layout="@layout/asignar_nip3_change" />
+
+        <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+            android:id="@+id/errorNewNipConfirmMessage"
+            style="@style/generic_text_style_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/margin_doble"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/asignar_edittext"
+                android:layout_width="1px"
+                android:layout_height="1px"
+                android:ems="10"
+                android:inputType="numberPassword"
+                android:maxLength="4" />
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/asignar_edittext2"
+                android:layout_width="1px"
+                android:layout_height="1px"
+                android:layout_marginTop="20dp"
+                android:ems="4"
+                android:inputType="numberPassword"
+                android:maxLength="4" />
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/asignar_edittext3"
+                android:layout_width="1px"
+                android:layout_height="1px"
+                android:layout_marginTop="20dp"
+                android:ems="4"
+                android:inputType="numberPassword"
+                android:maxLength="4" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--<LinearLayout
+        android:id="@+id/content_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView2"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+    </LinearLayout>-->
+
+    <com.pagatodo.view_manager.components.inputs.InputSecret
+        android:id="@+id/input_nip_actual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView2"
         app:labelHintNip="@string/nip_actual"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/styleTextView13" />
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"/>
+
+    <com.pagatodo.view_manager.components.inputs.InputSecret
+        android:id="@+id/input_nip_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_nip_actual"
+        app:labelHintNip="@string/nip_nuevo"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"/>
+
+    <com.pagatodo.view_manager.components.inputs.InputSecret
+        android:id="@+id/input_nip_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_nip_new"
+        app:labelHintNip="@string/nip_confirma"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"/>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/olvidaste_nip"
         style="@style/generic_text_style_5"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/content_linearlayout"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_below="@id/input_nip_confirm"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="@string/olvidaste_nip"
-        android:textColor="@color/gray_slate"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
+        android:textColor="@color/texthint" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/call_phone"
         style="@style/generic_text_style_2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/olvidaste_nip"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/numero"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.536"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/olvidaste_nip" />
+        android:textColor="@color/colorAccent" />
 
-    <com.pagatodo.view_manager.buttons.ButtonContinue
-        android:id="@+id/btn_continue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/fragment_myemail_btn"
+        style="@style/buttonSquareRoundedBlue"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/btn_navigation_bottom"
+        android:layout_marginTop="@dimen/margin_medium"
         android:gravity="center"
-        android:text="@string/confrimacion"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="@string/confrimacion" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
