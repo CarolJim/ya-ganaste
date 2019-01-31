@@ -15,13 +15,18 @@ import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.register.Iteractor.UpdateTokenFirebaseIteractor;
+import com.pagatodo.yaganaste.ui.account.register.interfaces.ActualizarToken;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_SUCCES;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_DOC_CHECK;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
@@ -31,7 +36,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class RegisterCompleteFragment extends GenericFragment implements View.OnClickListener {
+public class RegisterCompleteFragment extends GenericFragment implements View.OnClickListener , ActualizarToken.Listener  {
     public static String TIPO_MENSAJE = "TIPO_MENSAJE";
     public String TAG = getClass().getSimpleName();
     @BindView(R.id.lottie_view)
@@ -55,7 +60,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     private String btnName = "";
     private String NEXT_SCREEN = "";
     public static boolean isdocumentsrevision = false;
-
+    ActualizarToken.Iteractor iteractor;
     public static RegisterCompleteFragment newInstance(COMPLETE_MESSAGES type) {
         RegisterCompleteFragment fragmentRegister = new RegisterCompleteFragment();
         Bundle args = new Bundle();
@@ -75,6 +80,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
             Bundle b = getArguments();
             type = (COMPLETE_MESSAGES) b.get(TIPO_MENSAJE);
         }
+        iteractor= new UpdateTokenFirebaseIteractor(this,getContext());
     }
 
     @Override
@@ -89,6 +95,8 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     public void initViews() {
         ButterKnife.bind(this, rootview);
         setContent();
+        iteractor.updateTokenFirebase();
+        onEventListener.onEvent(EVENT_SHOW_LOADER, "");
         btnNextComplete.setOnClickListener(this);
         if (isdocumentsrevision) {
             btnName = getString(R.string.nextButton);
@@ -174,6 +182,16 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
         txtSubtitle.setText(subTitle);
         txtMessage.setText(message);
         btnNextComplete.setText(btnName);*/
+    }
+
+    @Override
+    public void onSuccessToken() {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+    }
+
+    @Override
+    public void onErrorToken() {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     public enum COMPLETE_MESSAGES {

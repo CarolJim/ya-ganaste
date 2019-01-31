@@ -427,6 +427,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                             //
                         });
 
+
+
+
                 break;
             case EVENT_COUCHMARK:
                 loadFragment(Couchmark.newInstance(), Direction.FORDWARD, false);
