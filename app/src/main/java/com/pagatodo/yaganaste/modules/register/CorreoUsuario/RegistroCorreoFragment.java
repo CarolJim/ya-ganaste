@@ -192,6 +192,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         text_email.setBackgroundResource(R.drawable.inputtext_active);
         editMail.setFocusableInTouchMode(true);
+        editMail.setText("");
         editMail.requestFocus();
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
         imm.showSoftInput(editMail, InputMethodManager.SHOW_IMPLICIT);
