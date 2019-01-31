@@ -3,7 +3,7 @@
     android:id="@+id/container_qr"
     android:layout_width="120dp"
     android:gravity="center_vertical"
-    android:layout_height="180dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
