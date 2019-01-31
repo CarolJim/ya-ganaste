@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container_qr"
     android:layout_width="120dp"
-    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:layout_height="180dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/name_qr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLines="1"
         android:gravity="center_horizontal"
         android:text="Caja principal"
         android:textColor="@color/gristexto"
