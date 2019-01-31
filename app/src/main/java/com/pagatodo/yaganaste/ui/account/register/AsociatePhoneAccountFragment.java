@@ -31,9 +31,12 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
+import com.pagatodo.yaganaste.modules.management.request.UpdateTokenFirebase;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.register.Iteractor.UpdateTokenFirebaseIteractor;
+import com.pagatodo.yaganaste.ui.account.register.interfaces.ActualizarToken;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -81,6 +84,8 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
     private boolean showAnimation = false;
     App aplicacion;
 
+
+
     /**
      * BroadcastReceiver para realizar el envío del SMS
      **/
@@ -127,6 +132,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
         this.preferencias = App.getInstance().getPrefs();
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
+
     }
 
     @Override
@@ -213,7 +219,9 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
             App.mixpanel.track(EVENT_APROV, props);
         }
         if (preferencias.loadDataBoolean(PASSWORD_CHANGE, false)) {
+
             nextScreen(EVENT_APROV_SUCCES, null);
+
         } else {
             nextScreen(EVENT_GO_ASSIGN_NEW_CONTRASE, null);
         }
@@ -405,5 +413,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
     public void onResume() {
         super.onResume();
     }
+
+
 }
 
