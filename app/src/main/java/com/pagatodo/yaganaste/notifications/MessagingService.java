@@ -39,14 +39,19 @@ public class MessagingService extends FirebaseMessagingService {
         // nombres de variables
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-            // sendNotification(remoteMessage.getData().get("myBody"), remoteMessage.getData().get("id"));
-            int notifPendents = App.getInstance().getPrefs().loadDataInt(NOTIF_COUNT) + 1;
+
+            if (remoteMessage.getData().get("myBody") != null) {
+                sendNotification(remoteMessage.getData().get("myBody"), remoteMessage.getData().get("id"));
+            }else {
+                sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody(),true);
+            }
+            /*int notifPendents = App.getInstance().getPrefs().loadDataInt(NOTIF_COUNT) + 1;
             //App.setBadge(notifPendents);
             App.getInstance().getPrefs().saveDataInt(NOTIF_COUNT, notifPendents);
-            /*String idType = getIntent().getExtras().get("id").toString();
+            *//*String idType = getIntent().getExtras().get("id").toString();
             String urlData = getIntent().getExtras().get("urlData").toString();
             String nameData = getIntent().getExtras().get("nameData").toString();
-            String typeData = getIntent().getExtras().get("typeData").toString();*/
+            String typeData = getIntent().getExtras().get("typeData").toString();*//*
 
             String idType = remoteMessage.getData().get("id").toString();
             String urlData = remoteMessage.getData().get("urlData").toString();
@@ -76,7 +81,7 @@ public class MessagingService extends FirebaseMessagingService {
                     case "4":
                         break;
                 }
-            }
+            }*/
         }
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
@@ -108,6 +113,28 @@ public class MessagingService extends FirebaseMessagingService {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(messageBody)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0, notificationBuilder.build());
+    }
+    private void sendNotification(String titulo, String description, boolean envio) {
+
+
+        Intent intent = new Intent(this, SplashActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(titulo)
+                .setContentText(description)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);

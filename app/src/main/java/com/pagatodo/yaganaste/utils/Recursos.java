@@ -25,6 +25,8 @@ public class Recursos {
 
     /*Friggs*/
     public static final String URL_FRIGGS;
+    /* Odin*/
+    public static final String URL_ODIN;
 
 
     static {
@@ -34,8 +36,8 @@ public class Recursos {
             URL_BD_ODIN_USERS = "https://odin-mx-users.firebaseio.com";
             PUBLIC_KEY_RSA = "rk2QHAmXByr9wIf6d1cgU+f9NtKvj2xWvRv2wUcZSMVvhfTkcoWLG/CxEK+weoS3QcxxEWKFrWgwhYABXpkGhlXiqH7GyRIhv2kQtuZlGJJSIExd2asJrtjDnfStu7ZKbdIpLzqFUfo8naDhCuQTzhyApyJQ9HDcOSTFuRhJ7Mz3gXwUXqr98i+he+iYCzyrMViP+o4UPUqfNcpSafUw4NYre9KEZoHMaKcPMR4bMjax3Payt9LDAU3KgBOnWS9Ga6WffE03tpAWqE3ape61CmPw5QKPgRNKSnV70wu7f02jmstEepM35aSf3gL9SKMUv3DkwYIpifhNYPbdKCh+BQ==";
             PUBLIC_STARBUCKS_KEY_RSA = "xymBd9bjA9QcZDSMoqvDts/zvoOTt1xjgzXRWzSD2eHoVHrpVhPR8hJzXiJyjAQ/fzUSsFUoYzIs6irVtZpgbggvhbAs/ItkvbypUzFN4CPnWCmYCVNqf/hwnniVTOn1EJ8WhPXdc5r5PPgBX74GnEvy2GI4n8santnvQq3WvTE=";
-
             URL_FRIGGS = "https://us-central1-frigg-1762c.cloudfunctions.net";
+            URL_ODIN = "https://us-central1-odin-dd5ba.cloudfunctions.net";
             //URL_FRIGGS = "https://us-central1-frigg-51525.cloudfunctions.net";
 
 
@@ -47,7 +49,7 @@ public class Recursos {
             PUBLIC_STARBUCKS_KEY_RSA = "xymBd9bjA9QcZDSMoqvDts/zvoOTt1xjgzXRWzSD2eHoVHrpVhPR8hJzXiJyjAQ/fzUSsFUoYzIs6irVtZpgbggvhbAs/ItkvbypUzFN4CPnWCmYCVNqf/hwnniVTOn1EJ8WhPXdc5r5PPgBX74GnEvy2GI4n8santnvQq3WvTE=";
 
             URL_FRIGGS = "https://us-central1-frigg-51525.cloudfunctions.net";
-
+            URL_ODIN = "https://us-central1-odin-dd5ba.cloudfunctions.net";
         }
     }
 

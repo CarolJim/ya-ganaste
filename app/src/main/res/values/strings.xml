@@ -139,6 +139,7 @@
     <string name="getQrs">/gtQRSYG</string>
     <string name="validateQr">/vldtLnkPltYG</string>
     <string name="linkedQr">/lnkQRYG</string>
+    <string name="updateTokenFirebase">/updateUserDeviceToken</string>
     <string name="newQr">/nwQRYG</string>
     <string name="updateQR">/pdtQR</string>
     <string name="getDataQRYG">/getDataQRYG</string>

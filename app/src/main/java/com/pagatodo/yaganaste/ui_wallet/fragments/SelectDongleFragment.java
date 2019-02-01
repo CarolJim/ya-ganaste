@@ -92,6 +92,7 @@ public class SelectDongleFragment extends GenericFragment implements View.OnClic
                 App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.AUDIO.ordinal());
                 imgTypeBt.setImageResource(R.drawable.rdb_not_pressed);
                 imgTypeNormal.setImageResource(R.drawable.rdb_pressed);
+                //onEventListener.onEvent(EVENT_GO_CONFIG_DONGLE, null);
                 break;
         }
     }

@@ -203,6 +203,8 @@ public enum WebService {
     VALIDATE_PLATE,
     /* Vinculacion de qr*/
     LINKED_QR,
+    /* Actualizar Token Firebase*/
+    UPDATEFIREBASETOKEN,
     /*Nuevo QR*/
     NEW_QR,
     /* Actualizar QR*/

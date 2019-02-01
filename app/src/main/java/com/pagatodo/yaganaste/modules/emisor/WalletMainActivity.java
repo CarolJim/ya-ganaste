@@ -19,6 +19,7 @@ import com.dspread.xpos.QPOSService;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -63,7 +64,6 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment.Mo
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsEmisorFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PersonalAccountFragment;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminCardsFragment;
@@ -90,9 +90,12 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TutorialsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.VentasDiariasFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
+import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.keyboard.UiKeyBoard;
+import com.pagatodo.yaganaste.utils.qrcode.Auxl;
+import com.pagatodo.yaganaste.utils.qrcode.Qrlectura;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -504,6 +507,28 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 getCurrentFragment().onActivityResult(requestCode, resultCode, data);
             }
         }
+
+        if (requestCode == Constants.BARCODE_READER_REQUEST_CODE) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
+                    if (barcode.displayValue.contains("Pl")) {
+                        Qrlectura myQr = new Gson().fromJson(barcode.displayValue, Qrlectura.class);
+                        Auxl auxl = myQr.getAux();
+                        String plate  = auxl.getPl();
+
+                    /*    cardNumber.setText(myQr.getClabe());
+                        receiverName.setText(myQr.getUserName());*/
+                    }
+                }else{
+                    finish();
+                }
+            }else if (resultCode ==153){
+
+            }
+
+        }
+
     }
 
     public void onErrorValidatePlate(String error) {
