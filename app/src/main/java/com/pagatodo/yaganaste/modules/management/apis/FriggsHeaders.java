@@ -13,4 +13,5 @@ public class FriggsHeaders {
         headers.put("Authorization", "Yg-" + App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
         return headers;
     }
+
 }

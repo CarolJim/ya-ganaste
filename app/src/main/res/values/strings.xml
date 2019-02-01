@@ -141,6 +141,8 @@
     <string name="linkedQr">/lnkQRYG</string>
     <string name="newQr">/nwQRYG</string>
     <string name="updateQR">/pdtQR</string>
+    <string name="getDataQRYG">/getDataQRYG</string>
+
     <!-- Activacion de tarjeta fisica -->
     <string name="bloqueoTarjetaDifinitivo">/BloqueoTarjetaDefinitivo</string>
     <string name="reemplazarTarjetaDirecto">/ReemplazarTarjetaDirecto</string>
@@ -1771,4 +1773,7 @@
     <string name="indicationes_adq">\u2022 ¡Acepta tarjetas Visa, Mastercard y más!\n\n\u2022 La comisión más baja del mercado\n\n\u2022 Recibe tu dinero de inmediato</string>
     <string name="indication_adq_text_button">Vincular lector de tarjetas</string>
     <string name="indication_adq_text_label"><u>¿Aún no Cuentas con un Lector de Tarjetas?</u></string>
+    <string name="activation_in_process">¡Tu Activación Esta en Proceso!</string>
+    <string name="activation_in_process_desc">En poco tiempo podrás comenzar a\naprovechar todos los beneficios de cobrar\ncon tarjeta.\n\nLa activación durará menos de 15 minutos.</string>
+
 </resources>

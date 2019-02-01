@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
@@ -87,6 +88,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -424,6 +426,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         paymentsCarouselPresenter.getFavoriteCarouselItems();
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -1206,7 +1209,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                             concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
                         }
                     } else {
-                        UI.showErrorSnackBar(getActivity(), getString(R.string.transfer_qr_invalid), Snackbar.LENGTH_SHORT);
+                        UI.showErrorSnackBar(Objects.requireNonNull(getActivity()), getString(R.string.transfer_qr_invalid), Snackbar.LENGTH_SHORT);
                     }
                 }
             }

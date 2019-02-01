@@ -50,7 +50,7 @@ public class QrManagerIteractor implements QrManagerContracts.Iteractor, Listene
         ArrayList<QrItems> list = new ArrayList<>();
         for (QrDataResponse qrDataResponse:qrResponse.getData()){
             Gson gsondata = new Gson();
-            String jsonString = gsondata.toJson(qrDataResponse.getQr().getAux());
+            String jsonString = gsondata.toJson(qrDataResponse.getQr());
             list.add(new QrItems(new QRUser(qrDataResponse.getName(),
                     qrDataResponse.getQr().getAux().getPl()),jsonString,2));
         }

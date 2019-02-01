@@ -16,9 +16,11 @@ import com.pagatodo.view_manager.components.inputs.InputCardNumber;
 import com.pagatodo.view_manager.components.inputs.InputSecretListener;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarTitularCuentaResponse;
 import com.pagatodo.yaganaste.modules.emisor.WalletEmisorContracts;
 import com.pagatodo.yaganaste.modules.emisor.WalletEmisorInteractor;
 import com.pagatodo.yaganaste.modules.emisor.WalletMainActivity;
+import com.pagatodo.yaganaste.modules.management.response.QrValidateResponse;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.utils.UI;
 
@@ -54,7 +56,7 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        interactor = new WalletEmisorInteractor(this);
+        interactor = new WalletEmisorInteractor(this,activity);
     }
 
     @Nullable
@@ -157,5 +159,20 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
     public void onErrorRequest(String msj) {
         hideKeyBoard(getView());
         UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),msj,Snackbar.LENGTH_SHORT);
+    }
+
+    @Override
+    public void onSouccesDataQR(QrValidateResponse QRresponse) {
+
+    }
+
+    @Override
+    public void onSouccesGetTitular(ConsultarTitularCuentaResponse data) {
+
+    }
+
+    @Override
+    public void onSouccessgetgetDataBank() {
+
     }
 }

@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui_wallet.patterns.builders;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
@@ -196,7 +197,28 @@ public class ContainerBuilder {
                 op = new SelectOptionZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_dos, parent, false));
                 break;
             case OPTION_ZONE_FIRST:
-                op = new IndicationZoneViewHolder(context, inflater.inflate(R.layout.indicador_zona_first_adq, parent, false));
+                //op = new IndicationZoneViewHolder(context, inflater.inflate(R.layout.indicador_zona_first_adq, parent, false));
+                op = new GenericHolder(inflater.inflate(R.layout.indicador_zona_simple_texto, parent, false)) {
+                    @Override
+                    public void init() {
+
+                    }
+
+                    @Override
+                    public void bind(Object item, OnClickItemHolderListener listener) {
+
+                    }
+
+                    @Override
+                    public void inflate(ViewGroup layout) {
+                        layout.addView(this.itemView);
+                    }
+
+                    @Override
+                    public View getView() {
+                        return this.itemView;
+                    }
+                };
                 break;
             case OPTION_ZONE_REENBOLSO:
                 op = new SelectOptionZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_dos, parent, false),true);
