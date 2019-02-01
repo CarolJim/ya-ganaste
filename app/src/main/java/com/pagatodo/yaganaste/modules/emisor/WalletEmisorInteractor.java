@@ -120,6 +120,7 @@ public class WalletEmisorInteractor implements WalletEmisorContracts.Interactor,
 
     @Override
     public void getTitular(String cuenta) {
+        listener.showLoad();
         ConsultarTitularCuentaRequest request = new ConsultarTitularCuentaRequest();
         request.setCuenta(cuenta.replaceAll(" ",""));
         try {
@@ -127,12 +128,14 @@ public class WalletEmisorInteractor implements WalletEmisorContracts.Interactor,
         } catch (OfflineException e) {
             e.printStackTrace();
             //listener.onError(CONSULTAR_TITULAR_CUENTA, App.getContext().getString(R.string.no_internet_access));
+            listener.hideLoad();
             listener.onErrorRequest(App.getContext().getString(R.string.no_internet_access));
         }
     }
 
     @Override
     public void getDataBank(String bin, String cob) {
+        listener.showLoad();
         try {
             ObtenerBancoBinRequest request = new ObtenerBancoBinRequest();
             request.setPbusqueda(bin);
@@ -140,6 +143,7 @@ public class WalletEmisorInteractor implements WalletEmisorContracts.Interactor,
             ApiAdtvo.obtenerBancoBin(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            listener.hideLoad();
             listener.onErrorRequest(App.getContext().getString(R.string.no_internet_access));
         }
     }
@@ -176,11 +180,12 @@ public class WalletEmisorInteractor implements WalletEmisorContracts.Interactor,
             if (response.getCodigoRespuesta() == CODE_OK) {
                 try {
                     if (response.getData() != null) {
-                        //listener.setDataBank(response.getData().getIdComercioAfectado(), response.getData().getNombre());
+                        listener.onSouccessgetgetDataBank(response);
+                            //listener.setDataBank(response.getData().getIdComercioAfectado(), response.getData().getNombre());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-
+                    listener.onErrorRequest(response.getMensaje());
                 }
             } else {
                 listener.onErrorRequest(App.getContext().getString(R.string.no_internet_access));

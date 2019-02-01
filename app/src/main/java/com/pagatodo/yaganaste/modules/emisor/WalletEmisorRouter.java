@@ -75,5 +75,6 @@ public class WalletEmisorRouter implements WalletEmisorContracts.Router{
         intent.putExtra("pagoItem", envio);
         //intent.putExtra("favoritoItem", null);
         activity.startActivityForResult(intent, BACK_FROM_PAYMENTS);
+
     }
 }

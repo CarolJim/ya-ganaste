@@ -16,6 +16,7 @@ import com.pagatodo.view_manager.components.inputs.InputCardNumber;
 import com.pagatodo.view_manager.components.inputs.InputSecretListener;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarTitularCuentaResponse;
 import com.pagatodo.yaganaste.modules.emisor.WalletEmisorContracts;
 import com.pagatodo.yaganaste.modules.emisor.WalletEmisorInteractor;
@@ -172,7 +173,7 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
     }
 
     @Override
-    public void onSouccessgetgetDataBank() {
+    public void onSouccessgetgetDataBank(ObtenerBancoBinResponse data) {
 
     }
 }
