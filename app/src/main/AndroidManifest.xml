@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.pagatodo.yaganaste">
-
     <!-- Permisos para MPOS (Cobros) -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -22,16 +21,8 @@
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
-    <uses-permission android:name="com.pagatodo.yaganaste.fileprovider.READ" />
-
-
-
-
-
-    <!-- PERMISOS DEL GPS -->
-    <uses-permission android:name="android.hadware.location.gps" />
-    <!-- FIN DE LOS PERMISOS DEL GPS -->
-
+    <uses-permission android:name="com.pagatodo.yaganaste.fileprovider.READ" /> <!-- PERMISOS DEL GPS -->
+    <uses-permission android:name="android.hadware.location.gps" /> <!-- FIN DE LOS PERMISOS DEL GPS -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -58,11 +49,14 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".modules.registerAggregator.AggregatorActivity"></activity>
 
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -83,7 +77,6 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".ui._controllers.SplashActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -197,22 +190,26 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui._controllers.PromoCodesActivity" />
         <activity android:name=".modules.register.RegActivity" />
-
-        <activity android:name=".modules.emisor.PaymentToQR.operations.QrOperationActivity"
+        <activity
+            android:name=".modules.emisor.PaymentToQR.operations.QrOperationActivity"
             android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator" />
-        <activity android:name=".modules.onboarding.OnboardingActivity"
+        <activity
+            android:name=".modules.onboarding.OnboardingActivity"
             android:screenOrientation="portrait">
 
-            <!--<intent-filter>
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
 
         </activity>
-        <activity android:name=".modules.charge.ChargeActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".modules.charge.ChargeActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

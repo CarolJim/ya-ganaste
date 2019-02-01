@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:text="@string/activation_in_process" />
+        tools:text="activation_in_process" />
 
     <TextView
         android:id="@+id/textView9"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto"
-        android:text="@string/activation_in_process_desc"
+        android:text="activation_in_process_desc"
         android:textColor="@color/gray_slate"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"

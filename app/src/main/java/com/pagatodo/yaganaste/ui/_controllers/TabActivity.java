@@ -42,6 +42,7 @@ import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.modules.charge.ChargeActivity;
 import com.pagatodo.yaganaste.modules.emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
+import com.pagatodo.yaganaste.modules.registerAggregator.AggregatorActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
 import com.pagatodo.yaganaste.ui.account.AprovPresenter;
@@ -826,7 +827,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         if(menuItem.getItemId() == R.id.navigation_charge){
-            startActivity(ChargeActivity.createIntent(this));
+            //startActivity(ChargeActivity.createIntent(this));
+            startActivity(AggregatorActivity.createIntent(this));
         } else if (lastFrag != menuItem.getItemId()) {
             lastFrag = menuItem.getItemId();
             switch (menuItem.getItemId()) {
