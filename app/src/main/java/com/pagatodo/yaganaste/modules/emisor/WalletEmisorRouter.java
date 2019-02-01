@@ -1,13 +1,19 @@
 package com.pagatodo.yaganaste.modules.emisor;
 
+import android.content.Intent;
+
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.emisor.ActivatePhysicalCard.ActivatePhysicalCardFragment;
 import com.pagatodo.yaganaste.modules.emisor.CardActivate.CardActivateFragment;
 import com.pagatodo.yaganaste.modules.emisor.GeneratePIN.GeneratePINFragment;
 import com.pagatodo.yaganaste.modules.emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
 import com.pagatodo.yaganaste.modules.emisor.ChangeNip.MyChangeNip;
+import com.pagatodo.yaganaste.ui._controllers.EnvioFormularioWallet;
 import com.pagatodo.yaganaste.ui_wallet.fragments.DescargarEdoCuentaFragment;
+
+import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 
 public class WalletEmisorRouter implements WalletEmisorContracts.Router{
 
@@ -61,5 +67,13 @@ public class WalletEmisorRouter implements WalletEmisorContracts.Router{
     @Override
     public void onShowCardActive() {
         this.activity.loadFragment(CardActivateFragment.newInstance(),this.IdContainer,Direction.FORDWARD,false);
+    }
+
+    @Override
+    public void onShowEnvioFormulario(Envios envio) {
+        Intent intent = new Intent(activity, EnvioFormularioWallet.class);
+        intent.putExtra("pagoItem", envio);
+        //intent.putExtra("favoritoItem", null);
+        activity.startActivityForResult(intent, BACK_FROM_PAYMENTS);
     }
 }

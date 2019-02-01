@@ -300,38 +300,39 @@ public class ElementView implements ElementGlobal {
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        elementViews.add(new ElementView(OPTION_CHARGE_WITH_CARD, R.drawable.ic_chip_nip, R.string.realizar_cobro));
-        elementViews.add(new ElementView(OPTION_MY_CARD_SALES, R.drawable.ic_card, R.string.my_card_sales));
-        elementViews.add(new ElementView(OPTION_TRANSFER_BALANCE, R.drawable.ic_transfer, R.string.transfer_balance));
+
+        //elementViews.add(new ElementView(OPTION_TRANSFER_BALANCE, R.drawable.ic_transfer, R.string.transfer_balance));
         if (agentes.size() < 2) {
             //elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
             //elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
+            elementViews.add(new ElementView(OPTION_CHARGE_WITH_CARD, R.drawable.ic_chip_nip, R.string.realizar_cobro));
+            elementViews.add(new ElementView(OPTION_MY_CARD_SALES, R.drawable.ic_card, R.string.my_card_sales));
         }
 
         if (!isAgente) {
             elementViews = ElementView.getListLectorEmi();
         } else {
-            idEstatusAgente = 12;
-            if (isAgente && idEstatusAgente == IdEstatus.I6.getId()) {
+            //idEstatusAgente = 12;
+
+
+            if (idEstatusAgente == IdEstatus.I6.getId()) {
                 elementViews = ElementView.getListEstadoContinuarRegistro(idComercio);
-            }
-            if (isAgente && (idEstatusAgente == IdEstatus.I7.getId() || idEstatusAgente == IdEstatus.I8.getId()
-                    || idEstatusAgente == IdEstatus.I11.getId() || App.getInstance().getPrefs().
-                    loadDataInt(ESTATUS_DOCUMENTACION) == STATUS_DOCTO_PENDIENTE)) {
+            } else if (idEstatusAgente == IdEstatus.I7.getId() ||
+                    idEstatusAgente == IdEstatus.I8.getId() ||
+                    idEstatusAgente == IdEstatus.I11.getId() ||
+                    App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) == STATUS_DOCTO_PENDIENTE) {
                 elementViews = ElementView.getListEstadoRevisando(idComercio);
-            }
-            if (isAgente && idEstatusAgente == IdEstatus.I9.getId()) {
+            } else if (idEstatusAgente == IdEstatus.I9.getId()) {
                 elementViews = ElementView.getListEstadoError(idComercio);
-            }
-            if (isAgente && (idEstatusAgente == IdEstatus.I10.getId() || idEstatusAgente == IdEstatus.I13.getId())) {
+            } else if (idEstatusAgente == IdEstatus.I10.getId() || idEstatusAgente == IdEstatus.I13.getId()) {
                 elementViews = ElementView.getListEstadoRechazado(idComercio);
-            }
+            } else
             /*if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
                     !App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)
                     && !isComercioUyu) {
                 elementViews = ElementView.getListSeleccionarLector(idComercio);
             }*/
-            if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
+            if (idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
                     !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)
                     && !isComercioUyu) {
                 App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
@@ -341,14 +342,14 @@ public class ElementView implements ElementGlobal {
                         RequestHeaders.setIdCuentaAdq(opr.getIdUsuarioAdquirente());
                     }
                 }
-            } else {
-                App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
-            }
-            if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
+            } else if (idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
                     !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false)) {
                 App.getInstance().getPrefs().saveDataInt(ESTATUS_DOCUMENTACION, STATUS_DOCTO_APROBADO);
                 elementViews = ElementView.getListEstadoAprobado(idComercio);
+            } else {
+                App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
             }
+
         }
         return elementViews;
     }
@@ -370,14 +371,14 @@ public class ElementView implements ElementGlobal {
     }
 
     //Proceso Revisando
-    public static ArrayList<ElementView> getListEstadoRevisando(String idComercio) {
+    private static ArrayList<ElementView> getListEstadoRevisando(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(10, R.drawable.ico_revision, R.string.title_tipo_uno, R.string.title_tipo_desc, false, false, R.string.next, OPTION_ZONE_UNO, idComercio));
         return elementViews;
     }
 
     //Proceso Aprobado
-    public static ArrayList<ElementView> getListEstadoAprobado(String idComercio) {
+    private static ArrayList<ElementView> getListEstadoAprobado(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(TYPE_ADQ_FIRST, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true, false, R.string.indication_adq_text_button, OPTION_ZONE_FIRST, idComercio));
         return elementViews;

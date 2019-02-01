@@ -13,13 +13,4 @@ public class FriggsHeaders {
         headers.put("Authorization", "Yg-" + App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
         return headers;
     }
-
-    public static HashMap<String, String> getHeadersBasicOdin(){
-        HashMap<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", "application/json");
-        headers.put("authorization", "Yg-" + App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
-        return headers;
-    }
-
-
 }
