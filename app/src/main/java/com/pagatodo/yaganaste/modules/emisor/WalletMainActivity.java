@@ -43,6 +43,7 @@ import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.modules.emisor.BlockCard.BlockCardFragment;
 import com.pagatodo.yaganaste.modules.emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
 import com.pagatodo.yaganaste.modules.management.response.QrValidateResponse;
+import com.pagatodo.yaganaste.modules.management.singletons.NotificationSingleton;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
@@ -477,6 +478,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                         JsonObject jobject = jelement.getAsJsonObject();
                         jobject = jobject.getAsJsonObject("Aux");
                         String plate = jobject.get("Pl").getAsString();
+
                         interactor.valideteQR(plate);
                     }catch (JsonParseException e){
                         e.printStackTrace();
@@ -533,20 +535,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         UI.showErrorSnackBar(this,error,Snackbar.LENGTH_SHORT);
     }
 
-    public void parserQR(Barcode barcode) {
-        try {
-            JsonElement jelement = new JsonParser().parse(barcode.displayValue);
-            JsonObject jobject = jelement.getAsJsonObject();
-            jobject = jobject.getAsJsonObject("Aux");
-            String plate = jobject.get("Pl").getAsString();
-            //interactor.onValidateQr(plate);
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-            //onErrorValidatePlate("QR Invalido");
-        } catch (NullPointerException e) {
-            //onErrorValidatePlate("QR Invalido");
-        }
-    }
+
 
     @Override
     public boolean requiresTimer() {
@@ -873,6 +862,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         envio.setReferencia(acountClabe);
         envio.setMonto(0D);
         envio.setConcepto(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+        NotificationSingleton.getInstance().getRequest().setConcept(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
         envio.setReferenciaNumerica("123456");
         interactor.getTitular(acountClabe);
 

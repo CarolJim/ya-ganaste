@@ -8,10 +8,6 @@ import com.pagatodo.yaganaste.freja.otp.iteractor.OtpIteractorImp;
 import com.pagatodo.yaganaste.freja.otp.manager.OtpManager;
 import com.pagatodo.yaganaste.freja.token.presenter.TokenPresenterAbs;
 
-/**
- * @author Juan Guerra on 31/03/2017.
- */
-
 public abstract class OtpPresenterAbs extends TokenPresenterAbs implements OtpPResenter, OtpManager {
 
     private OtpIteractor otpIteractor;

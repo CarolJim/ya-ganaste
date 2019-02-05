@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.modules.management.apis.ListenerFriggs;
 import com.pagatodo.yaganaste.modules.management.request.QrRequest;
 import com.pagatodo.yaganaste.modules.management.response.QrValidateResponse;
 import com.pagatodo.yaganaste.modules.management.response.QrsResponse;
+import com.pagatodo.yaganaste.modules.management.singletons.NotificationSingleton;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.utils.Recursos;
@@ -90,6 +91,7 @@ public class WalletEmisorInteractor implements WalletEmisorContracts.Interactor,
     @Override
     public void valideteQR(String plate) {
         ApisFriggs apisFriggs = new ApisFriggs(this);
+        NotificationSingleton.getInstance().getRequest().setPlate(plate);
         QrRequest qrRequest = new QrRequest(plate,"","148", App.getInstance().getPrefs()
                 .loadData(CLABE_NUMBER).replace(" ",""));
         /*requestQueue.add(apisFriggs.sendRequest(FrigsMethod.POST,URL_FRIGGS +
