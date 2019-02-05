@@ -22,6 +22,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.QRs;
 import com.pagatodo.yaganaste.data.model.RegisterAggregatorNew;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.registerAggregator.AggregatorActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -104,7 +105,6 @@ public class NameQRFragment extends GenericFragment implements
                 textPlate = "";
             }
         }
-        //rootView.findViewById(R.id.button_continue).setOnClickListener(view -> activity.getRouter().showLinkedCodes());
         editNameQR.addTextChangedListener(this);
         editNameQR.setOnEditorActionListener(this);
         editNameQR.setOnFocusChangeListener(this);
@@ -145,9 +145,13 @@ public class NameQRFragment extends GenericFragment implements
 
     @Override
     public void onClick(View v) {
-        if (validate()) {
-            proccessData();
+        switch (v.getId()){
+            case R.id.button_continue:
+                if (validate()) {
+                    proccessData();
+                }
         }
+
     }
 
     private void proccessData() {
@@ -155,10 +159,11 @@ public class NameQRFragment extends GenericFragment implements
             RegisterAggregatorNew.getInstance().setqRs(new ArrayList<>());
             RegisterAggregatorNew.getInstance().getqRs().add(new QRs(editNameQR.getText().toString().trim(), textPlate, true, ""));
             //activity.getRouter().showSMSAndroid();
+            activity.getRouter().showLinkedQRs(Direction.FORDWARD);
         } else {
             if (!isRepit()) {
                 RegisterAggregatorNew.getInstance().getqRs().add(new QRs(editNameQR.getText().toString().trim(), textPlate, false, ""));
-                //activity.getRouter.showLinkedCodes();
+                activity.getRouter().showLinkedQRs(Direction.FORDWARD);
             } else {
                 //activity.onErrorValidatePlate("El QR ya fue agregado");
             }

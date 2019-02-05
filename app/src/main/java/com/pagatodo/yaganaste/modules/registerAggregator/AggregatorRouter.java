@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.registerAggregator.BusinessData.BusinessDataFragment;
+import com.pagatodo.yaganaste.modules.registerAggregator.LinkedQRs.LinkedQRsFragment;
 import com.pagatodo.yaganaste.modules.registerAggregator.NameQR.NameQRFragment;
 import com.pagatodo.yaganaste.modules.registerAggregator.PhysicalCodeAggregator.PhysicalCodeAggregatorFragment;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
@@ -51,7 +52,8 @@ public class AggregatorRouter implements AggregatorContracts.Router {
 
     @Override
     public void showLinkedQRs(Direction direction) {
-
+        activity.loadFragment(LinkedQRsFragment.newInstance(),R.id.container_aggregator,
+                Direction.FORDWARD, false);
     }
 
 }

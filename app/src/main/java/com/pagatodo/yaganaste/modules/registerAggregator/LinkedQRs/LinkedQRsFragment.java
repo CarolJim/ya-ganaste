@@ -36,8 +36,9 @@ public class LinkedQRsFragment extends GenericFragment implements
     private RecyclerView qrRcv;
     private AggregatorActivity activity;
     private View rootView;
+    ArrayList<QrItem> qrItems;
 
-    private LinkedQRsFragment newInstance(){
+    public static LinkedQRsFragment newInstance(){
         return new LinkedQRsFragment();
     }
 
@@ -71,8 +72,8 @@ public class LinkedQRsFragment extends GenericFragment implements
         QrItemAdapters adapter = new QrItemAdapters(this);
         qrRcv.setAdapter(adapter);
 
-        ArrayList<QrItem> qrItems = new ArrayList<>();
-        for (QRs qrs: RegisterUserNew.getInstance().getqRs()){
+        qrItems = new ArrayList<>();
+        for (QRs qrs: RegisterAggregatorNew.getInstance().getqRs()){
             qrItems.add(new QrItem(qrs,R.drawable.qr_code));
         }
         qrItems.add(new QrItem(new QRs("","Agregar QR",true,""),R.drawable.ic_camera_plus));
