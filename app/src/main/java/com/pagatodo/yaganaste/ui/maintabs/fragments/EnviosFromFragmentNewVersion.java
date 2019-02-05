@@ -51,6 +51,7 @@ import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
+import com.pagatodo.yaganaste.modules.management.singletons.NotificationSingleton;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.EnvioFormularioWallet;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
@@ -282,18 +283,15 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             }
         });
 
-        concept.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    //hideValidationError(edtitConfirmEmail.getId());
-                    // edtitConfirmEmail.imageViewIsGone(true);
-                    envio_from_slide_view_l1.setBackgroundResource(R.drawable.inputtext_active);
-                } else {
+        concept.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                //hideValidationError(edtitConfirmEmail.getId());
+                // edtitConfirmEmail.imageViewIsGone(true);
+                envio_from_slide_view_l1.setBackgroundResource(R.drawable.inputtext_active);
+            } else {
 
-                    envio_from_slide_view_l1.setBackgroundResource(R.drawable.inputtext_normal);
+                envio_from_slide_view_l1.setBackgroundResource(R.drawable.inputtext_normal);
 
-                }
             }
         });
 
@@ -672,6 +670,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         referencia = referencia.replaceAll(" ", "");
 
         concepto = concept.getText().toString().trim();
+        NotificationSingleton.getInstance().getRequest().setConcept(concepto);
         nombreDestinatario = receiverName.getText().toString().trim();
         referenciaNumber = numberReference.getText().toString().trim();
 

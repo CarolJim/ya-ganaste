@@ -29,6 +29,9 @@ import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.modules.management.singletons.NotificationSingleton;
+import com.pagatodo.yaganaste.modules.paymentSuccess.PaymentSuccessContracts;
+import com.pagatodo.yaganaste.modules.paymentSuccess.PaymentSuccessInteractor;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentSuccessManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentSuccessPresenter;
@@ -51,6 +54,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,11 +74,11 @@ import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 
 /**
- * Created by Jordan on 27/04/2017.
+ *
  */
 
 public class PaymentSuccessFragment extends SupportFragment implements PaymentSuccessManager,
-        View.OnClickListener {
+        View.OnClickListener, PaymentSuccessContracts.Listener {
 
     @BindView(R.id.txt_paymentTitle)
     TextView title;
@@ -136,12 +140,13 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     @BindView(R.id.imgShare)
     LinearLayout imageshae;
     boolean enviotrue = false;
-    Payments pago;
+    private Payments pago;
     EjecutarTransaccionResponse result;
     /****/
     IPaymentsSuccessPresenter presenter;
     private View rootview;
     private boolean isMailAviable = false;
+    private PaymentSuccessInteractor interactor;
 
     public static PaymentSuccessFragment newInstance(Payments pago, EjecutarTransaccionResponse result) {
         PaymentSuccessFragment fragment = new PaymentSuccessFragment();
@@ -155,9 +160,12 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pago = (Payments) getArguments().getSerializable("pago");
+        pago = (Payments) Objects.requireNonNull(getArguments()).getSerializable("pago");
         result = (EjecutarTransaccionResponse) getArguments().getSerializable("result");
         presenter = new PaymentSuccessPresenter(this);
+        interactor = new PaymentSuccessInteractor(this,getContext());
+
+
     }
 
     @Override
@@ -247,6 +255,9 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
                 App.mixpanel.track(EVENT_SERV_PAYMENT, props);
             }
         } else if (pago instanceof Envios) {
+            interactor.paymentNotification(NotificationSingleton.getInstance().getRequest().getPlate(),
+                    String.valueOf(pago.getMonto()),
+                    NotificationSingleton.getInstance().getRequest().getConcept());
             layoutCompania.setVisibility(View.GONE);
             if (pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE) {
                 title.setText(R.string.title_envio_success);
@@ -549,5 +560,15 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
         intent.putExtra(Intent.EXTRA_TEXT, toShare);
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         startActivity(Intent.createChooser(intent, "Compartir Con..."));*/
+    }
+
+    @Override
+    public void onError(String msj) {
+        UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),"TODO MAL",Snackbar.LENGTH_SHORT);
+    }
+
+    @Override
+    public void succesNotification() {
+
     }
 }
