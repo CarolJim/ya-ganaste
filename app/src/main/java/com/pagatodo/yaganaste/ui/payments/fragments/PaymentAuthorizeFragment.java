@@ -73,6 +73,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.EVENT_SEND_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.LAST_NAME;
+import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
+import static com.pagatodo.yaganaste.utils.Recursos.SECOND_LAST_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
@@ -181,7 +184,14 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     public void initViews() {
         ButterKnife.bind(this, rootview);
         SingletonUser dataUser = SingletonUser.getInstance();
-        ClienteResponse usuario = SingletonUser.getInstance().getDataUser().getCliente();
+        ClienteResponse usuario;
+        if (SingletonUser.getInstance().getDataUser().getCliente()!=null) {
+            usuario = SingletonUser.getInstance().getDataUser().getCliente();
+        }else {
+            usuario = new ClienteResponse(true,prefs.loadData(NAME_USER),prefs.loadData(LAST_NAME),prefs.loadData(SECOND_LAST_NAME));
+        }
+
+
         importe.setText("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         txt_username_payment.setText(usuario.getNombre());
         editPassword.addTextChangedListener(new TextWatcher() {

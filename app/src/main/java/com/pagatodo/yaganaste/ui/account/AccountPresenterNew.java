@@ -230,6 +230,15 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         // Validamos estatus de la sesion, si se encuentra abierta, la cerramos.
         accountIteractor.checkSessionState(requestLogin, password);
     }
+    public void loginPagoqr(String user, String password) {
+        RequestHeaders.setUsername(user);
+        RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getInstance().getApplicationContext()));
+        accountView.showLoader("");
+        prefs.saveData(SHA_256_FREJA, Utils.getSHA256(password));//Freja
+        IniciarSesionRequest requestLogin = new IniciarSesionRequest(user, Utils.cipherRSA(password, PUBLIC_KEY_RSA));
+        // Validamos estatus de la sesion, si se encuentra abierta, la cerramos.
+        accountIteractor.checkSessionState(requestLogin, password);
+    }
 
     @Override
     public void loginStarbucks() {

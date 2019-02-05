@@ -11,6 +11,12 @@ public class ClienteResponse implements Serializable {
     public Boolean getConCuenta() {
         return ConCuenta;
     }
+    public ClienteResponse(Boolean conCuenta, String nombre, String primerApellido, String segundoApellido) {
+        ConCuenta = conCuenta;
+        Nombre = nombre;
+        PrimerApellido = primerApellido;
+        SegundoApellido = segundoApellido;
+    }
 
     public void setConCuenta(Boolean conCuenta) {
         ConCuenta = conCuenta;
