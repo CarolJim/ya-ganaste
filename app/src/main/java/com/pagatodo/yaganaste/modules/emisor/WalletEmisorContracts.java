@@ -26,7 +26,7 @@ public class WalletEmisorContracts {
         void getDataBank(String bin, String cob);
     }
 
-    interface Router{
+    public interface Router{
         void onShowActivatePhysicalCard();
         void onShowGeneratePIN();
         void onshowAccountStatus();

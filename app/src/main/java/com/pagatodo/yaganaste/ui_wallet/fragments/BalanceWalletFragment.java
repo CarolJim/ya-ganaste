@@ -197,7 +197,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     //private ElementsBalanceAdapter elementsBalanceAdpater;
     private ElementsWalletAdapter elementsWalletAdapter;
     private int pageCurrent;
-
+    private boolean pay = false;
     private String balanceEmisor, balanceAdq, balanceStarbucks, Status;
 
     public static BalanceWalletFragment newInstance() {
@@ -279,7 +279,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(),
                 R.dimen.item_offset);
         rcvElementsBalance.addItemDecoration(itemDecoration);
-        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
+        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
         rcvElementsBalance.setHasFixedSize(true);
         if (prefs.loadData(CARD_NUMBER).isEmpty()) {
             Status = ESTATUS_CUENTA_BLOQUEADA;
@@ -507,21 +507,30 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     @Override
     public void nextScreen(String event, Object data) {
 
-        if (event =="EVENT_GO_MAINTAB" ){
-            onEventListener.onEvent(EVENT_SHOW_LOADER, getContext().getString(R.string.update_data));
-            if (cardStatusId.equals("1")) {
-                // Operacion para Bloquear tarjeta
-                mPreferPresenter.toPresenterBloquearCuenta(BLOQUEO);
-                statusBloqueo = BLOQUEO;
-            } else {
-                // Operacion para Desbloquear tarjeta
-                mPreferPresenter.toPresenterBloquearCuenta(DESBLOQUEO);
-                statusBloqueo = DESBLOQUEO;
-            }
+        if (pay) {
+            pay =false;
+            nextScreen(EVENT_PAYMENTQR, null);
         }else {
 
-            onEventListener.onEvent(event, data);
+            if (event == "EVENT_GO_MAINTAB") {
+                onEventListener.onEvent(EVENT_SHOW_LOADER, getContext().getString(R.string.update_data));
+                if (cardStatusId.equals("1")) {
+                    // Operacion para Bloquear tarjeta
+                    mPreferPresenter.toPresenterBloquearCuenta(BLOQUEO);
+                    statusBloqueo = BLOQUEO;
+                } else {
+                    // Operacion para Desbloquear tarjeta
+                    mPreferPresenter.toPresenterBloquearCuenta(DESBLOQUEO);
+                    statusBloqueo = DESBLOQUEO;
+                }
+            } else {
+
+                onEventListener.onEvent(event, data);
+            }
         }
+
+
+
     }
 
     @Override
@@ -607,7 +616,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             if (adapterBalanceCard.getElemenWallet(position) != null) {
                 if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
                     if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() == TYPE_EMISOR) {
-                        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
+                        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
                         //    accountPresenter.updateBalance();
                         upDateSaldo(StringUtils.getCurrencyValue(balanceEmisor));
                     } else {
@@ -688,7 +697,9 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 //nextScreen(EVENT_BLOCK_CARD, null);
                 break;
             case OPTION_PAGO_QR:
-                nextScreen(EVENT_PAYMENTQR, null);
+                pay =true;
+                String[] pass = Utils.cipherAES(preferencias.loadData(PSW_CPR), false).split("-");
+                accountPresenter.loginPagoqr(RequestHeaders.getUsername(), pass[0]);
                 break;
             case OPTION_GENERATE_TOKEN:
                 nextScreen(EVENT_SECURE_CODE, null);
@@ -794,7 +805,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             }
 
         }
-        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
+            rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
         Wallet walletList = WalletBuilder.createWalletsBalance();
         adapterBalanceCard.addAllList(walletList.getList());
         adapterBalanceCard.notifyDataSetChanged();
