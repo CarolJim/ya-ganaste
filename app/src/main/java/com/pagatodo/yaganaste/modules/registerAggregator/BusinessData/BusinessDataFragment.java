@@ -28,6 +28,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Giros;
+import com.pagatodo.yaganaste.data.model.RegisterAggregatorNew;
 import com.pagatodo.yaganaste.data.model.RegisterUserNew;
 import com.pagatodo.yaganaste.interfaces.IDatosNegView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
@@ -76,11 +77,11 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
     private int idGiro;
     private List<Giros> girosComercio;
     private BussinesLineSpinnerAdapter giroArrayAdapter;
-    private static AggregatorActivity activity;
+    private static AggregatorActivity activityx;
     private DatosNegocioPresenter datosNegocioPresenter;
 
     public static BusinessDataFragment newInstance(AggregatorActivity activity) {
-        activity = activity;
+        activityx = activity;
         return new BusinessDataFragment();
     }
 
@@ -126,6 +127,7 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
             }
         }
     };
+
     @Override
     public void setGiros(List<Giros> giros) {
         Collections.sort(giros, new Comparator<Giros>() {
@@ -211,12 +213,11 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
 
     @Override
     public void onValidationSuccess() {
-        RegisterUserNew registerAgent = RegisterUserNew.getInstance();
-        registerAgent.setNombreNegocio(nombre);
-        registerAgent.setIdGiro(giroArrayAdapter.getGiroId(spinnerBussineLine.getSelectedItemPosition()));
-        registerAgent.setGiroComercio(giroArrayAdapter.getItemSelected(spinnerBussineLine.getSelectedItemPosition()));
-        //activityf.getRouter().showPhysicalCode(Direction.FORDWARD);
-        //activity.getRouter().showPhysicalCode(Direction.FORDWARD);
+        RegisterAggregatorNew registerAggregatorNew = RegisterAggregatorNew.getInstance();
+        registerAggregatorNew.setNombreNegocio(nombre);
+        registerAggregatorNew.setIdGiro(giroArrayAdapter.getGiroId(spinnerBussineLine.getSelectedItemPosition()));
+        registerAggregatorNew.setGiroComercio(giroArrayAdapter.getItemSelected(spinnerBussineLine.getSelectedItemPosition()));
+        activityx.getRouter().showPhysicalCodeAggregator(Direction.FORDWARD);
     }
 
     @Override
@@ -235,7 +236,7 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
         txtgirolya.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager lManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                 return false;
             }
@@ -244,7 +245,7 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
         spinnerBussineLine.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager lManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                 return false;
             }
@@ -252,14 +253,15 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
         txtgiro.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager lManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                 return false;
             }
-        });spiner1.setOnTouchListener(new View.OnTouchListener() {
+        });
+        spiner1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager lManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                 return false;
             }
@@ -267,7 +269,7 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
         textgiro.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager lManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                 return false;
             }
@@ -287,10 +289,10 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
             @Override
             public void onFocusChange(View view, boolean b) {
 
-                if (b){
+                if (b) {
 
                     text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_active);
-                }else {
+                } else {
                     text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_normal);
                 }
 
@@ -302,15 +304,16 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (editBussinesName.getText().length()>0&& spinnerBussineLine.getSelectedItemPosition() != 0 ){
+                if (editBussinesName.getText().length() > 0 && spinnerBussineLine.getSelectedItemPosition() != 0) {
                     btnNextDatosNegocio.setBackgroundResource(R.drawable.button_rounded_blue);
-                }else {
+                } else {
                     btnNextDatosNegocio.setBackgroundResource(R.drawable.button_rounded_gray);
                 }
 
-                if (editBussinesName.getText().length()>0)
+                if (editBussinesName.getText().length() > 0)
                     text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_active);
             }
 
@@ -327,20 +330,20 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
 
-                if(flag){
-                    InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (flag) {
+                    InputMethodManager lManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                 }
 
                 String nombrenegocio = editBussinesName.getText().toString();
-                if (position > 0 && !nombrenegocio.isEmpty()){
+                if (position > 0 && !nombrenegocio.isEmpty()) {
                     btnNextDatosNegocio.setBackgroundResource(R.drawable.button_rounded_blue);
                     txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
-                }else {
+                } else {
                     btnNextDatosNegocio.setBackgroundResource(R.drawable.button_rounded_gray);
                 }
 
-                if (position > 0 ){
+                if (position > 0) {
                     txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
                 }
                 flag = true;
@@ -354,7 +357,6 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
 
         });
         txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
-
 
 
         editBussinesName.requestFocus();

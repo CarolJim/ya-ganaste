@@ -48,4 +48,8 @@ public class AggregatorActivity extends LoaderActivity implements
     public void backStep() {
 
     }
+
+    public AggregatorRouter getRouter() {
+        return router;
+    }
 }

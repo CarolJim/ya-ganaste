@@ -17,12 +17,12 @@ public class QrItemAdapters extends RecyclerView.Adapter<QrHolder> {
     private ArrayList<QrItem> qrItems;
     private OnHolderListener<QrItem> listener;
 
-    QrItemAdapters(OnHolderListener<QrItem> listener) {
+    public QrItemAdapters(OnHolderListener<QrItem> listener) {
         this.qrItems = new ArrayList<>();
         this.listener = listener;
     }
 
-    void setQrItems(ArrayList<QrItem> qrItems) {
+    public void setQrItems(ArrayList<QrItem> qrItems) {
         this.qrItems = qrItems;
         notifyDataSetChanged();
     }
