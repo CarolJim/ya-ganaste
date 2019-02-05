@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDo
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
+import com.pagatodo.yaganaste.modules.registerAggregator.BusinessData.BusinessDataFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DatosNegocioFragment;
@@ -52,6 +53,7 @@ public class BussinesActivity extends LoaderActivity {
     public final static String EVENT_GO_BUSSINES_PRE_ADDRESS_BACK = "EVENT_GO_BUSSINES_PRE_ADDRESS_BACK";
     public final static String EVENT_GO_BUSSINES_ADDRESS_BACK = "EVENT_GO_BUSSINES_ADDRESS_BACK";
     public final static String EVENT_DOC_CHECK = "EVENT_DOC_CHECK";
+    public final static String EVENT_HAS_QR = "EVENT_HAS_QR";
     public final static String EVENT_SET_ADDRESS = "EVENT_SET_ADDRESS";
     public final static String EVENT_SET_BUSINESS_LIST = "EVENT_SET_BUSINESS_LIST";
     public final static String EVENT_SET_BUSINESS_LIST2 = "EVENT_SET_BUSINESS_LIST2";
@@ -113,7 +115,7 @@ public class BussinesActivity extends LoaderActivity {
             loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
             showBack(true);
         } else {
-            loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, true);
+            loadFragment(BusinessDataFragment.newInstance(this), Direction.FORDWARD, true);
         }
         //pref = App.getInstance().getPrefs();
     }
@@ -124,6 +126,9 @@ public class BussinesActivity extends LoaderActivity {
         switch (event) {
             case EVENT_ERROR_DOCUMENTS:
                 loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
+                break;
+                case EVENT_HAS_QR:
+                //loadFragment(.newInstance(), Direction.FORDWARD);
                 break;
             case EVENT_GO_BUSSINES_DATA:
                 loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, false);

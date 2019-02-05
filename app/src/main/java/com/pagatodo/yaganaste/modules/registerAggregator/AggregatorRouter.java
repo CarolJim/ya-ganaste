@@ -3,12 +3,13 @@ package com.pagatodo.yaganaste.modules.registerAggregator;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.registerAggregator.BusinessData.BusinessDataFragment;
+import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 
 public class AggregatorRouter implements AggregatorContracts.Router {
 
-    private AggregatorActivity activity;
+    private BussinesActivity activity;
 
-    public AggregatorRouter(AggregatorActivity activity) {
+    public AggregatorRouter(BussinesActivity activity) {
         this.activity = activity;
     }
 

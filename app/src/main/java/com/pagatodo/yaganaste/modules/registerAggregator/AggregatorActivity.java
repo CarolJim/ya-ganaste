@@ -25,7 +25,7 @@ public class AggregatorActivity extends LoaderActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aggregator);
         RegisterAggregatorNew.getInstance().setqRs(new ArrayList<>());
-        router = new AggregatorRouter(this);
+       // router = new AggregatorRouter(this);
         initViews();
     }
 
