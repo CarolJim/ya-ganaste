@@ -62,7 +62,7 @@ public class AggregatorActivity extends LoaderActivity implements
         setContentView(R.layout.activity_aggregator);
         interactor = new WalletEmisorInteractor(this, this);
         RegisterAggregatorNew.getInstance().setqRs(new ArrayList<>());
-        router = new AggregatorRouter(this);
+       // router = new AggregatorRouter(this);
         initViews();
     }
 
