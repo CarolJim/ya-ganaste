@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.Menu;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -26,19 +27,32 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Card;
+import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarTitularCuentaResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.interfaces.enums.TransferType;
+import com.pagatodo.yaganaste.modules.emisor.WalletEmisorContracts;
+import com.pagatodo.yaganaste.modules.emisor.WalletEmisorInteractor;
+import com.pagatodo.yaganaste.modules.emisor.WalletEmisorRouter;
+import com.pagatodo.yaganaste.modules.management.response.QrValidateResponse;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment;
@@ -64,6 +78,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PayQRFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TutorialsFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.pagoqr.BalanceEmisorRouter;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.qrcode.MyQrCommerce;
@@ -101,7 +116,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_AUTH;
 import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_SESSION;
 
-public class AccountActivity extends LoaderActivity implements OnEventListener, FingerprintAuthenticationDialogFragment.generateCodehuella,
+public class AccountActivity extends LoaderActivity implements WalletEmisorContracts.Listener,OnEventListener, FingerprintAuthenticationDialogFragment.generateCodehuella,
         ForcedUpdateChecker.OnUpdateNeededListener {
     public final static String EVENT_GO_LOGIN = "EVENT_GO_LOGIN";
     public final static String EVENT_GO_GET_CARD = "EVENT_GO_GET_CARD";
@@ -163,7 +178,10 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     App aplicacion;
     Boolean back = false;
     private boolean ayuda = false;
-
+    private WalletEmisorInteractor interactor;
+    private Envios envio;
+    private BalanceEmisorRouter router;
+    private String acountClabe;
     private String action = "";
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -184,6 +202,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         setContentView(R.layout.activity_fragment_container);
         action = getIntent().getExtras().getString(SELECTION);
         pref = App.getInstance().getPrefs();
+        interactor = new WalletEmisorInteractor(this,this);
+        router = new BalanceEmisorRouter(this);
         resetRegisterData();
         setUpActionBar();
         ForcedUpdateChecker.with(this).onUpdateNeeded(this).check();
@@ -290,6 +310,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 break;
 
             case EVENT_PAYMENTQR:
+                /*Hacer login antes de consutar servivicios*/
+           //     sakdhsahd
+
                 Intent intentqr = new Intent(this, ScannVisionActivity.class);
                 intentqr.putExtra(ScannVisionActivity.QRObject, true);
                 this.startActivityForResult(intentqr, BARCODE_READER_REQUEST_CODE_COMERCE);
@@ -650,12 +673,50 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         RegisterUser.resetRegisterUser();
         Card.resetCardData();
     }
+    public void onErrorValidatePlate(String error) {
+        UI.showErrorSnackBar(this,error,Snackbar.LENGTH_SHORT);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == BARCODE_READER_REQUEST_CODE_COMERCE) {
+
+
+          if (requestCode == BARCODE_READER_REQUEST_CODE_COMERCE) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    try {
+                        Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
+                        JsonElement jelement = new JsonParser().parse(barcode.displayValue);
+                        JsonObject jobject = jelement.getAsJsonObject();
+                        jobject = jobject.getAsJsonObject("Aux");
+                        String plate = jobject.get("Pl").getAsString();
+                        interactor.valideteQR(plate);
+                    }catch (JsonParseException e){
+                        e.printStackTrace();
+                        onErrorValidatePlate("QR Invalido");
+                    } catch (NullPointerException e){
+                        onErrorValidatePlate("QR Invalido");
+                    }
+                    //interactor.onValidateQr(plate);
+                    /*if (barcode.displayValue.contains("reference") &&
+                            barcode.displayValue.contains("commerce") && barcode.displayValue.contains("codevisivility")) {
+                        MyQrCommerce myQr = new Gson().fromJson(barcode.displayValue, MyQrCommerce.class);
+                        Log.d("Ya codigo qr", myQr.getCommerce());
+                        Log.d("Ya codigo qr", myQr.getReference());
+
+                        loadFragment(PayQRFragment.newInstance(myQr.getCommerce(), myQr.getReference(), Boolean.parseBoolean(myQr.getCodevisivility())), R.id.fragment_container);
+                    } else {
+                        UI.showErrorSnackBar(this, getString(R.string.transfer_qr_invalid), Snackbar.LENGTH_SHORT);
+                    }*/
+                } else {
+                    finish();
+                }
+            }
+        }
+
+      /*  if (requestCode == BARCODE_READER_REQUEST_CODE_COMERCE) {
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
@@ -672,7 +733,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 }
             }
         }
-
+*/
         if (requestCode == Constants.PAYMENTS_ADQUIRENTE && resultCode == Activity.RESULT_OK) {
             loginContainerFragment.onActivityResult(requestCode, resultCode, data);
         } else {
@@ -783,6 +844,61 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 .setNegativeButton("Cancelar",
                         (dialog12, which) -> killProcess(myPid())).create();
         dialog.show();
+    }
+
+    @Override
+    public void showLoad() {
+        this.showLoader("");
+    }
+
+    @Override
+    public void hideLoad() {
+        this.hideLoader();
+    }
+
+    @Override
+    public void onSouccesValidateCard() {
+        this.router.onShowGeneratePIN();
+    }
+
+    @Override
+    public void onErrorRequest(String msj) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+      //  Objects.requireNonNull(imm).hideSoftInputFromWindow(findViewById(R.id.fragment_container).getWindowToken(), 0);
+        UI.showErrorSnackBar(this,msj,Snackbar.LENGTH_SHORT);
+        //this.router.onShowGeneratePIN();
+    }
+
+    @Override
+    public void onSouccesDataQR(QrValidateResponse qRresponse) {
+        envio = new Envios();
+        envio.setTipoEnvio(TransferType.CLABE);
+        acountClabe = qRresponse.getData().getAccount();
+        envio.setReferencia(acountClabe);
+        envio.setMonto(0D);
+        envio.setConcepto(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+        envio.setReferenciaNumerica("123456");
+        interactor.getTitular(acountClabe);
+
+
+    }
+
+    @Override
+    public void onSouccesGetTitular(ConsultarTitularCuentaResponse dataTitular) {
+        envio.setNombreDestinatario(dataTitular.getData().getNombre().concat(" ")
+                .concat(dataTitular.getData().getPrimerApellido()).concat(" ")
+                .concat(dataTitular.getData().getSegundoApellido()));
+        interactor.getDataBank(acountClabe, "clave");
+    }
+
+    @Override
+    public void onSouccessgetgetDataBank(ObtenerBancoBinResponse data) {
+        Comercio comercio = new Comercio();
+        comercio.setColorMarca("#00b6ff");
+        comercio.setIdComercio(Integer.parseInt(data.getData().getIdComercioAfectado()));
+        envio.setComercio(comercio);
+        router.onShowEnvioFormulario(envio);
     }
 }
 

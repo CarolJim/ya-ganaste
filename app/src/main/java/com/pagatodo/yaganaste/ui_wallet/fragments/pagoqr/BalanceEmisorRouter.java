@@ -1,37 +1,41 @@
-package com.pagatodo.yaganaste.modules.emisor;
+package com.pagatodo.yaganaste.ui_wallet.fragments.pagoqr;
 
 import android.content.Intent;
+import android.media.audiofx.AcousticEchoCanceler;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.emisor.ActivatePhysicalCard.ActivatePhysicalCardFragment;
 import com.pagatodo.yaganaste.modules.emisor.CardActivate.CardActivateFragment;
+import com.pagatodo.yaganaste.modules.emisor.ChangeNip.MyChangeNip;
 import com.pagatodo.yaganaste.modules.emisor.GeneratePIN.GeneratePINFragment;
 import com.pagatodo.yaganaste.modules.emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
-import com.pagatodo.yaganaste.modules.emisor.ChangeNip.MyChangeNip;
+import com.pagatodo.yaganaste.modules.emisor.WalletEmisorContracts;
+import com.pagatodo.yaganaste.modules.emisor.WalletMainActivity;
+import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.EnvioFormularioWallet;
 import com.pagatodo.yaganaste.ui_wallet.fragments.DescargarEdoCuentaFragment;
 
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 
-public class WalletEmisorRouter implements WalletEmisorContracts.Router{
+public class BalanceEmisorRouter implements WalletEmisorContracts.Router {
 
     /**
      * id container
      * R.id.fragment_container
      */
-    private WalletMainActivity activity;
+    private AccountActivity activity;
     private int IdContainer;
 
-    WalletEmisorRouter(WalletMainActivity activity) {
+    public BalanceEmisorRouter(AccountActivity activity) {
         this.activity = activity;
         this.IdContainer = R.id.fragment_container;
     }
 
     @Override
     public void onShowActivatePhysicalCard() {
-        this.activity.loadFragment(ActivatePhysicalCardFragment.newInstance(),this.IdContainer,Direction.FORDWARD,false);
+        this.activity.loadFragment(ActivatePhysicalCardFragment.newInstance(),this.IdContainer, Direction.FORDWARD,false);
     }
 
     @Override

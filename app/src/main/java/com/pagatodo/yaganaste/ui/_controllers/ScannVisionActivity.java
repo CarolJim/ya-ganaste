@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui._controllers;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -66,6 +67,12 @@ public class ScannVisionActivity extends AppCompatActivity implements View.OnCli
 
     private boolean isLight;
 
+    static public Intent createIntent(Activity activity,boolean isActive) {
+        Intent intent = new Intent(activity, ScannVisionActivity.class);
+        intent.putExtra("KEYBOARD_BTN", isActive);
+        return intent;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +84,9 @@ public class ScannVisionActivity extends AppCompatActivity implements View.OnCli
         (findViewById(R.id.btn_back)).setOnClickListener(this);
         if (getIntent().getExtras() != null) {
             isQrcode = getIntent().getExtras().getBoolean(QRObject);
+            if (!getIntent().getExtras().getBoolean("KEYBOARD_BTN")){
+                (findViewById(R.id.button_keyboard)).setVisibility(View.GONE);
+            }
         }
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
         // Check for the camera permission before accessing the camera.  If the

@@ -33,6 +33,7 @@ import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TiposReembolsoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarTitularCuentaResponse;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
@@ -42,6 +43,7 @@ import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.modules.emisor.BlockCard.BlockCardFragment;
 import com.pagatodo.yaganaste.modules.emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
 import com.pagatodo.yaganaste.modules.management.response.QrValidateResponse;
+import com.pagatodo.yaganaste.modules.management.singletons.NotificationSingleton;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
@@ -93,6 +95,7 @@ import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
+import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.pagatodo.yaganaste.utils.keyboard.UiKeyBoard;
 import com.pagatodo.yaganaste.utils.qrcode.Auxl;
 import com.pagatodo.yaganaste.utils.qrcode.Qrlectura;
@@ -346,7 +349,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(AdministracionFragment.newInstance(), R.id.fragment_container);
                 break;
             case OPTION_PAGO_QR:
-                Intent intent = new Intent(this, ScannVisionActivity.class);
+                //Intent intent = new Intent(this, ScannVisionActivity.class);
+                Intent intent = ScannVisionActivity.createIntent(this,false);
                 intent.putExtra(ScannVisionActivity.QRObject, true);
                 this.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE_COMERCE);
 
@@ -465,8 +469,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                     loadFragment(PaymentsFragment.newInstance(tabMonthMov, isMyBussines), R.id.fragment_container);
                     break;
             }
-        }
-        if (requestCode == BARCODE_READER_REQUEST_CODE_COMERCE) {
+        } else if (requestCode == BARCODE_READER_REQUEST_CODE_COMERCE) {
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
                     try {
@@ -475,6 +478,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                         JsonObject jobject = jelement.getAsJsonObject();
                         jobject = jobject.getAsJsonObject("Aux");
                         String plate = jobject.get("Pl").getAsString();
+
                         interactor.valideteQR(plate);
                     }catch (JsonParseException e){
                         e.printStackTrace();
@@ -497,18 +501,12 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                     finish();
                 }
             }
-        }
-
-        if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO
+        } else if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO
                 || requestCode == PAYMENTS_ADQUIRENTE) {
             getCurrentFragment().onActivityResult(requestCode, resultCode, data);
-        } else {
-            if (data != null && requestCode != BARCODE_READER_REQUEST_CODE_COMERCE) {
-                getCurrentFragment().onActivityResult(requestCode, resultCode, data);
-            }
-        }
-
-        if (requestCode == Constants.BARCODE_READER_REQUEST_CODE) {
+        } else if (data != null && requestCode != BARCODE_READER_REQUEST_CODE_COMERCE) {
+            getCurrentFragment().onActivityResult(requestCode, resultCode, data);
+        } else if (requestCode == Constants.BARCODE_READER_REQUEST_CODE) {
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
@@ -527,6 +525,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
             }
 
+        } else {
+            finish();
         }
 
     }
@@ -535,20 +535,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         UI.showErrorSnackBar(this,error,Snackbar.LENGTH_SHORT);
     }
 
-    public void parserQR(Barcode barcode) {
-        try {
-            JsonElement jelement = new JsonParser().parse(barcode.displayValue);
-            JsonObject jobject = jelement.getAsJsonObject();
-            jobject = jobject.getAsJsonObject("Aux");
-            String plate = jobject.get("Pl").getAsString();
-            //interactor.onValidateQr(plate);
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-            //onErrorValidatePlate("QR Invalido");
-        } catch (NullPointerException e) {
-            //onErrorValidatePlate("QR Invalido");
-        }
-    }
+
 
     @Override
     public boolean requiresTimer() {
@@ -871,54 +858,14 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public void onSouccesDataQR(QrValidateResponse qRresponse) {
         envio = new Envios();
         envio.setTipoEnvio(TransferType.CLABE);
-        acountClabe = qRresponse.getData().getAccount().replaceAll(" ", "");
+        acountClabe = qRresponse.getData().getAccount();
         envio.setReferencia(acountClabe);
         envio.setMonto(0D);
         envio.setConcepto(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+        NotificationSingleton.getInstance().getRequest().setConcept(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
         envio.setReferenciaNumerica("123456");
         interactor.getTitular(acountClabe);
-      /*  Envios payment = new Envios(
-                TransferType.CLABE,
-                qRresponse.getData().getAccount().replaceAll(" ", ""),
-                0D,
-                "Ismael Test Teocien",
-                "",
-                qRresponse.getData().getAlias(),
-                "",
-                referenciaNumber,
-                comercioItem,
-                null);*/
-        /*
-        Intent intent = new Intent(this, EnvioFormularioWallet.class);
-        intent.putExtra("pagoItem", payment);
-        intent.putExtra("favoritoItem", null);
-        startActivityForResult(intent, BACK_FROM_PAYMENTS);
-        Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
-                    if (barcode.displayValue.contains("userName") && barcode.displayValue.contains("phoneNumber") &&
-                            barcode.displayValue.contains("cardNumber") && barcode.displayValue.contains("clabe")) {
-                        MyQr myQr = new Gson().fromJson(barcode.displayValue, MyQr.class);
-                        cardNumber.setText(myQr.getClabe());
-                        receiverName.setText(myQr.getUserName());
-                    } else if (barcode.displayValue.contains("Opt") && barcode.displayValue.contains("Aux") &&
-                            barcode.displayValue.contains("Typ") && barcode.displayValue.contains("Ver")) {
-                        InterbankQr interbankQr = new Gson().fromJson(barcode.displayValue, InterbankQr.class);
-                        cardNumber.setText(interbankQr.getOptionalData().beneficiaryAccount);
-                        receiverName.setText(interbankQr.getOptionalData().beneficiaryName);
-                        numberReference.setText(interbankQr.getOptionalData().referenceNumber);
-                        if (interbankQr.getOptionalData().bankId.equals("148")) {
-                            editListServ.setText(getString(R.string.app_name));
-                            editListServ.setEnabled(false);
-                            idcomercioqr(IDCOMERCIO_YA_GANASTE);
-                            referenciaLayout.setVisibility(GONE);
-                            concept.setImeOptions(IME_ACTION_DONE);
-                            concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
-                        } else {
-                            editListServ.setEnabled(true);
-                            concept.setImeOptions(IME_ACTION_DONE);
-                            concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
-                        }
-                    }
-        */
+
 
     }
 
@@ -927,29 +874,16 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         envio.setNombreDestinatario(dataTitular.getData().getNombre().concat(" ")
                 .concat(dataTitular.getData().getPrimerApellido()).concat(" ")
                 .concat(dataTitular.getData().getSegundoApellido()));
-        Comercio comercio = new Comercio();
-        comercio.setColorMarca("#00b6ff");
-        envio.setComercio(comercio);
-
-        router.onShowEnvioFormulario(envio);
-
-
-        /*Envios payment = new Envios(
-                TransferType.CLABE,
-                qRresponse.getData().getAccount().replaceAll(" ", ""),
-                0D,
-                "Ismael Test Teocien",
-                "",
-                qRresponse.getData().getAlias(),
-                "",
-                referenciaNumber,
-                comercioItem,
-                null);*/
+        interactor.getDataBank(acountClabe, "clave");
     }
 
     @Override
-    public void onSouccessgetgetDataBank() {
-
+    public void onSouccessgetgetDataBank(ObtenerBancoBinResponse data) {
+        Comercio comercio = new Comercio();
+        comercio.setColorMarca("#00b6ff");
+        comercio.setIdComercio(Integer.parseInt(data.getData().getIdComercioAfectado()));
+        envio.setComercio(comercio);
+        router.onShowEnvioFormulario(envio);
     }
 
     @Override

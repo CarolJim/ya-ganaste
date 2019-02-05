@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.modules.management.apis.ListenerFriggs;
 import com.pagatodo.yaganaste.modules.management.request.QrRequest;
 import com.pagatodo.yaganaste.modules.management.response.QrValidateResponse;
 import com.pagatodo.yaganaste.modules.management.response.QrsResponse;
+import com.pagatodo.yaganaste.modules.management.singletons.NotificationSingleton;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.utils.Recursos;
@@ -90,6 +91,7 @@ public class WalletEmisorInteractor implements WalletEmisorContracts.Interactor,
     @Override
     public void valideteQR(String plate) {
         ApisFriggs apisFriggs = new ApisFriggs(this);
+        NotificationSingleton.getInstance().getRequest().setPlate(plate);
         QrRequest qrRequest = new QrRequest(plate,"","148", App.getInstance().getPrefs()
                 .loadData(CLABE_NUMBER).replace(" ",""));
         /*requestQueue.add(apisFriggs.sendRequest(FrigsMethod.POST,URL_FRIGGS +
@@ -120,6 +122,7 @@ public class WalletEmisorInteractor implements WalletEmisorContracts.Interactor,
 
     @Override
     public void getTitular(String cuenta) {
+        listener.showLoad();
         ConsultarTitularCuentaRequest request = new ConsultarTitularCuentaRequest();
         request.setCuenta(cuenta.replaceAll(" ",""));
         try {
@@ -127,12 +130,14 @@ public class WalletEmisorInteractor implements WalletEmisorContracts.Interactor,
         } catch (OfflineException e) {
             e.printStackTrace();
             //listener.onError(CONSULTAR_TITULAR_CUENTA, App.getContext().getString(R.string.no_internet_access));
+            listener.hideLoad();
             listener.onErrorRequest(App.getContext().getString(R.string.no_internet_access));
         }
     }
 
     @Override
     public void getDataBank(String bin, String cob) {
+        listener.showLoad();
         try {
             ObtenerBancoBinRequest request = new ObtenerBancoBinRequest();
             request.setPbusqueda(bin);
@@ -140,6 +145,7 @@ public class WalletEmisorInteractor implements WalletEmisorContracts.Interactor,
             ApiAdtvo.obtenerBancoBin(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            listener.hideLoad();
             listener.onErrorRequest(App.getContext().getString(R.string.no_internet_access));
         }
     }
@@ -176,11 +182,12 @@ public class WalletEmisorInteractor implements WalletEmisorContracts.Interactor,
             if (response.getCodigoRespuesta() == CODE_OK) {
                 try {
                     if (response.getData() != null) {
-                        //listener.setDataBank(response.getData().getIdComercioAfectado(), response.getData().getNombre());
+                        listener.onSouccessgetgetDataBank(response);
+                            //listener.setDataBank(response.getData().getIdComercioAfectado(), response.getData().getNombre());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-
+                    listener.onErrorRequest(response.getMensaje());
                 }
             } else {
                 listener.onErrorRequest(App.getContext().getString(R.string.no_internet_access));

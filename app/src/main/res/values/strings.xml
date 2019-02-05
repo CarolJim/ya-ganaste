@@ -143,6 +143,7 @@
     <string name="newQr">/nwQRYG</string>
     <string name="updateQR">/pdtQR</string>
     <string name="getDataQRYG">/getDataQRYG</string>
+    <string name="ntfyMrchntYG">/ntfyMrchntYG</string>
 
     <!-- Activacion de tarjeta fisica -->
     <string name="bloqueoTarjetaDifinitivo">/BloqueoTarjetaDefinitivo</string>

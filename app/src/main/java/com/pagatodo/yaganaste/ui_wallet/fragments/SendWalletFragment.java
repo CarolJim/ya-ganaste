@@ -161,6 +161,9 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
                 UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
             } else {
                 payments.setMonto(monto);
+                if(payments.getReferencia().length()==22){
+                    payments.setReferencia(payments.getReferencia().replace(" ",""));
+                }
                 Intent intent = new Intent(getContext(), PaymentsProcessingActivity.class);
                 intent.putExtra("pagoItem", payments);
                 intent.putExtra("favoriteItem", favoritos);

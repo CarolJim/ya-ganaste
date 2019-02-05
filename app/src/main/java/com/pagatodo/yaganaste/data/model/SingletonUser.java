@@ -20,6 +20,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.LAST_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
+import static com.pagatodo.yaganaste.utils.Recursos.SECOND_LAST_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.SIMPLE_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 import static com.pagatodo.yaganaste.utils.Recursos.TIPO_AGENTE;
@@ -81,6 +82,7 @@ public class SingletonUser {
                     concat(dataUser.getCliente().getPrimerApellido().concat(SPACE).
                             concat(dataUser.getCliente().getSegundoApellido())));
             prefs.saveData(LAST_NAME, dataUser.getCliente().getPrimerApellido().concat(SPACE));
+            prefs.saveData(SECOND_LAST_NAME, dataUser.getCliente().getSegundoApellido().concat(SPACE));
             dataUser.getEmisor().getCuentas().get(0).getTarjetas().get(0).setNumero(dataUser.getEmisor().getCuentas().get(0).getTarjetas().get(0).getNumero().replaceAll(" ", ""));
             prefs.saveData(CARD_NUMBER, dataUser.getEmisor().getCuentas().get(0).getTarjetas().get(0).getNumero());
             prefs.saveData(ID_CUENTA, String.valueOf(dataUser.getEmisor().getCuentas().get(0).getIdCuenta()));

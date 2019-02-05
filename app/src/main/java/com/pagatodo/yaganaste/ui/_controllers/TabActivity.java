@@ -41,6 +41,7 @@ import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.modules.charge.ChargeActivity;
+import com.pagatodo.yaganaste.modules.emisor.PaymentToQR.QrManagerFragment;
 import com.pagatodo.yaganaste.modules.emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
 import com.pagatodo.yaganaste.modules.registerAggregator.AggregatorActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
@@ -51,12 +52,14 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.modules.emisor.WalletMainActivity;
+import com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.OperadorTabFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
@@ -575,6 +578,12 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             } else if (actualFragment instanceof OperadorTabFragment) {
                 showDialogOut();
             } else if (actualFragment instanceof SendWalletFragment) {
+                goHome();
+            }else if (actualFragment instanceof QrManagerFragment) {
+                goHome();
+            } else if (actualFragment instanceof EnviosFromFragmentNewVersion) {
+                goHome();
+            } else if (actualFragment instanceof NewPaymentFragment) {
                 goHome();
             } else {
                 goHome();

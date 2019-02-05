@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.modules.emisor;
 
 import com.pagatodo.yaganaste.data.model.Envios;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarTitularCuentaResponse;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.modules.management.response.QrValidateResponse;
@@ -14,7 +15,7 @@ public class WalletEmisorContracts {
         void onErrorRequest(String msj);
         void onSouccesDataQR(QrValidateResponse QRresponse);
         void onSouccesGetTitular(ConsultarTitularCuentaResponse data);
-        void onSouccessgetgetDataBank();
+        void onSouccessgetgetDataBank(ObtenerBancoBinResponse data);
     }
 
     interface Interactor extends IRequestResult {
@@ -25,7 +26,7 @@ public class WalletEmisorContracts {
         void getDataBank(String bin, String cob);
     }
 
-    interface Router{
+    public interface Router{
         void onShowActivatePhysicalCard();
         void onShowGeneratePIN();
         void onshowAccountStatus();

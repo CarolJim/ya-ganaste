@@ -210,6 +210,8 @@ public enum WebService {
     /* Actualizar QR*/
     UPDATE_QR,
     /*Validate QR*/
-    DATA_QR
+    DATA_QR,
+    /*Notification*/
+    NOTIFICATION
 }
 
