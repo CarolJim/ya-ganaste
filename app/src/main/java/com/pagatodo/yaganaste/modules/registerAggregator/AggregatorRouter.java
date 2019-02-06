@@ -17,4 +17,29 @@ public class AggregatorRouter implements AggregatorContracts.Router {
     public void showBusinessData(Direction direction) {
         activity.loadFragment(BusinessDataFragment.newInstance(activity), R.id.container_aggregator,Direction.FORDWARD,false);
     }
+
+    @Override
+    public void showPhysicalCodeAggregator(Direction direction) {
+
+    }
+
+    @Override
+    public void showScanQR(Direction direction) {
+
+    }
+
+    @Override
+    public void showDigitalCode(Direction direction) {
+
+    }
+
+    @Override
+    public void showAssignNameQR(Direction direction) {
+
+    }
+
+    @Override
+    public void showLinkedQRs(Direction direction) {
+
+    }
 }

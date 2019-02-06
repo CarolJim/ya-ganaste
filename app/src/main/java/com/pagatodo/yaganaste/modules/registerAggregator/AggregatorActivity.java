@@ -201,4 +201,6 @@ public class AggregatorActivity extends LoaderActivity implements
     public void onSouccessgetgetDataBank(ObtenerBancoBinResponse data) {
 
     }
+
+
 }

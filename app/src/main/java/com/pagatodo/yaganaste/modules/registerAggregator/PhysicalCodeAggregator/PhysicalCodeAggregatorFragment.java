@@ -14,16 +14,20 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.registerAggregator.AggregatorActivity;
+import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_NO_QR_LINKED;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_SCAN_QR;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class PhysicalCodeAggregatorFragment extends GenericFragment implements View.OnClickListener {
     private View rootView;
-    private AggregatorActivity activity;
+    private BussinesActivity activity;
     private StyleButton button_no,button_yes;
     public static PhysicalCodeAggregatorFragment newInstance(){
         return new PhysicalCodeAggregatorFragment();
@@ -36,7 +40,7 @@ public class PhysicalCodeAggregatorFragment extends GenericFragment implements V
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.activity=(AggregatorActivity)context;
+        this.activity=(BussinesActivity)context;
     }
 
     @Override
@@ -60,10 +64,12 @@ public class PhysicalCodeAggregatorFragment extends GenericFragment implements V
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button_yes:
-                activity.getRouter().showScanQR(Direction.FORDWARD);
+               // activity.getRouter().showScanQR(Direction.FORDWARD);
+                activity.onEvent(EVENT_SCAN_QR,null);
                 break;
             case R.id.button_no:
-                activity.getRouter().showAssignNameQR(Direction.FORDWARD);
+                //activity.getRouter().showAssignNameQR(Direction.FORDWARD);
+                activity.onEvent(EVENT_NO_QR_LINKED,null);
         }
     }
 }

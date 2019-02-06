@@ -24,12 +24,15 @@ import com.pagatodo.yaganaste.data.model.QRs;
 import com.pagatodo.yaganaste.data.model.RegisterAggregatorNew;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.registerAggregator.AggregatorActivity;
+import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.ArrayList;
 import java.util.Objects;
+
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_QR_LINKED;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +46,7 @@ public class NameQRFragment extends GenericFragment implements
     private StyleButton btnContinue;
 
     private View rootView;
-    private AggregatorActivity activity;
+    private BussinesActivity activityx;
     private String textPlate;
 
     public static NameQRFragment newInstance(String textDisplay, int restext) {
@@ -59,7 +62,7 @@ public class NameQRFragment extends GenericFragment implements
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity = (AggregatorActivity) context;
+        activityx = (BussinesActivity) context;
     }
 
     public NameQRFragment() {
@@ -159,13 +162,15 @@ public class NameQRFragment extends GenericFragment implements
             RegisterAggregatorNew.getInstance().setqRs(new ArrayList<>());
             RegisterAggregatorNew.getInstance().getqRs().add(new QRs(editNameQR.getText().toString().trim(), textPlate, true, ""));
             //activity.getRouter().showSMSAndroid();
-            activity.getRouter().showLinkedQRs(Direction.FORDWARD);
+            //activity.getRouter().showLinkedQRs(Direction.FORDWARD);
+            activityx.onEvent(EVENT_QR_LINKED,null);
         } else {
             if (!isRepit()) {
                 RegisterAggregatorNew.getInstance().getqRs().add(new QRs(editNameQR.getText().toString().trim(), textPlate, false, ""));
-                activity.getRouter().showLinkedQRs(Direction.FORDWARD);
+                activityx.onEvent(EVENT_QR_LINKED,null);
+                //activity.getRouter().showLinkedQRs(Direction.FORDWARD);
             } else {
-                //activity.onErrorValidatePlate("El QR ya fue agregado");
+                activityx.onErrorValidatePlate("El QR ya fue agregado");
             }
         }
     }

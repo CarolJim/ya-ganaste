@@ -140,6 +140,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_ERROR_DOCUMENTS = "EVENT_ERROR_DOCUMENTS";
+    public static final String EVENT_SCAN_QR = "EVENT_SCAN_QR";
     public static final String EVENT_CARGA_DOCUMENTS = "EVENT_CARGA_DOCUMENTS";
     public static final String EVENT_DOCUMENT_APPROVED = "EVENT_DOCUMENT_APPROVED";
     public static final String EVENT_GO_HOME = "2";

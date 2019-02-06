@@ -24,7 +24,7 @@ public class RegInteractor implements RegContracts.Iteractor{
     private RegContracts.Listener listener;
     private RequestQueue requestQueue;
 
-    RegInteractor(RegContracts.Listener listener, Context context) {
+    public RegInteractor(RegContracts.Listener listener, Context context) {
         this.listener = listener;
         this.requestQueue = Volley.newRequestQueue(context);
     }

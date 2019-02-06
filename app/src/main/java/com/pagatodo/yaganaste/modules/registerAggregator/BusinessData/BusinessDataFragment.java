@@ -28,6 +28,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Giros;
+import com.pagatodo.yaganaste.data.model.RegisterAggregatorNew;
 import com.pagatodo.yaganaste.data.model.RegisterUserNew;
 import com.pagatodo.yaganaste.interfaces.IDatosNegView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
@@ -213,12 +214,17 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
 
     @Override
     public void onValidationSuccess() {
-        RegisterUserNew registerAgent = RegisterUserNew.getInstance();
+        /*RegisterUserNew registerAgent = RegisterUserNew.getInstance();
         registerAgent.setNombreNegocio(nombre);
         registerAgent.setIdGiro(giroArrayAdapter.getGiroId(spinnerBussineLine.getSelectedItemPosition()));
-        registerAgent.setGiroComercio(giroArrayAdapter.getItemSelected(spinnerBussineLine.getSelectedItemPosition()));
+        registerAgent.setGiroComercio(giroArrayAdapter.getItemSelected(spinnerBussineLine.getSelectedItemPosition()));*/
         //activityf.getRouter().showPhysicalCode(Direction.FORDWARD);
         //activity.getRouter().showPhysicalCode(Direction.FORDWARD);
+
+        RegisterAggregatorNew registerAggregatorNew = RegisterAggregatorNew.getInstance();
+        registerAggregatorNew.setNombreNegocio(nombre);
+        registerAggregatorNew.setIdGiro(giroArrayAdapter.getGiroId(spinnerBussineLine.getSelectedItemPosition()));
+        registerAggregatorNew.setGiroComercio(giroArrayAdapter.getItemSelected(spinnerBussineLine.getSelectedItemPosition()));
         activity.onEvent(EVENT_HAS_QR,null);
     }
 

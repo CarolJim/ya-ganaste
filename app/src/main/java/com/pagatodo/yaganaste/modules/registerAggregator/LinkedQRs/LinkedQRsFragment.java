@@ -22,10 +22,13 @@ import com.pagatodo.yaganaste.modules.data.QrItem;
 import com.pagatodo.yaganaste.modules.patterns.OnHolderListener;
 import com.pagatodo.yaganaste.modules.register.CodigoVinculados.QrItemAdapters;
 import com.pagatodo.yaganaste.modules.registerAggregator.AggregatorActivity;
+import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 
 import java.util.ArrayList;
+
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_SCAN_QR;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,9 +37,9 @@ public class LinkedQRsFragment extends GenericFragment implements
         OnHolderListener<QrItem> {
 
     private RecyclerView qrRcv;
-    private AggregatorActivity activity;
+    private BussinesActivity activity;
     private View rootView;
-    ArrayList<QrItem> qrItems;
+
 
     public static LinkedQRsFragment newInstance(){
         return new LinkedQRsFragment();
@@ -49,7 +52,7 @@ public class LinkedQRsFragment extends GenericFragment implements
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity=(AggregatorActivity)context;
+        activity=(BussinesActivity)context;
     }
 
     @Override
@@ -58,6 +61,7 @@ public class LinkedQRsFragment extends GenericFragment implements
         // Inflate the layout for this fragment
         rootView= inflater.inflate(R.layout.fragment_linked_qrs, container, false);
         qrRcv=(RecyclerView)rootView.findViewById(R.id.qr_rcv);
+
         initViews();
         return rootView;
     }
@@ -71,8 +75,8 @@ public class LinkedQRsFragment extends GenericFragment implements
         qrRcv.addItemDecoration(decoration);
         QrItemAdapters adapter = new QrItemAdapters(this);
         qrRcv.setAdapter(adapter);
+        ArrayList<QrItem> qrItems = new ArrayList<>();
 
-        qrItems = new ArrayList<>();
         for (QRs qrs: RegisterAggregatorNew.getInstance().getqRs()){
             qrItems.add(new QrItem(qrs,R.drawable.qr_code));
         }
@@ -84,7 +88,8 @@ public class LinkedQRsFragment extends GenericFragment implements
     @Override
     public void onClickItem(QrItem item) {
         if (item.getResImage()==R.drawable.ic_camera_plus){
-            activity.getRouter().showScanQR(Direction.BACK);
+            //activity.getRouter().showScanQR(Direction.BACK);
+            activity.onEvent(EVENT_SCAN_QR,null);
         }
     }
 
