@@ -88,30 +88,6 @@ public class InputSecret extends InputLauncher{
         inputEditText.setOnFocusChangeListener(this);
     }
 
-
-
-    /* @Override
-    public void active() {
-        rootView.setBackgroundResource(R.drawable.input_text_active);
-        textviewHint.setVisibility(INVISIBLE);
-        linearLines.setVisibility(VISIBLE);
-        linearAst.setVisibility(VISIBLE);
-        textLabel.setVisibility(VISIBLE);
-    }*/
-
-    /*@Override
-    public void desactive() {
-        rootView.setBackgroundResource(R.drawable.input_text_normal);
-        if (Objects.requireNonNull(inputEditText.getText()).toString().isEmpty()){
-            textLabel.setVisibility(INVISIBLE);
-            textviewHint.setVisibility(VISIBLE);
-            linearLines.setVisibility(INVISIBLE);
-        } else {
-            textLabel.setVisibility(VISIBLE);
-            textviewHint.setVisibility(INVISIBLE);
-        }
-    }*/
-
     @Override
     public void onTextChanged(CharSequence s, int i, int i1, int i2) {
         if (Objects.requireNonNull(inputEditText.getText()).toString().length() < 4){
@@ -141,11 +117,11 @@ public class InputSecret extends InputLauncher{
             case 4:
                 astFour.setVisibility(View.VISIBLE);
                 if (this.listener != null){
-                    this.listener.inputListenerFinish();
+                    this.listener.inputListenerFinish(this);
                 }
                 textFour.setText(s.toString().substring(3));
                 if (listener != null){
-                    listener.inputListenerFinish();
+                    listener.inputListenerFinish(this);
                 }
                 break;
             default:

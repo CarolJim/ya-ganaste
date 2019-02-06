@@ -4,10 +4,12 @@ package com.pagatodo.yaganaste.modules.emisor.ChangeNip;
 import android.Manifest;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
@@ -39,12 +41,11 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
 
-
 /**
  * Created by Team Android on 22/03/2017.
  */
 public class MyChangeNip extends GenericFragment implements ValidationForms, View.OnClickListener,
-        IChangeNIPView {
+        IChangeNIPView, InputSecretListener {
 
 
     @BindView(R.id.fragment_myemail_btn)
@@ -100,9 +101,23 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         inputNipNew.desactive();
         inputNipConfirm.desactive();
         showKeyboard();
-        inputNipCurrent.setInputSecretListener(new InputSecretListener() {
+        inputNipCurrent.setInputSecretListener(this);
+        inputNipNew.setInputSecretListener(this);
+
+        inputNipNew.setInputSecretListener(new InputSecretListener() {
             @Override
-            public void inputListenerFinish() {
+            public void inputListenerFinish(View v) {
+                inputNipConfirm.setRequestFocus();
+            }
+
+            @Override
+            public void inputListenerBegin() {
+
+            }
+        });
+        inputNipConfirm.setInputSecretListener(new InputSecretListener() {
+            @Override
+            public void inputListenerFinish(View v) {
 
             }
 
@@ -110,6 +125,16 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             public void inputListenerBegin() {
 
             }
+        });
+        inputNipConfirm.setActionListener((v, actionId, keyEvent) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE
+                    || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                    && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                validateForm();
+                return true;
+            }
+            // Return true if you have consumed the action, else false.
+            return false;
         });
         //Container s = new Container(getContext());
         //InputFilter[] fArray = new InputFilter[1];
@@ -202,34 +227,42 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         //Validacion de Vacios y minimo de caracteres
         if (nip.isEmpty()) {
             isValid = false;
+            hideKeyBoard();
             showSnakErrorBar(getString(R.string.cambiar_nip_actual));
         }
         if (nip.length() < 4) {
             isValid = false;
+            hideKeyBoard();
             showSnakErrorBar(getString(R.string.new_nip_four_digits));
         }
         if (nipNew.isEmpty()) {
             isValid = false;
+            hideKeyBoard();
             showSnakErrorBar(getString(R.string.cambiar_nip_nueva));
         }
         if (nipNew.length() < 4) {
             isValid = false;
+            hideKeyBoard();
             showSnakErrorBar(getString(R.string.new_nip_four_digits));
         }
         if (nipNewConfirm.isEmpty()) {
             isValid = false;
+            hideKeyBoard();
             showSnakErrorBar(getString(R.string.cambiar_nip_nueva));
         }
         if (nipNewConfirm.length() < 4) {
             isValid = false;
+            hideKeyBoard();
             showSnakErrorBar(getString(R.string.new_nip_four_digits));
         }
         if (!nipNewConfirm.equalsIgnoreCase(nipNew)) {
             isValid = false;
+            hideKeyBoard();
             showSnakErrorBar(getString(R.string.confirmar_pin));
         }
 
         if (isValid) {
+            hideKeyBoard();
             onValidationSuccess();
         }
     }
@@ -377,5 +410,26 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     public void onStop() {
         super.onStop();
         hideKeyBoard();
+    }
+
+    @Override
+    public void inputListenerFinish(View view) {
+        switch (view.getId()){
+            case R.id.input_nip_actual:
+                inputNipNew.setRequestFocus();
+                inputNipNew.setVisibility(View.VISIBLE);
+                rootview.findViewById(R.id.instr).setVisibility(View.VISIBLE);
+                inputNipConfirm.setVisibility(View.VISIBLE);
+                break;
+            case R.id.input_nip_new:
+                break;
+            case R.id.input_nip_confirm:
+                break;
+        }
+    }
+
+    @Override
+    public void inputListenerBegin() {
+
     }
 }

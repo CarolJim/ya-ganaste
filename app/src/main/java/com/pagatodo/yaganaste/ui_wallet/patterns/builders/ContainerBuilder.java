@@ -154,34 +154,6 @@ public class ContainerBuilder {
         }
     }
 
-    /* public static OptionsViewHolder getViewHolder(Activity context, ViewGroup parent, int typeholder) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        OptionsViewHolder op = null;
-        //OPTION_ZONE
-        switch (typeholder) {
-            case OPTION_ZONE:
-                op = new IndicationZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone, parent, false));
-                break;
-            case OPTION_ZONE_UNO:
-                op = new StatusZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_uno, parent, false));
-                break;
-            case OPTION_ZONE_DOS:
-                op = new SelectOptionZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_dos, parent, false));
-                break;
-            case OPTION_ZONE_FIRST:
-                op = new IndicationZoneViewHolder(context, inflater.inflate(R.layout.indicador_zona_first_adq, parent, false));
-                break;
-            case OPTION_ZONE_REENBOLSO:
-                op = new SelectOptionZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_dos, parent, false),true);
-                break;
-
-            default:
-                op = new ButtonsViewHolder(context, inflater.inflate(R.layout.view_element, parent, false));
-                break;
-        }
-        return op;
-    }*/
-
     public static GenericHolder getViewHolder(Activity context, ViewGroup parent, int typeholder) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         GenericHolder op = null;
@@ -197,8 +169,8 @@ public class ContainerBuilder {
                 op = new SelectOptionZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_dos, parent, false));
                 break;
             case OPTION_ZONE_FIRST:
-                //op = new IndicationZoneViewHolder(context, inflater.inflate(R.layout.indicador_zona_first_adq, parent, false));
-                op = new GenericHolder(inflater.inflate(R.layout.indicador_zona_simple_texto, parent, false)) {
+                op = new IndicationZoneViewHolder(context, inflater.inflate(R.layout.indicador_zona_first_adq, parent, false));
+                /*op = new GenericHolder(inflater.inflate(R.layout.indicador_zona_simple_texto, parent, false)) {
                     @Override
                     public void init() {
 
@@ -218,7 +190,7 @@ public class ContainerBuilder {
                     public View getView() {
                         return this.itemView;
                     }
-                };
+                };*/
                 break;
             case OPTION_ZONE_REENBOLSO:
                 op = new SelectOptionZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_dos, parent, false),true);

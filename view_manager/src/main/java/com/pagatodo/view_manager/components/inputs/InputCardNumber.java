@@ -147,7 +147,7 @@ public class InputCardNumber extends LinearLayout implements Input, View.OnFocus
             if (this.listener != null) this.listener.inputListenerBegin();
         } else if (lengh == 16){
             ((TextView) textLayer.getChildAt(15)).setText(text.substring(15));
-            if (this.listener != null) this.listener.inputListenerFinish();
+            if (this.listener != null) this.listener.inputListenerFinish(this);
         }
     }
 

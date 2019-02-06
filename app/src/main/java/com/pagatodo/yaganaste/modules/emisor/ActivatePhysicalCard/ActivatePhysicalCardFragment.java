@@ -132,7 +132,7 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
 
 
     @Override
-    public void inputListenerFinish() {
+    public void inputListenerFinish(View view) {
         btnContinue.active();
     }
 

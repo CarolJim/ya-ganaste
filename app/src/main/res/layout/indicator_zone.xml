@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/letrero_imageview"
-        android:layout_width="294dp"
-        android:layout_height="140.5dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/portada_adq"
-        android:visibility="visible" />
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="@string/indicationes_emi"
+        android:textColor="@color/gray_slate"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_begin_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/btn_begin_register"
         style="@style/buttonSquareRoundedBlue"
         android:layout_below="@id/letrero_imageview"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/button_rounded_blue"
-        android:text="@string/comenzar_registro" />
+        android:text="@string/comenzar_registro"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/mas_info"
-        style="@style/generic_text_style_9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn_begin_register"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="5dp"
-        android:gravity="center_horizontal"
-        android:text="@string/mas_info" />
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

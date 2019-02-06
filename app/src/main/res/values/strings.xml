@@ -1300,7 +1300,7 @@
     <string name="success_time_repayment_save">Tiempo de reembolso actualizado exitosamente</string>
     <string name="olvidaste_nip">¿Olvidaste tu NIP?\nPonte en contacto con nosotros</string>
     <string name="numero">01 800 500 1000</string>
-    <string name="comenzar_registro">Comenzar registro</string>
+    <string name="comenzar_registro">Registrar mi negocio</string>
     <string name="continuar_registro">Continuar registro</string>
     <string name="mas_info"><u>Más información</u></string>
     <string name="reload_session"><u>Recargar</u></string>
@@ -1749,6 +1749,7 @@
     <string name="label_option_per_title">Bloqueo Permanente</string>
     <string name="label_option_per_subtitle">Cancela tu tarjeta y solicita un nuevo plástico</string>
     <string name="label_change_nip_des">Genera un nuevo NIP para\ntu tarjeta Ya Ganaste</string>
+
     <string name="text_error_active_card">Los datos no son correctos, favor de introducirlos nuevamente</string>
     <string name="hint_new_nip">NIP (4 números)</string>
     <string name="hint_confirm_nip">Confirma tu NIP</string>
@@ -1775,4 +1776,5 @@
     <string name="indicationes_adq">\u2022 ¡Acepta tarjetas Visa, Mastercard y más!\n\n\u2022 La comisión más baja del mercado\n\n\u2022 Recibe tu dinero de inmediato</string>
     <string name="indication_adq_text_button">Vincular lector de tarjetas</string>
     <string name="indication_adq_text_label"><u>¿Aún no Cuentas con un Lector de Tarjetas?</u></string>
+    <string name="indicationes_emi">\u2022 ¡Acepta tarjetas Visa, Mastercard y más!\n\n\u2022 La comisión más baja del mercado\n\n\u2022 Recibe tu dinero de inmediato\n\n\u2022 Regístrate en pocos pasos</string>
 </resources>
