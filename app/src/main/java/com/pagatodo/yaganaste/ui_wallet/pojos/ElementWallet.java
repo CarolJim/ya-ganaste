@@ -285,12 +285,12 @@ public class ElementWallet {
     public static ElementWallet getCardBalanceEmi() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue);
         Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue_back);
-        Bitmap qrCode = UtilsGraphics.getQrCode(backView);
+    /*    Bitmap qrCode = UtilsGraphics.getQrCode(backView);
         Bitmap resultBitmat = overlayImages(backView, qrCode,
                 (backView.getWidth() / 2) - (qrCode.getWidth() / 2),
-                (backView.getHeight() / 2) - (qrCode.getHeight() / 2));
+                (backView.getHeight() / 2) - (qrCode.getHeight() / 2));*/
 
-        return new ElementWallet(TYPE_EMISOR, frontView, resultBitmat,
+        return new ElementWallet(TYPE_EMISOR, frontView, backView,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 ElementView.getListEmisorBalance(),
                 R.string.saldo_disponible, true, App.getContext().getString(R.string.tarjeta_yg),
@@ -300,12 +300,12 @@ public class ElementWallet {
     public static ElementWallet getCardBalanceEmiBloqueda() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray);
         Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray_back);
-        Bitmap qrCode = UtilsGraphics.getQrCode(backView);
+      /*  Bitmap qrCode = UtilsGraphics.getQrCode(backView);
         Bitmap resultBitmat = overlayImages(backView, qrCode,
                 (backView.getWidth() / 2) - (qrCode.getWidth() / 2),
-                (backView.getHeight() / 2) - (qrCode.getHeight() / 2));
+                (backView.getHeight() / 2) - (qrCode.getHeight() / 2));*/
 
-        return new ElementWallet(TYPE_EMISOR, frontView, resultBitmat,
+        return new ElementWallet(TYPE_EMISOR, frontView, backView,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 ElementView.getListEmisorBalance(),
                 R.string.saldo_disponible, true, App.getContext().getString(R.string.tarjeta_yg),

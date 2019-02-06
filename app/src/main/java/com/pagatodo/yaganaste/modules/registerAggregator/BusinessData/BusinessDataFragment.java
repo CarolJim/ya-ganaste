@@ -34,6 +34,7 @@ import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.registerAggregator.AggregatorActivity;
+import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.DatosNegocioPresenter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
@@ -47,6 +48,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_HAS_QR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
@@ -76,11 +78,11 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
     private int idGiro;
     private List<Giros> girosComercio;
     private BussinesLineSpinnerAdapter giroArrayAdapter;
-    private static AggregatorActivity activity;
+    private static BussinesActivity activity;
     private DatosNegocioPresenter datosNegocioPresenter;
 
-    public static BusinessDataFragment newInstance(AggregatorActivity activity) {
-        activity = activity;
+    public static BusinessDataFragment newInstance(BussinesActivity activitys) {
+        activity = activitys;
         return new BusinessDataFragment();
     }
 
@@ -217,6 +219,7 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
         registerAgent.setGiroComercio(giroArrayAdapter.getItemSelected(spinnerBussineLine.getSelectedItemPosition()));
         //activityf.getRouter().showPhysicalCode(Direction.FORDWARD);
         //activity.getRouter().showPhysicalCode(Direction.FORDWARD);
+        activity.onEvent(EVENT_HAS_QR,null);
     }
 
     @Override
