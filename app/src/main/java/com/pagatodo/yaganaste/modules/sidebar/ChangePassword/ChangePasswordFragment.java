@@ -138,7 +138,7 @@ public class ChangePasswordFragment extends GenericFragment implements View.OnCl
     }
 
     @Override
-    public void inputListenerFinish() {
+    public void inputListenerFinish(View view) {
         btnContinue.active();
     }
 

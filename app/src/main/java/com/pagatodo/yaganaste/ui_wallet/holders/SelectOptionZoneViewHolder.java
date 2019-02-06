@@ -65,22 +65,6 @@ public class SelectOptionZoneViewHolder extends GenericHolder implements View.On
         this.btnContinue = itemView.findViewById(R.id.btn_continue);
     }
 
-    /*public SelectOptionZoneViewHolder(Activity context, View itemView) {
-        super(itemView);
-        this.activity = context;
-        this.title = itemView.findViewById(R.id.txt_title);
-        this.descBtn1 = itemView.findViewById(R.id.button_1_text);
-        this.descBtn2 = itemView.findViewById(R.id.button_2_text);
-        this.descBtn3 = itemView.findViewById(R.id.button_3_text);
-        this.imgBtn1 = itemView.findViewById(R.id.button_1_image);
-        this.imgBtn2 = itemView.findViewById(R.id.button_2_image);
-        this.imgBtn3 = itemView.findViewById(R.id.button_3_image);
-        this.btn1 = itemView.findViewById(R.id.btn_1);
-        this.btn2 = itemView.findViewById(R.id.btn_2);
-        this.btn3 = itemView.findViewById(R.id.btn_3);
-        this.btnContinue = itemView.findViewById(R.id.btn_continue);
-        this.reembolso = reembolso;
-    }*/
 
     @Override
     public void bind(Object item, OnClickItemHolderListener listener) {

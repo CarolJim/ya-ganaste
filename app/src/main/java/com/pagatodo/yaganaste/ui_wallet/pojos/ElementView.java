@@ -258,24 +258,6 @@ public class ElementView implements ElementGlobal {
         return elementViews;
     }
 
-
-    /*public static ArrayList<ElementView> getListLectorAdq() {
-        ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(1, R.drawable.icono_movimientos, R.string.operation_movimientos));
-        elementViews.add(new ElementView(6, R.drawable.ico_cobrar_in, R.string.operation_cobro));
-        elementViews.add(new ElementView(3, R.drawable.ico_admin, R.string.operation_configurar));
-        return elementViews;
-    }*/
-
-    /*public static ArrayList<ElementView> getListBusiness(){
-        ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
-        elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, R.drawable.ico_cobrar_in, R.string.realizar_cobro));
-        elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ,R.drawable.ico_operador, R.string.mis_operadores));
-
-        return elementViews;
-    }*/
-
     public static ArrayList<ElementView> getListHelp() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_CHAT, R.drawable.icon_chat, R.string.chat));
@@ -335,7 +317,7 @@ public class ElementView implements ElementGlobal {
             if (idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
                     !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)
                     && !isComercioUyu) {
-                App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
+                //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
                 elementViews = ElementView.getListSeleccionarTipoReevolso(idComercio);
                 for (Operadores opr : list) {
                     if (opr.getIsAdmin()) {
@@ -380,7 +362,7 @@ public class ElementView implements ElementGlobal {
     //Proceso Aprobado
     private static ArrayList<ElementView> getListEstadoAprobado(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(TYPE_ADQ_FIRST, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true, false, R.string.indication_adq_text_button, OPTION_ZONE_FIRST, idComercio));
+        elementViews.add(new ElementView(OPTION_FIRST_ADQ, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true, false, R.string.indication_adq_text_button, OPTION_ZONE_FIRST, idComercio));
         return elementViews;
     }
 

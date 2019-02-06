@@ -18,20 +18,20 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 public class IndicationZoneViewHolder extends GenericHolder {
 
-    private Context context;
+    //private Context context;
     public StyleButton button;
-    private TextView mas_info;
+    //private TextView mas_info;
 
     public IndicationZoneViewHolder(Context context, View itemView) {
         super(itemView);
-        this.context = context;
+        //this.context = context;
         init();
     }
 
     @Override
     public void init() {
         this.button = itemView.findViewById(R.id.btn_begin_register);
-        this.mas_info = itemView.findViewById(R.id.text_link);
+        //this.mas_info = itemView.findViewById(R.id.text_link);
     }
 
     @Override
@@ -43,12 +43,12 @@ public class IndicationZoneViewHolder extends GenericHolder {
         this.button.setText(elementView.getTextbutton());
         // TODO: HABILITAR BOTON DE REGISTRO
         this.button.setOnClickListener(view -> listener.onItemClick(elementView));
-        if (this.mas_info!=null) {
+        /*if (this.mas_info!=null) {
             this.mas_info.setOnClickListener(view -> {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.yaganaste.com"));
                 context.startActivity(browserIntent);
             });
-        }
+        }*/
     }
 
 

@@ -289,7 +289,7 @@ public class InputSecretPass extends InputLauncher implements View.OnClickListen
                 }
                 textSix.setText(s.toString().substring(5));
                 if (this.listener != null){
-                    this.listener.inputListenerFinish();
+                    this.listener.inputListenerFinish(this);
                 }
                 break;
             default:

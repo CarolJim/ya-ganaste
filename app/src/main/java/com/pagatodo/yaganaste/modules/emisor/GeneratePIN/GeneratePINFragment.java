@@ -98,7 +98,7 @@ public class GeneratePINFragment extends SupportFragment implements InputSecretL
         });
         inputSecretConfirm.setInputSecretListener(new InputSecretListener() {
             @Override
-            public void inputListenerFinish() {
+            public void inputListenerFinish(View view) {
                 btnContinue.active();
             }
 
@@ -162,7 +162,7 @@ public class GeneratePINFragment extends SupportFragment implements InputSecretL
     }
 
     @Override
-    public void inputListenerFinish() {
+    public void inputListenerFinish(View view) {
         inputSecretConfirm.setVisibility(View.VISIBLE);
         //linearConfirm.setVisibility(View.VISIBLE);
         inputSecretConfirm.requestFocus();
