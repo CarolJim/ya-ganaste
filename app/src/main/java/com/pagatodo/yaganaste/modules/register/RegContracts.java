@@ -13,12 +13,17 @@ public class RegContracts {
     }
 
     public interface Listener{
+        void showLoader(String message);
+        void onErrorService(String error);
+        void hideLoader();
         void onSuccessValidatePlate(String plate);
         void onErrorValidatePlate(String error);
     }
 
     public interface Iteractor{
         void onValidateQr(String plate);
+        void assignmentQrs();
+        void createAgent();
     }
 
     public interface Router{

@@ -131,7 +131,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 val user = auth.currentUser
                 App.getInstance().prefs.saveData(TOKEN_FIREBASE_AUTH, user!!.uid)
                 val users = java.util.HashMap<String, String>()
-                users["Mbl"] = App.getInstance().prefs.loadData(CLABE_NUMBER).replace(" ", "")
+                users["Mbl"] = App.getInstance().prefs.loadData(PHONE_NUMBER).replace(" ", "")
                 users["DvcId"] = FirebaseInstanceId.getInstance().token!!
                 FirebaseAuth.getInstance().currentUser!!.getIdToken(false).addOnCompleteListener {
                     task ->

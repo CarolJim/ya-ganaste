@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
-
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.material.snackbar.Snackbar;
@@ -21,14 +19,10 @@ import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarTitularCuentaResponse;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
-import com.pagatodo.yaganaste.modules.emisor.WalletEmisorContracts;
 import com.pagatodo.yaganaste.modules.emisor.WalletEmisorInteractor;
-import com.pagatodo.yaganaste.modules.management.response.QrValidateResponse;
 import com.pagatodo.yaganaste.modules.register.RegContracts;
 import com.pagatodo.yaganaste.modules.register.RegInteractor;
 import com.pagatodo.yaganaste.modules.registerAggregator.BusinessData.BusinessDataFragment;
@@ -40,7 +34,6 @@ import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DatosNegocioFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DomicilioNegocioFragment;
-import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionAdicionalFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionLavadoDineroFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.StatusRegisterAdquirienteFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdditionalInformationFragment;
@@ -49,9 +42,7 @@ import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.qrcode.Auxl;
 import com.pagatodo.yaganaste.utils.qrcode.Qrlectura;
-
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
@@ -82,6 +73,7 @@ public class BussinesActivity extends LoaderActivity implements
     public final static String EVENT_GO_BUSSINES_ADDRESS_BACK = "EVENT_GO_BUSSINES_ADDRESS_BACK";
     public final static String EVENT_DOC_CHECK = "EVENT_DOC_CHECK";
     public final static String EVENT_HAS_QR = "EVENT_HAS_QR";
+    public final static String EVENT_SUCCESS_AGGREGATOR = "EVENT_SUCCESS_AGGREGATOR";
     public final static String EVENT_NO_QR_LINKED = "EVENT_NO_QR_LINKED";
     public final static String EVENT_QR_LINKED = "EVENT_QR_LINKED";
     public final static String EVENT_SET_ADDRESS = "EVENT_SET_ADDRESS";
@@ -174,6 +166,9 @@ public class BussinesActivity extends LoaderActivity implements
                 break;
                 case EVENT_QR_LINKED:
                 loadFragment(LinkedQRsFragment.newInstance(), Direction.FORDWARD,false);
+                break;
+                case EVENT_SUCCESS_AGGREGATOR:
+                loadFragment(com.pagatodo.yaganaste.modules.registerAggregator.RegisterComplete.RegisterCompleteFragment.newInstance(), Direction.FORDWARD,false);
                 break;
             case EVENT_GO_BUSSINES_DATA:
                 loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, false);
@@ -357,9 +352,13 @@ public class BussinesActivity extends LoaderActivity implements
 
 
     @Override
+    public void onErrorService(String error) {
+
+    }
+
+    @Override
     public void onSuccessValidatePlate(String plate) {
-
-
+        onEvent(EVENT_SUCCESS_AGGREGATOR,null);
     }
 
     public void onErrorValidatePlate(String error) {
