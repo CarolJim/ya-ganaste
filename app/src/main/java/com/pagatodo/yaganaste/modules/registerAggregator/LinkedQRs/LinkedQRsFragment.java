@@ -33,6 +33,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import java.util.ArrayList;
 
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SUCCESS_AGGREGATOR;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_SCAN_QR;
 
 /**
@@ -111,7 +112,6 @@ public class LinkedQRsFragment extends GenericFragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.button_continue:
                 regInteractor.createAgent();
-                regInteractor.assignmentQrs();
 
                 break;
         }
@@ -134,11 +134,23 @@ public class LinkedQRsFragment extends GenericFragment implements View.OnClickLi
 
     @Override
     public void onSuccessValidatePlate(String plate) {
-
+        regInteractor.updateSession();
     }
 
     @Override
     public void onErrorValidatePlate(String error) {
+
+    }
+
+    @Override
+    public void onSuccesupdateSession() {
+        activity.onEvent(EVENT_SUCCESS_AGGREGATOR,null);
+        //onEvent(EVENT_SUCCESS_AGGREGATOR,null);
+
+    }
+
+    @Override
+    public void onSErrorupdateSession() {
 
     }
 }

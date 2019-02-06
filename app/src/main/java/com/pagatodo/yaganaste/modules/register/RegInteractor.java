@@ -22,7 +22,9 @@ import com.pagatodo.yaganaste.data.model.QRs;
 import com.pagatodo.yaganaste.data.model.RegisterAggregatorNew;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarInformacionSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearAgenteResponse;
+import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.modules.data.QrItem;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
@@ -142,6 +144,19 @@ public class RegInteractor implements RegContracts.Iteractor, IRequestResult {
         }
     }
 
+    @Override
+    public void updateSession() {
+        listener.showLoader("");
+        try {
+            ApiAdtvo.actualizarInformacionSesion(this);
+        } catch ( OfflineException e) {
+            e.printStackTrace();
+            listener.onErrorService(App.getContext().getString(R.string.no_internet_access));
+        }
+
+
+    }
+
     private void setAsignQrDigital(QRs qrs) {
         RequestQueue requestQueue = Volley.newRequestQueue(App.getContext());
         JSONObject jsonBody = new JSONObject();
@@ -251,10 +266,22 @@ public class RegInteractor implements RegContracts.Iteractor, IRequestResult {
                 listener.onSuccessValidatePlate("");
                 assignmentQrs();
 
+
             } else {
                 listener.onErrorService(response.getMensaje());
             }
         }
+
+        if (dataSourceResult.getData() instanceof ActualizarInformacionSesionResponse) {
+            ActualizarInformacionSesionResponse response = (ActualizarInformacionSesionResponse) dataSourceResult.getData();
+            if (response.getCodigoRespuesta() == CODE_OK) {
+            listener.onSuccesupdateSession();
+
+            } else {
+                listener.onSErrorupdateSession();
+            }
+        }
+
 
     }
 

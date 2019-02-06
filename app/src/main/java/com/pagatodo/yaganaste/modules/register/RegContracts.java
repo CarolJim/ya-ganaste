@@ -18,12 +18,15 @@ public class RegContracts {
         void hideLoader();
         void onSuccessValidatePlate(String plate);
         void onErrorValidatePlate(String error);
+        void onSuccesupdateSession();
+        void onSErrorupdateSession();
     }
 
     public interface Iteractor{
         void onValidateQr(String plate);
         void assignmentQrs();
         void createAgent();
+        void updateSession();
     }
 
     public interface Router{

@@ -10,16 +10,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.IAccountIteractorNew;
 import com.pagatodo.yaganaste.modules.registerAggregator.LinkedQRs.LinkedQRsFragment;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.register.Iteractor.UpdateTokenFirebaseIteractor;
+import com.pagatodo.yaganaste.ui.account.register.interfaces.ActualizarToken;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADDRESS_BACK;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterCompleteFragment extends GenericFragment implements View.OnClickListener {
+public class RegisterCompleteFragment extends GenericFragment implements View.OnClickListener{
     private View rootView;
     private StyleButton btn_finish_register;
+
 
     public static RegisterCompleteFragment newInstance() {
         return new RegisterCompleteFragment();
@@ -49,8 +55,9 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_finish_register:
-
+                onEventListener.onEvent(EVENT_GO_BUSSINES_ADDRESS_BACK,null);
                 break;
         }
     }
+
 }

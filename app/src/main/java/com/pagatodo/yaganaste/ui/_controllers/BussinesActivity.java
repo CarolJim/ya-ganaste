@@ -3,8 +3,11 @@ package com.pagatodo.yaganaste.ui._controllers;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.Window;
+
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.material.snackbar.Snackbar;
@@ -42,6 +45,7 @@ import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.qrcode.Auxl;
 import com.pagatodo.yaganaste.utils.qrcode.Qrlectura;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -59,7 +63,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 
 public class BussinesActivity extends LoaderActivity implements
-        RegContracts.Listener{
+        RegContracts.Listener {
 
     private static final String AGENT_NUMBER = "AGENT_NUMBER";
     //Nuevo diseño-flujo
@@ -103,7 +107,7 @@ public class BussinesActivity extends LoaderActivity implements
         setContentView(R.layout.activity_fragment_container);
         //presenterAccount = new AccountPresenterNew(this);
         //interactor = new WalletEmisorInteractor(this, this);
-        regInteractor=new RegInteractor(this,this);
+        regInteractor = new RegInteractor(this, this);
         setUpActionBar();
         setVisibilityPrefer(false);
         numAgente = getIntent().getExtras().getString(AGENT_NUMBER);
@@ -153,22 +157,22 @@ public class BussinesActivity extends LoaderActivity implements
             case EVENT_ERROR_DOCUMENTS:
                 loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
                 break;
-                case EVENT_SCAN_QR:
-                    Intent intentqr = new Intent(this, ScannVisionActivity.class);
-                    intentqr.putExtra(ScannVisionActivity.QRObject, true);
-                    this.startActivityForResult(intentqr, BARCODE_READER_REQUEST_CODE_COMERCE);
+            case EVENT_SCAN_QR:
+                Intent intentqr = new Intent(this, ScannVisionActivity.class);
+                intentqr.putExtra(ScannVisionActivity.QRObject, true);
+                this.startActivityForResult(intentqr, BARCODE_READER_REQUEST_CODE_COMERCE);
                 break;
-                case EVENT_HAS_QR:
-                loadFragment(PhysicalCodeAggregatorFragment.newInstance(), Direction.FORDWARD,false);
+            case EVENT_HAS_QR:
+                loadFragment(PhysicalCodeAggregatorFragment.newInstance(), Direction.FORDWARD, false);
                 break;
-                case EVENT_NO_QR_LINKED:
-                loadFragment(NameQRFragment.newInstance("",R.string.title_code_digital_fragment), Direction.FORDWARD,false);
+            case EVENT_NO_QR_LINKED:
+                loadFragment(NameQRFragment.newInstance("", R.string.title_code_digital_fragment), Direction.FORDWARD, false);
                 break;
-                case EVENT_QR_LINKED:
-                loadFragment(LinkedQRsFragment.newInstance(), Direction.FORDWARD,false);
+            case EVENT_QR_LINKED:
+                loadFragment(LinkedQRsFragment.newInstance(), Direction.FORDWARD, false);
                 break;
-                case EVENT_SUCCESS_AGGREGATOR:
-                loadFragment(com.pagatodo.yaganaste.modules.registerAggregator.RegisterComplete.RegisterCompleteFragment.newInstance(), Direction.FORDWARD,false);
+            case EVENT_SUCCESS_AGGREGATOR:
+                loadFragment(com.pagatodo.yaganaste.modules.registerAggregator.RegisterComplete.RegisterCompleteFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_DATA:
                 loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, false);
@@ -358,11 +362,21 @@ public class BussinesActivity extends LoaderActivity implements
 
     @Override
     public void onSuccessValidatePlate(String plate) {
-        onEvent(EVENT_SUCCESS_AGGREGATOR,null);
+        onEvent(EVENT_SUCCESS_AGGREGATOR, null);
     }
 
     public void onErrorValidatePlate(String error) {
         UI.showErrorSnackBar(this, error, Snackbar.LENGTH_SHORT);
+    }
+
+    @Override
+    public void onSuccesupdateSession() {
+
+    }
+
+    @Override
+    public void onSErrorupdateSession() {
+
     }
 
 }

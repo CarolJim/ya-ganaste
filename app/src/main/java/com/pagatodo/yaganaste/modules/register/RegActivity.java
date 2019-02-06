@@ -212,4 +212,14 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
         UI.showErrorSnackBar(this,error,Snackbar.LENGTH_SHORT);
     }
 
+    @Override
+    public void onSuccesupdateSession() {
+
+    }
+
+    @Override
+    public void onSErrorupdateSession() {
+
+    }
+
 }
