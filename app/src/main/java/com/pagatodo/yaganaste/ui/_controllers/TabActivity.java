@@ -837,8 +837,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         if(menuItem.getItemId() == R.id.navigation_charge){
-            //startActivity(ChargeActivity.createIntent(this));
-            startActivity(AggregatorActivity.createIntent(this));
+            startActivity(ChargeActivity.createIntent(this));
+            //startActivity(AggregatorActivity.createIntent(this));
         } else if (lastFrag != menuItem.getItemId()) {
             lastFrag = menuItem.getItemId();
             switch (menuItem.getItemId()) {
