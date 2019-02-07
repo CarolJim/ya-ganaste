@@ -183,7 +183,6 @@ public class WalletEmisorInteractor implements WalletEmisorContracts.Interactor,
                 try {
                     if (response.getData() != null) {
                         listener.onSouccessgetgetDataBank(response);
-                            //listener.setDataBank(response.getData().getIdComercioAfectado(), response.getData().getNombre());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

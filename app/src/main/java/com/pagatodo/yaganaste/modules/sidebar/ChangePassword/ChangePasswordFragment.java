@@ -74,7 +74,7 @@ public class ChangePasswordFragment extends GenericFragment implements View.OnCl
                     && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 hideKeyBoard();
                 if (validate()){
-                    /*this.interactor.onActiveCard(SingletonUser.getInstance().getDataUser().getEmisor()
+                    /*this.interactor.onBlockCard(SingletonUser.getInstance().getDataUser().getEmisor()
                             .getCuentas().get(0).getTarjetas().get(0).getNumero().trim());*/
                     //interactor.validateCard(editNumberCard.getText().toString().trim());
                     activity.loadFragment(NewPasswwordFragment.newInstance(inputSecretPassCurrent.getTextEdit()),R.id.container,Direction.FORDWARD,false);
@@ -129,7 +129,7 @@ public class ChangePasswordFragment extends GenericFragment implements View.OnCl
     @Override
     public void onClick(View v) {
         if (validate()){
-                    /*this.interactor.onActiveCard(SingletonUser.getInstance().getDataUser().getEmisor()
+                    /*this.interactor.onBlockCard(SingletonUser.getInstance().getDataUser().getEmisor()
                             .getCuentas().get(0).getTarjetas().get(0).getNumero().trim());*/
             //interactor.validateCard(editNumberCard.getText().toString().trim());
             activity.loadFragment(NewPasswwordFragment.newInstance(inputSecretPassCurrent.getTextEdit()),R.id.container,Direction.FORDWARD,false);

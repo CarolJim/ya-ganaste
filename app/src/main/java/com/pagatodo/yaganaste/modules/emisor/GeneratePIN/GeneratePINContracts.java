@@ -9,6 +9,7 @@ class GeneratePINContracts {
     }
     interface Interactor{
         void onAsignNIP();
-        void onActiveCard(String numberCard);
+        void onBlockCard(String numberCard);
+        void onRemplaceCard(String currentCard, String newCard);
     }
 }

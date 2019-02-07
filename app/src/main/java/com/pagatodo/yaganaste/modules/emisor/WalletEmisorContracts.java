@@ -35,6 +35,6 @@ public class WalletEmisorContracts {
         void onShowEnvioFormulario(Envios envio);
         void onShowBlockCard();
         void onShowTemporaryBlock();
-        void onShowCardActive();
+        void onShowCardActiveSuccess();
     }
 }

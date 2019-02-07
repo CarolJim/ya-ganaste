@@ -85,12 +85,9 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
 
     }
 
-
     @Override
     public void onClick(View view) {
-        //this.activity.getRouter().onShowGeneratePIN();
-        //hideKeyboard();
-        //interactor.validateCard(editNumberCard.getText().toString().trim());
+        interactor.validateCard(inputNumberCard.getText().trim());
     }
 
     @Override
@@ -101,12 +98,10 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
                 hideKeyBoard(inputNumberCard.getEditText());
                 if (validate()){
                     //this.activity.getRouter().onShowGeneratePIN();
-
                     interactor.validateCard(inputNumberCard.getText().trim());
                 }
             return true;
         }
-        // Return true if you have consumed the action, else false.
         return false;
     }
 
@@ -125,11 +120,8 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
     @Override
     public void onStop() {
         super.onStop();
-        //hideKeyboard();
         hideKeyBoard(inputNumberCard.getEditText());
     }
-
-
 
     @Override
     public void inputListenerFinish(View view) {
@@ -153,7 +145,7 @@ public class ActivatePhysicalCardFragment extends SupportFragment implements Vie
 
     @Override
     public void onSouccesValidateCard() {
-
+        activity.getRouter().onShowGeneratePIN();
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.emisor.ActivatePhysicalCard.ActivatePhysicalCardFragment;
 import com.pagatodo.yaganaste.modules.emisor.CardActivate.CardActivateFragment;
+import com.pagatodo.yaganaste.modules.emisor.GeneratePIN.CardSuccessFragment;
 import com.pagatodo.yaganaste.modules.emisor.GeneratePIN.GeneratePINFragment;
 import com.pagatodo.yaganaste.modules.emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
 import com.pagatodo.yaganaste.modules.emisor.ChangeNip.MyChangeNip;
@@ -65,8 +66,9 @@ public class WalletEmisorRouter implements WalletEmisorContracts.Router{
     }
 
     @Override
-    public void onShowCardActive() {
-        this.activity.loadFragment(CardActivateFragment.newInstance(),this.IdContainer,Direction.FORDWARD,false);
+    public void onShowCardActiveSuccess() {
+        //this.activity.loadFragment(CardActivateFragment.newInstance(),this.IdContainer,Direction.FORDWARD,false);
+        this.activity.loadFragment(CardSuccessFragment.newInstance(),this.IdContainer,Direction.FORDWARD,false);
     }
 
     @Override

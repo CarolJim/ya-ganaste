@@ -86,14 +86,13 @@ public class GeneratePINFragment extends SupportFragment implements InputSecretL
                     //this.activity.getRouter().onShowGeneratePIN();
                     //hideKeyboard();
                     inputSecretConfirm.setRequestFocus();
-                    /*this.interactor.onActiveCard(SingletonUser.getInstance().getDataUser().getEmisor()
+                    /*this.interactor.onBlockCard(SingletonUser.getInstance().getDataUser().getEmisor()
                             .getCuentas().get(0).getTarjetas().get(0).getNumero().trim());*/
                     //interactor.validateCard(editNumberCard.getText().toString().trim());
-                    //interactor.onActiveCard("1234567890123456");
+                    //interactor.onBlockCard("1234567890123456");
                 }
                 return true;
             }
-            // Return true if you have consumed the action, else false.
             return false;
         });
         inputSecretConfirm.setInputSecretListener(new InputSecretListener() {
@@ -115,10 +114,12 @@ public class GeneratePINFragment extends SupportFragment implements InputSecretL
                 if (validate()){
                     //this.activity.getRouter().onShowGeneratePIN();
                     //inputSecretConfirm.resquestFoucus();
-                     /*this.interactor.onActiveCard(SingletonUser.getInstance().getDataUser().getEmisor()
+                     /*this.interactor.onBlockCard(SingletonUser.getInstance().getDataUser().getEmisor()
                         .getCuentas().get(0).getTarjetas().get(0).getNumero().trim());*/
                     //interactor.validateCard(editNumberCard.getText().toString().trim());
-                    //interactor.onActiveCard("1234567890123456");
+                    //interactor.onBlockCard("1234567890123456");
+                    this.interactor.onBlockCard(SingletonUser.getInstance().getDataUser().getEmisor()
+                            .getCuentas().get(0).getTarjetas().get(0).getNumero().trim());
                 }
                 return true;
             }
@@ -141,7 +142,7 @@ public class GeneratePINFragment extends SupportFragment implements InputSecretL
                     "Los datos no son correctos, favor de introducirlos nuevamente",
                     Snackbar.LENGTH_SHORT);
             return false;
-        } else if(!inputSecretNew.getInputEditText().toString().equalsIgnoreCase(inputSecretConfirm.getInputEditText().toString())){
+        } else if(!inputSecretNew.getText().equalsIgnoreCase(inputSecretConfirm.getText())){
             UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),
                     "Los datos no son correctos, favor de introducirlos nuevamente",
                     Snackbar.LENGTH_SHORT);
@@ -170,7 +171,7 @@ public class GeneratePINFragment extends SupportFragment implements InputSecretL
 
     @Override
     public void onClick(View view) {
-        this.interactor.onActiveCard(SingletonUser.getInstance().getDataUser().getEmisor()
+        this.interactor.onBlockCard(SingletonUser.getInstance().getDataUser().getEmisor()
                 .getCuentas().get(0).getTarjetas().get(0).getNumero().trim());
     }
 
@@ -187,6 +188,8 @@ public class GeneratePINFragment extends SupportFragment implements InputSecretL
     @Override
     public void onSucces() {
 
+        //this.activity.getRouter().onShowCardActiveSuccess();
+        UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()),"BIEN",Snackbar.LENGTH_SHORT);
     }
 
     @Override

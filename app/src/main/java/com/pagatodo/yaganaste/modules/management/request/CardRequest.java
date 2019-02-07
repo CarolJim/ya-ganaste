@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.modules.emisor.GeneratePIN;
+package com.pagatodo.yaganaste.modules.management.request;
 
 import java.io.Serializable;
 

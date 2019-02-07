@@ -69,7 +69,7 @@ public class BalanceEmisorRouter implements WalletEmisorContracts.Router {
     }
 
     @Override
-    public void onShowCardActive() {
+    public void onShowCardActiveSuccess() {
         this.activity.loadFragment(CardActivateFragment.newInstance(),this.IdContainer,Direction.FORDWARD,false);
     }
 

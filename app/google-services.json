@@ -1,22 +1,27 @@
 {
   "project_info": {
-    "project_number": "497725350407",
-    "firebase_url": "https://odin-dd5ba.firebaseio.com",
-    "project_id": "odin-dd5ba",
-    "storage_bucket": "odin-dd5ba.appspot.com"
+    "project_number": "576767617837",
+    "firebase_url": "https://odin-377e9.firebaseio.com",
+    "project_id": "odin-377e9",
+    "storage_bucket": "odin-377e9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:497725350407:android:f8ebe55b052a61c2",
+        "mobilesdk_app_id": "1:576767617837:android:4ebc6fd4b0e54b51",
         "android_client_info": {
-          "package_name": "com.example.pushodin.pushodin"
+          "package_name": "com.pagatodo.yaganaste"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "576767617837-tkgg5cgpobggamt8si1h2svaorji8sgn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyAGq-I2mFbaUYHUfQPsK-XqTqa1Eel2Vkc"
+          "current_key": "AIzaSyCCgCUsn2unWARSZD-iLq5-VL5Ka90zO4M"
         }
       ],
       "services": {
@@ -26,53 +31,6 @@
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:497725350407:android:4ebc6fd4b0e54b51",
-        "android_client_info": {
-          "package_name": "com.pagatodo.yaganaste"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "497725350407-g16ajmhvs0m0k48hrghr4k13odo7e38o.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.pagatodo.yaganaste",
-            "certificate_hash": "cca9ff83d6f14d236506a54d216527ced41377fa"
-          }
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAGq-I2mFbaUYHUfQPsK-XqTqa1Eel2Vkc"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "497725350407-j11j7q9v1t9cggisbl7rqao0ak2ud7ko.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "497725350407-q4dvln37em5s04aflbqs3nt5j15jsneb.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.pagatodomobile.yaganaste-QA"
-              }
-            }
-          ]
         },
         "ads_service": {
           "status": 2
