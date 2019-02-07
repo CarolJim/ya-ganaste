@@ -443,7 +443,7 @@ public class ElementView implements ElementGlobal {
         //elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.realizar_cobro));
         elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, R.drawable.ic_ico_cobros_tarjeta, R.string.realizar_cobro));
         if (isuyu)
-        elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
+        elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_ico_ventas_tarjeta, R.string.operation_consultar_saldo));
         if (!App.getInstance().getPrefs().loadDataBoolean(IS_OPERADOR, false) && isuyu) {
             elementViews.add(new ElementView(OPTION_VENTAS_ADQAFUERA, R.drawable.ic_ico_ventas_dia, R.string.ventas_dia));
         }
