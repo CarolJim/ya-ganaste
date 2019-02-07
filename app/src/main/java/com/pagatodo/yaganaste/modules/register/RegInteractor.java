@@ -264,7 +264,7 @@ public class RegInteractor implements RegContracts.Iteractor, IRequestResult {
             CrearAgenteResponse response = (CrearAgenteResponse) dataSourceResult.getData();
             if (response.getCodigoRespuesta() == CODE_OK) {
                 listener.onSuccessValidatePlate("");
-                assignmentQrs();
+               // assignmentQrs();
 
 
             } else {
