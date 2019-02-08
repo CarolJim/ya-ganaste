@@ -1777,4 +1777,7 @@
     <string name="indication_adq_text_button">Vincular lector de tarjetas</string>
     <string name="indication_adq_text_label"><u>¿Aún no Cuentas con un Lector de Tarjetas?</u></string>
     <string name="indicationes_emi">\u2022 ¡Acepta tarjetas Visa, Mastercard y más!\n\n\u2022 La comisión más baja del mercado\n\n\u2022 Recibe tu dinero de inmediato\n\n\u2022 Regístrate en pocos pasos</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

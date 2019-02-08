@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_PRIVACIDAD;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_TERMINOS;
 
 
 /**
@@ -137,8 +138,8 @@ public class LegalsFragment extends GenericFragment implements IProgressView {
 
     private String getUrlLegals() {
         switch (typeLegal) {
-            /*case TERMINOS:
-                return URL_LEGALES_TERMINOS;*/
+            case TERMINOS:
+                return URL_LEGALES_TERMINOS;
             case PRIVACIDAD:
                 return URL_LEGALES_PRIVACIDAD;
             default:

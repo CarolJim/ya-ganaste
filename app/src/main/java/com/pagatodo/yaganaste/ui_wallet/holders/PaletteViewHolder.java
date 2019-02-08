@@ -74,6 +74,8 @@ public class PaletteViewHolder extends GenericHolder {
         this.imgAddFavorite = itemView.findViewById(R.id.imgAddFavorite);
         this.txtInicialesFav = itemView.findViewById(R.id.txtInicialesFav);
         this.txtNameFav = itemView.findViewById(R.id.txtNameFav);
+
+
     }
 
     @Override
@@ -81,6 +83,8 @@ public class PaletteViewHolder extends GenericHolder {
         Favoritos favorito = (Favoritos) item;
         imgAddFavorite.setVisibility(View.GONE);
         txtNameFav.setText(noSpaces(favorito.getNombre()));
+
+
         if (!favorito.getImagenURL().isEmpty()) {
             setImagePicasoFav(crlImageFavorite, favorito.getImagenURL());
         } else {
