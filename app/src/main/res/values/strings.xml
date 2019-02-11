@@ -1778,7 +1778,13 @@
     <string name="indication_adq_text_button">Vincular lector de tarjetas</string>
     <string name="indication_adq_text_label"><u>¿Aún no Cuentas con un Lector de Tarjetas?</u></string>
     <string name="indicationes_emi">\u2022 ¡Acepta tarjetas Visa, Mastercard y más!\n\n\u2022 La comisión más baja del mercado\n\n\u2022 Recibe tu dinero de inmediato\n\n\u2022 Regístrate en pocos pasos</string>
-    <string name="card_succes_p_active">Tu tarjeta Ya Ganaste fue activada\nexitosamente, ya puedes usarla para realizar\ncompras y retiros de efectivo</string>
-    <string name="contactos_favoritos">Contactos Favoritos</string>
-    <string name="selecciona_un_favorito_para_realizar_un_envio_de_dinero">Selecciona un favorito para realizar\nun envio de dinero</string>
+
+    <!--New Sends-->
+    <string name="number_card">Número de\nTarjeta</string>
+    <string name="number_telephone">Número de\nTeléfono</string>
+    <string name="clabe">Cuenta\nCLABE</string>
+    <string name="qr">Código\nQR</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

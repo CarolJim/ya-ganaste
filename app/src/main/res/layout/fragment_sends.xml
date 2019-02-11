@@ -6,13 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".ui.maintabs.fragments.SendsFragment">
 
+
     <LinearLayout
         android:id="@+id/component"
         android:layout_width="match_parent"
-        android:layout_height="71dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/gray_border_rectangle"
         android:orientation="vertical"
-        tools:ignore="MissingConstraints"></LinearLayout>
+        tools:ignore="MissingConstraints">
+
+        <com.pagatodo.view_manager.components.HeadWallet
+            android:id="@+id/headWallet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="25dp"
+            android:gravity="center_horizontal|center_vertical"
+            app:walletResImage="@mipmap/main_card_zoom_blue"
+            app:headAmount="1000"
+            app:headTitle="@string/app_name"
+            tools:ignore="MissingConstraints">
+
+        </com.pagatodo.view_manager.components.HeadWallet>
+    </LinearLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/subtitle_type_of_send"
@@ -26,80 +42,113 @@
         app:layout_constraintTop_toBottomOf="@+id/component"
         tools:ignore="MissingConstraints" />
 
+
     <LinearLayout
-        android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginRight="8dp"
+        android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/subtitle_type_of_send"
         tools:ignore="MissingConstraints">
 
-        <com.pagatodo.view_manager.components.IconButton
+        <LinearLayout
+            android:id="@+id/send_from_card"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="94dp"
+            android:layout_marginRight="4dp"
             android:layout_weight="1"
-            app:iconNameText="@string/app_name"
-            app:iconResImage="@drawable/ic_ico_ventas_tarjeta"
-            tools:ignore="MissingConstraints"></com.pagatodo.view_manager.components.IconButton>
+            android:background="@drawable/gray_border_rectangle"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical">
 
-        <com.pagatodo.view_manager.components.IconButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:iconNameText="@string/app_name"
-            app:iconResImage="@drawable/ic_ico_telefono"
-            tools:ignore="MissingConstraints"></com.pagatodo.view_manager.components.IconButton>
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/ic_ico_ventas_tarjeta" />
 
-        <com.pagatodo.view_manager.components.IconButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:iconNameText="@string/app_name"
-            app:iconResImage="@drawable/ic_ico_clabe"
-            tools:ignore="MissingConstraints"></com.pagatodo.view_manager.components.IconButton>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/number_card"
+                android:textAlignment="center"
+                android:textColor="@color/gray_slate" />
+        </LinearLayout>
 
-        <com.pagatodo.view_manager.components.IconButton
+        <LinearLayout
+            android:id="@+id/send_from_telephone"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="94dp"
+            android:layout_marginRight="4dp"
             android:layout_weight="1"
-            app:iconNameText="@string/app_name"
-            app:iconResImage="@drawable/ic_ico_scanqr"
-            tools:ignore="MissingConstraints"></com.pagatodo.view_manager.components.IconButton>
+            android:background="@drawable/gray_border_rectangle"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/ic_ico_telefono" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/number_telephone"
+                android:textAlignment="center"
+                android:textColor="@color/gray_slate" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/send_from_clabe"
+            android:layout_width="0dp"
+            android:layout_height="94dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/gray_border_rectangle"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/ic_ico_clabe" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/clabe"
+                android:textAlignment="center"
+                android:textColor="@color/gray_slate" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/send_from_qr"
+            android:layout_width="0dp"
+            android:layout_height="94dp"
+            android:layout_weight="1"
+            android:background="@drawable/gray_border_rectangle"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/ic_ico_scanqr" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/qr"
+                android:textAlignment="center"
+                android:textColor="@color/gray_slate" />
+        </LinearLayout>
+
+
     </LinearLayout>
-
-
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/subtitle_send_favo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:text="Seleccionar Tipo de Envio"
-        android:textColor="@color/blue_text_wallet"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="4dp" />
-
-    <com.pagatodo.yaganaste.utils.customviews.StyleButton
-        android:id="@+id/btn_show_fav"
-        style="@style/buttonSquareRoundedBluenewSend"
-        android:layout_marginStart="80dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="33dp"
-        android:background="@drawable/button_rounded_blue"
-        android:gravity="center"
-        android:text="Ver Todos"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/subtitle_send_favo"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-        tools:ignore="MissingConstraints" />
-
-
-
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
