@@ -316,6 +316,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 if (charSequence.toString().length() == 6) {
                     UI.hideKeyBoard(getActivity());
                     if (!UtilsNet.isOnline(getActivity())) {
+
                         UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
                     } else {
                         edt_psw_confirm.setVisibility(View.GONE);

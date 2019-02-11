@@ -12,6 +12,8 @@ public class AggregatorContracts {
 
     public interface Listener{
 
+
+
     }
 
     public interface Iteractor{

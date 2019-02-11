@@ -166,7 +166,7 @@ public class BussinesActivity extends LoaderActivity implements
                 loadFragment(PhysicalCodeAggregatorFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_NO_QR_LINKED:
-                loadFragment(NameQRFragment.newInstance("", R.string.title_code_digital_fragment), Direction.FORDWARD, false);
+                loadFragment(NameQRFragment.newInstance( (String) o, R.string.title_code_digital_fragment), Direction.FORDWARD, false);
                 break;
             case EVENT_QR_LINKED:
                 loadFragment(LinkedQRsFragment.newInstance(), Direction.FORDWARD, false);
@@ -362,7 +362,8 @@ public class BussinesActivity extends LoaderActivity implements
 
     @Override
     public void onSuccessValidatePlate(String plate) {
-        onEvent(EVENT_SUCCESS_AGGREGATOR, null);
+        //onEvent(EVENT_SUCCESS_AGGREGATOR, null);
+        onEvent(EVENT_NO_QR_LINKED, plate);
     }
 
     public void onErrorValidatePlate(String error) {

@@ -28,12 +28,13 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Giros;
-import com.pagatodo.yaganaste.data.model.RegisterAggregatorNew;
 import com.pagatodo.yaganaste.data.model.RegisterUserNew;
 import com.pagatodo.yaganaste.interfaces.IDatosNegView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.modules.register.RegContracts;
+import com.pagatodo.yaganaste.modules.register.RegInteractor;
 import com.pagatodo.yaganaste.modules.registerAggregator.AggregatorActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -50,13 +51,14 @@ import java.util.Comparator;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_HAS_QR;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SUCCESS_AGGREGATOR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BusinessDataFragment extends GenericFragment implements IOnSpinnerClick, IDatosNegView<ErrorObject>, ValidationForms {
+public class BusinessDataFragment extends GenericFragment implements IOnSpinnerClick, IDatosNegView<ErrorObject>, ValidationForms , RegContracts.Listener  {
 
     @BindView(R.id.spinnerBussineLine)
     Spinner spinnerBussineLine;
@@ -82,6 +84,8 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
     private static BussinesActivity activity;
     private DatosNegocioPresenter datosNegocioPresenter;
 
+    private RegInteractor regInteractor;
+
     public static BusinessDataFragment newInstance(BussinesActivity activitys) {
         activity = activitys;
         return new BusinessDataFragment();
@@ -97,7 +101,7 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.datosNegocioPresenter = new DatosNegocioPresenter(getActivity(), this);
-
+        regInteractor=new RegInteractor(this,getContext());
     }
 
     @Override
@@ -167,10 +171,38 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
     }
 
     @Override
+    public void onErrorService(String error) {
+
+    }
+
+    @Override
     public void hideLoader() {
         if (onEventListener != null) {
             onEventListener.onEvent(EVENT_HIDE_LOADER, null);
         }
+    }
+
+    @Override
+    public void onSuccessValidatePlate(String plate) {
+
+        regInteractor.updateSession();
+        //activity.onEvent(EVENT_SUCCESS_AGGREGATOR,null);
+    }
+
+    @Override
+    public void onErrorValidatePlate(String error) {
+
+    }
+
+    @Override
+    public void onSuccesupdateSession() {
+        activity.onEvent(EVENT_HIDE_LOADER,null);
+        activity.onEvent(EVENT_SUCCESS_AGGREGATOR,null);
+    }
+
+    @Override
+    public void onSErrorupdateSession() {
+
     }
 
     @Override
@@ -214,18 +246,13 @@ public class BusinessDataFragment extends GenericFragment implements IOnSpinnerC
 
     @Override
     public void onValidationSuccess() {
-        /*RegisterUserNew registerAgent = RegisterUserNew.getInstance();
+        RegisterUserNew registerAgent = RegisterUserNew.getInstance();
         registerAgent.setNombreNegocio(nombre);
         registerAgent.setIdGiro(giroArrayAdapter.getGiroId(spinnerBussineLine.getSelectedItemPosition()));
-        registerAgent.setGiroComercio(giroArrayAdapter.getItemSelected(spinnerBussineLine.getSelectedItemPosition()));*/
+        registerAgent.setGiroComercio(giroArrayAdapter.getItemSelected(spinnerBussineLine.getSelectedItemPosition()));
         //activityf.getRouter().showPhysicalCode(Direction.FORDWARD);
         //activity.getRouter().showPhysicalCode(Direction.FORDWARD);
-
-        RegisterAggregatorNew registerAggregatorNew = RegisterAggregatorNew.getInstance();
-        registerAggregatorNew.setNombreNegocio(nombre);
-        registerAggregatorNew.setIdGiro(giroArrayAdapter.getGiroId(spinnerBussineLine.getSelectedItemPosition()));
-        registerAggregatorNew.setGiroComercio(giroArrayAdapter.getItemSelected(spinnerBussineLine.getSelectedItemPosition()));
-        activity.onEvent(EVENT_HAS_QR,null);
+        regInteractor.createAgent();
     }
 
     @Override

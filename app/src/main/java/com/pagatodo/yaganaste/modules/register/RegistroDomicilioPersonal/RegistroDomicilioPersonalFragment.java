@@ -58,6 +58,7 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialogregistro.Legales.PRIVACIDAD;
+import static com.pagatodo.yaganaste.ui.account.register.LegalsDialogregistro.Legales.TERMINOS;
 
 /**
  * btnNextSelectZip
@@ -337,7 +338,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             public void onClick(View textView) {
                 boolean isOnline = Utils.isDeviceOnline();
                 if (isOnline) {
-                    LegalsDialogregistro legalsDialog = LegalsDialogregistro.newInstance(LegalsDialogregistro.Legales.TERMINOS);
+                    LegalsDialogregistro legalsDialog = LegalsDialogregistro.newInstance(TERMINOS);
                     legalsDialog.show(getActivity().getFragmentManager(), LegalsDialogregistro.TAG);
                 } else {
                     //  showDialogMesage(getResources().getString(R.string.no_internet_access));
