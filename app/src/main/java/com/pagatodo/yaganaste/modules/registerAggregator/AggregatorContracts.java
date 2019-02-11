@@ -20,5 +20,11 @@ public class AggregatorContracts {
 
     public interface Router{
         void showBusinessData(Direction direction);
+        void showPhysicalCodeAggregator(Direction direction);
+        void showScanQR(Direction direction);
+        void showDigitalCode(Direction direction);
+        void showAssignNameQR(Direction direction);
+        void showLinkedQRs(Direction direction);
+
     }
 }

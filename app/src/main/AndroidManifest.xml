@@ -143,11 +143,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="org.openudid.OpenUDID_service">
-            <intent-filter>
-                <action android:name="org.openudid.GETUDID" />
-            </intent-filter>
-        </service>
+
 
         <activity
             android:name=".ui._controllers.PreferUserActivity"

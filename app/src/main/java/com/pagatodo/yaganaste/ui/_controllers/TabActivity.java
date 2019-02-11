@@ -21,7 +21,9 @@ import android.util.Base64;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -125,6 +127,7 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_COMPLETE;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_COACHMARK;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.SIMPLE_NAME;
@@ -140,6 +143,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_ERROR_DOCUMENTS = "EVENT_ERROR_DOCUMENTS";
+    public static final String EVENT_SCAN_QR = "EVENT_SCAN_QR";
     public static final String EVENT_CARGA_DOCUMENTS = "EVENT_CARGA_DOCUMENTS";
     public static final String EVENT_DOCUMENT_APPROVED = "EVENT_DOCUMENT_APPROVED";
     public static final String EVENT_GO_HOME = "2";
@@ -180,6 +184,10 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     ViewGroup mLinearLayout;
     @BindView(R.id.txt_name_user)
     TextView nameUser;
+    @BindView(R.id.couchmark)
+    ImageView couchMark;
+    @BindView(R.id.close)
+    ImageView close;
     private int lastFrag;
 
 
@@ -203,8 +211,18 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         super.onCreate(savedInstanceState);
         /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.main_menu_drawer);
-
         ButterKnife.bind(this);
+        if (!App.getInstance().getPrefs().loadDataBoolean(IS_COACHMARK, true)) {
+            couchMark.setVisibility(View.GONE);
+            close.setVisibility(View.GONE);
+        } else {
+            couchMark.setVisibility(View.VISIBLE);
+            close.setVisibility(View.VISIBLE);
+        }
+        close.setOnClickListener(v -> {App.getInstance().getPrefs().saveDataBool(IS_COACHMARK, false);
+        couchMark.setVisibility(View.GONE);
+        close.setVisibility(View.GONE);});
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

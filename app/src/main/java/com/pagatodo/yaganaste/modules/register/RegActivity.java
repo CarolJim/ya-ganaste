@@ -198,6 +198,11 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
 
 
     @Override
+    public void onErrorService(String error) {
+
+    }
+
+    @Override
     public void onSuccessValidatePlate(String plate) {
         router.showNewLinkedCode(plate);
     }
@@ -205,6 +210,16 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
     @Override
     public void onErrorValidatePlate(String error) {
         UI.showErrorSnackBar(this,error,Snackbar.LENGTH_SHORT);
+    }
+
+    @Override
+    public void onSuccesupdateSession() {
+
+    }
+
+    @Override
+    public void onSErrorupdateSession() {
+
     }
 
 }

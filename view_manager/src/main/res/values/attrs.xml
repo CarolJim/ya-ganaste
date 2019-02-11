@@ -2,7 +2,7 @@
 <resources>
     <declare-styleable name="IconButton">
         <attr name="iconResImage" format="reference"/>
-        <attr name="iconNameText" format="reference"/>
+        <attr name="iconNameText" format="reference|string"/>
     </declare-styleable>
     <declare-styleable name="LabelArrow">
         <attr name="lablelTitle" format="reference"/>
@@ -24,5 +24,10 @@
     </declare-styleable>
     <declare-styleable name="InputCardNumber">
         <attr name="labelHintInput" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="HeadWallet">
+        <attr name="walletResImage" format="reference"/>
+        <attr name="headTitle" format="reference|string"/>
+        <attr name="headAmount" format="reference|string"/>
     </declare-styleable>
 </resources>

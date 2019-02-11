@@ -275,63 +275,64 @@ public class ElementView implements ElementGlobal {
         if (!App.getInstance().getPrefs().loadDataBoolean(IS_OPERADOR, false) && isComercioUyu) {
             elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ico_operador, R.string.mis_operadores, list, nombreN, numeroAgente, idComercio));
             elementViews.add(new ElementView(OPTION_VENTAS_ADQ, R.drawable.ico_reportes, R.string.ventas_dia, list, nombreN, numeroAgente, idComercio));
-        }
-        List<Agentes> agentes = new ArrayList<>();
-        try {
-            agentes = new DatabaseManager().getAgentes();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        //elementViews.add(new ElementView(OPTION_TRANSFER_BALANCE, R.drawable.ic_transfer, R.string.transfer_balance));
-        if (agentes.size() < 2) {
-            //elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
-            //elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
-            elementViews.add(new ElementView(OPTION_CHARGE_WITH_CARD, R.drawable.ic_chip_nip, R.string.realizar_cobro));
-            elementViews.add(new ElementView(OPTION_MY_CARD_SALES, R.drawable.ic_card, R.string.my_card_sales));
-        }
-
-        if (!isAgente) {
-            elementViews = ElementView.getListLectorEmi();
         } else {
-            //idEstatusAgente = 12;
-
-
-            if (idEstatusAgente == IdEstatus.I6.getId()) {
-                elementViews = ElementView.getListEstadoContinuarRegistro(idComercio);
-            } else if (idEstatusAgente == IdEstatus.I7.getId() ||
-                    idEstatusAgente == IdEstatus.I8.getId() ||
-                    idEstatusAgente == IdEstatus.I11.getId() ||
-                    App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) == STATUS_DOCTO_PENDIENTE) {
-                elementViews = ElementView.getListEstadoRevisando(idComercio);
-            } else if (idEstatusAgente == IdEstatus.I9.getId()) {
-                elementViews = ElementView.getListEstadoError(idComercio);
-            } else if (idEstatusAgente == IdEstatus.I10.getId() || idEstatusAgente == IdEstatus.I13.getId()) {
-                elementViews = ElementView.getListEstadoRechazado(idComercio);
-            } else
-            /*if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
-                    !App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)
-                    && !isComercioUyu) {
-                elementViews = ElementView.getListSeleccionarLector(idComercio);
-            }*/
-            if (idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
-                    !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)
-                    && !isComercioUyu) {
-                //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
-                elementViews = ElementView.getListSeleccionarTipoReevolso(idComercio);
-                for (Operadores opr : list) {
-                    if (opr.getIsAdmin()) {
-                        RequestHeaders.setIdCuentaAdq(opr.getIdUsuarioAdquirente());
-                    }
-                }
-            } else if (idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
-                    !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false)) {
-                App.getInstance().getPrefs().saveDataInt(ESTATUS_DOCUMENTACION, STATUS_DOCTO_APROBADO);
-                elementViews = ElementView.getListEstadoAprobado(idComercio);
-            } else {
-                App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
+            List<Agentes> agentes = new ArrayList<>();
+            try {
+                agentes = new DatabaseManager().getAgentes();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
             }
 
+            //elementViews.add(new ElementView(OPTION_TRANSFER_BALANCE, R.drawable.ic_transfer, R.string.transfer_balance));
+            if (agentes.size() < 2) {
+                //elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
+                //elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
+                elementViews.add(new ElementView(OPTION_CHARGE_WITH_CARD, R.drawable.ic_chip_nip, R.string.realizar_cobro));
+                elementViews.add(new ElementView(OPTION_MY_CARD_SALES, R.drawable.ic_card, R.string.my_card_sales));
+            }
+
+            if (!isAgente) {
+                elementViews = ElementView.getListLectorEmi();
+            } else {
+                //idEstatusAgente = 12;
+
+
+                if (idEstatusAgente == IdEstatus.I6.getId()) {
+                    elementViews = ElementView.getListEstadoContinuarRegistro(idComercio);
+                } else if (idEstatusAgente == IdEstatus.I7.getId() ||
+                        idEstatusAgente == IdEstatus.I8.getId() ||
+                        idEstatusAgente == IdEstatus.I11.getId() ||
+                        App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) == STATUS_DOCTO_PENDIENTE) {
+                    elementViews = ElementView.getListEstadoRevisando(idComercio);
+                } else if (idEstatusAgente == IdEstatus.I9.getId()) {
+                    elementViews = ElementView.getListEstadoError(idComercio);
+                } else if (idEstatusAgente == IdEstatus.I10.getId() || idEstatusAgente == IdEstatus.I13.getId()) {
+                    elementViews = ElementView.getListEstadoRechazado(idComercio);
+                } else
+                /*if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
+                        !App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)
+                        && !isComercioUyu) {
+                    elementViews = ElementView.getListSeleccionarLector(idComercio);
+                }*/
+                    if (idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
+                            !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)
+                            && !isComercioUyu) {
+                        //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
+                        elementViews = ElementView.getListSeleccionarTipoReevolso(idComercio);
+                        for (Operadores opr : list) {
+                            if (opr.getIsAdmin()) {
+                                RequestHeaders.setIdCuentaAdq(opr.getIdUsuarioAdquirente());
+                            }
+                        }
+                    } else if (idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
+                            !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false)) {
+                        App.getInstance().getPrefs().saveDataInt(ESTATUS_DOCUMENTACION, STATUS_DOCTO_APROBADO);
+                        elementViews = ElementView.getListEstadoAprobado(idComercio);
+                    } else {
+                        App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
+                    }
+
+            }
         }
         return elementViews;
     }

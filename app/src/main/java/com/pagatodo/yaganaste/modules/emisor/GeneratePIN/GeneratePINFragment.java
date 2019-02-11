@@ -118,8 +118,9 @@ public class GeneratePINFragment extends SupportFragment implements InputSecretL
                         .getCuentas().get(0).getTarjetas().get(0).getNumero().trim());*/
                     //interactor.validateCard(editNumberCard.getText().toString().trim());
                     //interactor.onBlockCard("1234567890123456");
-                    this.interactor.onBlockCard(SingletonUser.getInstance().getDataUser().getEmisor()
-                            .getCuentas().get(0).getTarjetas().get(0).getNumero().trim());
+                    /*this.interactor.onBlockCard(SingletonUser.getInstance().getDataUser().getEmisor()
+                            .getCuentas().get(0).getTarjetas().get(0).getNumero().trim());*/
+                    this.interactor.onRemplaceCard("","5389840600017999");
                 }
                 return true;
             }
@@ -189,7 +190,7 @@ public class GeneratePINFragment extends SupportFragment implements InputSecretL
     public void onSucces() {
 
         //this.activity.getRouter().onShowCardActiveSuccess();
-        UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()),"BIEN",Snackbar.LENGTH_SHORT);
+        //UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()),"BIEN",Snackbar.LENGTH_SHORT);
     }
 
     @Override

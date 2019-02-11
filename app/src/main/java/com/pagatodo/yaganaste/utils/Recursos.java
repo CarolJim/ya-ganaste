@@ -30,7 +30,7 @@ public class Recursos {
 
 
     static {
-        if (!BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             TOKEN_MIXPANEL = "bb0493fd161cef149b014e8a4e5f130e";
             URL_BD_ODIN = "https://odin-dd5ba.firebaseio.com";
             URL_BD_ODIN_USERS = "https://odin-mx-users.firebaseio.com";
@@ -323,4 +323,7 @@ public class Recursos {
     public static final String COMPANY = "company";
     public static final String AMOUNT = "amount";
     public static final String EMAIL_REGISTER = "email_register";
+
+    /* */
+    public static final String IS_COACHMARK = "IS_COACHMARK";
 }

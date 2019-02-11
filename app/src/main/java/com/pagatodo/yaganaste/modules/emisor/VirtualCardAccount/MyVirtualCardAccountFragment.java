@@ -41,6 +41,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuent
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaUyUResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EmisorResponse;
+import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.modules.emisor.WalletMainActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
@@ -48,6 +49,8 @@ import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
+import com.pagatodo.yaganaste.ui_wallet.dialog.DialogSetPasswordLogin;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IDialogSetPassword;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.Container;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.Recursos;
@@ -66,6 +69,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.Objects;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -353,7 +357,34 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !preferencias.loadData(PSW_CPR).equals("")) {
             if (!fingerprintManager.isHardwareDetected()) {
+                String mensajeB ="";
+                if (cardStatusId.equals("1")) {
+                    // Operacion para Bloquear tarjeta
+                    mensajeB = getContext().getResources().getString(R.string.ingresa_pass_block);
+                } else {
+                    // Operacion para Desbloquear tarjeta
+                    mensajeB = getContext().getResources().getString(R.string.ingresa_pass_desblock);
+                }
+                DialogSetPasswordLogin dialogPassword;
+                dialogPassword = new DialogSetPasswordLogin();
+                dialogPassword.setListener(new IDialogSetPassword() {
+                    @Override
+                    public void onPasswordSet(String xps) {
+                        loadOtpHuella();
+                    }
 
+                    @Override
+                    public void onOtpGenerated(String otp) {
+
+                    }
+
+                    @Override
+                    public void showError(Errors error) {
+
+                    }
+                });
+                dialogPassword.setTitle(mensajeB);
+                dialogPassword.show(Objects.requireNonNull(getActivity()).getFragmentManager(), "Dialog Set Password");
             } else {
                 try {
                     mKeyStore = KeyStore.getInstance("AndroidKeyStore");
