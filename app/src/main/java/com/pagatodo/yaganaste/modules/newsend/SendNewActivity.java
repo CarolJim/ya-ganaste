@@ -22,7 +22,7 @@ public class SendNewActivity extends LoaderActivity implements  SendNewContracts
     int idFragment;
 
     public static Intent createIntent(Activity activity, int tag){
-        Intent intent = new Intent(activity, QrOperationActivity.class);
+        Intent intent = new Intent(activity, SendNewActivity.class);
         intent.putExtra(TAG_ID_FRAGMENT,tag);
         return intent;
     }

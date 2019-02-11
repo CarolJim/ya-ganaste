@@ -4,17 +4,23 @@ package com.pagatodo.yaganaste.modules.newsend.AllFavorites;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import butterknife.BindView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AllFavoritesFragment extends Fragment implements   View.OnClickListener{
+public class AllFavoritesFragment extends GenericFragment implements   View.OnClickListener{
+
+    @BindView(R.id.text_email)
+    TextInputLayout text_email;
 
 
     public  static  AllFavoritesFragment newInstance(){
@@ -40,6 +46,11 @@ public class AllFavoritesFragment extends Fragment implements   View.OnClickList
 
     @Override
     public void onClick(View v) {
+
+    }
+
+    @Override
+    public void initViews() {
 
     }
 }
