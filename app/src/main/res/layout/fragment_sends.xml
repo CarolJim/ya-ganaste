@@ -134,6 +134,36 @@
             android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical">
 
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/subtitle_send_favo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:text="Seleccionar Tipo de Envio"
+        android:textColor="@color/blue_text_wallet"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="4dp" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btn_show_fav"
+        style="@style/buttonSquareRoundedBluenewSend"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/button_rounded_blue"
+        android:gravity="center"
+        android:text="Ver Todos"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/subtitle_send_favo"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
+        tools:ignore="MissingConstraints" />
+
+
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -147,6 +177,24 @@
                 android:textAlignment="center"
                 android:textColor="@color/gray_slate" />
         </LinearLayout>
+
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:id="@+id/content_linearlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+
 
 
     </LinearLayout>
