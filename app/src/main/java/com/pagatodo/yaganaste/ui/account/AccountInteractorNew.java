@@ -903,7 +903,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                         if (!dataUser.getControl().getRequiereActivacionSMS()) {
                             stepByUserStatus = EVENT_GO_ASSIGN_NEW_CONTRASE;
                         } else {
-                            if (dataUser.getEmisor().getCuentas().get(0).getTarjetas().get(0).getAsignoNip()) { // NO necesita NIP
+                            if (dataUser.getEmisor().getCuentas().get(0).getTarjetas().get(0).getAsignoNip()  ) { // NO necesita NIP
                                 checkAfterLogin();
                                 return;
                             } else {//Requiere setear el NIP
@@ -969,7 +969,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void registerUserInFirebase(DataIniciarSesionUYU data, String stepUser) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.createUserWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "123456")
+        auth.createUserWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "93682157")
                 .addOnCompleteListener(task -> {
                     prefs.saveDataBool(HAS_FIREBASE_ACCOUNT, true);
                     if (task.isSuccessful()) {

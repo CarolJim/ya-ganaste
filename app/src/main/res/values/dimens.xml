@@ -59,6 +59,7 @@
 
     <!-- Botones xhdpi-->
     <dimen name="height_btns">45dp</dimen>
+    <dimen name="height_btns_small">30dp</dimen>
     <dimen name="width_btns">162dp</dimen>
     <dimen name="width_btns_big">214dp</dimen>
     <dimen name="width_btns_small">108dp</dimen>

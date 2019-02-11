@@ -276,7 +276,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                     // edtitConfirmEmail.imageViewIsGone(true);
                     txt_lyt_receiver_name.setBackgroundResource(R.drawable.inputtext_active);
                 } else {
-
                     txt_lyt_receiver_name.setBackgroundResource(R.drawable.inputtext_normal);
 
                 }

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+
+    <LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        >
+
+        <RelativeLayout
+            android:id="@+id/itemGallery"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/crlImageFavorite"
+                android:layout_width="450dp"
+                android:layout_height="45dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circle" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgItemGalleryStatus"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignRight="@+id/layoutImg"
+                android:src="@color/bgColor"
+                android:visibility="gone"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_width="2dp" />
+
+            <ImageView
+                android:id="@+id/imgAddFavorite"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_ico_wallet"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/txtnameFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            android:text="Armando Sandovla"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/txtBancoFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:textColor="@color/gray_text_wallet_3"
+            android:textSize="12sp"
+            android:text="Armando Sandovla"
+            android:visibility="visible" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/gray_space"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        ></LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2.8"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_editpencil"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>

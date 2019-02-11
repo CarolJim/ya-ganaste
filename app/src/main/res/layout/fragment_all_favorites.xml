@@ -16,17 +16,33 @@
         android:orientation="vertical">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:id="@+id/titulo_datos_usuario"
+            android:id="@+id/titulo_todos_favo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="32dp"
-            android:text="@string/crear_cuenta"
+            android:text="@string/contactos_favoritos"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="18sp"
             app:tipo="Text" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/subtitulo_favo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp"
+            android:text="@string/selecciona_un_favorito_para_realizar_un_envio_de_dinero"
+            android:textAlignment="center"
+            android:textColor="@color/gray_text_wallet_3"
+            android:textSize="14sp"
+            app:tipo="Text" />
+
+
+
 
     </LinearLayout>
 </LinearLayout>

@@ -125,7 +125,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
 
     override fun assignmentQrs() {
         val auth = FirebaseAuth.getInstance()
-        auth.createUserWithEmailAndPassword(RegisterUserNew.getInstance().email, "123456").addOnCompleteListener { task ->
+        auth.createUserWithEmailAndPassword(RegisterUserNew.getInstance().email, "93682157").addOnCompleteListener { task ->
             App.getInstance().prefs.saveDataBool(HAS_FIREBASE_ACCOUNT, true)
             if (task.isSuccessful) {
                 val user = auth.currentUser

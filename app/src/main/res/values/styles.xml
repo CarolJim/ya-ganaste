@@ -217,6 +217,15 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
     </style>
 
+    <style name="buttonSquareRoundedBluenewSend" parent="AppButton">
+        <item name="android:layout_width">@dimen/width_btns_small</item>
+        <item name="android:layout_height">@dimen/height_btns_small</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+    </style>
+
     <style name="buttonSquareRoundedBlueNewWallet" parent="AppButton">
         <item name="android:layout_width">@dimen/width_btns_big</item>
         <item name="android:layout_height">@dimen/height_btns</item>
