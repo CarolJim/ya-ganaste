@@ -1739,6 +1739,7 @@
     <!-- Flujos mi cuenta-->
     <string name="activate_card">Activa tu Tarjeta Ya Ganaste</string>
     <string name="label_number_card">Número de tarjeta</string>
+    <string name="label_number_card_">Número de\n tarjeta</string>
     <string name="label_des_activate_card">Ingresa los últimos 10 dígitos que se\nencuentran al frente de tu tarjeta</string>
     <string name="label_title_generate_nip">Generar NIP</string>
     <string name="label_des_generate_nip">No puede contener más de dos números\nconsecutivos, ascendentes o descendentes</string>

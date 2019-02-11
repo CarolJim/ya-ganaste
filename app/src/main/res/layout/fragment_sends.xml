@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.maintabs.fragments.SendsFragment">
+
+    <LinearLayout
+        android:id="@+id/component"
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:background="@drawable/gray_border_rectangle"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"></LinearLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/subtitle_type_of_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="24dp"
+        android:text="Seleccionar Tipo de Envio"
+        android:textColor="@color/blue_text_wallet"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/component"
+        tools:ignore="MissingConstraints" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/subtitle_type_of_send"
+        tools:ignore="MissingConstraints">
+
+        <com.pagatodo.view_manager.components.IconButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:iconNameText="@string/app_name"
+            app:iconResImage="@drawable/ic_ico_ventas_tarjeta"
+            tools:ignore="MissingConstraints"></com.pagatodo.view_manager.components.IconButton>
+
+        <com.pagatodo.view_manager.components.IconButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:iconNameText="@string/app_name"
+            app:iconResImage="@drawable/ic_ico_telefono"
+            tools:ignore="MissingConstraints"></com.pagatodo.view_manager.components.IconButton>
+
+        <com.pagatodo.view_manager.components.IconButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:iconNameText="@string/app_name"
+            app:iconResImage="@drawable/ic_ico_clabe"
+            tools:ignore="MissingConstraints"></com.pagatodo.view_manager.components.IconButton>
+
+        <com.pagatodo.view_manager.components.IconButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:iconNameText="@string/app_name"
+            app:iconResImage="@drawable/ic_ico_scanqr"
+            tools:ignore="MissingConstraints"></com.pagatodo.view_manager.components.IconButton>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
