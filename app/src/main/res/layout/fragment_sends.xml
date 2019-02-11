@@ -44,14 +44,14 @@
 
 
     <LinearLayout
+        android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginRight="8dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/subtitle_type_of_send"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="8dp">
 
         <LinearLayout
             android:id="@+id/send_from_card"
@@ -134,36 +134,6 @@
             android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical">
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/subtitle_send_favo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:text="Seleccionar Tipo de Envio"
-        android:textColor="@color/blue_text_wallet"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="4dp" />
-
-    <com.pagatodo.yaganaste.utils.customviews.StyleButton
-        android:id="@+id/btn_show_fav"
-        style="@style/buttonSquareRoundedBluenewSend"
-        android:layout_marginStart="80dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/button_rounded_blue"
-        android:gravity="center"
-        android:text="Ver Todos"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/subtitle_send_favo"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-        tools:ignore="MissingConstraints" />
-
-
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -179,9 +149,53 @@
         </LinearLayout>
 
 
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        android:id="@+id/lny_sendf"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="8dp">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/subtitle_send_favo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enviar_a_un_favorit"
+            android:textColor="@color/blue_text_wallet"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btn_show_fav"
+            style="@style/buttonSquareRoundedBluenewSend"
+
+            android:background="@drawable/button_rounded_blue"
+            android:gravity="center"
+            android:text="Ver Todos"
+            android:layout_marginRight="8dp"
+            android:textSize="14sp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="215dp" />
+
+    </LinearLayout>
+
     <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/lny_sendf"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
@@ -195,8 +209,5 @@
             android:orientation="horizontal" />
     </HorizontalScrollView>
 
-
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
