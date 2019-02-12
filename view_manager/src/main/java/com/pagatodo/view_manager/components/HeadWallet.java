@@ -110,6 +110,7 @@ public class HeadWallet extends LinearLayout implements LauncherHolder<HeadWalle
             amount = Double.parseDouble(money);
         } catch (NumberFormatException e){
             amount = 0d;
+            return money;
         }
         Locale locale = new Locale("en", "US");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);

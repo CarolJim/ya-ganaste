@@ -30,7 +30,7 @@
         app:layout_constraintBottom_toTopOf="@+id/text_amount"
         app:layout_constraintStart_toEndOf="@+id/img_wallet"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="spread" />
 
     <TextView
         android:id="@+id/text_amount"

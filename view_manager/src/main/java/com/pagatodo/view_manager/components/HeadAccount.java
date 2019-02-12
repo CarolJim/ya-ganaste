@@ -54,7 +54,12 @@ public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAcco
                     attrs,
                     R.styleable.HeadAccount,
                     0, 0);
-            a.recycle();
+            try {
+
+            }finally {
+                a.recycle();
+            }
+
         }
         addView(rootView);
     }
@@ -108,13 +113,12 @@ public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAcco
     }
 
     private GradientDrawable createCircleDrawable(int colorBackground, int colorBorder) {
-        // Creamos el circulo que mostraremos
         int strokeWidth = 2; // 3px not dp
         int roundRadius = 140; // 8px not dp
         GradientDrawable gd = new GradientDrawable();
         gd.setColor(colorBackground);
         gd.setCornerRadius(roundRadius);
-        //gd.setStroke(strokeWidth, colorBorder);
+        gd.setStroke(strokeWidth, colorBorder);
         return gd;
     }
 
@@ -124,7 +128,7 @@ public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAcco
         }
 
         String[] spliName = fullName.trim().split(" ");
-        String sIniciales = "";
+        String sIniciales;
         if (spliName.length > 1) {
             sIniciales = spliName[0].substring(0, 1) + spliName[1].substring(0, 1).toUpperCase();
             return sIniciales;
