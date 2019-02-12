@@ -36,11 +36,13 @@ import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.ContainerBuilder;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static android.view.View.GONE;
@@ -119,7 +121,7 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
                 UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
             } else {
                 onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
-//            paymentsCarouselPresenter.getCarouselItems();
+                paymentsCarouselPresenter.getCarouselItems();
                 paymentsCarouselPresenter.getFavoriteCarouselItems();
             }
 
@@ -156,6 +158,52 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
 
         }
 
+    private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
+        backUpResponse = new ArrayList<>();
+        ArrayList<Integer> orderBy = new ArrayList<>();
+        finalList = new ArrayList<>();
+        orderBy.add(8609);
+        orderBy.add(785);
+        orderBy.add(779);
+        orderBy.add(787);
+        orderBy.add(809);
+        orderBy.add(790);
+        orderBy.add(799);
+        orderBy.add(796);
+        orderBy.add(832);
+
+        backUpResponsefinal = new ArrayList<>();
+
+        mResponse = Utils.removeNullCarouselItem(mResponse);
+        for (CarouselItem carouselItem : mResponse) {
+            backUpResponse.add(carouselItem);
+        }
+
+        /**
+         * Buscamos en nuestro orderBy cada elemento en un ciclo adicional de originalList, si el ID existe
+         * lo agregamos a nuesta finalList. Y eliminamos ese elemnto de originalList
+         */
+        for (Integer miList : orderBy) {
+            for (int x = 0; x < backUpResponse.size(); x++) {
+                if (backUpResponse.get(x).getComercio().getIdComercio() == miList) {
+                    finalList.add(backUpResponse.get(x));
+                    backUpResponse.remove(x);
+                }
+            }
+        }
+        Collections.sort(backUpResponse, new Comparator<CarouselItem>() {
+            @Override
+            public int compare(CarouselItem o1, CarouselItem o2) {
+                return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
+            }
+
+        });
+        for (int x = 0; x < backUpResponse.size(); x++) {
+            finalList.add(backUpResponse.get(x));
+        }
+    }
+
+
         private void setBackUpResponseFav(ArrayList<CarouselItem> mResponse) {
             backUpResponsefavo = new ArrayList<>();
             backUpResponseFavoritos = new ArrayList<>();
@@ -169,7 +217,7 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
 
         @Override
         public void setCarouselData(ArrayList<CarouselItem> response) {
-
+            setBackUpResponse(response);
         }
 
 
@@ -239,7 +287,7 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
                 intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
                 intentAddFavorite.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_CERO);
                 startActivityForResult(intentAddFavorite, RESUL_FAVORITES);
-            }/*else {
+            }else {
                 // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
 
                 idComercio = 0;
@@ -269,21 +317,11 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
                         break;
                 }
 
-
-
                 for (int x = 0; x < finalList.size(); x++) {
                     if (finalList.get(x).getComercio().getIdComercio() == myIdComercio) {
                         comercioItem = finalList.get(x).getComercio();
-                        editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
                         idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
                         idComercio = finalList.get(x).getComercio().getIdComercio();
-                        if (idComercio == IDCOMERCIO_YA_GANASTE) {
-                            referenciaLayout.setVisibility(GONE);
-                            concept.setImeOptions(IME_ACTION_DONE);
-                            concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
-                        } else {
-                            referenciaLayout.setVisibility(View.VISIBLE);
-                        }
                     }
                 }
 
@@ -301,7 +339,7 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
                 clearContent();
 
 
-            }*/
+            }
         }
 }
 
