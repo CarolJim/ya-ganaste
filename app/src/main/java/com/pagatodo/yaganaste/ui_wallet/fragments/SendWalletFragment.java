@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.pagatodo.view_manager.components.HeadAccount;
+import com.pagatodo.view_manager.components.HeadWallet;
+import com.pagatodo.view_manager.controllers.dataholders.HeadAccountData;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
@@ -56,6 +59,12 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
     TextView txtInicialesFav;
     @BindView(R.id.enviar)
     StyleTextView btnEnviar;
+    @BindView(R.id.edit_conc)
+    EditText edit_conc;
+
+    @BindView(R.id.headWallet)
+    HeadWallet headWallet;
+
 
     View view;
 
@@ -98,18 +107,33 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
         tvMontoDecimal = (StyleTextView) view.findViewById(R.id.tv_monto_decimal);
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
+        headWallet.setAmount(App.getInstance().getPrefs().loadData(USER_BALANCE));
+        headWallet.setTitle("Saldo actual");
+
+
+
+
+
+
 
         SingletonUser dataUser = SingletonUser.getInstance();
         saldoDisponible.setText("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         txtReceiverName.setText(payments.getNombreDestinatario());
         if (favoritos != null) {
+
+
+
+
+
             txtInicialesFav.setVisibility(View.GONE);
             if (!favoritos.getImagenURL().equals("")) {
+                favoritos.setImagenURL(favoritos.getImagenURL());
                 Picasso.get()
                         .load(favoritos.getImagenURL())
                         .placeholder(R.mipmap.icon_user_fail)
                         .into(crlImageFavorite);
             } else {
+                favoritos.setImagenURL("");
                 txtInicialesFav.setVisibility(View.VISIBLE);
                 GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(payments.getComercio().getColorMarca()),
                         android.graphics.Color.parseColor(payments.getComercio().getColorMarca()));
@@ -117,6 +141,18 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
                 String sIniciales = getIniciales(payments.getNombreDestinatario());
                 txtInicialesFav.setText(sIniciales);
             }
+
+            favoritos.setColorMarca(payments.getComercio().getColorMarca());
+            favoritos.setNombre(payments.getNombreDestinatario());
+            favoritos.setReferencia(payments.getReferenciaNumerica());
+
+            HeadAccount headAccount = view.findViewById(R.id.head_account);
+            headAccount.bind(HeadAccountData.create(favoritos.getImagenURL(),
+                    favoritos.getColorMarca(),
+                    favoritos.getNombre(),
+                    favoritos.getReferencia()),null);
+
+
         } else {
             txtInicialesFav.setVisibility(View.VISIBLE);
             GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(payments.getComercio().getColorMarca()),
@@ -160,6 +196,9 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
                 //UI.createSimpleCustomDialog("Error", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
                 UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
             } else {
+                if (edit_conc.getText().toString().trim().length()>0){
+                    payments.setConcepto(edit_conc.getText().toString().trim());
+                }
                 payments.setMonto(monto);
                 if(payments.getReferencia().length()==22){
                     payments.setReferencia(payments.getReferencia().replace(" ",""));

@@ -564,7 +564,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
 
     @Override
     public void onError(String msj) {
-        UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),"TODO MAL",Snackbar.LENGTH_SHORT);
+       // UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),"TODO MAL",Snackbar.LENGTH_SHORT);
     }
 
     @Override
