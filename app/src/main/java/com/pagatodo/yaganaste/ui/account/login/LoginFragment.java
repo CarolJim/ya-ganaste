@@ -709,15 +709,15 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     private void updatePhoto() {
         String mUserImage = preferencias.loadData(URL_PHOTO_USER);
         if (preferencias.loadData(GENERO) == "H" || preferencias.loadData(GENERO) == "h") {
-            Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
+            Picasso.get().load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user_fail).error(R.drawable.avatar_el)
                     .into(imgLoginExistProfile);
         } else if (preferencias.loadData(GENERO) == "M" || preferencias.loadData(GENERO) == "m") {
-            Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
+            Picasso.get().load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user_fail).error(R.drawable.avatar_ella)
                     .into(imgLoginExistProfile);
         } else {
-            Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
+            Picasso.get().load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user_fail).error(R.mipmap.icon_user_fail)
                     .into(imgLoginExistProfile);
         }

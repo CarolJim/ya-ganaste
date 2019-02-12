@@ -316,12 +316,12 @@ public class PaymentAdapterGV extends BaseAdapter {
     }
 
     private void setImagePicaso(ImageView imageView, String urlLogo) {
-        Picasso.with(App.getContext()).load(App.getContext().getString(R.string.url_images_logos) + urlLogo)
+        Picasso.get().load(App.getContext().getString(R.string.url_images_logos) + urlLogo)
                 .into(imageView);
     }
 
     private void setImagePicasoFav(ImageView imageView, String urlLogo) {
-        Picasso.with(App.getContext()).load(urlLogo)
+        Picasso.get().load(urlLogo)
                 .placeholder(R.drawable.ic_avatar_holder)
                 .error(R.drawable.ic_avatar_holder)
                 .into(imageView);

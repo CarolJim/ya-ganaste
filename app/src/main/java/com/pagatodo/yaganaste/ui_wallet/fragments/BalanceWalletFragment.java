@@ -852,7 +852,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     private void updatePhoto() {
         String mUserImage = prefs.loadData(URL_PHOTO_USER);
 
-        Picasso.with(getContext())
+        Picasso.get()
                 .load(StringUtils.procesarURLString(mUserImage))
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .error(R.mipmap.icon_user_fail)

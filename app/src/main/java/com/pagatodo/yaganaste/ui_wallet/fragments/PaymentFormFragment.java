@@ -529,7 +529,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         txtSaldo.setText("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         String imagenavatar = dataUser.getDataUser().getUsuario().getImagenAvatarURL();
         if (!imagenavatar.equals("")) {
-            Picasso.with(App.getContext())
+            Picasso.get()
                     .load(imagenavatar)
                     .placeholder(R.mipmap.icon_user_fail)
                     .into(imgUserPhoto);
@@ -537,7 +537,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
         if (isFavorite) {
             if (!favoritos.getImagenURL().equals("")) {
-                Picasso.with(getContext())
+                Picasso.get()
                         .load(favoritos.getImagenURL())
                         .placeholder(R.mipmap.icon_user_fail)
                         .into(circuleDataPhoto);
@@ -551,7 +551,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             }
         } else {
             if (!comercioResponse.getLogoURLColor().equals("")) {
-                Picasso.with(App.getContext())
+                Picasso.get()
                         .load(App.getContext().getString(R.string.url_images_logos) + comercioResponse.getLogoURLColor())
                         .placeholder(R.mipmap.icon_user_fail)
                         .into(imageDataPhoto);
