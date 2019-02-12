@@ -27,6 +27,8 @@ public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAcco
     private LinearLayout circlePersonContent;
     private ImageView circlePerson;
     private TextView txtIniciales;
+    private TextView txtName;
+    private TextView txtReference;
 
     public HeadAccount(Context context) {
         super(context);
@@ -62,17 +64,16 @@ public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAcco
         circlePersonContent = rootView.findViewById(R.id.circle_person_content);
         circlePerson = rootView.findViewById(R.id.circle_person);
         txtIniciales = rootView.findViewById(R.id.txtIniciales);
-
+        txtName = rootView.findViewById(R.id.label_name);
+        txtReference = rootView.findViewById(R.id.label_reference);
     }
 
     @Override
     public void bind(HeadAccountData item, OnHolderListener<HeadAccountData> listener) {
-        /*Picasso.get()
-                .load("https://www.blogdigital.mx/images/2016/10/18/blog-digital-persona-pensando_large.jpg")
-                .resize(50, 50)
-                .centerCrop()
-                .into(circlePerson);*/
-        if (item.getUrlImage().isEmpty()){
+        txtName.setText(item.getName());
+        txtReference.setText(item.getReference());
+
+        if (!item.getUrlImage().isEmpty()){
             setImageURL(item.getUrlImage());
             circlePerson.setVisibility(VISIBLE);
             circlePersonContent.setVisibility(GONE);
@@ -113,7 +114,7 @@ public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAcco
         GradientDrawable gd = new GradientDrawable();
         gd.setColor(colorBackground);
         gd.setCornerRadius(roundRadius);
-        gd.setStroke(strokeWidth, colorBorder);
+        //gd.setStroke(strokeWidth, colorBorder);
         return gd;
     }
 

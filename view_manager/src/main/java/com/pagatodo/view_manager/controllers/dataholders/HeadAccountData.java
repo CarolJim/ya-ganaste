@@ -4,15 +4,17 @@ public class HeadAccountData {
     private String urlImage;
     private String colorMarca;
     private String name;
+    private String reference;
 
-    private HeadAccountData(String urlImage, String colorMarca, String name) {
+    public HeadAccountData(String urlImage, String colorMarca, String name, String reference) {
         this.urlImage = urlImage;
         this.colorMarca = colorMarca;
         this.name = name;
+        this.reference = reference;
     }
 
-    public static HeadAccountData create(String urlImage, String colorMarca, String name){
-        return new HeadAccountData(urlImage,colorMarca,name);
+    public static HeadAccountData create(String urlImage, String colorMarca, String name, String reference){
+        return new HeadAccountData(urlImage,colorMarca,name, reference);
     }
     public String getUrlImage() {
         return urlImage;
@@ -36,5 +38,13 @@ public class HeadAccountData {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 }

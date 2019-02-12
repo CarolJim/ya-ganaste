@@ -30,8 +30,10 @@ import android.view.WindowManager;
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
+import com.pagatodo.view_manager.components.HeadAccount;
 import com.pagatodo.view_manager.components.IconButton;
 import com.pagatodo.view_manager.components.LabelSubtitle;
+import com.pagatodo.view_manager.controllers.dataholders.HeadAccountData;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -41,6 +43,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuent
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaUyUResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EmisorResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.modules.emisor.WalletMainActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
@@ -296,6 +299,18 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
         activeCardBtn.setOnClickListener(this);
         changeNip.setOnClickListener(this);
         blockCard.setOnClickListener(this);
+
+        Favoritos favoritos = new Favoritos();
+        favoritos.setImagenURL("https://www.blogdigital.mx/images/2016/10/18/blog-digital-persona-pensando_large.jpg");
+        favoritos.setColorMarca("#FF00FF");
+        favoritos.setNombre("Ismael Cruz");
+        favoritos.setReferencia("1652 3696 3232 1201");
+
+        HeadAccount headAccount = rootView.findViewById(R.id.head_account);
+        headAccount.bind(HeadAccountData.create(favoritos.getImagenURL(),
+                favoritos.getColorMarca(),
+                favoritos.getNombre(),
+                favoritos.getReferencia()),null);
     }
 
     private void checkState(String state) {
