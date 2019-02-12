@@ -19,8 +19,10 @@ import com.pagatodo.view_manager.components.HeadWallet;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
+import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
+import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.modules.emisor.PaymentToQR.operations.QrOperationActivity;
 import com.pagatodo.yaganaste.modules.newsend.SendNewActivity;
 import com.pagatodo.yaganaste.net.UtilsNet;
@@ -78,6 +80,8 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
             isfavo = false, isValid = true;
     Favoritos favoriteItem;
     Comercio comercioItem;
+    Payments payment;
+    TransferType selectedType;
     private String nombreDestinatario, referenciaNumber, referenceFavorite, myReferencia, errorText,
             referencia, formatoComercio, concepto;
 
@@ -213,6 +217,19 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
 
         }
 
+    private void clearContent() {
+/*        comercioItem = null;
+        favoriteItem = null;
+        tipoEnvio.setSelection(0);
+        editListServ.setText("");
+        editListServ.clearFocus();
+        referencia = "";
+        receiverName.setText("");
+        receiverName.clearFocus();
+        concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+        numberReference.setText("123456");*/
+    }
+
         @Override
         public void onItemClick(Object item) {
             Favoritos favorito = (Favoritos) item;
@@ -238,31 +255,21 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
                 switch (favorito.getReferencia().length()) {
                     case 10:
                         myReferencia = favorito.getReferencia();
-                        tipoEnvio.setSelection(NUMERO_TELEFONO.getId());
-                        receiverName.setText(myName);
-                        cardNumber.setText("");
-                        cardNumber.setText(myReferencia);
+                        selectedType = NUMERO_TELEFONO;
+
                         break;
                     case 16:
                         myReferencia = favorito.getReferencia();
-                        tipoEnvio.setSelection(NUMERO_TARJETA.getId());
-                        receiverName.setText(myName);
-                        cardNumber.setText("");
-                        cardNumber.setText(myReferencia);
+                        selectedType = NUMERO_TARJETA;
+
                         break;
                     case 18:
                         myReferencia = favorito.getReferencia();
-                        tipoEnvio.setSelection(CLABE.getId());
-                        receiverName.setText(myName);
-                        cardNumber.setText("");
-                        cardNumber.setText(myReferencia);
+                        selectedType = CLABE;
                         break;
                 }
 
-                //backUpResponseFavoritos
-                    *//*1 - Con ese id myIdComercio buscamos en backUpResponseFavoritos. Por ejemplo la posicion5
-                            2 - Guardar ese dato en una variable CarouselItem2 que solo tenga esa posicion
-                            3 - IguLAS comercioItem CON CarouselItem2*//*
+
 
                 for (int x = 0; x < finalList.size(); x++) {
                     if (finalList.get(x).getComercio().getIdComercio() == myIdComercio) {
@@ -280,11 +287,11 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
                     }
                 }
 
-                referencia = cardNumber.getText().toString().trim();
+                referencia = favorito.getReferencia();
                 referencia = referencia.replaceAll(" ", "");
-                concepto = concept.getText().toString().trim();
-                nombreDestinatario = receiverName.getText().toString().trim();
-                referenciaNumber = numberReference.getText().toString().trim();
+                concepto ="";
+                nombreDestinatario = myName;
+                referenciaNumber = referencia;
                 payment = new Envios(selectedType, referencia, 0D, nombreDestinatario, concepto, referenciaNumber, comercioItem,
                         favoriteItem != null);
                 Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
@@ -295,7 +302,6 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
 
 
             }*/
-
         }
 }
 
