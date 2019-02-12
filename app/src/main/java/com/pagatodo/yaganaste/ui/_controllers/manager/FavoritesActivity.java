@@ -1,20 +1,25 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+
 import androidx.fragment.app.DialogFragment;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.widget.AppCompatImageView;
+
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
@@ -187,6 +192,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     @BindView(R.id.add_favorites_linear_tipo)
     TextInputLayout helpLinearTipoServ;
+
 
     @BindView(R.id.layoutImageContact)
     RelativeLayout layoutImageContact;
@@ -1432,6 +1438,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                 true, false);
     }
 
+    @SuppressLint("ResourceAsColor")
     private void initViews(Intent intent) {
         /**
          * PROCESOS BASICOS para cada tipo de EVENTO
@@ -1531,6 +1538,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                     txtLytListServ.setHint(getString(R.string.details_bank));
                     helpLinearTipoServ.setVisibility(View.VISIBLE);
                     helpLinearTipoServ.setHint(getString(R.string.tipo_de_envio));
+
                     switch (idTipoEnvio) {
                         case 1:
                             textViewTipo.setText(getResources().getString(R.string.transfer_phone));

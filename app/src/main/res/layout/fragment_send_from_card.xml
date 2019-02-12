@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".modules.newsend.SendFromCard.SendFromCardFragment">
+
+    <com.pagatodo.view_manager.components.HeadWallet
+        android:id="@+id/headWallet"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:headAmount="1000"
+        app:headTitle="Saldo actual"
+        app:walletResImage="@mipmap/main_card_zoom_blue"
+        tools:ignore="MissingConstraints"></com.pagatodo.view_manager.components.HeadWallet>
+
+    <com.pagatodo.view_manager.components.HeadAccount
+        app:layout_constraintBottom_toBottomOf="@+id/headWallet"
+
+        android:id="@+id/headAccount"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        tools:ignore="MissingConstraints"></com.pagatodo.view_manager.components.HeadAccount>
+</androidx.constraintlayout.widget.ConstraintLayout>

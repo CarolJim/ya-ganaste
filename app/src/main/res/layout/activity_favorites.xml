@@ -52,7 +52,8 @@
                     android:id="@+id/lyWeNeedSmFilesIFEfront"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:visibility="visible">
 
                     <com.pagatodo.yaganaste.utils.customviews.UploadCircleDocumentView
                         android:id="@+id/add_favorites_camera"
@@ -67,7 +68,7 @@
                     android:layout_marginTop="15dp"
                     android:gravity="center_horizontal"
                     android:text="@string/addFoto"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/gray_slate"
                     android:textSize="9sp"
                     android:visibility="visible" />
 
@@ -126,6 +127,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Elemento para escoger servicio del favorito. Compañia o Banco. SIEMPRE visible -->
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txt_lyt_list_serv"
                     android:layout_width="match_parent"
@@ -160,19 +162,23 @@
                         android:textSize="14sp"
                         android:windowSoftInputMode="stateHidden" />
 
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Elemento auxiliar VISUAL que muestra el tipo de servicio que vamos a guardar, en AddNew NO SE muestra
                 solo debe verse en AddNewFromPago. Y solo en Envios -->
+
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/add_favorites_linear_tipo"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/inputtext_normal"
+                    android:layout_weight="9"
                     android:gravity="center_vertical"
+                    android:hint="@string/tipo_de_envio"
                     android:longClickable="false"
                     android:maxLines="1"
+                    android:paddingLeft="8dp"
                     android:textColorHint="@color/texthint"
                     android:visibility="gone"
                     app:counterEnabled="true"
@@ -197,8 +203,8 @@
                         android:textSize="14sp"
                         android:windowSoftInputMode="stateHidden"
                         app:maxLength="50" />
-
                 </com.google.android.material.textfield.TextInputLayout>
+
 
                 <!-- Elemento oculto, se usa para validar que tenemos SET de idTipoEnvio, el campo anterior lo
                 pinta textualmente, este se encarga de tener la referencia numerica, este se usa para
@@ -373,8 +379,8 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/inputtext_normal"
+                    android:orientation="horizontal"
                     android:visibility="gone">
-
 
                     <Spinner
                         android:id="@+id/tipoEnvio"
@@ -382,10 +388,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:background="@null"
                         android:backgroundTint="@color/transparent"
                         android:gravity="center"
                         android:visibility="gone" />
+
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="11dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:layout_weight="8"
+                        android:src="@drawable/ico_select"
+                        android:tint="@color/colorAccent" />
+
+
                 </LinearLayout>
 
                 <!-- Elemento de para guardar el numero de la card registrada en envios -->

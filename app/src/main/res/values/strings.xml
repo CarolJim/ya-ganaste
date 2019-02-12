@@ -760,7 +760,7 @@
     <string name="title_payment_txt">Buscar servicios</string>
     <string name="btn_payment_favorites_txt">Pagos favoritos</string>
     <string name="btn_req_payment_txt">Solicitar</string>
-    <string name="btn_req_payment_2_txt">Agregar</string>
+    <string name="btn_req_payment_2_txt">Agregar favorito</string>
     <string name="btn_agregar_favo">Guardar favorito</string>
     <string name="txt_exito">Éxito</string>
     <string name="txt_cancelar">Cancelar</string>
@@ -1459,7 +1459,7 @@
     <string name="datos_personal_nombre_b">Nombre(s)</string>
     <string name="add_favorite_txt">Añadir Favorito</string>
 
-    <string name="favorte_name">Nombre de favorito</string>
+    <string name="favorte_name">Nombre para Mostrar</string>
     <string name="service_txt">Servicio</string>
 
     <string name="tituloselfie">Añade una foto a tu perfil</string>
