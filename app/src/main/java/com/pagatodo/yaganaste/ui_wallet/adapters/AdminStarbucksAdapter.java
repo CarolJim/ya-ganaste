@@ -39,7 +39,7 @@ public class AdminStarbucksAdapter extends RecyclerView.Adapter<AdminStarbucksAd
     public void onBindViewHolder(CardStarbucksViewHolder holder, int position) {
         CardStarbucks card = cardStarbucks.get(position);
         if (card.getStatusTarjeta().equals("Active")) {
-            Picasso.with(App.getContext()).load(card.getImagenes().getMediana()).into(holder.imgCard);
+            Picasso.get().load(card.getImagenes().getMediana()).into(holder.imgCard);
             holder.txtTitle.setText(App.getContext().getString(R.string.title_cards_starbucks));
             holder.txtDesc.setText("Saldo: " + StringUtils.getCurrencyValue(card.getSaldo()));
             holder.imgStatus.setVisibility(View.VISIBLE);

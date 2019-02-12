@@ -139,7 +139,7 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
     }
 
     private void setImagePicasoFav(ImageView imageView, String urlLogo) {
-        Picasso.with(App.getContext())
+        Picasso.get()
                 .load(urlLogo)
                 .into(imageView);
     }

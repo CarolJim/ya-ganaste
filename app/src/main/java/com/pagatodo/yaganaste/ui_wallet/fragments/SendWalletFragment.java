@@ -105,7 +105,7 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
         if (favoritos != null) {
             txtInicialesFav.setVisibility(View.GONE);
             if (!favoritos.getImagenURL().equals("")) {
-                Picasso.with(getContext())
+                Picasso.get()
                         .load(favoritos.getImagenURL())
                         .placeholder(R.mipmap.icon_user_fail)
                         .into(crlImageFavorite);

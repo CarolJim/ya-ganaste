@@ -1163,7 +1163,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     public void setPhotoToService(Bitmap bitmap) {
         try {
             //imageViewCamera.setImageBitmap(bitmap);
-            Picasso.with(this)
+            Picasso.get()
                     .load(cameraManager.getUriImage())
                     .into(imageViewCamera.getCircleImageView());
             Bitmap bitmapAux = MediaStore.Images.Media.getBitmap(this.getContentResolver(), cameraManager.getUriImage());
@@ -1765,7 +1765,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
              */
             String url = dataFavoritos.getImagenURL();
             if (url != null && !url.isEmpty()) {
-                Picasso.with(this)
+                Picasso.get()
                         .load(dataFavoritos.getImagenURL())
                         .into(imageViewCamera.getCircleImageView());
             }

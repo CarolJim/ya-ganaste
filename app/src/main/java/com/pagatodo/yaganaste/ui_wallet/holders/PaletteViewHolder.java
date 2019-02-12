@@ -51,7 +51,7 @@ public class PaletteViewHolder extends GenericHolder {
     }
 
     private void setImagePicasoFav(ImageView imageView, String urlLogo) {
-        Picasso.with(imageView.getContext())
+        Picasso.get()
                 .load(urlLogo)
                 .into(imageView);
     }
@@ -83,8 +83,6 @@ public class PaletteViewHolder extends GenericHolder {
         Favoritos favorito = (Favoritos) item;
         imgAddFavorite.setVisibility(View.GONE);
         txtNameFav.setText(noSpaces(favorito.getNombre()));
-
-
         if (!favorito.getImagenURL().isEmpty()) {
             setImagePicasoFav(crlImageFavorite, favorito.getImagenURL());
         } else {

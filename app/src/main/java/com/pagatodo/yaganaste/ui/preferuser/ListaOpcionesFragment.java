@@ -189,7 +189,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
 
         // Mostramos la imagen del usuario o la pedimos al servicio en caso de que no exista
         if (mUserImage != null && !mUserImage.isEmpty()) {
-            Picasso.with(getContext())
+            Picasso.get()
                     .load(mUserImage)
                     .placeholder(R.mipmap.icon_user_fail).error(R.mipmap.icon_user_fail)
                     .into(iv_photo_item);
