@@ -293,24 +293,9 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        //btnDepositar.setOnClickListener(this);
-        //imageshae.setOnClickListener(this);
-
         activeCardBtn.setOnClickListener(this);
         changeNip.setOnClickListener(this);
         blockCard.setOnClickListener(this);
-
-        Favoritos favoritos = new Favoritos();
-        favoritos.setImagenURL("https://www.blogdigital.mx/images/2016/10/18/blog-digital-persona-pensando_large.jpg");
-        favoritos.setColorMarca("#FF00FF");
-        favoritos.setNombre("Ismael Cruz");
-        favoritos.setReferencia("1652 3696 3232 1201");
-
-        HeadAccount headAccount = rootView.findViewById(R.id.head_account);
-        headAccount.bind(HeadAccountData.create(favoritos.getImagenURL(),
-                favoritos.getColorMarca(),
-                favoritos.getNombre(),
-                favoritos.getReferencia()),null);
     }
 
     private void checkState(String state) {
