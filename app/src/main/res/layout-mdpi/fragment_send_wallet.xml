@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <EditText
@@ -26,14 +27,67 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:visibility="gone"
                 android:textAlignment="center"
                 android:text="Enviar dinero a" />
+
+            <LinearLayout
+                android:id="@+id/component"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gray_border_rectangle"
+                android:orientation="vertical"
+                tools:ignore="MissingConstraints">
+
+                <com.pagatodo.view_manager.components.HeadWallet
+                    android:id="@+id/headWallet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="25dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    app:walletResImage="@mipmap/main_card_zoom_blue"
+                    app:headAmount="1000"
+                    app:headTitle="@string/app_name"
+                    tools:ignore="MissingConstraints">
+
+                </com.pagatodo.view_manager.components.HeadWallet>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/componentfavo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/gray_border_rectangle"
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:ignore="MissingConstraints">
+                <com.pagatodo.view_manager.components.HeadAccount
+                    android:id="@+id/head_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+            </LinearLayout>
+
+
 
             <RelativeLayout
                 android:id="@+id/itemGallery"
                 android:layout_width="62dp"
                 android:layout_height="62dp"
                 android:layout_gravity="center"
+                android:visibility="gone"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/ic_circle_border_shadow"
                 android:orientation="vertical">
@@ -62,6 +116,7 @@
                 android:id="@+id/txt_receiver_name"
                 style="@style/H4Gris"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Omar Alejandro"
@@ -126,6 +181,41 @@
                 android:text="@string/ingresa_monto"
                 android:textSize="11sp" />
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/edit_nombre"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/inputtext_normal"
+                android:gravity="center_vertical"
+                android:hint="@string/concepto"
+                android:maxLines="1"
+                android:textColorHint="@color/texthint"
+                app:counterEnabled="true"
+                app:counterMaxLength="1"
+                app:hintTextAppearance="@style/HintText"
+                app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                app:passwordToggleTint="@color/hint_color"
+                tools:ignore="UnusedAttribute">
+
+                <EditText
+                    android:id="@+id/edit_conc"
+                    android:theme ="@style/NewEdittextwallet"
+                    android:textColor="@color/grayColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:layout_marginBottom="9dp"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -134,6 +224,7 @@
         android:id="@+id/lyt_saldo_disponible"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="gone"
         android:layout_marginTop="5dp"
         android:layout_weight=".4"
         android:gravity="center_horizontal"
@@ -160,6 +251,8 @@
             android:textSize="17sp"
             app:dotBottom="true"
             app:symbolSmaller="true" />
+
+
     </LinearLayout>
 
     <LinearLayout

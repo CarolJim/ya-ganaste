@@ -85,6 +85,7 @@
             android:layout_marginRight="15dp"
             android:visibility="gone"
             app:srcCompat="@mipmap/bell"
+
             tools:ignore="ContentDescription"/>
         <!--
         <de.hdodenhof.circleimageview.CircleImageView
