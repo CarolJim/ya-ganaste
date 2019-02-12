@@ -665,9 +665,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     }
 
     private void continuePayment() {
-        referencia = cardNumber.getText().toString().trim();
-        referencia = referencia.replaceAll(" ", "");
-
+        referencia = cardNumber.getText().toString().trim().replaceAll(" ","");
         concepto = concept.getText().toString().trim();
         NotificationSingleton.getInstance().getRequest().setConcept(concepto);
         nombreDestinatario = receiverName.getText().toString().trim();
@@ -686,7 +684,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 //Se debe crear un objeto que se envía a la activity que realizará el pago
                 referencia = cardNumber.getText().toString().trim();
                 referencia = referencia.replaceAll(" ", "");
-                nombreDestinatario = receiverName.getText().toString();
                 concepto = concept.getText().toString().trim();
                 nombreDestinatario = receiverName.getText().toString().trim();
                 referenciaNumber = numberReference.getText().toString().trim();
