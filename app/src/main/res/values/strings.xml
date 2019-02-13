@@ -1788,4 +1788,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enviar_a_un_favorit">Enviar a un Favorito</string>
+    <string name="amount_to_send">Monto a Enviar</string>
+    <string name="destinatario">Destinatario</string>
+    <string name="referencia">Referencia</string>
 </resources>

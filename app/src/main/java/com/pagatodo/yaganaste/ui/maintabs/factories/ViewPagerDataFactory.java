@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.interfaces.enums.MainTabOperador;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.interfaces.enums.VoidTab;
 import com.pagatodo.yaganaste.modules.emisor.PaymentToQR.QrManagerFragment;
+import com.pagatodo.yaganaste.modules.newsend.SendFromCard.SendFromCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
@@ -90,7 +91,8 @@ public class ViewPagerDataFactory {
 
         if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
             //fragmentList.add(EnviosFromFragmentNewVersion.newInstance());
-            fragmentList.add(SendsFragment.newInstance());
+            //fragmentList.add(SendsFragment.newInstance());
+            fragmentList.add(SendFromCardFragment.newInstance());
             fragmentList.add(NewPaymentFragment.newInstance());
             fragmentList.add(WalletTabFragment.newInstance());
             fragmentList.add(QrManagerFragment.newInstance());
