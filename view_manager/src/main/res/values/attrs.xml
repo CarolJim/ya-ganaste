@@ -30,4 +30,10 @@
         <attr name="headTitle" format="reference|string"/>
         <attr name="headAmount" format="reference|string"/>
     </declare-styleable>
+    <declare-styleable name="HeadAccount">
+        <attr name="labelHeadAccount" format="reference|string"/>
+    </declare-styleable>
+    <declare-styleable name="LabelButton">
+        <attr name="labelBtn" format="reference|string"/>
+    </declare-styleable>
 </resources>

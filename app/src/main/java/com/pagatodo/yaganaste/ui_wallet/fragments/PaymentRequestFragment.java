@@ -144,7 +144,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
         txtBalance.setText("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         String imagenavatar = dataUser.getDataUser().getUsuario().getImagenAvatarURL();
         if (!imagenavatar.equals("")) {
-            Picasso.with(getContext())
+            Picasso.get()
                     .load(imagenavatar)
                     .placeholder(R.mipmap.icon_user_fail)
                     .into(imgUser);

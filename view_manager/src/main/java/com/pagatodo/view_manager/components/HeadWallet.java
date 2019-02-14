@@ -80,6 +80,7 @@ public class HeadWallet extends LinearLayout implements LauncherHolder<HeadWalle
         this.imgWallet.setImageDrawable(item.getResImage());
         this.title.setText(item.getTitle());
         this.amount.setText(formatMoney(item.getAmount()));
+
     }
 
     @Override
@@ -110,6 +111,7 @@ public class HeadWallet extends LinearLayout implements LauncherHolder<HeadWalle
             amount = Double.parseDouble(money);
         } catch (NumberFormatException e){
             amount = 0d;
+            return money;
         }
         Locale locale = new Locale("en", "US");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);

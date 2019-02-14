@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".modules.newsend.SendFromCard.SendFromCardFragment">
+
+    <com.pagatodo.view_manager.components.HeadWallet
+        android:id="@+id/headWallet"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/gray_border_rectangle"
+        android:gravity="center_horizontal|center_vertical"
+        app:headAmount="1000"
+        app:headTitle="Saldo actual"
+        app:layout_constraintTop_toTopOf="parent"
+        app:walletResImage="@mipmap/main_card_zoom_blue"
+        tools:ignore="MissingConstraints"></com.pagatodo.view_manager.components.HeadWallet>
+
+
+    <com.pagatodo.view_manager.components.HeadWallet
+        android:id="@+id/HeadAccount"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/gray_border_rectangle"
+        android:gravity="center_horizontal|center_vertical"
+        app:headAmount="Número de tarjeta"
+        app:headTitle="Tipo de envío"
+        app:layout_constraintTop_toBottomOf="@+id/headWallet"
+        app:walletResImage="@drawable/ic_ico_ventas_tarjeta"></com.pagatodo.view_manager.components.HeadWallet>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/number_card"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/edit_nombre"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/inputtext_normal"
+        android:gravity="center_vertical"
+        android:hint="@string/number_card"
+        android:maxLines="1"
+        android:textColorHint="@color/texthint"
+        app:counterEnabled="true"
+        app:counterMaxLength="1"
+        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+        app:hintTextAppearance="@style/HintText"
+        app:layout_constraintTop_toBottomOf="@+id/HeadAccount"
+        app:passwordToggleTint="@color/hint_color"
+        tools:ignore="UnusedAttribute">
+
+        <EditText
+            android:id="@+id/number_card_edt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="@color/grayColor"
+            android:theme="@style/NewEdittextwallet" />
+
+        <ImageView
+            android:id="@+id/camera"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginRight="8dp"
+            app:srcCompat="@drawable/camera_blue" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dest"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/inputtext_normal"
+        android:gravity="center_vertical"
+        android:hint="@string/destinatario"
+
+        android:maxLines="1"
+        android:textColorHint="@color/texthint"
+        app:counterEnabled="true"
+        app:counterMaxLength="1"
+        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+        app:hintTextAppearance="@style/HintText"
+        app:layout_constraintTop_toBottomOf="@+id/number_card"
+        app:passwordToggleTint="@color/hint_color"
+        tools:ignore="UnusedAttribute">
+
+        <EditText
+            android:id="@+id/dest_edt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="@color/grayColor"
+            android:theme="@style/NewEdittextwallet" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/bank"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/edit_nombre"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/inputtext_normal"
+        android:gravity="center_vertical"
+        android:hint="@string/details_bank"
+        android:maxLines="1"
+        android:textColorHint="@color/texthint"
+        app:counterEnabled="true"
+        app:counterMaxLength="1"
+        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+        app:hintTextAppearance="@style/HintText"
+        app:layout_constraintTop_toBottomOf="@+id/dest"
+        app:passwordToggleTint="@color/hint_color"
+        tools:ignore="UnusedAttribute">
+
+        <EditText
+            android:id="@+id/bank_edt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="@color/grayColor"
+            android:theme="@style/NewEdittextwallet" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/reference"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/edit_nombre"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/inputtext_normal"
+        android:gravity="center_vertical"
+        android:hint="@string/referencia"
+        android:maxLines="1"
+        android:textColorHint="@color/texthint"
+        app:counterEnabled="true"
+        app:counterMaxLength="1"
+        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+        app:hintTextAppearance="@style/HintText"
+        app:layout_constraintTop_toBottomOf="@+id/bank"
+        app:passwordToggleTint="@color/hint_color"
+        tools:ignore="UnusedAttribute">
+
+        <EditText
+            android:id="@+id/reference_edt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="@color/grayColor"
+            android:theme="@style/NewEdittextwallet" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+
+        android:layout_width="219dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="40dp"
+        android:background="@color/blue_text_wallet"
+        android:text="Confirmar Datos"
+        android:textAllCaps="false"
+        android:textColor="@color/whiteColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

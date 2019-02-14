@@ -134,7 +134,7 @@ public class RequestPaymentVerticalAdapter extends RecyclerView.Adapter<RequestP
     }
 
     private void setImagePicasoFav(ImageView imageView, String urlLogo) {
-        Picasso.with(App.getContext())
+        Picasso.get()
                 .load(urlLogo)
                 .placeholder(R.mipmap.icon_user_fail)
                 .into(imageView);

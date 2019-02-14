@@ -393,7 +393,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
          */
         String url = favoritos.getImagenURL();
         if (url != null && !url.isEmpty()) {
-            Picasso.with(this)
+            Picasso.get()
                     .load(favoritos.getImagenURL())
                     .into(imageViewCamera.getCircleImageView());
         }
@@ -781,7 +781,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     public void setPhotoToService(Bitmap bitmap) {
         // Log.d("TAG", "setPhotoToService ");
         try {
-            Picasso.with(this)
+            Picasso.get()
                     .load(cameraManager.getUriImage())
                     .into(imageViewCamera.getCircleImageView());
 

@@ -71,7 +71,7 @@ public class AccountDataFragment extends SupportFragment {
         if (image_usr.isEmpty()) {
             image_user.setBackgroundResource(R.drawable.icon_user);
         } else {
-            Picasso.with(getContext()).load(image_usr)
+            Picasso.get().load(image_usr)
                     .placeholder(R.drawable.icon_user)
                     .into(image_user);
         }

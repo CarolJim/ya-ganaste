@@ -103,7 +103,7 @@ public class FavoritesRequestPaymentAdapter extends RecyclerView.Adapter<Favorit
     }
 
     private void setImagePicasoFav(ImageView imageView, String urlLogo) {
-        Picasso.with(App.getContext())
+        Picasso.get()
                 .load(urlLogo)
                 .placeholder(R.mipmap.icon_user_fail)
                 .error(R.mipmap.icon_user_fail)

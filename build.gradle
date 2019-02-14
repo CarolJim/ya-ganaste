@@ -41,7 +41,7 @@ ext {
     circleImageviewVerson = "2.1.0"
     stethoVersion = "1.5.0"
     cropImageVersion = "1.0.3"
-    picassoVersion = "2.5.2"
+    picassoVersion = "2.71828"
     zxingVersion = "3.3.1"
     cardIoVersion = "5.5.1"
     flipViewVersion = "1.1.3"

@@ -59,43 +59,43 @@ public class ScreenSlidePageFragment extends Fragment {
         switch(index){
 
             case 0:
-                Picasso.with(App.getContext())
+                Picasso.get()
                         .load(url)
                         .placeholder(R.drawable.onboarding_00)
                         .into(imageView);
                 break;
                 case 1:
-                Picasso.with(App.getContext())
+                    Picasso.get()
                         .load(url)
                         .placeholder(R.drawable.onboarding_01)
                         .into(imageView);
                 break;
                 case 2:
-                Picasso.with(App.getContext())
+                    Picasso.get()
                         .load(url)
                         .placeholder(R.drawable.onboarding_02)
                         .into(imageView);
                 break;
                 case 3:
-                Picasso.with(App.getContext())
+                    Picasso.get()
                         .load(url)
                         .placeholder(R.drawable.onboarding_03)
                         .into(imageView);
                 break;
                 case 4:
-                Picasso.with(App.getContext())
+                    Picasso.get()
                         .load(url)
                         .placeholder(R.drawable.onboarding_04)
                         .into(imageView);
                 break;
                 case 5:
-                Picasso.with(App.getContext())
+                    Picasso.get()
                         .load(url)
                         .placeholder(R.drawable.onboarding_05)
                         .into(imageView);
                 break;
             case 6:
-                Picasso.with(App.getContext())
+                Picasso.get()
                         .load(url)
                         .placeholder(R.drawable.onboarding_06)
                         .into(imageView);

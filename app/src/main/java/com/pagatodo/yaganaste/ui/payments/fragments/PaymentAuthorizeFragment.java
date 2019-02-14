@@ -216,14 +216,14 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         txt_data.setText(envio.getNombreDestinatario());
         txt_monto.setText(StringUtils.getCurrencyValue(envio.getMonto()));
         if (!App.getInstance().getPrefs().loadData(URL_PHOTO_USER).isEmpty()) {
-            Picasso.with(App.getContext())
+            Picasso.get()
                     .load(App.getInstance().getPrefs().loadData(URL_PHOTO_USER))
                     .placeholder(R.mipmap.icon_user_fail)
                     .into(imgPagosUserProfile);
         }
         if (favoritos != null && !favoritos.getImagenURL().equals("")) {
             txtIniciales.setVisibility(View.GONE);
-            Picasso.with(App.getContext())
+            Picasso.get()
                     .load(favoritos.getImagenURL())
                     .placeholder(R.mipmap.icon_user_fail)
                     .into(imgCircleToSendReceiver);
