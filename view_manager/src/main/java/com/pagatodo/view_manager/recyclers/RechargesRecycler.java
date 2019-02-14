@@ -2,13 +2,10 @@ package com.pagatodo.view_manager.recyclers;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
 
 import com.pagatodo.view_manager.R;
 import com.pagatodo.view_manager.controllers.ItemOffsetDecoration;
@@ -27,25 +24,24 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RechargesRecycler extends LinearLayout implements LauncherHolder<ArrayList<IconButtonDataHolder>> {
 
     private View rootView;
-    private RecyclerView recyclerMain;
     private RechargesAdapter adapter;
 
     public RechargesRecycler(@NonNull Context context) {
         super(context);
-        initMain(null);
+        initMain();
     }
 
     public RechargesRecycler(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initMain(attrs);
+        initMain();
     }
 
     public RechargesRecycler(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        initMain(attrs);
+        initMain();
     }
 
-    private void initMain(AttributeSet attrs){
+    private void initMain(){
         LayoutInflater inflater = LayoutInflater.from(getContext());
         rootView = inflater.inflate(R.layout.recharges,this,false);
         init();
@@ -63,7 +59,7 @@ public class RechargesRecycler extends LinearLayout implements LauncherHolder<Ar
 
     @Override
     public void init() {
-        recyclerMain = rootView.findViewById(R.id.recycler_main);
+        RecyclerView recyclerMain = rootView.findViewById(R.id.recycler_main);
         recyclerMain.setHasFixedSize(true);
         recyclerMain.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         recyclerMain.addItemDecoration(new ItemOffsetDecoration(getContext(), R.dimen.item_offset));

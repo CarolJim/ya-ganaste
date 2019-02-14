@@ -34,7 +34,7 @@ public class IconButtonHolder extends GenericHolder<IconButtonDataHolder> {
     public void bind(IconButtonDataHolder item, final OnHolderListener<IconButtonDataHolder> listener) {
         if (item.getImageUrl() != null){
             if (!item.getImageUrl().isEmpty()){
-                Picasso.get().load(item.getImageUrl())
+                Picasso.get().load(itemView.getContext().getString(R.string.url_images_logos) + item.getImageUrl())
                         .transform(new CircleTransform()).into(this.iconImage);
             }
         } else {
