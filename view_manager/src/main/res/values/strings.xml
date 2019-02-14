@@ -3,4 +3,5 @@
     <string name="hint_new_nip">Confirma tu NIP</string>
     <string name="default_label_head_account">Enviar a</string>
     <string name="btn_all">Ver todas</string>
+    <string name="url_images_logos">https://www.yaganaste.com/Logos/</string>
 </resources>

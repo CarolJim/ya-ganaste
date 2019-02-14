@@ -62,6 +62,12 @@ public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAcco
 
             try {
                 String resText = a.getString(R.styleable.HeadAccount_labelHeadAccount);
+                boolean isVisible = a.getBoolean(R.styleable.HeadAccount_labeVisibility,true);
+                if (isVisible){
+                    txtLabelTag.setVisibility(VISIBLE);
+                } else {
+                    txtLabelTag.setVisibility(GONE);
+                }
                 if (resText != null){
                     txtLabelTag.setText(resText);
                 }
@@ -83,7 +89,6 @@ public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAcco
         txtName = rootView.findViewById(R.id.label_name);
         txtReference = rootView.findViewById(R.id.label_reference);
         txtLabelTag = rootView.findViewById(R.id.label_tag);
-
     }
 
     @Override
