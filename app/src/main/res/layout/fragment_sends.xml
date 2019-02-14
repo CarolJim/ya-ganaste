@@ -48,6 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/subtitle_type_of_send"
         tools:ignore="MissingConstraints"
@@ -147,13 +149,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/gray_slate" />
         </LinearLayout>
-
-
-
-
-
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -180,7 +176,6 @@
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btn_show_fav"
             style="@style/buttonSquareRoundedBluenewSend"
-
             android:background="@drawable/button_rounded_blue"
             android:gravity="center"
             android:text="Ver Todos"
@@ -188,9 +183,7 @@
             android:textSize="14sp"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="215dp" />
-
     </LinearLayout>
-
     <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -208,6 +201,5 @@
             android:layout_marginBottom="5dp"
             android:orientation="horizontal" />
     </HorizontalScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
