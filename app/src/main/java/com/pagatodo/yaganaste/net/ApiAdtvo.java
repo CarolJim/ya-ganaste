@@ -623,7 +623,8 @@ public class ApiAdtvo extends Api {
         Map<String, String> headers = getHeadersYaGanaste();
 //        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(OBTENER_SUBGIROS,
-                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerSubgiros),
+                //METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerSubgiros),
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerGirosComerciales),
                 headers, null, ObtenerSubgirosResponse.class, result);
     }
 

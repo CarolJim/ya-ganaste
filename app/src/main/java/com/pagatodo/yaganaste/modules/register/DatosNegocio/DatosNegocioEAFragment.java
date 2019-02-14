@@ -254,6 +254,12 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                if (position != 0) {
+                    textgiro.setVisibility(View.VISIBLE);
+                    textgiro.setTextColor(getResources().getColor(R.color.colorAccent));
+                }
+                else
+                    textgiro.setVisibility(View.GONE);
                 List<SubGiro> list = girosComercio.get(position).getListaSubgiros();
                 if (!list.contains(new SubGiro(-1, getString(R.string.subgiro_commerce)))) {
                     Collections.sort(list, new Comparator<SubGiro>() {
@@ -271,23 +277,26 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
                     spinnerSubBussineLine.setSelection(1);
                 }
 
+
                 if(flag){
                     InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                 }
 
-            String nombrenegocio = editBussinesName.getText().toString();
+                String nombrenegocio = editBussinesName.getText().toString();
                 if (position > 0 && !nombrenegocio.isEmpty()){
-                    btnNextDatosNegocio.setBackgroundResource(R.drawable.button_rounded_blue);
+                    //btnNextDatosNegocio.setBackgroundResource(R.drawable.button_rounded_blue);
                     txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
                 }else {
-                    btnNextDatosNegocio.setBackgroundResource(R.drawable.button_rounded_gray);
+                    //btnNextDatosNegocio.setBackgroundResource(R.drawable.button_rounded_gray);
                 }
 
                 if (position > 0 ){
                     txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
                 }
+
             flag = true;
+
             }
 
             @Override
@@ -306,6 +315,27 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
                     textsubgiro.setVisibility(View.VISIBLE);
                     textsubgiro.setTextColor(getResources().getColor(R.color.colorAccent));
                 }
+                else
+                    textsubgiro.setVisibility(View.GONE);
+
+
+                if(flag){
+                    InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                }
+                String nombrenegocio = editBussinesName.getText().toString();
+                if (position > 0 && !nombrenegocio.isEmpty()){
+                    btnNextDatosNegocio.setBackgroundResource(R.drawable.button_rounded_blue);
+                    txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
+                }else {
+                    btnNextDatosNegocio.setBackgroundResource(R.drawable.button_rounded_gray);
+                }
+
+                if (position > 0 ){
+                    txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
+                }
+
+                flag = true;
             }
 
             @Override

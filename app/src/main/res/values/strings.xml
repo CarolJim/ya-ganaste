@@ -59,6 +59,7 @@
     <string name="getSucursales">/LocalizarSucursales</string>
     <!--<string name="obtenerSubgiros">/ObtenerSubgiros</string>-->
     <string name="obtenerSubgiros">/ObtenerSubgirosWallet</string>
+    <string name="obtenerGirosComerciales">/ObtenerGirosComerciales</string>
     <string name="obteneroperadores">/ObtenerOperadores</string>
     <string name="obtenerresumendia">/agMov/ObtenerResumenDia?fecha=</string>
     <string name="obtenerDomicilioPrincipal">/ObtenerDomicilioPrincipal</string>
