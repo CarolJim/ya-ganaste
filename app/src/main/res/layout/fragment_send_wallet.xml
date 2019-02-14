@@ -53,12 +53,12 @@
 
                 </com.pagatodo.view_manager.components.HeadWallet>
             </LinearLayout>
-        <LinearLayout
+
+            <LinearLayout
             android:id="@+id/componentfavo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/gray_border_rectangle"
             android:gravity="center"
             android:orientation="vertical"
             tools:ignore="MissingConstraints">

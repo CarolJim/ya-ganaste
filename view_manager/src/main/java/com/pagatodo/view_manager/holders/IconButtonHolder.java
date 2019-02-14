@@ -7,9 +7,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pagatodo.view_manager.R;
+import com.pagatodo.view_manager.controllers.CircleTransform;
 import com.pagatodo.view_manager.controllers.GenericHolder;
 import com.pagatodo.view_manager.controllers.OnHolderListener;
 import com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder;
+import com.squareup.picasso.Picasso;
 
 
 public class IconButtonHolder extends GenericHolder<IconButtonDataHolder> {
@@ -30,10 +32,19 @@ public class IconButtonHolder extends GenericHolder<IconButtonDataHolder> {
 
     @Override
     public void bind(IconButtonDataHolder item, final OnHolderListener<IconButtonDataHolder> listener) {
-        this.iconImage.setImageDrawable(item.getIconRes());
+        if (item.getImageUrl() != null){
+            if (!item.getImageUrl().isEmpty()){
+                Picasso.get().load(item.getImageUrl())
+                        .transform(new CircleTransform()).into(this.iconImage);
+            }
+        } else {
+            this.iconImage.setImageDrawable(item.getIconRes());
+
+        }
+
         this.textName.setText(item.getName());
-        if (listener != null){
-            this.itemView.setOnClickListener(view -> listener.onClickView(item,null));
+        if (listener != null) {
+            this.itemView.setOnClickListener(view -> listener.onClickView(item, null));
         }
     }
 
@@ -44,6 +55,8 @@ public class IconButtonHolder extends GenericHolder<IconButtonDataHolder> {
     public void setTextName(String textName){
         this.textName.setText(textName);
     }
+
+
     /*public void setOnClickHolderListener(final OnHolderListener<IconButtonDataHolder> listener){
         if (listener != null){
             this.itemView.setOnClickListener(new View.OnClickListener() {

@@ -80,6 +80,7 @@ public class HeadWallet extends LinearLayout implements LauncherHolder<HeadWalle
         this.imgWallet.setImageDrawable(item.getResImage());
         this.title.setText(item.getTitle());
         this.amount.setText(formatMoney(item.getAmount()));
+
     }
 
     @Override

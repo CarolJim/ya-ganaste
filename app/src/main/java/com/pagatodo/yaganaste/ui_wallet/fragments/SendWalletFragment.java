@@ -105,6 +105,7 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
         ButterKnife.bind(this, view);
         tvMontoEntero = (StyleTextView) view.findViewById(R.id.tv_monto_entero);
         tvMontoDecimal = (StyleTextView) view.findViewById(R.id.tv_monto_decimal);
+        HeadAccount headAccount = view.findViewById(R.id.head_account);
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
         headWallet.setAmount(App.getInstance().getPrefs().loadData(USER_BALANCE));
@@ -146,7 +147,7 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
             favoritos.setNombre(payments.getNombreDestinatario());
             favoritos.setReferencia(payments.getReferenciaNumerica());
 
-            HeadAccount headAccount = view.findViewById(R.id.head_account);
+
             headAccount.bind(HeadAccountData.create(favoritos.getImagenURL(),
                     favoritos.getColorMarca(),
                     favoritos.getNombre(),
