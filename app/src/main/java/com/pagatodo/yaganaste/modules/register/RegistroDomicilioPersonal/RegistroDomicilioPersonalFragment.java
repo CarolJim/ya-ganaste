@@ -40,6 +40,7 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialogregistro;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
 import com.pagatodo.yaganaste.utils.UI;
@@ -338,7 +339,9 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             public void onClick(View textView) {
                 boolean isOnline = Utils.isDeviceOnline();
                 if (isOnline) {
-                    LegalsDialogregistro legalsDialog = LegalsDialogregistro.newInstance(TERMINOS);
+                    //LegalsDialogregistro legalsDialog = LegalsDialogregistro.newInstance(TERMINOS);
+                    //legalsDialog.show(getActivity().getFragmentManager(), LegalsDialogregistro.TAG);
+                    LegalsDialog legalsDialog = LegalsDialog.newInstance(LegalsDialog.Legales.TERMINOS);
                     legalsDialog.show(getActivity().getFragmentManager(), LegalsDialogregistro.TAG);
                 } else {
                     //  showDialogMesage(getResources().getString(R.string.no_internet_access));
@@ -356,7 +359,9 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                 boolean isOnline2 = Utils.isDeviceOnline();
                 if (isOnline2) {
                     //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                    LegalsDialogregistro legalsDialog = LegalsDialogregistro.newInstance(PRIVACIDAD);
+                    //LegalsDialogregistro legalsDialog = LegalsDialogregistro.newInstance(PRIVACIDAD);
+                    //legalsDialog.show(getActivity().getFragmentManager(), LegalsDialogregistro.TAG);
+                    LegalsDialog legalsDialog = LegalsDialog.newInstance(LegalsDialog.Legales.PRIVACIDAD);
                     legalsDialog.show(getActivity().getFragmentManager(), LegalsDialogregistro.TAG);
                 } else {
                     //    showDialogMesage(getResources().getString(R.string.no_internet_access));
@@ -364,9 +369,9 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             }
         };
 
-        ss.setSpan(span1, 24, 48, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss.setSpan(span1, 53, 72, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), 24, 48, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(span1, 25, 48, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(span2, 53, 72, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), 25, 48, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), 53, 72, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         /*ss.setSpan(span2, 106, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

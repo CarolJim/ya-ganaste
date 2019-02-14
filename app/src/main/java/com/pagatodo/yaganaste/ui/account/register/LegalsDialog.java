@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -104,10 +105,10 @@ public class LegalsDialog extends DialogFragment implements IProgressView, View.
     public void initViews() {
         ButterKnife.bind(this, rootview);
         showLoader(getString(R.string.cargando));
-        WebSettings settings = webViewLegalsContent.getSettings();
-        settings.setJavaScriptEnabled(true);
-        if (typeLegal != Legales.TERMINOS && typeLegal != Legales.PRIVACIDAD) {
-            webViewLegalsContent.setVisibility(VISIBLE);
+       // WebSettings settings = webViewLegalsContent.getSettings();
+        //settings.setJavaScriptEnabled(true);
+        if (typeLegal.equals(Legales.TERMINOS) /*&& typeLegal != Legales.PRIVACIDAD*/) {
+          /*  webViewLegalsContent.setVisibility(VISIBLE);
             webViewLegalsContent.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
             webViewLegalsContent.loadUrl(getUrlLegals());
             webViewLegalsContent.setWebViewClient(new WebViewClient() {
@@ -117,10 +118,14 @@ public class LegalsDialog extends DialogFragment implements IProgressView, View.
                     hideLoader();
                 }
             });
-        } else {
+            */
             txtContent.setVisibility(VISIBLE);
             txtContent.setMovementMethod(new ScrollingMovementMethod());
             getFirebaseLegals();
+        } else if(typeLegal.equals(Legales.PRIVACIDAD)){
+            txtContent.setVisibility(VISIBLE);
+            txtContent.setMovementMethod(new ScrollingMovementMethod());
+            getFirebasePrivacy();
         }
         btnBack.setOnClickListener(this);
     }
@@ -175,6 +180,25 @@ public class LegalsDialog extends DialogFragment implements IProgressView, View.
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     txtContent.setText(dataSnapshot.getValue().toString());
+                    Toast.makeText(App.getContext(), "Legals", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getFirebasePrivacy() {
+        DatabaseReference ref = App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR").child(typeLegal==Legales.TERMINOS?"CTrmns":"CPrvd");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    txtContent.setText(dataSnapshot.getValue().toString());
+                    Toast.makeText(App.getContext(), "Privacy", Toast.LENGTH_SHORT).show();
                 }
             }
 
