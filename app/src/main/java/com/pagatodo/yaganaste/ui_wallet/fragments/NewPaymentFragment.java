@@ -63,10 +63,7 @@ import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_CERO;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_SERVICIOS;
 
-/**
- * Frank Manzo 27-12-17
- * Nuevo fragmento que contiene la nueva vista de pagos
- */
+
 public class NewPaymentFragment extends GenericFragment implements IPaymentFragment, IPaymentAdapter {
 
 

@@ -293,9 +293,14 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
+        //btnDepositar.setOnClickListener(this);
+        //imageshae.setOnClickListener(this);
+
         activeCardBtn.setOnClickListener(this);
         changeNip.setOnClickListener(this);
         blockCard.setOnClickListener(this);
+
+
     }
 
     private void checkState(String state) {

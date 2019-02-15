@@ -16,7 +16,7 @@ class RegistroCompletoIteractor(var presenter: RegistroCompletoContracts.Present
                  * Verificamos si las condiciones de Adquirente ya han sido cumplidas para mostrar pantalla
                  */
         val user = SingletonUser.getInstance()
-        val dataUser = user.dataUser
+        //val dataUser = user.dataUser
         val prefs = App.getInstance().prefs
         prefs.saveData(PHONE_NUMBER, SingletonUser.getInstance().dataUser.emisor.cuentas[0].telefono)
         prefs.saveData(CLABE_NUMBER, SingletonUser.getInstance().dataUser.emisor.cuentas[0].clabe)

@@ -1,7 +1,9 @@
 package com.pagatodo.view_manager.components;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pagatodo.view_manager.R;
@@ -18,17 +21,18 @@ import com.pagatodo.view_manager.controllers.OnHolderListener;
 import com.pagatodo.view_manager.controllers.dataholders.HeadAccountData;
 import com.squareup.picasso.Picasso;
 
-
 import androidx.annotation.Nullable;
 
 public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAccountData> {
 
     private View rootView;
-    private LinearLayout circlePersonContent;
-    private ImageView circlePerson;
+    private RelativeLayout circlePersonContent;
+    private ImageView circlePersonUrl;
+    private ImageView circlePersonImage;
     private TextView txtIniciales;
     private TextView txtName;
     private TextView txtReference;
+    private TextView txtLabelTag;
 
     public HeadAccount(Context context) {
         super(context);
@@ -45,6 +49,7 @@ public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAcco
         initMain(attrs);
     }
 
+    @SuppressLint("SetTextI18n")
     private void initMain(AttributeSet attrs){
         LayoutInflater inflater = LayoutInflater.from(getContext());
         rootView = inflater.inflate(R.layout.head_account,this,false);
@@ -54,11 +59,22 @@ public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAcco
                     attrs,
                     R.styleable.HeadAccount,
                     0, 0);
-            try {
 
+            try {
+                String resText = a.getString(R.styleable.HeadAccount_labelHeadAccount);
+                boolean isVisible = a.getBoolean(R.styleable.HeadAccount_labeVisibility,true);
+                if (isVisible){
+                    txtLabelTag.setVisibility(VISIBLE);
+                } else {
+                    txtLabelTag.setVisibility(GONE);
+                }
+                if (resText != null){
+                    txtLabelTag.setText(resText);
+                }
             }finally {
                 a.recycle();
             }
+
 
         }
         addView(rootView);
@@ -67,24 +83,25 @@ public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAcco
     @Override
     public void init() {
         circlePersonContent = rootView.findViewById(R.id.circle_person_content);
-        circlePerson = rootView.findViewById(R.id.circle_person);
+        circlePersonImage = rootView.findViewById(R.id.circle_person_image);
+        circlePersonUrl = rootView.findViewById(R.id.circle_person);
         txtIniciales = rootView.findViewById(R.id.txtIniciales);
         txtName = rootView.findViewById(R.id.label_name);
         txtReference = rootView.findViewById(R.id.label_reference);
+        txtLabelTag = rootView.findViewById(R.id.label_tag);
     }
 
     @Override
     public void bind(HeadAccountData item, OnHolderListener<HeadAccountData> listener) {
         txtName.setText(item.getName());
         txtReference.setText(item.getReference());
-
         if (!item.getUrlImage().isEmpty()){
             setImageURL(item.getUrlImage());
-            circlePerson.setVisibility(VISIBLE);
+            circlePersonUrl.setVisibility(VISIBLE);
             circlePersonContent.setVisibility(GONE);
         } else {
             setImageDrawable(item.getName(),item.getColorMarca());
-            circlePerson.setVisibility(GONE);
+            circlePersonUrl.setVisibility(GONE);
             circlePersonContent.setVisibility(VISIBLE);
         }
     }
@@ -101,26 +118,29 @@ public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAcco
 
     public void setImageURL(String url){
         Picasso.get().load(url)
-                .transform(new CircleTransform()).into(circlePerson);
+                .transform(new CircleTransform()).into(circlePersonUrl);
     }
 
     public void setImageDrawable(String name, String colorMarca){
         txtIniciales.setVisibility(View.VISIBLE);
         txtIniciales.setText(getIniciales(name));
-        GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(colorMarca),
-                android.graphics.Color.parseColor(colorMarca));
-        circlePersonContent.setBackground(gd);
+        GradientDrawable gd = createCircleDrawable(colorMarca);
+        circlePersonImage.setImageDrawable(gd);
     }
 
-    private GradientDrawable createCircleDrawable(int colorBackground, int colorBorder) {
-        int strokeWidth = 2; // 3px not dp
-        int roundRadius = 140; // 8px not dp
-        GradientDrawable gd = new GradientDrawable();
-        gd.setColor(colorBackground);
-        gd.setCornerRadius(roundRadius);
-        gd.setStroke(strokeWidth, colorBorder);
-        return gd;
+    private GradientDrawable createCircleDrawable(String colorBackground) {
+        int fillColor = Color.parseColor(colorBackground);
+        GradientDrawable gD = new GradientDrawable();
+        gD.setColor(fillColor);
+        gD.setShape(GradientDrawable.OVAL);
+        //circlePersonImage.setBackground(gD);
+        return gD;
     }
+
+    /*public static float dpToPx(View view, float dipValue) {
+        DisplayMetrics metrics = view.getContext().getResources().getDisplayMetrics();
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, metrics);
+    }*/
 
     private String getIniciales(String fullName) {
         if (fullName.trim().length() == 1) {

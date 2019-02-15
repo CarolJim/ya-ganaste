@@ -32,5 +32,9 @@
     </declare-styleable>
     <declare-styleable name="HeadAccount">
         <attr name="labelHeadAccount" format="reference|string"/>
+        <attr name="labeVisibility" format="boolean"/>
+    </declare-styleable>
+    <declare-styleable name="LabelButton">
+        <attr name="labelBtn" format="reference|string"/>
     </declare-styleable>
 </resources>
