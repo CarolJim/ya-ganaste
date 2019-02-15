@@ -16,6 +16,7 @@ public class SendNewContracts {
 
     public interface Router{
         void showAllFavorites(Direction direction);
+        void showsendfragment(Direction direction, int type);
 
     }
 
