@@ -97,6 +97,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @BindView(R.id.txt_import)
     MontoTextView importe;
 
+    @BindView(R.id.txt_referente)
+    StyleTextView txt_referente;
+
     @BindView(R.id.btn_continueEnvio)
     StyleButton btnContinueEnvio;
 
@@ -192,6 +195,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         }
 
 
+
         importe.setText("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         txt_username_payment.setText(usuario.getNombre());
         editPassword.addTextChangedListener(new TextWatcher() {
@@ -215,6 +219,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         });
         txt_data.setText(envio.getNombreDestinatario());
         txt_monto.setText(StringUtils.getCurrencyValue(envio.getMonto()));
+        txt_referente.setText(envio.getReferencia());
         if (!App.getInstance().getPrefs().loadData(URL_PHOTO_USER).isEmpty()) {
             Picasso.get()
                     .load(App.getInstance().getPrefs().loadData(URL_PHOTO_USER))
@@ -240,6 +245,10 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
 
         //Huella
+       callFingerPrint();
+    }
+
+    private void callFingerPrint() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && fingerprintManager!=null) {
             if (!fingerprintManager.isHardwareDetected()) {
             } else if (!keyguardManager.isKeyguardSecure()) {
@@ -418,7 +427,16 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     public void validateForm() {
         getDataForm();
         if (TextUtils.isEmpty(password)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && fingerprintManager!=null) {
+                if (!fingerprintManager.isHardwareDetected()) {
+                    showValidationError(0, getString(R.string.datos_usuario_pass));
+                }
+                else{
+                    callFingerPrint();
+                }
+            }else
             showValidationError(0, getString(R.string.datos_usuario_pass));
+
         } else {
             paymentAuthorizePresenter.validatePasswordFormat(password);
         }

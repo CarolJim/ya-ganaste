@@ -711,7 +711,8 @@ public class AccountActivity extends LoaderActivity implements WalletEmisorContr
                         UI.showErrorSnackBar(this, getString(R.string.transfer_qr_invalid), Snackbar.LENGTH_SHORT);
                     }*/
                 } else {
-                    finish();
+                  //  finish();
+                    onEvent(EVENT_HIDE_LOADER, null);
                 }
             }
         }

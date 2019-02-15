@@ -4,7 +4,6 @@
     android:layout_width="100dp"
     android:layout_height="115dp"
     android:layout_marginRight="4dp"
-    android:background="@drawable/button_rounded_gray"
     app:cardCornerRadius="5dp">
 
     <LinearLayout
