@@ -321,7 +321,6 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         mDataRecargarFav.clear();
         mDataPagarFav.clear();
         newPaymentPresenter.getFavoritesItems(PAYMENT_RECARGAS);
-        //newPaymentPresenter.getFavoritesItems(PAYMENT_SERVICIOS);
 
         // Mostramos el boton para editar favoritos
         tvEditarFav.setVisibility(View.VISIBLE);

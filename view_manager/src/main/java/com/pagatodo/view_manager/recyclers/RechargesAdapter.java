@@ -32,10 +32,12 @@ class RechargesAdapter extends RecyclerView.Adapter<IconButtonHolder> {
     @Override
     public IconButtonHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType){
-            case 2:
+            case 3: //Favorite
+
+            case 2: //PDS
                 return new IconButtonHolder(LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_icon_button_sub,parent,false));
-            case 1:
+            case 1: //Recagar
                 return new IconButtonHolder(LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_icon_button,parent,false));
                 default: return new IconButtonHolder(LayoutInflater.from(parent.getContext())
@@ -56,7 +58,7 @@ class RechargesAdapter extends RecyclerView.Adapter<IconButtonHolder> {
     @Override
     public int getItemViewType(int position) {
         switch (listData.get(position).getType()){
-            case ITEM_PAY:
+            case ITEM_RECHARGE_FAV:
                 return 2;
             case ITEM_RECHARGE:
                 return 1;

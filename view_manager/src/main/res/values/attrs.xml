@@ -37,4 +37,8 @@
     <declare-styleable name="LabelButton">
         <attr name="labelBtn" format="reference|string"/>
     </declare-styleable>
+    <declare-styleable name="ImageInitials">
+        <attr name="color" format="color"/>
+        <attr name="nameComplete" format="reference|string"/>
+    </declare-styleable>
 </resources>

@@ -50,12 +50,11 @@ public class RechargesRecycler extends LinearLayout implements LauncherHolder<Ar
     }
 
     private void defaultView(){
-        adapter.addItem(new IconButtonDataHolder(getContext().getResources().getDrawable(R.drawable.ic_ico_wallet),
-                "AT&T",IconButtonDataHolder.TYPE.ITEM_PAY));
-        adapter.addItem(new IconButtonDataHolder(getContext().getResources().getDrawable(R.drawable.ic_ico_wallet),
-                "AT&T",IconButtonDataHolder.TYPE.ITEM_RECHARGE));
+        adapter.addItem(new IconButtonDataHolder(getContext().getResources().getDrawable(R.drawable.ic_add),
+                "AT&T",IconButtonDataHolder.TYPE.ITEM_RECHARGE_FAV));
         adapter.notifyDataSetChanged();
     }
+
 
     @Override
     public void init() {
@@ -69,7 +68,10 @@ public class RechargesRecycler extends LinearLayout implements LauncherHolder<Ar
 
     @Override
     public void bind(ArrayList<IconButtonDataHolder> item, OnHolderListener<ArrayList<IconButtonDataHolder>> listener) {
-        adapter.setListData(item);
+        if (!item.isEmpty()){
+            adapter.setListData(item);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
