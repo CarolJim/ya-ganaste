@@ -1786,6 +1786,7 @@
     <string name="qr">Código\nQR</string>
     <string name="enviar_a_un_favorit">Enviar a un Favorito</string>
     <string name="select_recharge">Seleccionar recarga</string>
+    <string name="select_recharge_fav">Recargar a un Favorito</string>
     <string name="amount_to_send">Monto a Enviar</string>
     <string name="destinatario">Destinatario</string>
     <string name="referencia">Referencia</string>
