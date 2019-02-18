@@ -52,6 +52,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.MSJ;
 import static com.pagatodo.yaganaste.utils.Recursos.READ_BATTERY_LEVEL;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_FINAL_CONFIRM;
@@ -161,7 +162,7 @@ public class MyDongleFragment extends GenericFragment implements IPreferUserGene
             txtSerialNumber.setVisibility(GONE);
         }
         txtCompanyName.setText(prefs.loadData(COMPANY_NAME));
-        boolean isComerioUyU = true;
+        boolean isComerioUyU = App.getInstance().getPrefs().loadDataBoolean(IS_UYU,true);
         try {
             if (!RequestHeaders.getIdCuentaAdq().equals(""))
                 isComerioUyU = new DatabaseManager().isComercioUyU(RequestHeaders.getIdCuentaAdq());

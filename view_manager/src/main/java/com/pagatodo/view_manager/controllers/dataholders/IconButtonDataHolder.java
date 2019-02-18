@@ -59,6 +59,6 @@ public class IconButtonDataHolder {
     }
 
     public enum TYPE{
-        ITEM_RECHARGE,ITEM_PAY
+        ITEM_RECHARGE, ITEM_RECHARGE_FAV
     }
 }

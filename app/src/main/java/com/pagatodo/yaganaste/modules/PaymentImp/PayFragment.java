@@ -11,6 +11,7 @@ import com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder;
 import com.pagatodo.view_manager.recyclers.RechargesRecycler;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.UI;
@@ -25,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder.TYPE.ITEM_RECHARGE;
+import static com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder.TYPE.ITEM_RECHARGE_FAV;
 
 public class PayFragment extends GenericFragment implements PayContracts.Listener {
 
@@ -34,10 +36,13 @@ public class PayFragment extends GenericFragment implements PayContracts.Listene
 
     @BindView(R.id.rechargesRecycler)
     RechargesRecycler rechargesRecycler;
+    @BindView(R.id.recharges_recycler_fav)
+    RechargesRecycler rechargesRecyclerFav;
 
     public static PayFragment newInstance(){
         return new PayFragment();
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -64,11 +69,17 @@ public class PayFragment extends GenericFragment implements PayContracts.Listene
     public void initViews() {
         ButterKnife.bind(this, rootView);
         this.interactor.getRechargeCommerce();
+        this.interactor.getRechargeFavorites();
     }
 
     @Override
     public void onRechargeCommerceSucces(List<Comercio> catalogos) {
         rechargesRecycler.bind(covertItems(catalogos),null);
+    }
+
+    @Override
+    public void onRechargeFavorites(List<Favoritos> catalogos) {
+        rechargesRecyclerFav.bind(covertFavItem(catalogos),null);
     }
 
     @Override
@@ -90,9 +101,20 @@ public class PayFragment extends GenericFragment implements PayContracts.Listene
         ArrayList<IconButtonDataHolder> items = new ArrayList<>();
         for (Comercio comercio:catalogos){
             //String imageUrl, String name, TYPE type
-            items.add(new IconButtonDataHolder(comercio.getLogoURL(),comercio.getNombreComercio(),
+            items.add(new IconButtonDataHolder(comercio.getLogoURLColor(),
+                    comercio.getNombreComercio(),
                     ITEM_RECHARGE));
         }
         return items;
     }
+
+    private ArrayList<IconButtonDataHolder> covertFavItem(List<Favoritos> itemFav){
+        ArrayList<IconButtonDataHolder> items = new ArrayList<>();
+        for (Favoritos fav:itemFav){
+            items.add(new IconButtonDataHolder("",
+                    fav.getNombre(),ITEM_RECHARGE_FAV));
+        }
+        return items;
+    }
+
 }

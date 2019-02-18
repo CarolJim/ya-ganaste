@@ -43,6 +43,7 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_MVIMIENTOS_ADQ = 102;
     static public final int OPTION_OPERADORES_ADQ = 104;
     static public final int OPTION_MVIMIENTOS_STARBUCKS = 103;
+    static public final int OPTION_MVIMIENTOS_STARBUCKSD = 1033;
     static public final int OPTION_MVIMIENTOS_BUSSINES = 105;
     static public final int OPTION_VENTAS_ADQ = 109;
     static public final int OPTION_VENTAS_ADQAFUERA = 210;
@@ -68,6 +69,8 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_PAYMENT_ADQ = 202;
     static public final int OPTION_DEPOSITO = 203;
     static public final int OPTION_RECOMPENSAS = 6482;
+    static public final int OPTION_RECOMPENSASD = 64822;
+    static public final int OPTION_SUCURSALESD = 64533;
     static public final int OPTION_SUCURSALES = 6453;
     static public final int OPTION_SETTINGSCARD = 2112;
     static public final int OPTION_ADDFAVORITE_PAYMENT = 3001;
@@ -459,6 +462,14 @@ public class ElementView implements ElementGlobal {
         elementViews.add(new ElementView(OPTION_RECOMPENSAS, R.drawable.icon_star, R.string.opt_recompensas));
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_STARBUCKS, R.drawable.icono_movimientos, R.string.opt_consulta));
         elementViews.add(new ElementView(OPTION_SUCURSALES, R.drawable.ico_store, R.string.opt_sucursales));
+        //elementViews.add(new ElementView(OPTION_ADMON_STARBUCK, R.drawable.ico_admin_tarj, R.string.operation_administracion));
+        return elementViews;
+    }
+    public static ArrayList<ElementView> getListStarbucksdes() {
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(OPTION_RECOMPENSASD, R.drawable.icon_star, R.string.opt_recompensas));
+        elementViews.add(new ElementView(OPTION_MVIMIENTOS_STARBUCKSD, R.drawable.icono_movimientos, R.string.opt_consulta));
+        elementViews.add(new ElementView(OPTION_SUCURSALESD, R.drawable.ico_store, R.string.opt_sucursales));
         //elementViews.add(new ElementView(OPTION_ADMON_STARBUCK, R.drawable.ico_admin_tarj, R.string.operation_administracion));
         return elementViews;
     }

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/number_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/inputtext_normal"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/HeadAccount">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/referencianumber"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:hint="@string/transfer_phone_cellphone"
+            android:maxLines="1"
+            android:paddingLeft="6dp"
+            android:textColor="@color/blue_text_wallet"
+            android:theme="@style/TextLabel"
+            app:passwordToggleTint="@color/hint_color">
+
+            <EditText
+                android:id="@+id/number_card_edta"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="9dp"
+                android:background="@android:color/transparent"
+                android:digits="@string/input_alphanumeric_reference"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:longClickable="false"
+                android:maxLength="12"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/texthint_edittext"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutImageReference"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp">
+
+            <ImageView
+                android:id="@+id/contactsPhone"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:srcCompat="@drawable/ic_ico_telefono" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dest"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/inputtext_normal"
+        android:gravity="center_vertical"
+        android:hint="@string/destinatario"
+        android:maxLines="1"
+        android:textColorHint="@color/texthint"
+        app:counterEnabled="true"
+        app:counterMaxLength="1"
+        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+        app:hintTextAppearance="@style/HintText"
+        app:layout_constraintTop_toBottomOf="@+id/number_card"
+        app:passwordToggleTint="@color/hint_color">
+
+        <EditText
+            android:id="@+id/dest_edtx"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
+            android:textColor="@color/grayColor"
+            android:theme="@style/NewEdittextwallet" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/bankLinear"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/dest"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/bank"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/edit_nombre"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/inputtext_normal"
+            android:gravity="center_vertical"
+            android:hint="@string/details_bank"
+            android:maxLines="1"
+            android:textColorHint="@color/texthint"
+            app:counterEnabled="true"
+            app:counterMaxLength="1"
+            app:counterOverflowTextAppearance="@style/CounterOverFlow"
+            app:hintTextAppearance="@style/HintText"
+
+            app:passwordToggleTint="@color/hint_color">
+
+            <EditText
+                android:id="@+id/bank_edtx"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/grayColor"
+                android:theme="@style/NewEdittextwallet" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/reference"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/edit_nombre"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/inputtext_normal"
+        android:gravity="center_vertical"
+        android:hint="@string/referencia"
+        android:maxLines="1"
+        android:textColorHint="@color/texthint"
+        app:counterEnabled="true"
+        app:counterMaxLength="1"
+        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+        app:hintTextAppearance="@style/HintText"
+        app:layout_constraintTop_toBottomOf="@+id/bankLinear"
+        app:passwordToggleTint="@color/hint_color">
+
+        <EditText
+            android:id="@+id/reference_edtx"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="@color/grayColor"
+            android:theme="@style/NewEdittextwallet" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,6 +42,7 @@ public class ElementWallet {
     public static final int TYPE_SETTINGS = 14;
     public static final int TYPE_BUSINESS = 15;
     public static final int TYPE_ADQ_FIRST = 16;
+    public static final int TYPE_STARBUCKSDES = 16;
 
     private int typeWallet;
     private Bitmap frontBitmap, rearBitmap;
@@ -209,6 +210,153 @@ public class ElementWallet {
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(STARBUCKS_BALANCE)),
                 ElementView.getListStarbucks(),
                 (R.string.saldo_disponible), true, null);
+    }
+ public static ElementWallet getCardStarbucksdesc() {
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.starbucks);
+       /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
+        Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
+        Bitmap resultBitmat = overlayImages(backView, starbucksCode,
+                (backView.getWidth() / 2) - (starbucksCode.getWidth() / 2),
+                (backView.getHeight() / 2) - (starbucksCode.getHeight() / 2));*/
+        return new ElementWallet(TYPE_STARBUCKSDES, frontView, null,
+                StringUtils.getCurrencyValue(""),
+                ElementView.getListStarbucksdes(),
+                (R.string.empty), true, null);
+    }
+
+    public static ElementWallet getCardCinepolisDes() {
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.cinepolis);
+       /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
+        Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
+        Bitmap resultBitmat = overlayImages(backView, starbucksCode,
+                (backView.getWidth() / 2) - (starbucksCode.getWidth() / 2),
+                (backView.getHeight() / 2) - (starbucksCode.getHeight() / 2));*/
+        return new ElementWallet(TYPE_STARBUCKSDES, frontView, null,
+                StringUtils.getCurrencyValue("Saldo"),
+                ElementView.getListStarbucksdes(),
+                (R.string.empty), true, null);
+    }
+public static ElementWallet getCardConstruganasDes() {
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.contruganas);
+       /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
+        Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
+        Bitmap resultBitmat = overlayImages(backView, starbucksCode,
+                (backView.getWidth() / 2) - (starbucksCode.getWidth() / 2),
+                (backView.getHeight() / 2) - (starbucksCode.getHeight() / 2));*/
+        return new ElementWallet(TYPE_STARBUCKSDES, frontView, null,
+                StringUtils.getCurrencyValue("Saldo"),
+                ElementView.getListStarbucksdes(),
+                (R.string.empty), true, null);
+    }
+public static ElementWallet getCardSportCityDes() {
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.sportcity);
+       /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
+        Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
+        Bitmap resultBitmat = overlayImages(backView, starbucksCode,
+                (backView.getWidth() / 2) - (starbucksCode.getWidth() / 2),
+                (backView.getHeight() / 2) - (starbucksCode.getHeight() / 2));*/
+        return new ElementWallet(TYPE_STARBUCKSDES, frontView, null,
+                StringUtils.getCurrencyValue("Saldo"),
+                ElementView.getListStarbucksdes(),
+                (R.string.empty), true, null);
+    }
+
+    public static ElementWallet getCardTransporteDes() {
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.metrobus);
+       /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
+        Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
+        Bitmap resultBitmat = overlayImages(backView, starbucksCode,
+                (backView.getWidth() / 2) - (starbucksCode.getWidth() / 2),
+                (backView.getHeight() / 2) - (starbucksCode.getHeight() / 2));*/
+        return new ElementWallet(TYPE_STARBUCKSDES, frontView, null,
+                StringUtils.getCurrencyValue("Saldo"),
+                ElementView.getListStarbucksdes(),
+                (R.string.empty), true, null);
+    }
+
+    public static ElementWallet getCardChedrauiDes() {
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.chedraui);
+       /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
+        Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
+        Bitmap resultBitmat = overlayImages(backView, starbucksCode,
+                (backView.getWidth() / 2) - (starbucksCode.getWidth() / 2),
+                (backView.getHeight() / 2) - (starbucksCode.getHeight() / 2));*/
+        return new ElementWallet(TYPE_STARBUCKSDES, frontView, null,
+                StringUtils.getCurrencyValue("Saldo"),
+                ElementView.getListStarbucksdes(),
+                (R.string.empty), true, null);
+    }
+
+    public static ElementWallet getCardFAhorroDes() {
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.fahorro);
+       /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
+        Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
+        Bitmap resultBitmat = overlayImages(backView, starbucksCode,
+                (backView.getWidth() / 2) - (starbucksCode.getWidth() / 2),
+                (backView.getHeight() / 2) - (starbucksCode.getHeight() / 2));*/
+        return new ElementWallet(TYPE_STARBUCKSDES, frontView, null,
+                StringUtils.getCurrencyValue("Saldo"),
+                ElementView.getListStarbucksdes(),
+                (R.string.empty), true, null);
+    }
+   public static ElementWallet getCardSMonterreyDes() {
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.segurosm);
+       /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
+        Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
+        Bitmap resultBitmat = overlayImages(backView, starbucksCode,
+                (backView.getWidth() / 2) - (starbucksCode.getWidth() / 2),
+                (backView.getHeight() / 2) - (starbucksCode.getHeight() / 2));*/
+        return new ElementWallet(TYPE_STARBUCKSDES, frontView, null,
+                StringUtils.getCurrencyValue("Saldo"),
+                ElementView.getListStarbucksdes(),
+                (R.string.empty), true, null);
+    }
+ public static ElementWallet getCardCostcoDes() {
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.costco);
+       /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
+        Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
+        Bitmap resultBitmat = overlayImages(backView, starbucksCode,
+                (backView.getWidth() / 2) - (starbucksCode.getWidth() / 2),
+                (backView.getHeight() / 2) - (starbucksCode.getHeight() / 2));*/
+        return new ElementWallet(TYPE_STARBUCKSDES, frontView, null,
+                StringUtils.getCurrencyValue("Saldo"),
+                ElementView.getListStarbucksdes(),
+                (R.string.empty), true, null);
+    }
+ public static ElementWallet getCardAeroMDes() {
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.aerom);
+       /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
+        Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
+        Bitmap resultBitmat = overlayImages(backView, starbucksCode,
+                (backView.getWidth() / 2) - (starbucksCode.getWidth() / 2),
+                (backView.getHeight() / 2) - (starbucksCode.getHeight() / 2));*/
+        return new ElementWallet(TYPE_STARBUCKSDES, frontView, null,
+                StringUtils.getCurrencyValue("Saldo"),
+                ElementView.getListStarbucksdes(),
+                (R.string.empty), true, null);
+    }
+ public static ElementWallet getCardLiverpoolDes() {
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.liverpool);
+       /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
+        Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
+        Bitmap resultBitmat = overlayImages(backView, starbucksCode,
+                (backView.getWidth() / 2) - (starbucksCode.getWidth() / 2),
+                (backView.getHeight() / 2) - (starbucksCode.getHeight() / 2));*/
+        return new ElementWallet(TYPE_STARBUCKSDES, frontView, null,
+                StringUtils.getCurrencyValue("Saldo"),
+                ElementView.getListStarbucksdes(),
+                (R.string.empty), true, null);
+    } public static ElementWallet getPayBackDes() {
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.cinepolis);
+       /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
+        Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
+        Bitmap resultBitmat = overlayImages(backView, starbucksCode,
+                (backView.getWidth() / 2) - (starbucksCode.getWidth() / 2),
+                (backView.getHeight() / 2) - (starbucksCode.getHeight() / 2));*/
+        return new ElementWallet(TYPE_STARBUCKSDES, frontView, null,
+                StringUtils.getCurrencyValue("Saldo"),
+                ElementView.getListStarbucksdes(),
+                (R.string.empty), true, null);
     }
 
     public static ElementWallet getCardSettings() {

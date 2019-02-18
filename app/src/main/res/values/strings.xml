@@ -571,6 +571,7 @@
     <string name="saldo_reembolso">Saldo por reembolsar</string>
     <string name="saldo_reembolso_total">Saldo total por reembolsar</string>
     <string name="saldo_disponible">Saldo disponible</string>
+    <string name="empty">Saldo disponible</string>
     <string name="saldo_en_cuenta">Saldo en cuenta</string>
     <string name="saldo_personal">Saldo personal:</string>
     <string name="mejor_precio">Recibe tu dinero al instante</string>
@@ -1785,13 +1786,16 @@
     <string name="number_telephone">Número de\nTeléfono</string>
     <string name="clabe">Cuenta\nCLABE</string>
     <string name="qr">Código\nQR</string>
+    <string name="selecciona_un_favorito">Selecciona un favorito para realizar\nun envio de dinero</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="enviar_a_un_favorit">Enviar a un Favorito</string>
     <string name="select_recharge">Seleccionar recarga</string>
+    <string name="select_recharge_fav">Recargar a un Favorito</string>
     <string name="amount_to_send">Monto a Enviar</string>
     <string name="destinatario">Destinatario</string>
     <string name="referencia">Referencia</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="saldo_actual">Saldo actual</string>
+    <string name="n_mero_de_tarjeta">Número de tarjeta</string>
+    <string name="clabe_send">CLABE</string>
+    <string name="saldo_actual">Saldo Actual</string>
 </resources>
