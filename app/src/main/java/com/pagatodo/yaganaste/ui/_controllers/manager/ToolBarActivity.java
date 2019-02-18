@@ -27,7 +27,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     public static final String EVENT_CHANGE_TOOLBAR_VISIBILITY = "eventChangeToolbarVisibility";
     public View toolbarLayout;
     public String mUserImage;
-    private ImageView imgNotif, imgToolbar, imgOk;
+    private ImageView imgNotif, imgToolbar, imgOk,imgAddfavo;
     private StyleTextView omitir;
     //CircleImageView imageView;
     //ImageView imageView;
@@ -48,6 +48,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         //imageViewdes= (ImageView) findViewById(R.id.imgToRight_prefe);
         btnBack = (AppCompatImageView) findViewById(R.id.btn_back);
         imgNotif = (ImageView) findViewById(R.id.imgNotifications);
+        imgAddfavo = (ImageView) findViewById(R.id.imgAddfavo);
         imgToolbar = (ImageView) findViewById(R.id.imgToolbar);
         omitir = (StyleTextView) findViewById(R.id.omitir);
         imgOk = (ImageView) findViewById(R.id.btn_ok);
@@ -123,6 +124,10 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
 
     public void setVisibilityBack(boolean mBoolean) {
         btnBack.setVisibility(mBoolean ? View.VISIBLE : View.GONE);
+    }
+
+    public void setVisibilityaddFavo(boolean mBoolean) {
+        imgAddfavo.setVisibility(mBoolean ? View.VISIBLE : View.GONE);
     }
 
     public static void setVisibleshare() {

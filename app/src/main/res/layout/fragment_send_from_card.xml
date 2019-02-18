@@ -56,6 +56,7 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
 
+        android:id="@+id/btnSendPayment"
         android:layout_width="219dp"
         android:layout_height="51dp"
         android:layout_marginStart="8dp"

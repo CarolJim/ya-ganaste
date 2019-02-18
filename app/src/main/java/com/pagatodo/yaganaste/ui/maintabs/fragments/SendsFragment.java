@@ -328,7 +328,7 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
             concepto = "";
             nombreDestinatario = myName;
             referenciaNumber = referencia;
-            payment = new Envios(selectedType, referencia, 0D, nombreDestinatario, concepto, referenciaNumber, comercioItem,
+            payment = new Envios(selectedType,referenciaNumber , 0D, nombreDestinatario, concepto,referencia , comercioItem,
                     favoriteItem != null);
             Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
             intent.putExtra("pagoItem", payment);

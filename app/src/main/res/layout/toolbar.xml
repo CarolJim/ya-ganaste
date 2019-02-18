@@ -87,6 +87,16 @@
             app:srcCompat="@mipmap/bell"
 
             tools:ignore="ContentDescription"/>
+
+        <ImageView
+            android:id="@+id/imgAddfavo"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginRight="15dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/addfavos"
+            tools:ignore="ContentDescription"/>
         <!--
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgToRight_prefe"

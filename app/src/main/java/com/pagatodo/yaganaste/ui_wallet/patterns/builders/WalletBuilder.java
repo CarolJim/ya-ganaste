@@ -58,6 +58,19 @@ public class WalletBuilder {
             walletList.addWallet(ElementWallet.getCardLectorAdq(null));
         }
 
+        walletList.addWallet(ElementWallet.getCardStarbucksdesc());
+        walletList.addWallet(ElementWallet.getCardCinepolisDes());
+        walletList.addWallet(ElementWallet.getCardConstruganasDes());
+        walletList.addWallet(ElementWallet.getCardSportCityDes());
+        walletList.addWallet(ElementWallet.getCardTransporteDes());
+        walletList.addWallet(ElementWallet.getCardChedrauiDes());
+        walletList.addWallet(ElementWallet.getCardFAhorroDes());
+        walletList.addWallet(ElementWallet.getCardSMonterreyDes());
+        walletList.addWallet(ElementWallet.getCardCostcoDes());
+        walletList.addWallet(ElementWallet.getCardAeroMDes());
+        walletList.addWallet(ElementWallet.getCardLiverpoolDes());
+        walletList.addWallet(ElementWallet.getPayBackDes());
+
         //Starbucks
         if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
             if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {

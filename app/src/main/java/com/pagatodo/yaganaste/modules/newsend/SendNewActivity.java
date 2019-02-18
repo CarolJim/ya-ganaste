@@ -9,6 +9,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.widget.EditText;
+import android.view.View;
+import android.widget.ImageView;
+
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.newsend.SendFromCard.SendFromCardFragment;
@@ -35,6 +38,8 @@ public class SendNewActivity extends LoaderActivity implements SendNewContracts.
     SendNewRouter router;
     int idFragment;
 
+    ImageView imgAddfavo ;
+
     public static Intent createIntent(Activity activity, int tag) {
         Intent intent = new Intent(activity, SendNewActivity.class);
         intent.putExtra(TAG_ID_FRAGMENT, tag);
@@ -45,6 +50,8 @@ public class SendNewActivity extends LoaderActivity implements SendNewContracts.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_new);
+
+        imgAddfavo = (ImageView) findViewById(R.id.imgAddfavo);
         router = new SendNewRouter(this);
         cameraManager = new CameraManager(this);
         if (getIntent().getExtras() != null) {
@@ -52,6 +59,17 @@ public class SendNewActivity extends LoaderActivity implements SendNewContracts.
         }
         initViews();
     }
+
+
+    public void showaddfavo(boolean show){
+
+        if (show)
+            imgAddfavo.setVisibility(View.VISIBLE);
+        else
+            imgAddfavo.setVisibility(View.GONE);
+    }
+
+
 
     @Override
     public boolean requiresTimer() {
