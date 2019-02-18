@@ -4,4 +4,5 @@
     <string name="default_label_head_account">Enviar a</string>
     <string name="btn_all">Ver todas</string>
     <string name="url_images_logos">https://www.yaganaste.com/Logos/</string>
+    <string name="add_fav">Agregar\nfavorito</string>
 </resources>

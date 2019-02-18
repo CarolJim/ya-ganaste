@@ -13,6 +13,7 @@ import com.pagatodo.view_manager.controllers.LauncherHolder;
 import com.pagatodo.view_manager.controllers.OnHolderListener;
 import com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder;
 
+
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class RechargesRecycler extends LinearLayout implements LauncherHolder<ArrayList<IconButtonDataHolder>> {
+public class RechargesRecycler extends LinearLayout implements LauncherHolder<ArrayList<IconButtonDataHolder>>{
 
     private View rootView;
     private RechargesAdapter adapter;
@@ -51,7 +52,9 @@ public class RechargesRecycler extends LinearLayout implements LauncherHolder<Ar
 
     private void defaultView(){
         adapter.addItem(new IconButtonDataHolder(getContext().getResources().getDrawable(R.drawable.ic_add),
-                "AT&T",IconButtonDataHolder.TYPE.ITEM_RECHARGE_FAV));
+                getContext().getResources().getString(R.string.add_fav),
+                "Agregar",
+                IconButtonDataHolder.TYPE.ITEM_RECHARGE_FAV));
         adapter.notifyDataSetChanged();
     }
 
@@ -68,11 +71,12 @@ public class RechargesRecycler extends LinearLayout implements LauncherHolder<Ar
 
     @Override
     public void bind(ArrayList<IconButtonDataHolder> item, OnHolderListener<ArrayList<IconButtonDataHolder>> listener) {
-        if (!item.isEmpty()){
+        if (item != null){
             adapter.setListData(item);
             adapter.notifyDataSetChanged();
         }
     }
+
 
     @Override
     public void inflate(ViewGroup layout) {
@@ -83,4 +87,17 @@ public class RechargesRecycler extends LinearLayout implements LauncherHolder<Ar
     public View getView() {
         return this.rootView;
     }
+
+    public void setListItem(ArrayList<IconButtonDataHolder> listData){
+        if (!listData.isEmpty()){
+            adapter.setListData(listData);
+            adapter.notifyDataSetChanged();
+        }
+
+    }
+    public void setOnClickItems(OnHolderListener<IconButtonDataHolder> listener){
+        adapter.setListener(listener);
+    }
+
+
 }
