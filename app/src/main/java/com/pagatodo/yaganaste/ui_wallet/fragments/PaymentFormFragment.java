@@ -49,6 +49,7 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.RecargasPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IRecargasPresenter;
+import com.pagatodo.yaganaste.ui_wallet.PaymentActivity;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFromFragment;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPresenterPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.presenter.PresenterPaymentFragment;
@@ -555,7 +556,11 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             labelName = comercioResponse.getNombreComercio();
         }
 
-        headAccount.setImageURL(imgUrl);
+        if(imgUrl.isEmpty() || imgUrl == null)
+            headAccount.setImageURL("");
+        else
+            headAccount.setImageURL(imgUrl);
+
 
 
         txtMonto.setText("" + Utils.getCurrencyValue(0));
@@ -906,8 +911,14 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
      */
     protected void sendPayment() {
 
+        if (isRecarga) {
+            onEventListener.onEvent(PaymentActivity.AUTHORIZE, payment);
+        } else {
+            onEventListener.onEvent(PaymentActivity.NEXT_VIEW, payment);
+        }
 
 
+        /*
         Intent intent = new Intent(getContext(), PaymentsProcessingActivity.class);
         intent.putExtra("pagoItem", payment);
         if (isRecarga) {
@@ -918,6 +929,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación
         getActivity().startActivityForResult(intent, BACK_FROM_PAYMENTS);
         //getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        */
     }
 }
 

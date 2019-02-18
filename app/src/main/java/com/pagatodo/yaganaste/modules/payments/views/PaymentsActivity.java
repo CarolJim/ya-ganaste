@@ -22,7 +22,7 @@ import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_ERROR;
 
-public class PaymentsActivity extends LoaderActivity implements PaymentsView, View.OnClickListener {
+public class PaymentsActivity extends LoaderActivity implements View.OnClickListener {
 
     public static final String PAYMENT_DATA = "PAYMENT_DATA";
     public static final String PAYMENT_IS_FAV = "PAYMENT_IS_FAV";
@@ -38,27 +38,8 @@ public class PaymentsActivity extends LoaderActivity implements PaymentsView, Vi
         super.onCreate(savedInstanceState);
         /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_payments);
-        if (getIntent().getExtras() != null) {
-            isFavorite = getIntent().getBooleanExtra(PAYMENT_IS_FAV, false);
-            if (!isFavorite) {
-                comercioResponse = (Comercio) getIntent().getExtras().get(PAYMENT_DATA);
-            } else {
-                favoritos = (Favoritos) getIntent().getExtras().get(PAYMENT_DATA);
-            }
-        }
-        initViews();
     }
 
-    private void initViews() {
-        ButterKnife.bind(this);
-        back.setOnClickListener(this);
-        if (!isFavorite) {
-            loadFragment(MobileTopUpFragment.newInstance(comercioResponse), R.id.fragment_container_payments);
-            //loadFragment(PaymentFormFragment.newInstance(comercioResponse), R.id.fragment_container);
-        } else {
-            loadFragment(MobileTopUpFragment.newInstance(favoritos), R.id.fragment_container_payments);
-        }
-    }
 
     @Override
     public boolean requiresTimer() {
@@ -76,32 +57,4 @@ public class PaymentsActivity extends LoaderActivity implements PaymentsView, Vi
         finish();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        MobileTopUpFragment myFragment = (MobileTopUpFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_payments);
-        myFragment.onActivityResult(requestCode, resultCode, data);
-        //  UI.showErrorSnackBar(this, "LOL");
-
-        // Mostramos los Snack de Error
-        try {
-            Bundle MBuddle = data.getExtras();
-            String MMessage = MBuddle.getString(MESSAGE);
-            String resultError = MBuddle.getString(RESULT);
-            if (resultError.equals(RESULT_ERROR)) {
-                UI.showErrorSnackBar(this, MMessage, Snackbar.LENGTH_SHORT);
-            }
-        } catch (Exception e) {
-        }
-    }
-
-    @Override
-    public void nextView(GenericFragment fragment) {
-        loadFragment(MobileTopUpFragment.newInstance(comercioResponse), R.id.fragment_container_payments);
-    }
-
-    @Override
-    public void previousView(GenericFragment fragment) {
-
-    }
 }

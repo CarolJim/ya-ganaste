@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
@@ -25,7 +26,8 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
 
     public static final String PAYMENT_DATA = "PAYMENT_DATA";
     public static final String PAYMENT_IS_FAV = "PAYMENT_IS_FAV";
-    private static final String AUTHORIZE = "Athorize";
+    public static final String AUTHORIZE = "AUTHORIZE";
+    public static final String NEXT_VIEW = "NEXT_VIEW";
     @BindView(R.id.btn_back)
     AppCompatImageView back;
 
