@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pagatodo.view_manager.R;
-import com.pagatodo.view_manager.components.ImageInitials;
 import com.pagatodo.view_manager.controllers.GenericHolder;
 import com.pagatodo.view_manager.controllers.OnHolderListener;
 import com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder;
@@ -14,13 +13,12 @@ import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 
-
-public class IconButtonHolder extends GenericHolder<IconButtonDataHolder> {
+public class IconButtonComHolder extends GenericHolder<IconButtonDataHolder> {
 
     private ImageView iconImage;
-    private TextView textName;
+    private TextView textNameCom;
 
-    public IconButtonHolder(@NonNull View itemView) {
+    public IconButtonComHolder(@NonNull View itemView) {
         super(itemView);
         init();
     }
@@ -28,15 +26,20 @@ public class IconButtonHolder extends GenericHolder<IconButtonDataHolder> {
     @Override
     public void init() {
         this.iconImage = this.itemView.findViewById(R.id.icon_image);
-        this.textName = this.itemView.findViewById(R.id.text_name);
+        this.textNameCom = this.itemView.findViewById(R.id.text_name_com);
     }
 
     @Override
     public void bind(IconButtonDataHolder item, final OnHolderListener<IconButtonDataHolder> listener) {
-        setIconImage(item.getIconRes());
-        setTextName(item.getName());
-        if (listener != null) {
-            this.itemView.setOnClickListener(view -> listener.onClickView(item, null));
+        if (item.getImageUrl() != null) {
+            if (!item.getImageUrl().isEmpty()) {
+                Picasso.get().load(itemView.getContext().getString(R.string.url_images_logos) + item.getImageUrl())
+                        .into(this.iconImage);
+            }
+        }
+        this.textNameCom.setText(item.getNamCom());
+        if (listener != null){
+            itemView.setOnClickListener(v -> listener.onClickView(item,itemView));
         }
     }
 
@@ -45,7 +48,6 @@ public class IconButtonHolder extends GenericHolder<IconButtonDataHolder> {
     }
 
     public void setTextName(String textName){
-        this.textName.setText(textName);
+        this.textNameCom.setText(textName);
     }
-
 }

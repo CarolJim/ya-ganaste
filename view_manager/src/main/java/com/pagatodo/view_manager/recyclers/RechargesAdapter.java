@@ -4,20 +4,28 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.pagatodo.view_manager.R;
+import com.pagatodo.view_manager.controllers.GenericHolder;
+import com.pagatodo.view_manager.controllers.OnHolderListener;
 import com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder;
-import com.pagatodo.view_manager.holders.IconButtonHolder;
+import com.pagatodo.view_manager.holders.IconButtonComFavHolder;
+import com.pagatodo.view_manager.holders.IconButtonComHolder;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-class RechargesAdapter extends RecyclerView.Adapter<IconButtonHolder> {
+class RechargesAdapter extends RecyclerView.Adapter<GenericHolder<IconButtonDataHolder>> {
 
     private ArrayList<IconButtonDataHolder> listData;
+    private OnHolderListener<IconButtonDataHolder> listener;
 
     RechargesAdapter() {
         this.listData = new ArrayList<>();
+    }
+
+    public void setListener(OnHolderListener<IconButtonDataHolder> listener) {
+        this.listener = listener;
     }
 
     void setListData(ArrayList<IconButtonDataHolder> listData) {
@@ -30,24 +38,24 @@ class RechargesAdapter extends RecyclerView.Adapter<IconButtonHolder> {
 
     @NonNull
     @Override
-    public IconButtonHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GenericHolder<IconButtonDataHolder> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType){
             case 3: //Favorite
 
             case 2: //PDS
-                return new IconButtonHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_icon_button_sub,parent,false));
+                return new IconButtonComFavHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_icon_button_com_fav,parent,false));
             case 1: //Recagar
-                return new IconButtonHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_icon_button,parent,false));
-                default: return new IconButtonHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_icon_button,parent,false));
+                return new IconButtonComHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_icon_button_com,parent,false));
+                default: return new IconButtonComHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_icon_button_com,parent,false));
         }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull IconButtonHolder holder, int position) {
-        holder.bind(this.listData.get(position),null);
+    public void onBindViewHolder(@NonNull GenericHolder<IconButtonDataHolder> holder, int position) {
+        holder.bind(this.listData.get(position),this.listener);
     }
 
     @Override
