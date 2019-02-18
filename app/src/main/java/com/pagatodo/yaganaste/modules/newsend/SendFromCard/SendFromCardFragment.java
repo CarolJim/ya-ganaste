@@ -397,6 +397,7 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                 break;
 
             case R.id.btnSendPayment:
+
                 for (CarouselItem carouselItem : backUpResponse) {
                     if (carouselItem.getComercio().getIdComercio() == idComercio) {
                         comercioItem = carouselItem.getComercio();
@@ -420,20 +421,16 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                         refff = reference_card_edtx.getText().toString();
                         nombreDestinatario = dest_clabe_edtx.getText().toString().trim();
                         break;
+
                 }
 
                 concepto = " ";
                 referenciaNumber = referencia;
-                if (!isValid) {
-                    validateForm();
-                } else {
-                    payment = new Envios(selectedType, referenciaNumber, 0D, nombreDestinatario, concepto, dateref, comercioItem, false);
-                    Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
-                    intent.putExtra("pagoItem", payment);
-                    intent.putExtra("favoritoItem", favoriteItem);
-                    startActivityForResult(intent, BACK_FROM_PAYMENTS);
+
+                validateForm();
+
                     //clearInputs();
-                }
+
                 break;
             case R.id.bankLinear:
                 ListServDialogFragment dialogFragment = ListServDialogFragment.newInstance(backUpResponse);
@@ -626,6 +623,14 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                     UI.showErrorSnackBar(getActivity(), "Debes seleccionar un banco", Snackbar.LENGTH_LONG);
                 }
                 break;
+        }
+
+        if (isValid){
+            payment = new Envios(selectedType, referenciaNumber, 0D, nombreDestinatario, concepto, dateref, comercioItem, false);
+            Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
+            intent.putExtra("pagoItem", payment);
+            intent.putExtra("favoritoItem", favoriteItem);
+            startActivityForResult(intent, BACK_FROM_PAYMENTS);
         }
     }
 
