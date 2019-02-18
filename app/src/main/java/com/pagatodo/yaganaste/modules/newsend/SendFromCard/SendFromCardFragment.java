@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.modules.newsend.SendFromCard;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -15,14 +14,11 @@ import butterknife.ButterKnife;
 import io.card.payment.CardIOActivity;
 
 import android.provider.ContactsContract;
-import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -54,6 +50,7 @@ import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -158,6 +155,7 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
     private View rootView;
     String refff = "";
     String dateref = "";
+    private boolean isValid=true;
 
     public SendFromCardFragment() {
         // Required empty public constructor
@@ -213,7 +211,6 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                 NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(referencianumber_edtx, maxLength);
                 txtWatcherSetted = numberCardTextWatcher;
                 referencianumber_edtx.addTextChangedListener(numberCardTextWatcher);
-
                 selectedType = NUMERO_TARJETA;
                 break;
             case PAYMENT_PHONE:
@@ -346,12 +343,15 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
 
                 concepto = " ";
                 referenciaNumber = referencia;
-
-                payment = new Envios(selectedType, referenciaNumber, 0D, nombreDestinatario, concepto, dateref, comercioItem, false);
-                Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
-                intent.putExtra("pagoItem", payment);
-                intent.putExtra("favoritoItem", favoriteItem);
-                startActivityForResult(intent, BACK_FROM_PAYMENTS);
+                if (!isValid) {
+                    validateForm();
+                } else {
+                    payment = new Envios(selectedType, referenciaNumber, 0D, nombreDestinatario, concepto, dateref, comercioItem, false);
+                    Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
+                    intent.putExtra("pagoItem", payment);
+                    intent.putExtra("favoritoItem", favoriteItem);
+                    startActivityForResult(intent, BACK_FROM_PAYMENTS);
+                }
 
 
                 break;
@@ -498,6 +498,22 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
         });
     }
 
+    private void validateForm() {
+        isValid = true;
+        switch (type) {
+            case PAYMENT_CARD:
+                if (referencianumber_edtx.getText().toString().isEmpty()) {
+                    isValid = false;
+                    UI.showErrorSnackBar(getActivity(), "Ingresa un numero de tarjeta", Snackbar.LENGTH_LONG);
+                } else if (!ValidateForm.isValidCellPhone(referencianumber_edtx.getText().toString())) {
+                    isValid = false;
+                    errorText = App.getContext().getString(R.string.new_body_envios_cellphone_error);
+                }
+                break;
+        }
+
+    }
+
     @Override
     public void setDataBank(String idcomercio, String nombrebank) {
 
@@ -525,7 +541,13 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showError() {
-
+        if (errorText != null && !errorText.equals("")) {
+            String errorTittle = "";
+            if (errorText.equals(App.getContext().getString(R.string.txt_tipo_envio_error))) {
+                errorTittle = App.getContext().getResources().getString(R.string.type_send_invalid);
+            }
+            UI.showErrorSnackBar(getActivity(), errorTittle, Snackbar.LENGTH_LONG);
+        }
     }
 
     @Override
