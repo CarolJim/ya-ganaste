@@ -36,11 +36,74 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/layoutHeadWallet"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+
+                <com.pagatodo.view_manager.components.HeadWallet
+                    android:id="@+id/head_wallet_payments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:walletResImage="@mipmap/main_card_zoom_blue"
+                    app:headTitle="@string/saldo_actual"
+                    app:headAmount="1000"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:background="#e0e0e0" />
+
+            <LinearLayout
+                android:id="@+id/layoutHeadBrand"
+                android:layout_below="@+id/layoutHeadWallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="16dp">
+
+                <com.pagatodo.view_manager.components.HeadAccount
+                    android:id="@+id/head_account_payments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:labelHeadAccount=""
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:background="#e0e0e0" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/inputtext_normal"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="20dp"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"

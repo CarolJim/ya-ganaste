@@ -29,6 +29,9 @@ import android.widget.Spinner;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.pagatodo.view_manager.components.HeadAccount;
+import com.pagatodo.view_manager.components.HeadWallet;
+import com.pagatodo.view_manager.controllers.dataholders.HeadAccountData;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Payments;
@@ -38,6 +41,7 @@ import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
+import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -61,6 +65,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.squareup.picasso.Picasso;
 
+import java.util.EventListener;
 import java.util.List;
 import java.util.Objects;
 
@@ -95,6 +100,12 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
     private Comercio comercioResponse;
     private Favoritos favoritos;
+
+    @BindView(R.id.head_account_payments)
+    HeadAccount headAccount;
+
+    @BindView(R.id.head_wallet_payments)
+    HeadWallet headWallet;
 
     private View rootView;
     @BindView(R.id.txt_title_payment)
@@ -293,13 +304,14 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
         // Procesos para Recargas, sin importar si es carrier o favorito
         if (comercioResponse != null) {
-
-
             noCamara = (comercioResponse.getIdComercio() == IECISA || comercioResponse.getIdComercio() == AVON || comercioResponse.getIdComercio() == CABLEV || comercioResponse.getIdComercio() == SKY || comercioResponse.getIdComercio() == TELMEXSR || comercioResponse.getIdComercio() == MAFER);
             if (comercioResponse.getIdTipoComercio() == PAYMENT_RECARGAS) {
                 btnContinue.setText(getResources().getString(R.string.btn_recharge_txt));
 
                 txtTitleFragment.setText(getResources().getString(R.string.txt_recargas));
+                headAccount.setTag(getResources().getString(R.string.txt_recargas));
+
+
                 lytContainerRecargas.setVisibility(View.VISIBLE);
 
                 edtPhoneNumber.setLongClickable(true);
@@ -405,6 +417,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 btnContinue.setText(getResources().getString(R.string.btn_payment_txt));
 
                 txtTitleFragment.setText(getResources().getString(R.string.txt_pago_servicios));
+                headAccount.setTag(getResources().getString(R.string.txt_pago_servicios));
+
                 lytContainerServicios.setVisibility(View.VISIBLE);
 
                 edtReferenceNumber.setLongClickable(true);
@@ -523,6 +537,27 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         /**
          * Iniciamos el monto en cero, Mostramos la informacion del usuario, foto y saldo
          */
+
+        headWallet.setAmount("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
+
+        String imgUrl = "";
+        String labelTag = "";
+        String labelName = "";
+        String labelRef ="";
+        if (favoritos != null){
+            imgUrl = favoritos.getImagenURL();
+            labelName = favoritos.getNombre();
+            labelRef = favoritos.getReferencia();
+
+
+        }else if (comercioResponse != null){
+            imgUrl = comercioResponse.getImagenURL();
+            labelName = comercioResponse.getNombreComercio();
+        }
+
+        headAccount.setImageURL(imgUrl);
+
+
         txtMonto.setText("" + Utils.getCurrencyValue(0));
         SingletonUser dataUser = SingletonUser.getInstance();
         txtNameUser.setText("" + dataUser.getDataUser().getCliente().getNombre());
@@ -549,7 +584,13 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                         android.graphics.Color.parseColor(favoritos.getColorMarca()));
                 circuleDataPhoto.setBackground(gd);
             }
+
+
+
         } else {
+
+
+
             if (!comercioResponse.getLogoURLColor().equals("")) {
                 Picasso.get()
                         .load(App.getContext().getString(R.string.url_images_logos) + comercioResponse.getLogoURLColor())
@@ -864,6 +905,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
      * Envio a la actividad PaymentsProcessingActivity del resultado, sea una Recarga o PDS
      */
     protected void sendPayment() {
+
+
+
         Intent intent = new Intent(getContext(), PaymentsProcessingActivity.class);
         intent.putExtra("pagoItem", payment);
         if (isRecarga) {

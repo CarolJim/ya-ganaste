@@ -25,6 +25,7 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
 
     public static final String PAYMENT_DATA = "PAYMENT_DATA";
     public static final String PAYMENT_IS_FAV = "PAYMENT_IS_FAV";
+    private static final String AUTHORIZE = "Athorize";
     @BindView(R.id.btn_back)
     AppCompatImageView back;
 
@@ -59,6 +60,19 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
     }
 
     @Override
+    public void onEvent(String event, Object data) {
+        super.onEvent(event, data);
+
+        if(event.equals(AUTHORIZE)) {
+            if (data instanceof Favoritos)
+                loadFragment(PaymentFormFragment.newInstance((Favoritos) data), R.id.fragment_container);
+            if (data instanceof Comercio)
+                loadFragment(PaymentFormFragment.newInstance((Comercio) data), R.id.fragment_container);
+        }
+
+    }
+
+    @Override
     public boolean requiresTimer() {
         return true;
     }
@@ -79,7 +93,7 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         PaymentFormFragment myFragment = (PaymentFormFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         myFragment.onActivityResult(requestCode, resultCode, data);
-      //  UI.showErrorSnackBar(this, "LOL");
+        //  UI.showErrorSnackBar(this, "LOL");
 
         // Mostramos los Snack de Error
         try {

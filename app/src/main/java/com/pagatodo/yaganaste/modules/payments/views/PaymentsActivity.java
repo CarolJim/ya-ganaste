@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.modules.payments;
+package com.pagatodo.yaganaste.modules.payments.views;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import butterknife.BindView;
@@ -12,15 +12,17 @@ import com.google.android.material.snackbar.Snackbar;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
+import com.pagatodo.yaganaste.modules.payments.mobiletopup.view.MobileTopUpFragment;
+import com.pagatodo.yaganaste.modules.payments.mobiletopup.view.MobileTopUpView;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
-import com.pagatodo.yaganaste.ui_wallet.fragments.PaymentFormFragment;
+import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.UI;
 
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_ERROR;
 
-public class PaymentsActivity extends LoaderActivity implements View.OnClickListener {
+public class PaymentsActivity extends LoaderActivity implements PaymentsView, View.OnClickListener {
 
     public static final String PAYMENT_DATA = "PAYMENT_DATA";
     public static final String PAYMENT_IS_FAV = "PAYMENT_IS_FAV";
@@ -51,9 +53,10 @@ public class PaymentsActivity extends LoaderActivity implements View.OnClickList
         ButterKnife.bind(this);
         back.setOnClickListener(this);
         if (!isFavorite) {
-            loadFragment(PaymentFormFragment.newInstance(comercioResponse), R.id.fragment_container);
+            loadFragment(MobileTopUpFragment.newInstance(comercioResponse), R.id.fragment_container_payments);
+            //loadFragment(PaymentFormFragment.newInstance(comercioResponse), R.id.fragment_container);
         } else {
-            loadFragment(PaymentFormFragment.newInstance(favoritos), R.id.fragment_container);
+            loadFragment(MobileTopUpFragment.newInstance(favoritos), R.id.fragment_container_payments);
         }
     }
 
@@ -76,7 +79,7 @@ public class PaymentsActivity extends LoaderActivity implements View.OnClickList
     @Override
     protected void onActivityResult(int requestCode, int resultCode,final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        PaymentFormFragment myFragment = (PaymentFormFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        MobileTopUpFragment myFragment = (MobileTopUpFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_payments);
         myFragment.onActivityResult(requestCode, resultCode, data);
         //  UI.showErrorSnackBar(this, "LOL");
 
@@ -90,5 +93,15 @@ public class PaymentsActivity extends LoaderActivity implements View.OnClickList
             }
         } catch (Exception e) {
         }
+    }
+
+    @Override
+    public void nextView(GenericFragment fragment) {
+        loadFragment(MobileTopUpFragment.newInstance(comercioResponse), R.id.fragment_container_payments);
+    }
+
+    @Override
+    public void previousView(GenericFragment fragment) {
+
     }
 }

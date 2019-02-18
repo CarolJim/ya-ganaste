@@ -53,7 +53,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".modules.payments.PaymentsActivity"></activity>
+        <activity android:name=".modules.payments.views.PaymentsActivity"></activity>
         <activity android:name=".modules.newsend.SendNewActivity" />
         <activity android:name=".modules.registerAggregator.AggregatorActivity" />
 
