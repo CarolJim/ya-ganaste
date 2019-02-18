@@ -116,6 +116,8 @@ public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAcco
         return this.rootView;
     }
 
+
+
     public void setImageURL(String url){
         Picasso.get().load(url)
                 .transform(new CircleTransform()).into(circlePersonUrl);

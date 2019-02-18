@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
@@ -31,6 +32,15 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
     private Comercio comercioResponse;
     private Favoritos favoritos;
     private boolean isFavorite;
+
+    public static Intent creatIntent(Activity activity, Comercio comercio, boolean isFav){
+        Intent intent = new Intent(activity, PaymentActivity.class);
+        intent.putExtra(PAYMENT_DATA, comercio);
+        intent.putExtra(PAYMENT_IS_FAV, isFav);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return intent;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

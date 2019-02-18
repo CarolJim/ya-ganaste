@@ -371,6 +371,16 @@ public class UI {
         snack.show();
     }
 
+    public static void showSuccessSnackBar(Activity rootView, String message){
+        Snackbar snack = Snackbar.make(rootView.getWindow().getDecorView(), message, Snackbar.LENGTH_SHORT);
+        View view = snack.getView();
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
+        params.gravity = Gravity.BOTTOM;
+        view.setLayoutParams(params);
+        view.setBackgroundColor(App.getContext().getResources().getColor(R.color.redGreenTransparent));
+        snack.show();
+    }
+
     public static void showAlertDialog(Context context, String message, DialogInterface.OnClickListener positive) {
         AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
                 .setTitle(R.string.app_name)
