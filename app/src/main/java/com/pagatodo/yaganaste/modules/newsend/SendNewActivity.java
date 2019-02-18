@@ -15,13 +15,20 @@ import android.widget.ImageView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.newsend.SendFromCard.SendFromCardFragment;
+import com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
+import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
+
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.CONTACTS_CONTRACT_LOCAL;
+import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAVORITE_PROCESS;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_CERO;
 
 public class SendNewActivity extends LoaderActivity implements SendNewContracts.Presenter, SendNewContracts.Listener,
         CropIwaResultReceiver.Listener, ICropper {
@@ -71,6 +78,8 @@ public class SendNewActivity extends LoaderActivity implements SendNewContracts.
 
 
 
+
+
     @Override
     public boolean requiresTimer() {
         return false;
@@ -111,6 +120,17 @@ public class SendNewActivity extends LoaderActivity implements SendNewContracts.
                 router.showsendfragment(Direction.FORDWARD, PAYMENT_CLABE);
                 break;
         }
+
+        imgAddfavo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentAddFavorite = new Intent(SendNewActivity.this, FavoritesActivity.class);
+                intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
+                intentAddFavorite.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_CERO);
+                startActivityForResult(intentAddFavorite, RESUL_FAVORITES);
+            }
+        });
+
     }
 
     private void contactPicked(Intent data, int tipoNumero) {

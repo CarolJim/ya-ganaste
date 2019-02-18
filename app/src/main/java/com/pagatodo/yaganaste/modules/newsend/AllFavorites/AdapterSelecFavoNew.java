@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
+import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.squareup.picasso.Picasso;
@@ -29,12 +31,14 @@ public class AdapterSelecFavoNew extends RecyclerView.Adapter<AdapterSelecFavoNe
     CircleImageView crlImageFavorite;
     TextView txtInicialesFav;
     private ImageView imgAddFavorite;
+    private IReciclerfavoritos listener;
 
 
-    public AdapterSelecFavoNew(List<Favoritos> backUpResponseFavoritos, Activity activity , ArrayList<CarouselItem> backUpResponse) {
+    public AdapterSelecFavoNew(List<Favoritos> backUpResponseFavoritos, Activity activity , ArrayList<CarouselItem> backUpResponse, IReciclerfavoritos listener) {
         this.backUpResponseFavoritos = backUpResponseFavoritos;
         this.activity = activity;
         this.backUpResponse = backUpResponse;
+        this.listener = listener;
     }
 
     @NonNull
@@ -77,15 +81,20 @@ public class AdapterSelecFavoNew extends RecyclerView.Adapter<AdapterSelecFavoNe
             txtInicialesFav.setText(StringUtils.getIniciales(favorito.getNombre()));
         }
 
-       /* viewHolder.img.setOnClickListener(new View.OnClickListener() {
+        viewHolder.llyfavo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //listener.onRecyclerItemClick(view,posicion,dtoStates);
-
-
-
+                listener.onRecyclerItemClick(view,posicion,false,favorito);
             }
-        });*/
+        });
+        viewHolder.img_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //listener.onRecyclerItemClick(view,posicion,dtoStates);
+                listener.onRecyclerItemClick(view,posicion,true,favorito);
+            }
+        });
     }
 
     private String getleastfourt(String word) {
@@ -128,14 +137,16 @@ public class AdapterSelecFavoNew extends RecyclerView.Adapter<AdapterSelecFavoNe
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView titulo,subtitulo;
-        ImageView img;
+        ImageView img_edit;
+        LinearLayout llyfavo;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
             titulo = (TextView) itemView.findViewById(R.id.txtNameFav);
             subtitulo = (TextView) itemView.findViewById(R.id.txtNameComerce);
-            /*img = (ImageView) itemView.findViewById(R.id.imgCiudad);*/
+            llyfavo = (LinearLayout) itemView.findViewById(R.id.llyfavo);
+            img_edit = (ImageView) itemView.findViewById(R.id.img_edit);
         }
     }
 
