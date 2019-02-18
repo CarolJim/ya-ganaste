@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.modules.newsend.AllFavorites;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
@@ -54,8 +56,8 @@ public class AllFavoritesFragment extends GenericFragment implements   View.OnCl
     @BindView(R.id.reciclerAllFavoritos)
     RecyclerView reciclerAllFavoritos;
 
-    @BindView(R.id.imgAddfavo)
-    ImageView imgAddfavo;
+    //@BindView(R.id.imgAddfavo)
+    //ImageView imgAddfavo;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     List<Favoritos> backUpResponseFavoritos;
     public  static  AllFavoritesFragment newInstance(){
@@ -69,6 +71,11 @@ public class AllFavoritesFragment extends GenericFragment implements   View.OnCl
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.activity = (SendNewActivity) context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,7 +85,7 @@ public class AllFavoritesFragment extends GenericFragment implements   View.OnCl
         rootView = inflater.inflate(R.layout.fragment_all_favorites, container, false);
         activity.showaddfavo(true);
         initViews();
-        if (!UtilsNet.isOnline(getActivity())) {
+        if (!UtilsNet.isOnline(Objects.requireNonNull(getActivity()))) {
             UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
         } else {
             onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
@@ -99,9 +106,9 @@ public class AllFavoritesFragment extends GenericFragment implements   View.OnCl
     @Override
     public void initViews() {
         ButterKnife.bind(this,rootView);
-        activity =(SendNewActivity) getActivity();
-        activity.showaddfavo(true);
-        imgAddfavo.setOnClickListener(new View.OnClickListener() {
+        activity = (SendNewActivity) getActivity();
+        Objects.requireNonNull(activity).showaddfavo(true);
+        /*imgAddfavo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentAddFavorite = new Intent(getContext(), FavoritesActivity.class);
@@ -109,7 +116,7 @@ public class AllFavoritesFragment extends GenericFragment implements   View.OnCl
                 intentAddFavorite.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_CERO);
                 startActivityForResult(intentAddFavorite, RESUL_FAVORITES);
             }
-        });
+        });*/
 
 
     }
