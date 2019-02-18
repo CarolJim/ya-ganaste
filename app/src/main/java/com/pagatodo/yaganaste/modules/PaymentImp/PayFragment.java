@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui_wallet.PaymentActivity;
 import com.pagatodo.yaganaste.utils.UI;
 
 import java.util.ArrayList;
@@ -171,8 +172,7 @@ public class PayFragment extends GenericFragment implements PayContracts.Listene
     @Override
     public void onClickView(IconButtonDataHolder item, View view) {
         if (item.getT() instanceof Comercio){
-            UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()),"ES Comercio: " +
-                    ((Comercio)item.getT()).getNombreComercio());
+            PaymentActivity.creatIntent(getActivity(),(Comercio)item.getT(),false);
         } else if(item.getT() instanceof  Favoritos){
             UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()),"ES Comercio: " +
                     ((Favoritos)item.getT()).getNombreComercio());

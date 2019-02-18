@@ -98,6 +98,4 @@ public class RechargesRecycler extends LinearLayout implements LauncherHolder<Ar
     public void setOnClickItems(OnHolderListener<IconButtonDataHolder> listener){
         adapter.setListener(listener);
     }
-
-
 }
