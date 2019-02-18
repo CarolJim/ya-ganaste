@@ -172,7 +172,7 @@ public class PayFragment extends GenericFragment implements PayContracts.Listene
     @Override
     public void onClickView(IconButtonDataHolder item, View view) {
         if (item.getT() instanceof Comercio){
-            PaymentActivity.creatIntent(getActivity(),(Comercio)item.getT(),false);
+            startActivity(PaymentActivity.creatIntent(getActivity(),(Comercio)item.getT(),false));
         } else if(item.getT() instanceof  Favoritos){
             UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()),"ES Comercio: " +
                     ((Favoritos)item.getT()).getNombreComercio());
