@@ -162,4 +162,71 @@ public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAcco
         return "";
     }
 
+
+    @Override
+    public View getRootView() {
+        return rootView;
+    }
+
+    public void setRootView(View rootView) {
+        this.rootView = rootView;
+    }
+
+    public RelativeLayout getCirclePersonContent() {
+        return circlePersonContent;
+    }
+
+    public void setCirclePersonContent(RelativeLayout circlePersonContent) {
+        this.circlePersonContent = circlePersonContent;
+    }
+
+    public ImageView getCirclePersonUrl() {
+        return circlePersonUrl;
+    }
+
+    public void setCirclePersonUrl(ImageView circlePersonUrl) {
+        this.circlePersonUrl = circlePersonUrl;
+    }
+
+    public ImageView getCirclePersonImage() {
+        return circlePersonImage;
+    }
+
+    public void setCirclePersonImage(ImageView circlePersonImage) {
+        this.circlePersonImage = circlePersonImage;
+    }
+
+    public TextView getTxtIniciales() {
+        return txtIniciales;
+    }
+
+    public void setTxtIniciales(TextView txtIniciales) {
+        this.txtIniciales = txtIniciales;
+    }
+
+    public TextView getTxtName() {
+        return txtName;
+    }
+
+    public void setTxtName(TextView txtName) {
+        this.txtName = txtName;
+    }
+
+    public TextView getTxtReference() {
+        return txtReference;
+    }
+
+    public void setTxtReference(TextView txtReference) {
+        this.txtReference = txtReference;
+    }
+
+    public TextView getTxtLabelTag() {
+        return txtLabelTag;
+    }
+
+    public void setTxtLabelTag(TextView txtLabelTag) {
+        this.txtLabelTag = txtLabelTag;
+    }
+
+
 }

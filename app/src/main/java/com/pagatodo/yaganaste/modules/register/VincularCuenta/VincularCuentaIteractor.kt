@@ -114,7 +114,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
         presenter.showLoader(App.getContext().getString(R.string.creating_agent))
         var registerUserSingleton = RegisterUserNew.getInstance()
         var request = CrearAgenteRequest(22, registerUserSingleton.nombreNegocio, "5555555555",
-                registerUserSingleton.idGiro,245, null)
+                registerUserSingleton.idGiro,registerUserSingleton.subGiros.idSubgiro, null)
         try {
             ApiAdtvo.crearAgenteWallet(request, this)
         } catch (e: Exception) {
@@ -125,7 +125,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
 
     override fun assignmentQrs() {
         val auth = FirebaseAuth.getInstance()
-        auth.createUserWithEmailAndPassword(RegisterUserNew.getInstance().email, "93682157").addOnCompleteListener { task ->
+        auth.createUserWithEmailAndPassword(App.getInstance().getPrefs().loadData(USMAL), "93682157").addOnCompleteListener { task ->
             App.getInstance().prefs.saveDataBool(HAS_FIREBASE_ACCOUNT, true)
             if (task.isSuccessful) {
                 val user = auth.currentUser

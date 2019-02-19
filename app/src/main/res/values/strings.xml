@@ -59,6 +59,7 @@
     <string name="getSucursales">/LocalizarSucursales</string>
     <!--<string name="obtenerSubgiros">/ObtenerSubgiros</string>-->
     <string name="obtenerSubgiros">/ObtenerSubgirosWallet</string>
+    <string name="obtenerGirosComerciales">/ObtenerGirosComerciales</string>
     <string name="obteneroperadores">/ObtenerOperadores</string>
     <string name="obtenerresumendia">/agMov/ObtenerResumenDia?fecha=</string>
     <string name="obtenerDomicilioPrincipal">/ObtenerDomicilioPrincipal</string>
@@ -1786,6 +1787,7 @@
     <string name="clabe">Cuenta\nCLABE</string>
     <string name="qr">Código\nQR</string>
     <string name="selecciona_un_favorito">Selecciona un favorito para realizar\nun envio de dinero</string>
+
     <string name="enviar_a_un_favorit">Enviar a un Favorito</string>
     <string name="select_recharge">Seleccionar recarga</string>
     <string name="select_recharge_fav">Recargar a un Favorito</string>
@@ -1797,4 +1799,5 @@
     <string name="tab_recharge">Recargar</string>
     <string name="tab_pay_services">Pagar servicios</string>
     <string name="saldo_actual">Saldo actual</string>
+    <string name="monto_de_recarga">Monto de recarga</string>
 </resources>

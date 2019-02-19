@@ -43,9 +43,10 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
     private RegRouter router;
     private StepBar stepBar;
     private RegInteractor interactor;
-
+    //Nuevo diseño-flujo
+    public final static String EVENT_DATA_USER_BUSNES = "EVENT_DATA_USER_BUSNES";
     ImageView btn_back ;
-
+    private String action = "";
 
     public static Intent createIntent(Activity activity) {
         return new Intent(activity, RegActivity.class);
@@ -56,6 +57,12 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reg);
         RegisterUserNew.getInstance().setqRs(new ArrayList<>());
+        try {
+            action = getIntent().getExtras().getString(EVENT_DATA_USER_BUSNES);
+        }catch (Exception e){
+            action="";
+        }
+
         stepBar = findViewById(R.id.step_bar);
         router = new RegRouter(this);
         App aplicacion = new App();
@@ -65,7 +72,18 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
 
     @Override
     public void initViews() {
+        if (action!=null) {
+            if (action.equals(EVENT_DATA_USER_BUSNES)) {
+                router.showBusinessData(Direction.FORDWARD);
+                RegisterUserNew registerUser = RegisterUserNew.getInstance();
+                registerUser.setRegincomplete(true);
+            }
+            else
+                router.showUserData(Direction.FORDWARD);
+        }
+        else
         router.showUserData(Direction.FORDWARD);
+
         btn_back = (ImageView) findViewById(R.id.btn_back);
        // router.showPrsonalAddress(Direction.FORDWARD);
     }

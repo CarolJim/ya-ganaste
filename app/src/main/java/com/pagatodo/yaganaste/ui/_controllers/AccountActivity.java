@@ -53,6 +53,7 @@ import com.pagatodo.yaganaste.modules.emisor.WalletEmisorContracts;
 import com.pagatodo.yaganaste.modules.emisor.WalletEmisorInteractor;
 import com.pagatodo.yaganaste.modules.emisor.WalletEmisorRouter;
 import com.pagatodo.yaganaste.modules.management.response.QrValidateResponse;
+import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment;
@@ -97,6 +98,7 @@ import static android.os.Process.killProcess;
 import static android.os.Process.myPid;
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_FAILED;
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_SUCCES;
+import static com.pagatodo.yaganaste.modules.register.RegActivity.EVENT_DATA_USER_BUSNES;
 import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.MY_PERMISSIONS_REQUEST_SEND_SMS;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
@@ -369,10 +371,14 @@ public class AccountActivity extends LoaderActivity implements WalletEmisorContr
                 loadFragment(DatosPersonalesFragment.newInstance(), Direction.BACK, false);
                 break;
             case EVENT_GO_GET_CARD:
-                back = true;
-                setVisibilityBack(back);
-                loadFragment(TienesTarjetaFragment.newInstance(), Direction.FORDWARD, true);
+               // back = true;
+              //  setVisibilityBack(back);
+               // loadFragment(TienesTarjetaFragment.newInstance(), Direction.FORDWARD, true);
 
+                Intent intentReg = new Intent(AccountActivity.this, RegActivity.class);
+                intentReg.putExtra(EVENT_DATA_USER_BUSNES,EVENT_DATA_USER_BUSNES);
+                startActivity(intentReg);
+                finish();
                 break;
             case EVENT_GO_ASSIGN_NEW_CONTRASE:
                 back = false;
@@ -420,7 +426,7 @@ public class AccountActivity extends LoaderActivity implements WalletEmisorContr
                 DataIniciarSesionUYU dataUserT = userT.getDataUser();
 
                 FirebaseAuth auth = FirebaseAuth.getInstance();
-                auth.signInWithEmailAndPassword(dataUserT.getUsuario().getNombreUsuario(), "123456")
+                auth.signInWithEmailAndPassword(dataUserT.getUsuario().getNombreUsuario(), "93682157")
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 FirebaseUser user = auth.getCurrentUser();
@@ -544,7 +550,7 @@ public class AccountActivity extends LoaderActivity implements WalletEmisorContr
 
     private void registerUserInFirebase(DataIniciarSesionUYU data) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.createUserWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "93682157")
+        auth.createUserWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "123456")
                 .addOnCompleteListener(task -> {
                     App.getInstance().getPrefs().saveDataBool(HAS_FIREBASE_ACCOUNT, true);
 

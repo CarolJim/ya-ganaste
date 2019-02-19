@@ -5,7 +5,7 @@ import com.pagatodo.yaganaste.BuildConfig;
 public class Recursos {
 
     //BASE DE DATOS
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "ya_ganaste.db";
 
     public static final String URL_BD_ODIN;
@@ -277,6 +277,8 @@ public class Recursos {
     public static final String IS_UYU = "IS_UYU"; // boolean
     public static final String MODE_CONNECTION_DONGLE = "MODE_CONNECTION_DONGLE"; // int
     public static final String BT_PAIR_DEVICE = "BT_PAIR_DEVICE"; // string
+
+    public static final String USMAL = "USMAL"; // string
 
     // Recursos referentes a Starbucks
     public static final String HAS_STARBUCKS = "HAS_STARBUCKS";  //boolean

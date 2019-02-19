@@ -25,6 +25,9 @@ public class Agentes implements Serializable {
     @ColumnInfo(name = "es_comercio_uyu")
     private boolean EsComercioUYU;
 
+    @ColumnInfo(name = "es_agregador")
+    private boolean EsAgregador;
+
     @ColumnInfo(name = "id_comercio")
     private int IdComercio;
 
@@ -94,5 +97,13 @@ public class Agentes implements Serializable {
 
     public void setOperadores(List<Operadores> operadores) {
         Operadores = operadores;
+    }
+
+    public boolean isEsAgregador() {
+        return EsAgregador;
+    }
+
+    public void setEsAgregador(boolean esAgregador) {
+        EsAgregador = esAgregador;
     }
 }

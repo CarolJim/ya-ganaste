@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ_FIRST;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
@@ -79,7 +78,6 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_REMBOLSO_FIRST = 16;
 
 
-
     //Help
     static public final int OPTION_EMAIL = 501;
     static public final int OPTION_CALL = 502;
@@ -92,7 +90,7 @@ public class ElementView implements ElementGlobal {
     public static final int OPTION_ZONE_DOS = 3;
     public static final int OPTION_ZONE_FIRST = 4;
     public static final int OPTION_ZONE_REENBOLSO = 5;
-
+    public static final int OPTION_ZONE_REENBOLSO_AGREGADOR = 6;
 
     private int idOperacion;
     private int resource;
@@ -269,7 +267,8 @@ public class ElementView implements ElementGlobal {
         return elementViews;
     }
 
-    public static ArrayList<ElementView> getListLectorAdq(int idEstatusAgente, List<Operadores> list, String nombreN, String numeroAgente, String idComercio, boolean isComercioUyu) {
+    public static ArrayList<ElementView> getListLectorAdq(int idEstatusAgente, List<Operadores> list, String nombreN, String numeroAgente, String idComercio, boolean isComercioUyu,
+                                                          boolean isAgregador) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
@@ -295,48 +294,52 @@ public class ElementView implements ElementGlobal {
             elementViews.add(new ElementView(OPTION_MY_CARD_SALES, R.drawable.ic_ico_ventas_tarjeta, R.string.my_card_sales));
         }
 
-            if (!isAgente) {
-                elementViews = ElementView.getListLectorEmi();
-            } else {
-                //idEstatusAgente = 12;
+        if (!isAgente) {
+            elementViews = ElementView.getListLectorEmi();
+        } else {
+            //idEstatusAgente = 12;
 
 
-                if (idEstatusAgente == IdEstatus.I6.getId()) {
-                    elementViews = ElementView.getListEstadoContinuarRegistro(idComercio);
-                } else if (idEstatusAgente == IdEstatus.I7.getId() ||
-                        idEstatusAgente == IdEstatus.I8.getId() ||
-                        idEstatusAgente == IdEstatus.I11.getId() ||
-                        App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) == STATUS_DOCTO_PENDIENTE) {
-                    elementViews = ElementView.getListEstadoRevisando(idComercio);
-                } else if (idEstatusAgente == IdEstatus.I9.getId()) {
-                    elementViews = ElementView.getListEstadoError(idComercio);
-                } else if (idEstatusAgente == IdEstatus.I10.getId() || idEstatusAgente == IdEstatus.I13.getId()) {
-                    elementViews = ElementView.getListEstadoRechazado(idComercio);
-                } else
+            if (idEstatusAgente == IdEstatus.I6.getId()) {
+                elementViews = ElementView.getListEstadoContinuarRegistro(idComercio);
+            } else if (idEstatusAgente == IdEstatus.I7.getId() ||
+                    idEstatusAgente == IdEstatus.I8.getId() ||
+                    idEstatusAgente == IdEstatus.I11.getId() ||
+                    App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) == STATUS_DOCTO_PENDIENTE) {
+                elementViews = ElementView.getListEstadoRevisando(idComercio);
+            } else if (idEstatusAgente == IdEstatus.I9.getId()) {
+                elementViews = ElementView.getListEstadoError(idComercio);
+            } else if (idEstatusAgente == IdEstatus.I10.getId() || idEstatusAgente == IdEstatus.I13.getId()) {
+                elementViews = ElementView.getListEstadoRechazado(idComercio);
+            } else
                 /*if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
                         !App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)
                         && !isComercioUyu) {
                     elementViews = ElementView.getListSeleccionarLector(idComercio);
                 }*/
-                    if (idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
-                            !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)
-                            && !isComercioUyu) {
-                        //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
+                if (idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
+                        !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)
+                        && !isComercioUyu) {
+                    //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
+                    if (!isAgregador) {
                         elementViews = ElementView.getListSeleccionarTipoReevolso(idComercio);
-                        for (Operadores opr : list) {
-                            if (opr.getIsAdmin()) {
-                                RequestHeaders.setIdCuentaAdq(opr.getIdUsuarioAdquirente());
-                            }
-                        }
-                    } else if (idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
-                            !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false)) {
-                        App.getInstance().getPrefs().saveDataInt(ESTATUS_DOCUMENTACION, STATUS_DOCTO_APROBADO);
-                        elementViews = ElementView.getListEstadoAprobado(idComercio);
                     } else {
-                        App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
+                        elementViews = ElementView.getListTipoReembolsoAgregador(idComercio);
                     }
+                    for (Operadores opr : list) {
+                        if (opr.getIsAdmin()) {
+                            RequestHeaders.setIdCuentaAdq(opr.getIdUsuarioAdquirente());
+                        }
+                    }
+                } else if (idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
+                        !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false)) {
+                    App.getInstance().getPrefs().saveDataInt(ESTATUS_DOCUMENTACION, STATUS_DOCTO_APROBADO);
+                    elementViews = ElementView.getListEstadoAprobado(idComercio);
+                } else {
+                    App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
+                }
 
-            }
+        }
 
         return elementViews;
     }
@@ -382,6 +385,13 @@ public class ElementView implements ElementGlobal {
     public static ArrayList<ElementView> getListSeleccionarTipoReevolso(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_REMBOLSO_FIRST, R.drawable.ic_check_success, R.string.time_repayment_desc, R.string.ya_se_puede, true, false, R.string.next, OPTION_ZONE_REENBOLSO, idComercio));
+        return elementViews;
+    }
+
+    // Seleccion de Reembolso Agregador
+    public static ArrayList<ElementView> getListTipoReembolsoAgregador(String idComercio) {
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(OPTION_REMBOLSO_FIRST, R.drawable.ic_check_success, R.string.time_repayment_desc, R.string.ya_se_puede, true, false, R.string.next, OPTION_ZONE_REENBOLSO_AGREGADOR, idComercio));
         return elementViews;
     }
 
@@ -448,7 +458,7 @@ public class ElementView implements ElementGlobal {
         //elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.realizar_cobro));
         elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, R.drawable.ic_ico_cobros_tarjeta, R.string.realizar_cobro));
         if (isuyu)
-        elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_ico_ventas_tarjeta, R.string.operation_consultar_saldo));
+            elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_ico_ventas_tarjeta, R.string.operation_consultar_saldo));
         if (!App.getInstance().getPrefs().loadDataBoolean(IS_OPERADOR, false) && isuyu) {
             elementViews.add(new ElementView(OPTION_VENTAS_ADQAFUERA, R.drawable.ic_ico_ventas_dia, R.string.ventas_dia));
         }
@@ -465,6 +475,7 @@ public class ElementView implements ElementGlobal {
         //elementViews.add(new ElementView(OPTION_ADMON_STARBUCK, R.drawable.ico_admin_tarj, R.string.operation_administracion));
         return elementViews;
     }
+
     public static ArrayList<ElementView> getListStarbucksdes() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_RECOMPENSASD, R.drawable.icon_star, R.string.opt_recompensas));

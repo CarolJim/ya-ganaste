@@ -9,14 +9,21 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import androidx.fragment.app.Fragment;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
+
 import android.util.Base64;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
@@ -27,14 +34,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
+import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarTitularCuentaResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
 import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenter;
 import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenterImp;
@@ -42,9 +58,14 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.modules.charge.ChargeActivity;
 import com.pagatodo.yaganaste.modules.emisor.PaymentToQR.QrManagerFragment;
 import com.pagatodo.yaganaste.modules.emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
+import com.pagatodo.yaganaste.modules.emisor.WalletEmisorContracts;
+import com.pagatodo.yaganaste.modules.emisor.WalletEmisorInteractor;
+import com.pagatodo.yaganaste.modules.management.response.QrValidateResponse;
+import com.pagatodo.yaganaste.modules.management.singletons.NotificationSingleton;
 import com.pagatodo.yaganaste.modules.registerAggregator.AggregatorActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
@@ -56,6 +77,7 @@ import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.SendsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
@@ -116,6 +138,8 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_MY_DATA;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE_COMERCE;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_QR_SENDS;
 import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.EDIT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
@@ -139,7 +163,7 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.SELECT_FILE_PHOT
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
         IAprovView<ErrorObject>, IResetNIPView<ErrorObject>, OnClickItemHolderListener,
-        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener, IFBView, BottomNavigationView.OnNavigationItemSelectedListener, FingerprintAuthenticationDialogFragment.generateCodehuella{
+        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener, IFBView, BottomNavigationView.OnNavigationItemSelectedListener, FingerprintAuthenticationDialogFragment.generateCodehuella, WalletEmisorContracts.Listener {
 
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_ERROR_DOCUMENTS = "EVENT_ERROR_DOCUMENTS";
@@ -190,11 +214,15 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     ImageView close;
     private int lastFrag;
 
+    private WalletEmisorInteractor interactor;
 
 
     private boolean disableBackButton = false;
     FBPresenter fbmPresenter;
     public boolean isDialogShowned = false;
+
+    private Envios envio;
+    private String acountClabe;
 
     public static Intent createIntent(Context from) {
         return new Intent(from, TabActivity.class);
@@ -212,6 +240,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.main_menu_drawer);
         ButterKnife.bind(this);
+        interactor = new WalletEmisorInteractor(this, this);
         if (!App.getInstance().getPrefs().loadDataBoolean(IS_COACHMARK, true)) {
             couchMark.setVisibility(View.GONE);
             close.setVisibility(View.GONE);
@@ -219,9 +248,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             couchMark.setVisibility(View.VISIBLE);
             close.setVisibility(View.VISIBLE);
         }
-        close.setOnClickListener(v -> {App.getInstance().getPrefs().saveDataBool(IS_COACHMARK, false);
-        couchMark.setVisibility(View.GONE);
-        close.setVisibility(View.GONE);});
+        close.setOnClickListener(v -> {
+            App.getInstance().getPrefs().saveDataBool(IS_COACHMARK, false);
+            couchMark.setVisibility(View.GONE);
+            close.setVisibility(View.GONE);
+        });
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -325,8 +356,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         //mainTab.setupWithViewPager(mainViewPager);
 
 
-
-
         if (tabPresenter.needsProvisioning() || tabPresenter.needsPush()) {
             tabPresenter.doProvisioning();
         } else if (SingletonUser.getInstance().needsReset()) {
@@ -418,8 +447,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
         } else if (event.equals(EVENT_LOGOUT)) {
             logOut(App.getContext().getResources().getString(R.string.reload_session));
-        }
-        else if (event.equals(EVENT_DETALLE_PROMO)) {
+        } else if (event.equals(EVENT_DETALLE_PROMO)) {
             Intent intentpromo = new Intent(this, PromoCodesActivity.class);
             this.startActivity(intentpromo);
         }
@@ -455,6 +483,40 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == CommonStatusCodes.SUCCESS) {
+            if (data != null) {
+                try {
+                    Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
+                    if (barcode.displayValue.contains("Pl")) {
+                        JsonElement jelement = new JsonParser().parse(barcode.displayValue);
+                        JsonObject jobject = jelement.getAsJsonObject();
+                        jobject = jobject.getAsJsonObject("Aux");
+                        String plate = jobject.get("Pl").getAsString();
+                        interactor.valideteQR(plate);
+                    }
+                } catch (JsonParseException e) {
+                    e.printStackTrace();
+                    onErrorValidatePlate("QR Invalido");
+                } catch (NullPointerException e) {
+                    onErrorValidatePlate("QR Invalido");
+                }
+                //interactor.onValidateQr(plate);
+                    /*if (barcode.displayValue.contains("reference") &&
+                            barcode.displayValue.contains("commerce") && barcode.displayValue.contains("codevisivility")) {
+                        MyQrCommerce myQr = new Gson().fromJson(barcode.displayValue, MyQrCommerce.class);
+                        Log.d("Ya codigo qr", myQr.getCommerce());
+                        Log.d("Ya codigo qr", myQr.getReference());
+
+                        loadFragment(PayQRFragment.newInstance(myQr.getCommerce(), myQr.getReference(), Boolean.parseBoolean(myQr.getCodevisivility())), R.id.fragment_container);
+                    } else {
+                        UI.showErrorSnackBar(this, getString(R.string.transfer_qr_invalid), Snackbar.LENGTH_SHORT);
+                    }*/
+            } else {
+                //  finish();
+            }
+        }
+        onEvent(EVENT_SHOW_LOADER,"");
+
         if (requestCode == Constants.CONTACTS_CONTRACT
                 || requestCode == Constants.BARCODE_READER_REQUEST_CODE
                 || requestCode == BACK_FROM_PAYMENTS
@@ -493,9 +555,14 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 } else if (requestCode == BACK_FROM_PAYMENTS) {
                     childFragment.onActivityResult(requestCode, resultCode, data);
                 } else {
-                    Intent intent = getIntent();
-                    finish();
-                    startActivity(intent);
+                    if (getCurrentFragment() instanceof SendsFragment) {
+                        Intent intent = getIntent();
+                        startActivity(intent);
+                    } else {
+                        Intent intent = getIntent();
+                        finish();
+                        startActivity(intent);
+                    }
                 }
             }
         /*} else if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO
@@ -534,6 +601,10 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
             childFragment.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    public void onErrorValidatePlate(String error) {
+        UI.showErrorSnackBar(this, error, Snackbar.LENGTH_SHORT);
     }
 
     protected void refreshAdquirenteMovements() {
@@ -597,7 +668,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 showDialogOut();
             } else if (actualFragment instanceof SendWalletFragment) {
                 goHome();
-            }else if (actualFragment instanceof QrManagerFragment) {
+            } else if (actualFragment instanceof QrManagerFragment) {
                 goHome();
             } else if (actualFragment instanceof EnviosFromFragmentNewVersion) {
                 goHome();
@@ -688,7 +759,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             case ID_SEGURIDAD:
                 actionMenu(MENU_SEGURIDAD);
                 break;
-                case ID_MY_DATA:
+            case ID_MY_DATA:
                 actionMenu(MENU_DATAUSER);
                 break;
             case ID_AJUSTES:
@@ -853,7 +924,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        if(menuItem.getItemId() == R.id.navigation_charge){
+        if (menuItem.getItemId() == R.id.navigation_charge) {
             startActivity(ChargeActivity.createIntent(this));
             //startActivity(AggregatorActivity.createIntent(this));
         } else if (lastFrag != menuItem.getItemId()) {
@@ -877,10 +948,10 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                     mainViewPager.setCurrentItem(3);
                     return true;
                 //case R.id.navigation_charge:
-                    //navitaionBar.setSelectedItemId(R.id.navigation_charge);
-                    //mainViewPager.setCurrentItem(4);
+                //navitaionBar.setSelectedItemId(R.id.navigation_charge);
+                //mainViewPager.setCurrentItem(4);
 
-                  //  return true;
+                //  return true;
             }
         }
         return false;
@@ -892,5 +963,63 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             ((MyVirtualCardAccountFragment) fm).loadOtpHuella();
 
 
+    }
+
+    @Override
+    public void showLoad() {
+
+    }
+
+    @Override
+    public void hideLoad() {
+
+    }
+
+    @Override
+    public void onSouccesValidateCard() {
+
+    }
+
+    @Override
+    public void onErrorRequest(String msj) {
+
+    }
+
+    @Override
+    public void onSouccesDataQR(QrValidateResponse qRresponse) {
+        envio = new Envios();
+        envio.setTipoEnvio(TransferType.CLABE);
+        acountClabe = qRresponse.getData().getAccount();
+        envio.setReferencia(acountClabe);
+        envio.setMonto(0D);
+        envio.setConcepto(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+        NotificationSingleton.getInstance().getRequest().setConcept(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+        envio.setReferenciaNumerica("123456");
+        interactor.getTitular(acountClabe);
+
+
+    }
+
+    @Override
+    public void onSouccesGetTitular(ConsultarTitularCuentaResponse dataTitular) {
+        envio.setNombreDestinatario(dataTitular.getData().getNombre().concat(" ")
+                .concat(dataTitular.getData().getPrimerApellido()).concat(" ")
+                .concat(dataTitular.getData().getSegundoApellido()));
+        interactor.getDataBank(acountClabe, "clave");
+
+    }
+
+    @Override
+    public void onSouccessgetgetDataBank(ObtenerBancoBinResponse data) {
+        Comercio comercio = new Comercio();
+        comercio.setColorMarca("#00b6ff");
+        comercio.setIdComercio(Integer.parseInt(data.getData().getIdComercioAfectado()));
+        envio.setComercio(comercio);
+        /*router.onShowEnvioFormulario(envio);*/
+
+        Intent intent = new Intent(this, EnvioFormularioWallet.class);
+        intent.putExtra("pagoItem", envio);
+        startActivityForResult(intent, BACK_FROM_PAYMENTS);
+        onEvent(EVENT_HIDE_LOADER,"");
     }
 }

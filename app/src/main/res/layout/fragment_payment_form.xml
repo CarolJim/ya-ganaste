@@ -30,17 +30,84 @@
             android:gravity="center"
             android:maxLines="2"
             android:text="Recarga"
+            android:visibility="gone"
             android:textColor="@color/colorAccent" />
 
 
         <LinearLayout
+            android:id="@+id/layoutHeads"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+
+            <LinearLayout
+                android:id="@+id/layoutHeadWallet"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+
+                <com.pagatodo.view_manager.components.HeadWallet
+                    android:id="@+id/head_wallet_payments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:walletResImage="@mipmap/main_card_zoom_blue"
+                    app:headTitle="@string/saldo_actual"
+                    app:headAmount="1000"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:background="#e0e0e0" />
+
+            <LinearLayout
+                android:id="@+id/layoutHeadBrand"
+                android:layout_below="@+id/layoutHeadWallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="16dp">
+
+                <com.pagatodo.view_manager.components.HeadAccount
+                    android:id="@+id/head_account_payments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:labelHeadAccount=""
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:background="#e0e0e0" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutAuthorize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/inputtext_normal"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="20dp"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -188,6 +255,175 @@
                     android:textColor="#888888" />
 
             </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/containerRecargaFormNew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+
+                <LinearLayout
+                    android:id="@+id/txtgiroNew"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginRight="11dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_num_telefonoNew"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:hint="@string/numero_telefono"
+                        android:longClickable="false"
+                        android:maxLines="1"
+                        android:textColorHint="@color/texthint"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1"
+                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                        app:hintTextAppearance="@style/HintText"
+                        app:passwordToggleTint="@color/hint_color"
+                        tools:ignore="UnusedAttribute">
+
+                        <EditText
+                            android:id="@+id/recargaNumberNew"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="9dp"
+                            android:background="@android:color/transparent"
+                            android:imeOptions="actionDone"
+                            android:singleLine="true"
+                            android:textColor="@color/grayColor"
+                            android:theme="@style/NewEdittextwallet" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#e0e0e0" />
+
+                <LinearLayout
+                    android:id="@+id/txt_num_telefonoNew"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginRight="11dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_monto_recargaNew"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:hint="@string/monto_de_recarga"
+                        android:longClickable="false"
+                        android:maxLines="1"
+                        android:textColorHint="@color/texthint"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1"
+                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                        app:hintTextAppearance="@style/HintText"
+                        app:passwordToggleTint="@color/hint_color"
+                        tools:ignore="UnusedAttribute">
+
+                        <EditText
+                            android:id="@+id/recargaMontoNew"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="9dp"
+                            android:background="@android:color/transparent"
+                            android:imeOptions="actionDone"
+                            android:singleLine="true"
+                            android:textColor="@color/grayColor"
+                            android:theme="@style/NewEdittextwallet" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#e0e0e0" />
+
+                <LinearLayout
+                    android:id="@+id/txt_conceptoNew"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginRight="11dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_conceptoNew"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:hint="@string/details_concepto"
+                        android:longClickable="false"
+                        android:maxLines="1"
+                        android:textColorHint="@color/texthint"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1"
+                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                        app:hintTextAppearance="@style/HintText"
+                        app:passwordToggleTint="@color/hint_color"
+                        tools:ignore="UnusedAttribute">
+
+                        <EditText
+                            android:id="@+id/etConceptoNew"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="9dp"
+                            android:background="@android:color/transparent"
+                            android:imeOptions="actionDone"
+                            android:singleLine="true"
+                            android:textColor="@color/grayColor"
+                            android:theme="@style/NewEdittextwallet" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#e0e0e0" />
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

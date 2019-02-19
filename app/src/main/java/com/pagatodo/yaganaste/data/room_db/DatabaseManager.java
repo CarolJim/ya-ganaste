@@ -1,7 +1,5 @@
 package com.pagatodo.yaganaste.data.room_db;
 
-import android.annotation.SuppressLint;
-import android.graphics.Path;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
@@ -314,6 +312,16 @@ public class DatabaseManager {
             @Override
             protected Boolean doInBackground(Void... voids) {
                 return App.getAppDatabase().agentesModel().esComercioUyU(idUsuarioAdq);
+            }
+        }.execute().get();
+    }
+
+    /* Obtener si el comercio seleccionado es del programa Agregador en la BD */
+    public Boolean esAgregador(final String idUsuarioAdq) throws ExecutionException, InterruptedException {
+        return new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                return App.getAppDatabase().agentesModel().esAgregador(idUsuarioAdq);
             }
         }.execute().get();
     }

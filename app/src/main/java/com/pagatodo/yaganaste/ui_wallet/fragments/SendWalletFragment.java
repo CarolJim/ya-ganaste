@@ -65,12 +65,9 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
     @BindView(R.id.headWallet)
     HeadWallet headWallet;
 
-
     View view;
 
-
     private StyleTextView tvMontoEntero, tvMontoDecimal;
-
     private float MIN_AMOUNT = 1.0f, current_mount;
     Double monto;
     Envios payments;
@@ -111,21 +108,10 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
         headWallet.setAmount(App.getInstance().getPrefs().loadData(USER_BALANCE));
         headWallet.setTitle("Saldo actual");
 
-
-
-
-
-
-
         SingletonUser dataUser = SingletonUser.getInstance();
         saldoDisponible.setText("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         txtReceiverName.setText(payments.getNombreDestinatario());
         if (favoritos != null) {
-
-
-
-
-
             txtInicialesFav.setVisibility(View.GONE);
             if (!favoritos.getImagenURL().equals("")) {
                 favoritos.setImagenURL(favoritos.getImagenURL());
@@ -147,7 +133,6 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
             favoritos.setNombre(payments.getNombreDestinatario());
             favoritos.setReferencia(payments.getReferenciaNumerica());
 
-
             headAccount.bind(HeadAccountData.create(favoritos.getImagenURL(),
                     favoritos.getColorMarca(),
                     favoritos.getNombre(),
@@ -161,20 +146,22 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
             crlImageFavorite.setBackground(gd);
             String sIniciales = getIniciales(payments.getNombreDestinatario());
             txtInicialesFav.setText(sIniciales);
+
+            headAccount.bind(HeadAccountData.create("",
+                    payments.getComercio().getColorMarca(),
+                    payments.getNombreDestinatario(),
+                    payments.getReferencia()), null);
         }
         et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal, null,null));
         et_amount.requestFocus();
-        et_amount.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                EditText edittext = (EditText) v;
-                int inType = edittext.getInputType();       // Backup the input type
-                edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
-                edittext.onTouchEvent(event);               // Call native handler
-                keyboardView.showCustomKeyboard(v);
-                edittext.setInputType(inType);              // Restore input type
-                return true; // Consume touch event
-            }
+        et_amount.setOnTouchListener((v, event) -> {
+            EditText edittext = (EditText) v;
+            int inType = edittext.getInputType();       // Backup the input type
+            edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
+            edittext.onTouchEvent(event);               // Call native handler
+            keyboardView.showCustomKeyboard(v);
+            edittext.setInputType(inType);              // Restore input type
+            return true; // Consume touch event
         });
         et_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

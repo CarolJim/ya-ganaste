@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.modules.newsend.SendNewActivity;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.EnvioFormularioWallet;
+import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
@@ -51,6 +52,8 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.F
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE_COMERCE;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_QR_SENDS;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_CERO;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
@@ -147,6 +150,10 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
                 startActivity(SendNewActivity.createIntent(getActivity(), PAYMENT_CLABE));
                 break;
             case R.id.send_from_qr:
+                //Intent intent = new Intent(this, ScannVisionActivity.class);
+                Intent intent = ScannVisionActivity.createIntent(getActivity(),false);
+                intent.putExtra(ScannVisionActivity.QRObject, true);
+                this.startActivityForResult(intent, BARCODE_READER_REQUEST_QR_SENDS);
                 break;
             case R.id.btn_show_fav:
                 startActivity(SendNewActivity.createIntent(getActivity(), ID_ALL_FAVO));
