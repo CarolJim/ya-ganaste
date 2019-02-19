@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.ui_wallet.patterns.builders;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
@@ -29,6 +28,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_DOS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_FIRST;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_REENBOLSO;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_REENBOLSO_AGREGADOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_UNO;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_ACERCA_DE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
@@ -36,7 +36,6 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CONTACTO;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_DESVINCULAR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_MY_DATA;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RADIOBUTTON;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
 
@@ -194,7 +193,10 @@ public class ContainerBuilder {
                 };*/
                 break;
             case OPTION_ZONE_REENBOLSO:
-                op = new SelectOptionZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_dos, parent, false),true);
+                op = new SelectOptionZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_dos, parent, false), true, false);
+                break;
+            case OPTION_ZONE_REENBOLSO_AGREGADOR:
+                op = new SelectOptionZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_dos, parent, false), true, true);
                 break;
             default:
                 op = new ButtonSimpleViewHolder(inflater.inflate(R.layout.view_element, parent, false));
