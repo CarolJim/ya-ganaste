@@ -11,12 +11,16 @@ public class PayContracts {
 
     public interface Listener extends ListenerLauncher {
         void onRechargeCommerceSucces(List<Comercio> catalogos);
+        void onPayServicesSuccess(List<Comercio> catalogos);
         void onRechargeFavorites(List<Favoritos> catalogos);
+
     }
 
     public interface Interactor extends IRequestResult {
         void getRechargeCommerce();
         void getRechargeFavorites();
         void getRechargeFavLocal();
+        void getPayServicesFavLocal();
+        void getPayServices();
     }
 }

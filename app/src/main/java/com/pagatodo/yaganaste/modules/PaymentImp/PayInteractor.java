@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
+import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_SERVICIOS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 
 public class PayInteractor implements PayContracts.Interactor{
@@ -36,6 +37,24 @@ public class PayInteractor implements PayContracts.Interactor{
 
         if (catalogos.size() > 0) {
             this.listener.onRechargeCommerceSucces(catalogos);
+        } else {
+            this.listener.onError("No se encontrarón comercios");
+        }
+    }
+
+    @Override
+    public void getPayServices() {
+        List<Comercio> catalogos = new ArrayList<>();
+        try {
+            catalogos = new DatabaseManager().getComerciosByType(PAYMENT_SERVICIOS);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (catalogos.size() > 0) {
+            this.listener.onPayServicesSuccess(catalogos);
         } else {
             this.listener.onError("No se encontrarón comercios");
         }
@@ -88,6 +107,19 @@ public class PayInteractor implements PayContracts.Interactor{
         List<Favoritos> catalogos = new ArrayList<>();
         try {
             catalogos = new DatabaseManager().getListFavoritosByIdComercio(PAYMENT_RECARGAS);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.listener.onRechargeFavorites(catalogos);
+    }
+
+    @Override
+    public void getPayServicesFavLocal() {
+        List<Favoritos> catalogos = new ArrayList<>();
+        try {
+            catalogos = new DatabaseManager().getListFavoritosByIdComercio(PAYMENT_SERVICIOS);
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

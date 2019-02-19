@@ -36,7 +36,6 @@ public class IconButton extends LinearLayout {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View viewItem = inflater.inflate(R.layout.item_icon_button,this,false);
         holder = new IconButtonHolder(viewItem);
-
         if (attrs != null) {
             TypedArray a = getContext().getTheme().obtainStyledAttributes(
                     attrs,
