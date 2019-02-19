@@ -1,19 +1,25 @@
 package com.pagatodo.yaganaste.modules.PaymentImp;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.pagatodo.view_manager.components.LabelButton;
 import com.pagatodo.view_manager.controllers.OnHolderListener;
 import com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder;
 import com.pagatodo.view_manager.recyclers.RechargesRecycler;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
+import com.pagatodo.yaganaste.modules.payReloadsServices.PayReloadsServicesActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.PaymentActivity;
 import com.pagatodo.yaganaste.utils.UI;
@@ -29,9 +35,14 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder.TYPE.*;
 import static com.pagatodo.yaganaste.modules.PaymentImp.PaymentContentFragment.*;
+import static com.pagatodo.yaganaste.modules.payReloadsServices.PayReloadsServicesActivity.Type.ALL_RECHARGES;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
+import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAVORITE_PROCESS;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_CERO;
+import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
 
 public class PayFragment extends GenericFragment implements PayContracts.Listener,
-        OnHolderListener<IconButtonDataHolder> {
+        OnHolderListener<IconButtonDataHolder>{
 
     private static final String TAG_TYPE = "TAG_TYPE";
     private View rootView;
@@ -40,7 +51,10 @@ public class PayFragment extends GenericFragment implements PayContracts.Listene
     private int type;
 
 
-
+    @BindView(R.id.labelButton)
+    LabelButton headBtn;
+    @BindView(R.id.recharge_fav)
+    LabelButton feetBtn;
     @BindView(R.id.rechargesRecycler)
     RechargesRecycler rechargesRecycler;
     @BindView(R.id.recharges_recycler_fav)
@@ -62,7 +76,7 @@ public class PayFragment extends GenericFragment implements PayContracts.Listene
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.activity = (TabActivity) context;
+
     }
 
     @Override
@@ -90,12 +104,15 @@ public class PayFragment extends GenericFragment implements PayContracts.Listene
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
+        headBtn.setOnClick(v -> startActivity(PayReloadsServicesActivity
+                .intentRecharges(getActivity(),
+                        ALL_RECHARGES,rechargesRecycler.getList())));
         if (type != 0){
             switch (type){
                 case RECHARGE_FRAGMENT:
                     this.interactor.getRechargeCommerce();
                     this.interactor.getRechargeFavorites();
-                    this.interactor.getRechargeFavLocal();
+                    //this.interactor.getRechargeFavLocal();
                     break;
                 case SERVICES_PAY_FRAGMENT:
                     this.interactor.getPayServices();
@@ -157,25 +174,43 @@ public class PayFragment extends GenericFragment implements PayContracts.Listene
 
     private ArrayList<IconButtonDataHolder> covertFavItem(List<Favoritos> itemFav){
         ArrayList<IconButtonDataHolder> items = new ArrayList<>();
+        items.add(rechargesRecycler.addFav());
+        
         for (Favoritos fav:itemFav){
-            IconButtonDataHolder dataHolder = new IconButtonDataHolder("",
+            String url = fav.getImagenURL();
+            if (fav.getImagenURL().isEmpty()){
+                url = fav.getImagenURLComercioColor();
+            }
+            IconButtonDataHolder dataHolder = new IconButtonDataHolder(url,
                     fav.getNombre(),
                     fav.getNombreComercio(),
                     ITEM_RECHARGE_FAV);
             dataHolder.setT(fav);
             items.add(dataHolder);
-
         }
         return items;
     }
 
     @Override
     public void onClickView(IconButtonDataHolder item, View view) {
+
         if (item.getT() instanceof Comercio){
             startActivity(PaymentActivity.creatIntent(getActivity(),(Comercio)item.getT(),false));
         } else if(item.getT() instanceof  Favoritos){
             UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()),"ES Comercio: " +
                     ((Favoritos)item.getT()).getNombreComercio());
+        } else if (item.getType() == ADD){
+            Intent intent = new Intent(getActivity(), FavoritesActivity.class);
+            intent.putExtra(CURRENT_TAB_ID, PAYMENT_RECARGAS);
+            intent.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_CERO);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                startActivityForResult(intent, NEW_FAVORITE_FROM_CERO,
+                        ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+            } else {
+                startActivityForResult(intent, NEW_FAVORITE_FROM_CERO);
+            }
         }
     }
+
+
 }

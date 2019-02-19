@@ -193,20 +193,12 @@
             tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".modules.onboarding.OnboardingActivity"
-            android:screenOrientation="portrait">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".modules.charge.ChargeActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".modules.payReloadsServices.PayReloadsServicesActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

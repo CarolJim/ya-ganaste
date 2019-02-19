@@ -13,7 +13,6 @@ public class PayContracts {
         void onRechargeCommerceSucces(List<Comercio> catalogos);
         void onPayServicesSuccess(List<Comercio> catalogos);
         void onRechargeFavorites(List<Favoritos> catalogos);
-
     }
 
     public interface Interactor extends IRequestResult {
@@ -23,4 +22,6 @@ public class PayContracts {
         void getPayServicesFavLocal();
         void getPayServices();
     }
+
+
 }

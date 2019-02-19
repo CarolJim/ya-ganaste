@@ -6,9 +6,6 @@ import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 
 import java.util.List;
 
-/**
- * Created by Jordan on 11/04/2017.
- */
 
 public interface IPaymentsCarouselPresenter {
 

@@ -1,4 +1,4 @@
-package com.pagatodo.view_manager.recyclers;
+package com.pagatodo.view_manager.recyclers.adapters;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-class RechargesAdapter extends RecyclerView.Adapter<GenericHolder<IconButtonDataHolder>> {
+public class RechargesAdapter extends RecyclerView.Adapter<GenericHolder<IconButtonDataHolder>> {
 
     private ArrayList<IconButtonDataHolder> listData;
     private OnHolderListener<IconButtonDataHolder> listener;
 
-    RechargesAdapter() {
+    public RechargesAdapter() {
         this.listData = new ArrayList<>();
     }
 
@@ -28,11 +28,16 @@ class RechargesAdapter extends RecyclerView.Adapter<GenericHolder<IconButtonData
         this.listener = listener;
     }
 
-    void setListData(ArrayList<IconButtonDataHolder> listData) {
+    public void setListData(ArrayList<IconButtonDataHolder> listData) {
         this.listData = listData;
     }
 
-    void addItem(IconButtonDataHolder dataHolder){
+    public ArrayList<IconButtonDataHolder> getListData() {
+        return listData;
+    }
+
+
+    public void addItem(IconButtonDataHolder dataHolder){
         this.listData.add(dataHolder);
     }
 
@@ -70,6 +75,8 @@ class RechargesAdapter extends RecyclerView.Adapter<GenericHolder<IconButtonData
                 return 2;
             case ITEM_RECHARGE:
                 return 1;
+            case ADD:
+                return 2;
                 default:
                     return 1;
         }
