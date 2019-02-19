@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.data.model.RegisterUserNew;
+import com.pagatodo.yaganaste.data.model.SubGiro;
 import com.pagatodo.yaganaste.interfaces.IDatosNegView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -33,6 +34,7 @@ import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.DatosNegocioPresenter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
+import com.pagatodo.yaganaste.ui.account.register.adapters.SubBussinesLineSpinnerAdapter;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoGiro;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -53,11 +55,21 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
  * A simple {@link Fragment} subclass.
  */
 public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinnerClick,IDatosNegView<ErrorObject>,ValidationForms {
+
     private List<DtoGiro> giros= new ArrayList<>();
     private List<Giros> girosComercio;
     private BussinesLineSpinnerAdapter giroArrayAdapter;
+
+    private SubBussinesLineSpinnerAdapter subgiroArrayAdapter;
+    @BindView(R.id.textsubgiroea)
+    StyleTextView textsubgiro;
+    @BindView(R.id.txtsubgiroea)
+    LinearLayout txtsubgiro;
+
     @BindView(R.id.spinnerBussineLine)
     Spinner spinnerBussineLine;
+    @BindView(R.id.spinnerSubBussineLine)
+    Spinner spinnerSubBussineLine;
     @BindView(R.id.textgiro)
     StyleTextView textgiro;
     @BindView(R.id.editBussinesName)
@@ -128,7 +140,6 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
         });
 
 
-
         spinnerBussineLine.setOnTouchListener(spinnerOnTouch);
         spinnerBussineLine.setOnKeyListener(spinnerOnKey);
 
@@ -159,7 +170,8 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
                 lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                 return false;
             }
-        });spiner1.setOnTouchListener(new View.OnTouchListener() {
+        });
+        spiner1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -179,11 +191,24 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
         spiner1.setOnClickListener(view ->
                 spinnerBussineLine.performClick());
 
+        /*
         if (girosComercio == null) {
             girosComercio = new ArrayList<>();
             Giros giroHint = new Giros();
             giroHint.setGiro(getString(R.string.giro_commerce_spinner));
             giroHint.setIdGiro(-1);
+            girosComercio.add(giroHint);
+        }
+        */
+
+        if (girosComercio == null) {
+            girosComercio = new ArrayList<>();
+            Giros giroHint = new Giros();
+            giroHint.setGiro(getString(R.string.giro_commerce_spinner));
+            giroHint.setIdGiro(-1);
+            List<SubGiro> subgiroHint = new ArrayList<SubGiro>();
+            subgiroHint.add(new SubGiro(-1, getString(R.string.subgiro_commerce)));
+            giroHint.setListaSubgiros(subgiroHint);
             girosComercio.add(giroHint);
         }
         editBussinesName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -229,13 +254,76 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                if (position != 0) {
+                    textgiro.setVisibility(View.VISIBLE);
+                    textgiro.setTextColor(getResources().getColor(R.color.colorAccent));
+                }
+                else
+                    textgiro.setVisibility(View.GONE);
+                List<SubGiro> list = girosComercio.get(position).getListaSubgiros();
+                if (!list.contains(new SubGiro(-1, getString(R.string.subgiro_commerce)))) {
+                    Collections.sort(list, new Comparator<SubGiro>() {
+                        @Override
+                        public int compare(SubGiro countries, SubGiro t1) {
+                            return countries.getSubgiro().compareTo(t1.getSubgiro());
+                        }
+                    });
+                    list.add(0, new SubGiro(-1, getString(R.string.subgiro_commerce)));
+                }
+                subgiroArrayAdapter = new SubBussinesLineSpinnerAdapter(getActivity(),
+                        R.layout.spinner_layout, list, DatosNegocioEAFragment.this);
+                spinnerSubBussineLine.setAdapter(subgiroArrayAdapter);
+                if (list.size() == 2) {
+                    spinnerSubBussineLine.setSelection(1);
+                }
+
 
                 if(flag){
                     InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                 }
 
-            String nombrenegocio = editBussinesName.getText().toString();
+                String nombrenegocio = editBussinesName.getText().toString();
+                if (position > 0 && !nombrenegocio.isEmpty()){
+                    //btnNextDatosNegocio.setBackgroundResource(R.drawable.button_rounded_blue);
+                    txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
+                }else {
+                    //btnNextDatosNegocio.setBackgroundResource(R.drawable.button_rounded_gray);
+                }
+
+                if (position > 0 ){
+                    txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
+                }
+
+            flag = true;
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                onSpinnerClick();
+            }
+
+
+        });
+
+        spinnerSubBussineLine.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                onSubSpinnerClick();
+                if (position != 0) {
+                    textsubgiro.setVisibility(View.VISIBLE);
+                    textsubgiro.setTextColor(getResources().getColor(R.color.colorAccent));
+                }
+                else
+                    textsubgiro.setVisibility(View.GONE);
+
+
+                if(flag){
+                    InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                }
+                String nombrenegocio = editBussinesName.getText().toString();
                 if (position > 0 && !nombrenegocio.isEmpty()){
                     btnNextDatosNegocio.setBackgroundResource(R.drawable.button_rounded_blue);
                     txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
@@ -246,16 +334,17 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
                 if (position > 0 ){
                     txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
                 }
-            flag = true;
+
+                flag = true;
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                onSpinnerClick();
+                onSubSpinnerClick();
             }
-
-
         });
+
+
         txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
 
 
@@ -361,6 +450,11 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
             txtgiro.setBackgroundResource(R.drawable.input_text_error);
             isValid = false;
         }
+        if (subgiroArrayAdapter.getItem(spinnerSubBussineLine.getSelectedItemPosition()).getIdSubgiro() == -1) {
+            //showValidationError(spinnerSubBussineLine.getId(), getString(R.string.datos_negocio_subgiro));
+            txtsubgiro.setBackgroundResource(R.drawable.input_text_error);
+            isValid = false;
+        }
         if (isValid) {
             onValidationSuccess();
         }
@@ -382,6 +476,8 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
         registerAgent.setNombreNegocio(nombre);
         registerAgent.setIdGiro(giroArrayAdapter.getGiroId(spinnerBussineLine.getSelectedItemPosition()));
         registerAgent.setGiroComercio(giroArrayAdapter.getItemSelected(spinnerBussineLine.getSelectedItemPosition()));
+
+        registerAgent.setSubGiros(subgiroArrayAdapter.getItemSelected(spinnerSubBussineLine.getSelectedItemPosition()));
         //activityf.getRouter().showPhysicalCode(Direction.FORDWARD);
         activityf.getRouter().showPhysicalCode(Direction.FORDWARD);
     }
