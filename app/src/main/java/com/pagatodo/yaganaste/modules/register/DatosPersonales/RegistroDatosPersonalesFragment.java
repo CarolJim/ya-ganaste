@@ -296,7 +296,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
 
             }
         });
-
+        /*accountPresenter.validatePersonDatanewCURP("SASA910827HMCNLR09");*/
     }
 
 
@@ -762,8 +762,8 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
 
         if (BuildConfig.DEBUG) {
-              onValidationSuccess();
-          //  accountPresenter.validatePersonDatanew();
+          //    onValidationSuccess();
+            accountPresenter.validatePersonDatanew();
         } else {
             accountPresenter.validatePersonDatanew();
         }
@@ -831,7 +831,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     @Override
     public void onHomonimiaError() {
         String CURP = "";
-        UI.createSimpleCustomDialogCURP(getString(R.string.ingresa_tu_curp), "",
+        UI.createSimpleCustomDialogCURP(getString(R.string.ingresa_tu_curp_new), "",
                 getFragmentManager(), new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {

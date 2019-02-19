@@ -326,6 +326,7 @@ public class UI {
                                                     FragmentManager fragmentManager, final DialogDoubleActions actions,
                                                     boolean hasConfirmBtn, boolean hasCancelBtn) {
         final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_curp_error_message, title, message, hasConfirmBtn, hasCancelBtn);
+        customErrorDialog.setTitleBtnAcept("Continuar");
         customErrorDialog.setDialogActions(new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {
@@ -346,7 +347,7 @@ public class UI {
                 }
             }
         });
-        customErrorDialog.setCancelable(false);
+        customErrorDialog.setCancelable(true);
         customErrorDialog.show(fragmentManager, CustomErrorDialog.class.getSimpleName());
     }
 

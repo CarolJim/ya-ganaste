@@ -105,6 +105,7 @@ public class AllFavoritesFragment extends GenericFragment implements   View.OnCl
     public void onResume() {
         super.onResume();
         paymentsCarouselPresenter.getFavoriteCarouselItems();
+
     }
 
 

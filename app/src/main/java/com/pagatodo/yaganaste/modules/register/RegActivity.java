@@ -79,10 +79,12 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
                 registerUser.setRegincomplete(true);
             }
             else
-                router.showUserData(Direction.FORDWARD);
+                router.showPersonalData(Direction.FORDWARD);
+                //router.showUserData(Direction.FORDWARD);
+
         }
         else
-        router.showUserData(Direction.FORDWARD);
+            router.showUserData(Direction.FORDWARD);
 
         btn_back = (ImageView) findViewById(R.id.btn_back);
        // router.showPrsonalAddress(Direction.FORDWARD);

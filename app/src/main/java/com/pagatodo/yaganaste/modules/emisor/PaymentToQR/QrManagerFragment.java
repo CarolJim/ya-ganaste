@@ -37,7 +37,6 @@ public class QrManagerFragment extends GenericFragment implements QrManagerContr
 
     private QrManagerIteractor iteractor;
 
-
     @BindView(R.id.rcv_qr)
     RecyclerView rcv_qr;
     @BindView(R.id.no_data)
