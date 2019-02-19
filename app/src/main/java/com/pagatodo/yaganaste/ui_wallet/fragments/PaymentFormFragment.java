@@ -128,6 +128,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     @BindView(R.id.txt_conceptoNew)
     LinearLayout txt_conceptoNew;
 
+    @BindView(R.id.divConcept)
+    View divView;
+
     boolean authorize = false;
     boolean referenciaCompletada = false;
 
@@ -137,7 +140,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     @BindView(R.id.txt_title_payment)
     StyleTextView txtTitleFragment;
     @BindView(R.id.imgPagosUserProfile)
-    CircleImageView imgUserPhoto;
+    ImageView imgUserPhoto;
     @BindView(R.id.imgPagosServiceToPayRound)
     CircleImageView circuleDataPhoto;
     @BindView(R.id.imgItemGalleryPay)
@@ -456,7 +459,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 btnContinue.setText(getResources().getString(R.string.btn_payment_txt));
 
                 txtTitleFragment.setText(getResources().getString(R.string.txt_pago_servicios));
-                headAccount.setTag(getResources().getString(R.string.txt_pago_servicios));
+                headAccount.getTxtLabelTag().setText(getResources().getString(R.string.txt_pago_servicios));
 
                 lytContainerServicios.setVisibility(View.VISIBLE);
 
@@ -593,6 +596,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
             headAccount.getTxtName().setText(favoritos.getNombreComercio());
             headAccount.getTxtReference().setText(favoritos.getReferencia());
+            headAccount.getTxtReference().setVisibility(View.VISIBLE);
+
             imgUrl = favoritos.getImagenURL();
             labelName = favoritos.getNombre();
             labelRef = favoritos.getReferencia();
@@ -606,23 +611,26 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 headAccount.setImageURL(comercioResponse.getImagenURL());
             headAccount.getTxtName().setText(comercioResponse.getNombreComercio());
             headAccount.getTxtLabelTag().setVisibility(View.VISIBLE);
+            headAccount.getTxtReference().setVisibility(View.GONE);
+
             imgUrl = comercioResponse.getImagenURL();
             labelName = comercioResponse.getNombreComercio();
         }
 
-        //TODO llebar HeadAccount
+        //TODO llenar HeadAccount
 
         txtMonto.setText("" + Utils.getCurrencyValue(0));
         SingletonUser dataUser = SingletonUser.getInstance();
         txtNameUser.setText("" + dataUser.getDataUser().getCliente().getNombre());
         txtSaldo.setText("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         String imagenavatar = dataUser.getDataUser().getUsuario().getImagenAvatarURL();
-        if (!imagenavatar.equals("")) {
+
+       /* if (!imagenavatar.equals("")) {
             Picasso.get()
                     .load(imagenavatar)
                     .placeholder(R.mipmap.icon_user_fail)
                     .into(imgUserPhoto);
-        }
+        }*/
 
         if (isFavorite) {
             if (!favoritos.getImagenURL().equals("")) {
@@ -942,13 +950,17 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         }else {
             authorize = true;
             layoutAuthorize.setVisibility(View.VISIBLE);
+            txtTitleFragment.setText(getString(R.string.autorizar_pago));
+            txtTitleFragment.setVisibility(View.VISIBLE);
+
             layoutHeads.setVisibility(View.GONE);
             lytContainerServicios.setVisibility(View.GONE);
             txt_conceptoNew.setVisibility(View.VISIBLE);
+            divView.setVisibility(View.VISIBLE);
 
 
-
-            recargaMontoNew.setText(edtServiceImport.getText());
+            double monto = Double.parseDouble(edtServiceImport.getText().toString().replace("$", "").replace(",", ""));
+            recargaMontoNew.setText(Utils.getCurrencyValue(monto));
             recargaNumberNew.setText(referencia);
             conceptoNew.setText(concepto);
 
@@ -986,10 +998,19 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         }else{
             authorize = true;
             layoutAuthorize.setVisibility(View.VISIBLE);
+            txtTitleFragment.setText(getString(R.string.autorizar_recarga));
+            txtTitleFragment.setVisibility(View.VISIBLE);
+
             layoutHeads.setVisibility(View.GONE);
             lytContainerRecargas.setVisibility(View.GONE);
+            txt_conceptoNew.setVisibility(View.GONE);
+            divView.setVisibility(View.GONE);
+
+            double monto = Double.parseDouble(spnMontoRecarga.getSelectedItem().toString());
             recargaMontoNew.setText(spnMontoRecarga.getSelectedItem().toString());
             recargaNumberNew.setText(edtPhoneNumber.getText());
+
+
         }
     }
 
@@ -1017,7 +1038,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación
         getActivity().startActivityForResult(intent, BACK_FROM_PAYMENTS);
         //getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-
 
     }
 }

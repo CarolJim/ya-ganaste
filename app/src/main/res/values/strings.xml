@@ -1801,4 +1801,6 @@
     <string name="tab_pay_services">Pagar servicios</string>
     <string name="saldo_actual">Saldo actual</string>
     <string name="monto_de_recarga">Monto de recarga</string>
+    <string name="autorizar_pago">Autorizar Pago</string>
+    <string name="autorizar_recarga">Autorizar Recarga</string>
 </resources>
