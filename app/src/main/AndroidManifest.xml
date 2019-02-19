@@ -109,8 +109,8 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".ui._controllers.PaymentsProcessingActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/TransparentNoTitleBar"
+            android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui._controllers.DetailsActivity"

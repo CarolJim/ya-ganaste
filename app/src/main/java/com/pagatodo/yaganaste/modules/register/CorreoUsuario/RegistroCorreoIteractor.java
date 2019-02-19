@@ -18,7 +18,7 @@ public class RegistroCorreoIteractor implements RegistroCorreoContracts.Iteracto
     @Override
     public void registerFirebase() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.createUserWithEmailAndPassword(RegisterUserNew.getInstance().getEmail(), "93682157").addOnCompleteListener(task -> {
+        auth.createUserWithEmailAndPassword(RegisterUserNew.getInstance().getEmail(), "123456").addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 FirebaseUser user = auth.getCurrentUser();
                 App.getInstance().getPrefs().saveData(TOKEN_FIREBASE_AUTH, user.getUid());

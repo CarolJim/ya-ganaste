@@ -969,7 +969,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void registerUserInFirebase(DataIniciarSesionUYU data, String stepUser) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.createUserWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "93682157")
+        auth.createUserWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "123456")
                 .addOnCompleteListener(task -> {
                     prefs.saveDataBool(HAS_FIREBASE_ACCOUNT, true);
                     if (task.isSuccessful()) {
@@ -989,7 +989,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void logInFirebase(DataIniciarSesionUYU data, String stepUser) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.signInWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "123456")
+        auth.signInWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "93682157")
                 .addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 FirebaseUser user = auth.getCurrentUser();
@@ -1011,7 +1011,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             } else {
                 auth.signInWithEmailAndPassword(data.getUsuario().getNombreUsuario(), pass).addOnCompleteListener(task1 -> {
                     if (task1.isSuccessful()) {
-                        FirebaseAuth.getInstance().getCurrentUser().updatePassword("123456");
+                        FirebaseAuth.getInstance().getCurrentUser().updatePassword("93682157");
                     }
                 });
             }
