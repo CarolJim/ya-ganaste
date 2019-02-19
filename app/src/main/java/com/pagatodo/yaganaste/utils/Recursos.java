@@ -5,7 +5,7 @@ import com.pagatodo.yaganaste.BuildConfig;
 public class Recursos {
 
     //BASE DE DATOS
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "ya_ganaste.db";
 
     public static final String URL_BD_ODIN;

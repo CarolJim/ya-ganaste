@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <EditText
@@ -26,9 +26,9 @@
                 style="@style/H1Azul"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_marginTop="5dp"
-                android:text="Enviar dinero a" />
+                android:text="Enviar dinero a"
+                android:visibility="gone" />
 
 
             <LinearLayout
@@ -46,38 +46,40 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="25dp"
                     android:gravity="center_horizontal|center_vertical"
-                    app:walletResImage="@mipmap/main_card_zoom_blue"
                     app:headAmount="1000"
                     app:headTitle="@string/app_name"
+                    app:walletResImage="@mipmap/main_card_zoom_blue"
                     tools:ignore="MissingConstraints">
 
                 </com.pagatodo.view_manager.components.HeadWallet>
             </LinearLayout>
 
             <LinearLayout
-            android:id="@+id/componentfavo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical"
-            tools:ignore="MissingConstraints">
-            <com.pagatodo.view_manager.components.HeadAccount
-                android:id="@+id/head_account"
-                android:layout_width="wrap_content"
+                android:id="@+id/componentfavo"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                app:labeVisibility="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
-        </LinearLayout>
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/gray_border_rectangle"
+                android:orientation="vertical"
+                tools:ignore="MissingConstraints">
+
+                <com.pagatodo.view_manager.components.HeadAccount
+                    android:id="@+id/head_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:labeVisibility="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+            </LinearLayout>
 
 
             <RelativeLayout
@@ -86,9 +88,9 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
-                android:visibility="gone"
                 android:background="@drawable/ic_circle_border_shadow"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/crlImageFavorite"
@@ -115,10 +117,10 @@
                 style="@style/H4Gris"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_marginTop="4dp"
                 android:text="Omar Alejandro"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/linera_monto"
@@ -184,9 +186,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@+id/edit_nombre"
-                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/inputtext_normal"
                 android:gravity="center_vertical"
                 android:hint="@string/concepto"
@@ -194,23 +196,22 @@
                 android:textColorHint="@color/texthint"
                 app:counterEnabled="true"
                 app:counterMaxLength="1"
-                app:hintTextAppearance="@style/HintText"
                 app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                app:hintTextAppearance="@style/HintText"
                 app:passwordToggleTint="@color/hint_color"
                 tools:ignore="UnusedAttribute">
 
                 <EditText
                     android:id="@+id/edit_conc"
-                    android:theme ="@style/NewEdittextwallet"
-                    android:textColor="@color/grayColor"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="9dp"
                     android:background="@android:color/transparent"
                     android:imeOptions="actionDone"
                     android:inputType="text"
                     android:singleLine="true"
-                    android:layout_marginBottom="9dp"
-                    />
+                    android:textColor="@color/grayColor"
+                    android:theme="@style/NewEdittextwallet" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -224,9 +225,9 @@
         android:layout_height="0dp"
         android:layout_marginTop="2dp"
         android:layout_weight=".5"
-        android:visibility="gone"
         android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             style="@style/H4Gris"
@@ -277,12 +278,12 @@
         android:id="@+id/enviar"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:gravity="center"
-        android:background="@color/colorAccent"
         android:layout_gravity="center_vertical"
+        android:background="@color/colorAccent"
+        android:gravity="center"
         android:text="@string/btn_send"
         android:textAlignment="center"
-        android:textSize="19sp"/>
+        android:textSize="19sp" />
 
 </LinearLayout>
 
