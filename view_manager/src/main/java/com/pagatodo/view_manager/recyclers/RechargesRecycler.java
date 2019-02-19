@@ -12,8 +12,10 @@ import com.pagatodo.view_manager.controllers.ItemOffsetDecoration;
 import com.pagatodo.view_manager.controllers.LauncherHolder;
 import com.pagatodo.view_manager.controllers.OnHolderListener;
 import com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder;
+import com.pagatodo.view_manager.recyclers.adapters.RechargesAdapter;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -22,7 +24,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class RechargesRecycler extends LinearLayout implements LauncherHolder<ArrayList<IconButtonDataHolder>>{
+public class RechargesRecycler extends LinearLayout implements LauncherHolder<ArrayList<IconButtonDataHolder>>,
+        Serializable {
 
     private View rootView;
     private RechargesAdapter adapter;
@@ -54,8 +57,15 @@ public class RechargesRecycler extends LinearLayout implements LauncherHolder<Ar
         adapter.addItem(new IconButtonDataHolder(getContext().getResources().getDrawable(R.drawable.ic_add),
                 getContext().getResources().getString(R.string.add_fav),
                 "Agregar",
-                IconButtonDataHolder.TYPE.ITEM_RECHARGE_FAV));
+                IconButtonDataHolder.TYPE.ADD));
         adapter.notifyDataSetChanged();
+    }
+
+    public IconButtonDataHolder addFav(){
+        return new IconButtonDataHolder(getContext().getResources().getDrawable(R.drawable.ic_add),
+                getContext().getResources().getString(R.string.add_fav),
+                "Agregar",
+                IconButtonDataHolder.TYPE.ADD);
     }
 
 
@@ -77,6 +87,11 @@ public class RechargesRecycler extends LinearLayout implements LauncherHolder<Ar
         }
     }
 
+    public ArrayList<IconButtonDataHolder> getListData(){
+        return this.adapter.getListData();
+    }
+
+
 
     @Override
     public void inflate(ViewGroup layout) {
@@ -90,11 +105,19 @@ public class RechargesRecycler extends LinearLayout implements LauncherHolder<Ar
 
     public void setListItem(ArrayList<IconButtonDataHolder> listData){
         if (!listData.isEmpty()){
+            //defaultView();
             adapter.setListData(listData);
             adapter.notifyDataSetChanged();
         }
-
     }
+
+
+
+
+    public ArrayList<IconButtonDataHolder> getList(){
+        return adapter.getListData();
+    }
+
     public void setOnClickItems(OnHolderListener<IconButtonDataHolder> listener){
         adapter.setListener(listener);
     }

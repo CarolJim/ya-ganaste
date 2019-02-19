@@ -22,7 +22,7 @@
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:contentDescription="@string/app_name"
-            android:src="@color/gray_off"/>
+            android:src="@drawable/ic_add"/>
     </LinearLayout>
 
     <LinearLayout

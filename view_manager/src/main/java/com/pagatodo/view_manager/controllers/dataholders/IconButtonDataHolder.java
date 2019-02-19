@@ -81,6 +81,6 @@ public class IconButtonDataHolder implements Serializable {
     }
 
     public enum TYPE{
-        ITEM_RECHARGE, ITEM_RECHARGE_FAV
+        ITEM_RECHARGE, ITEM_RECHARGE_FAV, ADD
     }
 }

@@ -40,10 +40,6 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 
-/**
- * @author Juan Guerra on 09/05/2017.
- */
-
 public abstract class LoaderActivity extends ToolBarActivity implements OnEventListener, IProgressView<ErrorObject>,
         FingerprintAuthenticationDialogFragment.generateCodehuella,FingerprintAuthenticationDialogFragment.calldialogpass,FingerprintAuthenticationDialogFragment.canceltransaction {
 

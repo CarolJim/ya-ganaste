@@ -639,12 +639,16 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 circuleDataPhoto.setBackground(gd);
             }
         } else {
-            if (!comercioResponse.getLogoURLColor().equals("")) {
-                Picasso.get()
-                        .load(App.getContext().getString(R.string.url_images_logos) + comercioResponse.getLogoURLColor())
-                        .placeholder(R.mipmap.icon_user_fail)
-                        .into(imageDataPhoto);
+            if (comercioResponse.getLogoURLColor() != null){
+                if (!comercioResponse.getLogoURLColor().isEmpty()) {
+                    Picasso.get()
+                            .load(App.getContext().getString(R.string.url_images_logos) + comercioResponse.getLogoURLColor())
+                            .placeholder(R.mipmap.icon_user_fail)
+                            .into(imageDataPhoto);
+                }
             }
+
+
             txtIniciales.setVisibility(View.GONE);
 
             //setImagePicasoFav(imageDataPhoto, circuleDataPhoto, tipoPhoto);
