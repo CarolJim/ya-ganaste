@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.modules.register.RegistroDomicilioPersonal;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.google.android.material.snackbar.Snackbar;
@@ -38,6 +39,8 @@ import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
+import com.pagatodo.yaganaste.modules.usernovalid.UserValidActivity;
+import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialogregistro;
@@ -55,6 +58,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.modules.register.RegActivity.EVENT_DATA_USER_BUSNES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialogregistro.Legales.PRIVACIDAD;
@@ -531,6 +535,11 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
         registerUser.setEstadoDomicilio(estadoDomicilio);
         registerUser.setColonia(colonia);
         registerUser.setIdColonia(Idcolonia);
+
+        if (registerUser.isBreakregister()){
+            Intent intentReg = new Intent(getActivity(), UserValidActivity.class);
+            startActivity(intentReg);
+        }else
         activityf.getRouter().showBusinessData(Direction.FORDWARD);
     }
 

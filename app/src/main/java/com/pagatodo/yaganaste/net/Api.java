@@ -7,6 +7,7 @@ import java.util.Map;
 
 import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_NUMBER_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.SECURITY_TOKEN_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.USMAL;
 
 /**
  * Created by flima on 22/03/2017.
@@ -22,6 +23,9 @@ public class Api {
                 "correo@correo.correo" : RequestHeaders.getUsername();
         headersYaGanaste.put(RequestHeaders.NombreUsuario, userName);// TODO: 04/05/2017
         headersYaGanaste.put(RequestHeaders.IdComponente, "1");
+
+        App.getInstance().getPrefs().saveData(USMAL,userName);
+
         return headersYaGanaste;
     }
 

@@ -53,7 +53,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".modules.newsend.SendNewActivity"></activity>
+        <activity android:name=".modules.usernovalid.UserValidActivity"></activity>
+        <activity android:name=".modules.newsend.SendNewActivity" />
         <activity android:name=".modules.registerAggregator.AggregatorActivity" />
 
         <uses-library
@@ -81,6 +82,7 @@
         <activity android:name=".ui._controllers.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -144,7 +146,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
 
         <activity
             android:name=".ui._controllers.PreferUserActivity"
