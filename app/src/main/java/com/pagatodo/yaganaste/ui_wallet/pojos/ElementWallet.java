@@ -211,7 +211,8 @@ public class ElementWallet {
                 ElementView.getListStarbucks(),
                 (R.string.saldo_disponible), true, null);
     }
- public static ElementWallet getCardStarbucksdesc() {
+
+    public static ElementWallet getCardStarbucksdesc() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.starbucks);
        /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
         Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
@@ -236,7 +237,8 @@ public class ElementWallet {
                 ElementView.getListStarbucksdes(),
                 (R.string.empty), true, null);
     }
-public static ElementWallet getCardConstruganasDes() {
+
+    public static ElementWallet getCardConstruganasDes() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.contruganas);
        /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
         Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
@@ -248,7 +250,8 @@ public static ElementWallet getCardConstruganasDes() {
                 ElementView.getListStarbucksdes(),
                 (R.string.empty), true, null);
     }
-public static ElementWallet getCardSportCityDes() {
+
+    public static ElementWallet getCardSportCityDes() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.sportcity);
        /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
         Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
@@ -299,7 +302,8 @@ public static ElementWallet getCardSportCityDes() {
                 ElementView.getListStarbucksdes(),
                 (R.string.empty), true, null);
     }
-   public static ElementWallet getCardSMonterreyDes() {
+
+    public static ElementWallet getCardSMonterreyDes() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.segurosm);
        /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
         Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
@@ -311,7 +315,8 @@ public static ElementWallet getCardSportCityDes() {
                 ElementView.getListStarbucksdes(),
                 (R.string.empty), true, null);
     }
- public static ElementWallet getCardCostcoDes() {
+
+    public static ElementWallet getCardCostcoDes() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.costco);
        /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
         Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
@@ -323,7 +328,8 @@ public static ElementWallet getCardSportCityDes() {
                 ElementView.getListStarbucksdes(),
                 (R.string.empty), true, null);
     }
- public static ElementWallet getCardAeroMDes() {
+
+    public static ElementWallet getCardAeroMDes() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.aerom);
        /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
         Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
@@ -335,7 +341,8 @@ public static ElementWallet getCardSportCityDes() {
                 ElementView.getListStarbucksdes(),
                 (R.string.empty), true, null);
     }
- public static ElementWallet getCardLiverpoolDes() {
+
+    public static ElementWallet getCardLiverpoolDes() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.liverpool);
        /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
         Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
@@ -346,7 +353,9 @@ public static ElementWallet getCardSportCityDes() {
                 StringUtils.getCurrencyValue("Saldo"),
                 ElementView.getListStarbucksdes(),
                 (R.string.empty), true, null);
-    } public static ElementWallet getPayBackDes() {
+    }
+
+    public static ElementWallet getPayBackDes() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.cinepolis);
        /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
         Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
@@ -396,10 +405,10 @@ public static ElementWallet getCardSportCityDes() {
             }
             if (isBluetooth) {
                 return new ElementWallet(TYPE_ADQ, null, null, leyenda,
-                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(), "" + agentes.getIdComercio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
+                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(), "" + agentes.getIdComercio(), agentes.isEsComercioUYU(), agentes.isEsAgregador()), descripcion, isReload, agentes);
             } else {
                 return new ElementWallet(TYPE_ADQ, frontView, null, leyenda,
-                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(), "" + agentes.getIdComercio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
+                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(), "" + agentes.getIdComercio(), agentes.isEsComercioUYU(), agentes.isEsAgregador()), descripcion, isReload, agentes);
             }
         } else {
             return getCardLectorEmi();

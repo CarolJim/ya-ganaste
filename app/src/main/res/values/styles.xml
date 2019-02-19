@@ -1036,4 +1036,9 @@
         <item name="android:paddingLeft">@dimen/input_label_horizontal_spacing</item>
         <item name="android:paddingRight">@dimen/input_label_horizontal_spacing</item>
     </style>
+
+    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
 </resources>

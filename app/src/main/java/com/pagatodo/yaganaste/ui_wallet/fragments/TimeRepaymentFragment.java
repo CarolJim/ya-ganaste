@@ -1,19 +1,17 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneTiposReembolsoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TiposReembolsoResponse;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.adapters.TypesRepaymentAdapter;
@@ -26,7 +24,12 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -51,7 +54,7 @@ public class TimeRepaymentFragment extends GenericFragment implements ITimeRepay
     private int idTypeServer;
     private static int idTypeLocal;
 
-    public static String tipo_reeembolso="100";
+    public static String tipo_reeembolso = "100";
 
     public static TimeRepaymentFragment newInstance() {
         TimeRepaymentFragment timeRepaymentFragment = new TimeRepaymentFragment();
@@ -60,7 +63,7 @@ public class TimeRepaymentFragment extends GenericFragment implements ITimeRepay
         return timeRepaymentFragment;
     }
 
-    public static TimeRepaymentFragment newInstance(String tipo ) {
+    public static TimeRepaymentFragment newInstance(String tipo) {
         TimeRepaymentFragment timeRepaymentFragment = new TimeRepaymentFragment();
         Bundle bundle = new Bundle();
         timeRepaymentFragment.setArguments(bundle);
@@ -90,7 +93,7 @@ public class TimeRepaymentFragment extends GenericFragment implements ITimeRepay
         initViews();
     }
 
-    public void reembolso(){
+    public void reembolso() {
         if (Utils.isDeviceOnline()) {
             if (idTypeLocal != idTypeServer) {
                 timeRepaymentPresenter.updateTypeRepayment(idTypeLocal);
@@ -106,7 +109,7 @@ public class TimeRepaymentFragment extends GenericFragment implements ITimeRepay
     public void initViews() {
         ButterKnife.bind(this, rootView);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(App.getContext(), LinearLayoutManager.VERTICAL, false);
-        if(!tipo_reeembolso.equals("100")){
+        if (!tipo_reeembolso.equals("100")) {
             idTypeLocal = Integer.parseInt(tipo_reeembolso);
             reembolso();
         }
@@ -132,11 +135,19 @@ public class TimeRepaymentFragment extends GenericFragment implements ITimeRepay
     @Override
     public void onSuccessGetTypes(ObtieneTiposReembolsoResponse response) {
         tiposReembolso = response.getReembolsos();
+        boolean isAgregador = false;
+        try {
+            isAgregador = new DatabaseManager().esAgregador(RequestHeaders.getIdCuentaAdq());
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
         List<TiposReembolsoResponse> lstTmp = new ArrayList<>();
         for (int i = 0; i < tiposReembolso.size(); i++) {
             // Agregar a lista temporal solo los Objetos visibles
             if (tiposReembolso.get(i).isVisible()) {
-                lstTmp.add(tiposReembolso.get(i));
+                /* No mostrar opción de reembolso on demand para agregador */
+                if (!isAgregador || (isAgregador && tiposReembolso.get(i).getID_TipoReembolso() != 2))
+                    lstTmp.add(tiposReembolso.get(i));
             }
             // Obtener el idTipoReembolso Configurado en el Servidor
             if (tiposReembolso.get(i).isConfigurado()) {
@@ -151,7 +162,7 @@ public class TimeRepaymentFragment extends GenericFragment implements ITimeRepay
     public void onSuccessUpdateType() {
         idTypeServer = idTypeLocal;
         UI.showSuccessSnackBar(getActivity(), getString(R.string.success_time_repayment_save), Snackbar.LENGTH_SHORT);
-        tipo_reeembolso="100";
+        tipo_reeembolso = "100";
     }
 
     @Override

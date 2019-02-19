@@ -3,13 +3,13 @@ package com.pagatodo.yaganaste.ui_wallet.holders;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import com.google.android.material.snackbar.Snackbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.dspread.xpos.QPOSService;
+import com.google.android.material.snackbar.Snackbar;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
@@ -34,7 +34,7 @@ public class SelectOptionZoneViewHolder extends GenericHolder implements View.On
     private LinearLayout btn1, btn2, btn3;
     private StyleButton btnContinue;
     private int idButton;
-    boolean reembolso;
+    boolean reembolso, isAgregador;
 
     public SelectOptionZoneViewHolder(Activity activity, View itemView) {
         super(itemView);
@@ -42,10 +42,11 @@ public class SelectOptionZoneViewHolder extends GenericHolder implements View.On
         init();
     }
 
-    public SelectOptionZoneViewHolder(Activity activity, View itemView, boolean reembolso) {
+    public SelectOptionZoneViewHolder(Activity activity, View itemView, boolean reembolso, boolean agregador) {
         super(itemView);
         this.activity = activity;
         this.reembolso = reembolso;
+        this.isAgregador = agregador;
         init();
     }
 
@@ -72,15 +73,19 @@ public class SelectOptionZoneViewHolder extends GenericHolder implements View.On
         this.title.setText(elementView.getTitle());
 
         if (elementView.isStatus()) {
-            if (reembolso){
+            if (reembolso) {
                 this.descBtn1.setText(activity.getString(R.string.reembolso_cuarentayocho));
                 this.descBtn2.setText(activity.getString(R.string.reembolso_veinticuatro));
                 this.descBtn3.setText(activity.getString(R.string.reembolso_inmediato));
                 this.imgBtn1.setImageResource(R.drawable.primerreembolso);
                 this.imgBtn2.setImageResource(R.drawable.ico_segundoreembolso);
                 this.imgBtn3.setImageResource(R.drawable.ico_inmediato);
+                if (isAgregador) {
+                    this.descBtn3.setVisibility(View.GONE);
+                    this.imgBtn3.setVisibility(View.GONE);
+                }
                 this.btnContinue.setText(activity.getString(R.string.continuar));
-            }else {
+            } else {
 
                 this.descBtn1.setText(activity.getString(R.string.lector_plug));
                 this.descBtn2.setText(activity.getString(R.string.lector_inalambrico));
@@ -91,7 +96,7 @@ public class SelectOptionZoneViewHolder extends GenericHolder implements View.On
                 this.btnContinue.setText(activity.getString(R.string.continuar));
             }
             this.btnContinue.setOnClickListener(v -> {
-                if (reembolso){
+                if (reembolso) {
                     switch (idButton) {
                         case FIRST_OPTION:
                             App.getInstance().getPrefs().saveData(CONFIG_DONGLE_REEMBOLSO, "5");
@@ -109,7 +114,7 @@ public class SelectOptionZoneViewHolder extends GenericHolder implements View.On
                             UI.showErrorSnackBar(activity, activity.getString(R.string.error_seleccion_lector), Snackbar.LENGTH_SHORT);
                             break;
                     }
-                }else {
+                } else {
                     switch (idButton) {
                         case FIRST_OPTION:
                             App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
