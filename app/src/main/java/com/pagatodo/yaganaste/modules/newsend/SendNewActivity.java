@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.modules.newsend;
 
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,9 +13,16 @@ import android.widget.EditText;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.newsend.SendFromCard.SendFromCardFragment;
+import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
@@ -26,6 +34,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.CONTACTS_CONTRACT_LOCAL;
 import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAVORITE_PROCESS;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE_COMERCE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_CERO;
@@ -45,7 +54,7 @@ public class SendNewActivity extends LoaderActivity implements SendNewContracts.
     SendNewRouter router;
     int idFragment;
 
-    ImageView imgAddfavo ;
+    ImageView imgAddfavo;
 
     public static Intent createIntent(Activity activity, int tag) {
         Intent intent = new Intent(activity, SendNewActivity.class);
@@ -68,16 +77,13 @@ public class SendNewActivity extends LoaderActivity implements SendNewContracts.
     }
 
 
-    public void showaddfavo(boolean show){
+    public void showaddfavo(boolean show) {
 
         if (show)
             imgAddfavo.setVisibility(View.VISIBLE);
         else
             imgAddfavo.setVisibility(View.GONE);
     }
-
-
-
 
 
     @Override
@@ -100,6 +106,40 @@ public class SendNewActivity extends LoaderActivity implements SendNewContracts.
         if (requestCode == CREDITCARD_READER_REQUEST_CODE) {
             Fragment fragment = (SendFromCardFragment) getCurrentFragment();
             fragment.onActivityResult(requestCode, resultCode, data);
+        }
+
+        if (requestCode == BARCODE_READER_REQUEST_CODE_COMERCE) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    try {
+                        Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
+                        JsonElement jelement = new JsonParser().parse(barcode.displayValue);
+                        JsonObject jobject = jelement.getAsJsonObject();
+                        jobject = jobject.getAsJsonObject("Aux");
+                        String plate = jobject.get("Pl").getAsString();
+
+                        //interactor.valideteQR(plate);
+                    } catch (JsonParseException e) {
+                        e.printStackTrace();
+                        //onErrorValidatePlate("QR Invalido");
+                    } catch (NullPointerException e) {
+                        //onErrorValidatePlate("QR Invalido");
+                    }
+                    //interactor.onValidateQr(plate);
+                    /*if (barcode.displayValue.contains("reference") &&
+                            barcode.displayValue.contains("commerce") && barcode.displayValue.contains("codevisivility")) {
+                        MyQrCommerce myQr = new Gson().fromJson(barcode.displayValue, MyQrCommerce.class);
+                        Log.d("Ya codigo qr", myQr.getCommerce());
+                        Log.d("Ya codigo qr", myQr.getReference());
+
+                        loadFragment(PayQRFragment.newInstance(myQr.getCommerce(), myQr.getReference(), Boolean.parseBoolean(myQr.getCodevisivility())), R.id.fragment_container);
+                    } else {
+                        UI.showErrorSnackBar(this, getString(R.string.transfer_qr_invalid), Snackbar.LENGTH_SHORT);
+                    }*/
+                } else {
+                    finish();
+                }
+            }
         }
 
     }

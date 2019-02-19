@@ -26,9 +26,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.pagatodo.view_manager.components.HeadAccount;
+import com.pagatodo.view_manager.components.HeadWallet;
+import com.pagatodo.view_manager.controllers.dataholders.HeadAccountData;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Payments;
@@ -38,6 +42,7 @@ import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
+import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -45,6 +50,7 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.RecargasPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IRecargasPresenter;
+import com.pagatodo.yaganaste.ui_wallet.PaymentActivity;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFromFragment;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPresenterPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.presenter.PresenterPaymentFragment;
@@ -61,6 +67,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.squareup.picasso.Picasso;
 
+import java.util.EventListener;
 import java.util.List;
 import java.util.Objects;
 
@@ -95,6 +102,36 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
     private Comercio comercioResponse;
     private Favoritos favoritos;
+
+
+    @BindView(R.id.head_account_payments)
+    HeadAccount headAccount;
+
+    @BindView(R.id.head_wallet_payments)
+    HeadWallet headWallet;
+
+    @BindView(R.id.layoutAuthorize)
+    LinearLayout layoutAuthorize;
+
+    @BindView(R.id.layoutHeads)
+    LinearLayout layoutHeads;
+
+    @BindView(R.id.recargaNumberNew)
+    EditText recargaNumberNew;
+
+    @BindView(R.id.recargaMontoNew)
+    EditText recargaMontoNew;
+
+    @BindView(R.id.etConceptoNew)
+    EditText conceptoNew;
+
+    @BindView(R.id.txt_conceptoNew)
+    LinearLayout txt_conceptoNew;
+
+    boolean authorize = false;
+    boolean referenciaCompletada = false;
+
+
 
     private View rootView;
     @BindView(R.id.txt_title_payment)
@@ -269,6 +306,15 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         btnContinue.setOnClickListener(this);
         // edtPhoneNumber.setCursorVisible(true);
 
+        txtSaldo.setVisibility(View.GONE);
+        txtMonto.setVisibility(View.GONE);
+
+        txt_monotserv.setVisibility(View.GONE);
+
+        recargaNumberNew.setEnabled(false);
+        recargaMontoNew.setEnabled(false);
+        conceptoNew.setEnabled(false);
+
 
         imgmonto.setOnClickListener(view -> spnMontoRecarga.performClick());
 
@@ -300,6 +346,11 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 btnContinue.setText(getResources().getString(R.string.btn_recharge_txt));
 
                 txtTitleFragment.setText(getResources().getString(R.string.txt_recargas));
+                headAccount.getTxtLabelTag().setVisibility(View.VISIBLE);
+                headAccount.getTxtLabelTag().setText(getResources().getString(R.string.txt_recargas));
+              //  headAccount.setTag(getResources().getString(R.string.txt_recargas));
+                //headAccount.getTxtLabelTag().setText("Recargas");
+
                 lytContainerRecargas.setVisibility(View.VISIBLE);
 
                 edtPhoneNumber.setLongClickable(true);
@@ -405,6 +456,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 btnContinue.setText(getResources().getString(R.string.btn_payment_txt));
 
                 txtTitleFragment.setText(getResources().getString(R.string.txt_pago_servicios));
+                headAccount.setTag(getResources().getString(R.string.txt_pago_servicios));
+
                 lytContainerServicios.setVisibility(View.VISIBLE);
 
                 edtReferenceNumber.setLongClickable(true);
@@ -495,6 +548,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     }
                 });
 
+                //todo
                 edtServiceImport.setOnFocusChangeListener((v, hasFocus) -> {
                     if (!hasFocus) {
                         // Toast.makeText(App.getContext(), "Foco fuera", Toast.LENGTH_SHORT).show();
@@ -518,11 +572,46 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
 
             }
+            btnContinue.setText(getResources().getString(R.string.continuar));
         }
 
         /**
          * Iniciamos el monto en cero, Mostramos la informacion del usuario, foto y saldo
          */
+
+        headWallet.setAmount("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
+
+        String imgUrl = "";
+        String labelTag = "";
+        String labelName = "";
+        String labelRef ="";
+        if (favoritos != null){
+            if (favoritos.getImagenURL().isEmpty() || favoritos.getImagenURL() == null)
+                headAccount.setImageDrawable(favoritos.getNombreComercio(),favoritos.getColorMarca());
+            else
+                headAccount.setImageURL(favoritos.getImagenURLComercio());
+
+            headAccount.getTxtName().setText(favoritos.getNombreComercio());
+            headAccount.getTxtReference().setText(favoritos.getReferencia());
+            imgUrl = favoritos.getImagenURL();
+            labelName = favoritos.getNombre();
+            labelRef = favoritos.getReferencia();
+
+
+
+        }else if (comercioResponse != null){
+            if (comercioResponse.getImagenURL().isEmpty() || comercioResponse.getImagenURL() == null)
+                headAccount.setImageDrawable(comercioResponse.getNombreComercio(),comercioResponse.getColorMarca());
+            else
+                headAccount.setImageURL(comercioResponse.getImagenURL());
+            headAccount.getTxtName().setText(comercioResponse.getNombreComercio());
+            headAccount.getTxtLabelTag().setVisibility(View.VISIBLE);
+            imgUrl = comercioResponse.getImagenURL();
+            labelName = comercioResponse.getNombreComercio();
+        }
+
+        //TODO llebar HeadAccount
+
         txtMonto.setText("" + Utils.getCurrencyValue(0));
         SingletonUser dataUser = SingletonUser.getInstance();
         txtNameUser.setText("" + dataUser.getDataUser().getCliente().getNombre());
@@ -637,9 +726,29 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     recargasPresenter.validateFields(referencia, monto, comercioResponse.getLongitudReferencia(), isIAVE);
 
                 } else {
+                    //TODO manejo de pantalla d referencia
+                    txt_conceptoNew.setVisibility(View.VISIBLE);
                     referencia = edtReferenceNumber.getText().toString().replaceAll(" ", "");
                     //concepto = txtComisionServicio.getText().toString().trim();
                     concepto = edtServiceConcept.getText().toString().trim();
+
+                    if (referencia == null || referencia.isEmpty()) {
+                        onErrorValidateService(App.getContext().getResources().getString(R.string.txt_referencia_empty));
+                        referenciaCompletada = false;
+                        return;
+                    }
+                    else if (referencia.length() < comercioResponse.getLongitudReferencia() || referencia.isEmpty()) {
+                        onErrorValidateService(App.getContext().getResources().getString(R.string.txt_referencia_error));
+                        referenciaCompletada = false;
+                        return;
+                    }else if (!referenciaCompletada){
+                        referenciaCompletada = true;
+                        txt_monotserv.setVisibility(View.VISIBLE);
+                        txtconcepto.setVisibility(View.GONE);
+                        txt_referenciaserv.setVisibility(View.GONE);
+                        return;
+                    }
+
                     iPresenterPayment.validateFieldsCarrier(referencia, edtServiceImport.getText().toString().trim(),
                             concepto, comercioResponse.getLongitudReferencia());
                 }
@@ -815,19 +924,34 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
      */
     @Override
     public void onSuccessValidateService(Double importe) {
-        if (importe > 0) {
-            isValid = true;
-        }
+        if (authorize) {
+            if (importe > 0) {
+                isValid = true;
+            }
 
-        if (!isValid) {
-            showError();
-        } else {
-            this.monto = importe;
-            isValid = true;
+            if (!isValid) {
+                showError();
+            } else {
+                this.monto = importe;
+                isValid = true;
 
-            payment = new Servicios(referencia, monto, concepto, comercioResponse,
-                    favoritos != null);
-            sendPayment();
+                payment = new Servicios(referencia, monto, concepto, comercioResponse,
+                        favoritos != null);
+                sendPayment();
+            }
+        }else {
+            authorize = true;
+            layoutAuthorize.setVisibility(View.VISIBLE);
+            layoutHeads.setVisibility(View.GONE);
+            lytContainerServicios.setVisibility(View.GONE);
+            txt_conceptoNew.setVisibility(View.VISIBLE);
+
+
+
+            recargaMontoNew.setText(edtServiceImport.getText());
+            recargaNumberNew.setText(referencia);
+            conceptoNew.setText(concepto);
+
         }
     }
 
@@ -838,25 +962,34 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
      */
     @Override
     public void onSuccess(Double importe) {
-        if (importe > 0) {
-            isValid = true;
-        }
-        if (!isValid) {
-            showError();
-        } else {
-            boolean isOnline = Utils.isDeviceOnline();
-            if (isOnline) {
-                this.monto = importe;
+        if (authorize) {
+            if (importe > 0) {
                 isValid = true;
-
-                payment = new Recarga(referencia, monto, comercioResponse, favoritos != null);
-                sendPayment();
-            } else {
-                //UI.createSimpleCustomDialog("Error Interno", getResources().getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
-                UI.showAlertDialog(getContext(), "Error Interno", getResources().getString(R.string.no_internet_access),
-                        R.string.title_aceptar, (dialogInterface, i) -> {
-                        });
             }
+            if (!isValid) {
+                showError();
+            } else {
+                boolean isOnline = Utils.isDeviceOnline();
+                if (isOnline) {
+                    this.monto = importe;
+                    isValid = true;
+
+                    payment = new Recarga(referencia, monto, comercioResponse, favoritos != null);
+                    sendPayment();
+                } else {
+                    //UI.createSimpleCustomDialog("Error Interno", getResources().getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
+                    UI.showAlertDialog(getContext(), "Error Interno", getResources().getString(R.string.no_internet_access),
+                            R.string.title_aceptar, (dialogInterface, i) -> {
+                            });
+                }
+            }
+        }else{
+            authorize = true;
+            layoutAuthorize.setVisibility(View.VISIBLE);
+            layoutHeads.setVisibility(View.GONE);
+            lytContainerRecargas.setVisibility(View.GONE);
+            recargaMontoNew.setText(spnMontoRecarga.getSelectedItem().toString());
+            recargaNumberNew.setText(edtPhoneNumber.getText());
         }
     }
 
@@ -864,6 +997,16 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
      * Envio a la actividad PaymentsProcessingActivity del resultado, sea una Recarga o PDS
      */
     protected void sendPayment() {
+
+/*
+        if (isRecarga) {
+            onEventListener.onEvent(PaymentActivity.AUTHORIZE, payment);
+        } else {
+            onEventListener.onEvent(PaymentActivity.NEXT_VIEW, payment);
+        }
+
+*/
+
         Intent intent = new Intent(getContext(), PaymentsProcessingActivity.class);
         intent.putExtra("pagoItem", payment);
         if (isRecarga) {
@@ -874,6 +1017,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación
         getActivity().startActivityForResult(intent, BACK_FROM_PAYMENTS);
         //getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+
     }
 }
 

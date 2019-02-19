@@ -154,17 +154,14 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
         }
         et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal, null,null));
         et_amount.requestFocus();
-        et_amount.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                EditText edittext = (EditText) v;
-                int inType = edittext.getInputType();       // Backup the input type
-                edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
-                edittext.onTouchEvent(event);               // Call native handler
-                keyboardView.showCustomKeyboard(v);
-                edittext.setInputType(inType);              // Restore input type
-                return true; // Consume touch event
-            }
+        et_amount.setOnTouchListener((v, event) -> {
+            EditText edittext = (EditText) v;
+            int inType = edittext.getInputType();       // Backup the input type
+            edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
+            edittext.onTouchEvent(event);               // Call native handler
+            keyboardView.showCustomKeyboard(v);
+            edittext.setInputType(inType);              // Restore input type
+            return true; // Consume touch event
         });
         et_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

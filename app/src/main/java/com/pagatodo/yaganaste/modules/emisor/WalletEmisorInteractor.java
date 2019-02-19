@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.modules.management.response.QrsResponse;
 import com.pagatodo.yaganaste.modules.management.singletons.NotificationSingleton;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiTrans;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.SendsFragment;
 import com.pagatodo.yaganaste.utils.Recursos;
 
 import org.json.JSONException;
@@ -171,6 +172,13 @@ public class WalletEmisorInteractor implements WalletEmisorContracts.Interactor,
                 this.listener.onErrorRequest(((ConsultarAsignacionTarjetaResponse) result.getData()).getMensaje());
             }
         } else if (result.getData() instanceof ConsultarTitularCuentaResponse){
+            ConsultarTitularCuentaResponse data = (ConsultarTitularCuentaResponse) result.getData();
+            if (data.getAccion() == CODE_OK) {
+                listener.onSouccesGetTitular(data);
+            } else {
+                listener.onErrorRequest(data.getMensaje());
+            }
+        }  else if (result.getData() instanceof SendsFragment){
             ConsultarTitularCuentaResponse data = (ConsultarTitularCuentaResponse) result.getData();
             if (data.getAccion() == CODE_OK) {
                 listener.onSouccesGetTitular(data);

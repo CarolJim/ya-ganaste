@@ -1,0 +1,200 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fbfbfb"
+    android:orientation="vertical"
+    tools:context=".modules.payments.mobiletopup.view.MobileTopUpFragment">
+
+    <LinearLayout
+        android:id="@+id/layoutHeadWallet"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:background="@drawable/inputtext_normal"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <com.pagatodo.view_manager.components.HeadWallet
+            android:id="@+id/head_wallet_payments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:headTitle="titulo"
+            app:headAmount="555555"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutHeadBrand"
+        android:layout_below="@+id/layoutHeadWallet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@drawable/inputtext_normal"
+        android:padding="16dp">
+
+        <com.pagatodo.view_manager.components.HeadAccount
+            android:id="@+id/head_account_payments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutphonePayments"
+        android:layout_below="@+id/layoutHeadBrand"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/inputtext_normal"
+        android:weightSum="100"
+        android:orientation="horizontal">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutPhonePayments"
+            android:layout_weight="100"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/inputtext_normal"
+            android:gravity="center_vertical"
+            android:hint="@string/txt_phone"
+            android:maxLines="1"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="10dp"
+            android:textColorHint="@color/hint_color"
+            app:counterEnabled="true"
+            app:counterMaxLength="1"
+            app:counterOverflowTextAppearance="@style/CounterOverFlow"
+            app:hintTextAppearance="@style/HintText"
+            app:passwordToggleTint="@color/hint_color"
+            tools:ignore="UnusedAttribute">
+
+            <EditText
+                android:id="@+id/etPhonePayments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="9dp"
+                android:background="@android:color/transparent"
+                android:imeOptions="actionDone"
+                android:paddingLeft="15dp"
+                android:singleLine="true"
+                android:textColor="@color/grayColor"
+                android:theme="@style/NewEdittextwallet" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:background="#e0e0e0" />
+
+        <ImageView
+            android:layout_weight="0"
+            android:id="@+id/imgContacts"
+            android:layout_width="17dp"
+            android:layout_height="19.3dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            app:srcCompat="@drawable/ic_contacts"
+            android:tint="@color/colorAccent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutMontoPayments"
+        android:layout_below="@+id/layoutphonePayments"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/inputtext_normal"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/txtgirolya"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/textgiro"
+                style="@style/generic_text_style_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:text="Giro comercial"
+                android:textColor="@color/hint_color"
+                android:visibility="gone" />
+
+            <Spinner
+                android:id="@+id/spAmountPayments"
+                style="@style/SpinnerNoArrow"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:backgroundTint="@color/transparent"
+                tools:ignore="UnusedAttribute" />
+
+        </LinearLayout>
+
+
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:background="#e0e0e0" />
+
+
+        <ImageView
+            android:id="@+id/imgMontoPayments"
+            android:layout_width="16dp"
+            android:layout_height="9dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="11dp"
+            android:src="@drawable/ico_select"
+            android:tint="@color/colorAccent" />
+    </LinearLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btn_continue_payment"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/width_btns_big"
+        android:layout_height="@dimen/height_btns"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:background="@drawable/button_rounded_blue"
+        android:textAllCaps="false"
+        android:textColor="@color/whiteColor"
+        android:textSize="@dimen/size_text_style_2_value"
+        app:cornerRadius="@dimen/btn_corner_radius"
+        app:intercepterOnclick="true"
+ />
+
+</RelativeLayout>

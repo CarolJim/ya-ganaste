@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
@@ -26,6 +27,8 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
 
     public static final String PAYMENT_DATA = "PAYMENT_DATA";
     public static final String PAYMENT_IS_FAV = "PAYMENT_IS_FAV";
+    public static final String AUTHORIZE = "AUTHORIZE";
+    public static final String NEXT_VIEW = "NEXT_VIEW";
     @BindView(R.id.btn_back)
     AppCompatImageView back;
 
@@ -69,6 +72,19 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
     }
 
     @Override
+    public void onEvent(String event, Object data) {
+        super.onEvent(event, data);
+
+        if(event.equals(AUTHORIZE)) {
+            if (data instanceof Favoritos)
+                loadFragment(PaymentFormFragment.newInstance((Favoritos) data), R.id.fragment_container);
+            if (data instanceof Comercio)
+                loadFragment(PaymentFormFragment.newInstance((Comercio) data), R.id.fragment_container);
+        }
+
+    }
+
+    @Override
     public boolean requiresTimer() {
         return true;
     }
@@ -89,7 +105,7 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         PaymentFormFragment myFragment = (PaymentFormFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         myFragment.onActivityResult(requestCode, resultCode, data);
-      //  UI.showErrorSnackBar(this, "LOL");
+        //  UI.showErrorSnackBar(this, "LOL");
 
         // Mostramos los Snack de Error
         try {
