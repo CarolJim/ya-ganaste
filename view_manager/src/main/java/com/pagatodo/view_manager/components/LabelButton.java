@@ -52,9 +52,8 @@ public class LabelButton extends LinearLayout {
         this.addView(rootView);
     }
 
-    @Override
-    public void setOnClickListener(@Nullable OnClickListener l) {
-        //super.setOnClickListener(l);
-        btnAll.setOnClickListener(l);
+    public void setOnClick(View.OnClickListener listener){
+        btnAll.setOnClickListener(listener);
     }
+
 }

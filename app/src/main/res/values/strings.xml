@@ -1788,7 +1788,6 @@
     <string name="qr">Código\nQR</string>
     <string name="selecciona_un_favorito">Selecciona un favorito para realizar\nun envio de dinero</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="enviar_a_un_favorit">Enviar a un Favorito</string>
     <string name="select_recharge">Seleccionar recarga</string>
     <string name="select_recharge_fav">Recargar a un Favorito</string>

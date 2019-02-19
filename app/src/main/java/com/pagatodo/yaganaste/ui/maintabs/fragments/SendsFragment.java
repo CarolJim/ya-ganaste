@@ -53,6 +53,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE_COMERCE;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_QR_SENDS;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_CERO;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
@@ -152,7 +153,7 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
                 //Intent intent = new Intent(this, ScannVisionActivity.class);
                 Intent intent = ScannVisionActivity.createIntent(getActivity(),false);
                 intent.putExtra(ScannVisionActivity.QRObject, true);
-                this.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE_COMERCE);
+                this.startActivityForResult(intent, BARCODE_READER_REQUEST_QR_SENDS);
                 break;
             case R.id.btn_show_fav:
                 startActivity(SendNewActivity.createIntent(getActivity(), ID_ALL_FAVO));

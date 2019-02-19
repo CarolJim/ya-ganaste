@@ -41,5 +41,8 @@ public class IconButtonComFavHolder extends GenericHolder<IconButtonDataHolder> 
                 this.nameComp.setText(item.getNamCom());
             }
         }
+        if (listener != null){
+            itemView.setOnClickListener(v -> listener.onClickView(item,itemView));
+        }
     }
 }

@@ -36,10 +36,18 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
     private Favoritos favoritos;
     private boolean isFavorite;
 
-    public static Intent creatIntent(Activity activity, Comercio comercio, boolean isFav){
+    public static Intent creatIntent(Activity activity, Comercio comercio){
         Intent intent = new Intent(activity, PaymentActivity.class);
         intent.putExtra(PAYMENT_DATA, comercio);
-        intent.putExtra(PAYMENT_IS_FAV, isFav);
+        //intent.putExtra(PAYMENT_IS_FAV, isFav);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return intent;
+    }
+
+    public static Intent creatIntent(Activity activity, Favoritos favorite){
+        Intent intent = new Intent(activity, PaymentActivity.class);
+        intent.putExtra(PAYMENT_DATA, favorite);
+        //intent.putExtra(PAYMENT_IS_FAV, isFav);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return intent;
     }
@@ -51,11 +59,12 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
         /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_payment);
         if (getIntent().getExtras() != null) {
-            isFavorite = getIntent().getBooleanExtra(PAYMENT_IS_FAV, false);
-            if (!isFavorite) {
+            if (getIntent().getExtras().get(PAYMENT_DATA) instanceof Comercio) {
                 comercioResponse = (Comercio) getIntent().getExtras().get(PAYMENT_DATA);
-            } else {
+                isFavorite = false;
+            } else if(getIntent().getExtras().get(PAYMENT_DATA) instanceof Favoritos){
                 favoritos = (Favoritos) getIntent().getExtras().get(PAYMENT_DATA);
+                isFavorite = true;
             }
         }
         initViews();

@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui._controllers;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.security.keystore.KeyGenParameterSpec;
@@ -110,7 +111,12 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_generic_fragment_container);
-
+        // fixing portrait mode problem for SDK 26 if using windowIsTranslucent = true
+        if (Build.VERSION.SDK_INT == 26) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+        } else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         presenter = new PaymentsProcessingPresenter(this);
         pago = getIntent().getExtras().get("pagoItem");
         dataFavoritos = getIntent().getExtras().get("favoriteItem");
