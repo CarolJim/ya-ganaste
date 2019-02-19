@@ -581,6 +581,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 }
             }
         }
+
+
+
     }
     public void onErrorValidatePlate(String error) {
         UI.showErrorSnackBar(this,error, Snackbar.LENGTH_SHORT);
