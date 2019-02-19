@@ -44,6 +44,17 @@ public class RegisterUserNew {
 
     //Datos de QRs
     ArrayList<QRs> qRs;
+    //Regincomplete
+    boolean regincomplete =false;
+    boolean breakregister =false;
+
+    public boolean isBreakregister() {
+        return breakregister;
+    }
+
+    public void setBreakregister(boolean breakregister) {
+        this.breakregister = breakregister;
+    }
 
     public static synchronized RegisterUserNew getInstance() {
         if (registerUserNew == null)
@@ -51,6 +62,13 @@ public class RegisterUserNew {
         return registerUserNew;
     }
 
+    public boolean isRegincomplete() {
+        return regincomplete;
+    }
+
+    public void setRegincomplete(boolean regincomplete) {
+        this.regincomplete = regincomplete;
+    }
 
     public static RegisterUserNew getRegisterUserNew() {
         return registerUserNew;

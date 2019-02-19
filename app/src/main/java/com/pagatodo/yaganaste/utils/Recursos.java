@@ -278,6 +278,8 @@ public class Recursos {
     public static final String MODE_CONNECTION_DONGLE = "MODE_CONNECTION_DONGLE"; // int
     public static final String BT_PAIR_DEVICE = "BT_PAIR_DEVICE"; // string
 
+    public static final String USMAL = "USMAL"; // string
+
     // Recursos referentes a Starbucks
     public static final String HAS_STARBUCKS = "HAS_STARBUCKS";  //boolean
 

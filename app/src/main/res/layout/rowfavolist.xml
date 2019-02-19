@@ -9,7 +9,7 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-
+        android:id="@+id/llyfavo"
         android:background="@drawable/gray_border_rectangleradiuscero"
         android:orientation="horizontal">
 
@@ -109,6 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="7dp"
+                android:id="@+id/img_edit"
                 app:srcCompat="@drawable/ic_edit"
                 />
 

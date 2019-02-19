@@ -10,6 +10,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.fragment.app.Fragment;
 import androidx.core.content.ContextCompat;
@@ -27,6 +30,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -35,6 +43,8 @@ import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarTitularCuentaResponse;
 import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
 import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenter;
 import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenterImp;
@@ -45,6 +55,9 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.modules.charge.ChargeActivity;
 import com.pagatodo.yaganaste.modules.emisor.PaymentToQR.QrManagerFragment;
 import com.pagatodo.yaganaste.modules.emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
+import com.pagatodo.yaganaste.modules.emisor.WalletEmisorContracts;
+import com.pagatodo.yaganaste.modules.emisor.WalletEmisorInteractor;
+import com.pagatodo.yaganaste.modules.management.response.QrValidateResponse;
 import com.pagatodo.yaganaste.modules.registerAggregator.AggregatorActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
@@ -116,6 +129,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_MY_DATA;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE_COMERCE;
 import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.EDIT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
@@ -139,7 +153,7 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.SELECT_FILE_PHOT
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
         IAprovView<ErrorObject>, IResetNIPView<ErrorObject>, OnClickItemHolderListener,
-        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener, IFBView, BottomNavigationView.OnNavigationItemSelectedListener, FingerprintAuthenticationDialogFragment.generateCodehuella{
+        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener, IFBView, BottomNavigationView.OnNavigationItemSelectedListener, FingerprintAuthenticationDialogFragment.generateCodehuella, WalletEmisorContracts.Listener{
 
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_ERROR_DOCUMENTS = "EVENT_ERROR_DOCUMENTS";
@@ -190,7 +204,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     ImageView close;
     private int lastFrag;
 
-
+    private WalletEmisorInteractor interactor;
 
     private boolean disableBackButton = false;
     FBPresenter fbmPresenter;
@@ -212,6 +226,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.main_menu_drawer);
         ButterKnife.bind(this);
+        interactor = new WalletEmisorInteractor(this,this);
         if (!App.getInstance().getPrefs().loadDataBoolean(IS_COACHMARK, true)) {
             couchMark.setVisibility(View.GONE);
             close.setVisibility(View.GONE);
@@ -533,7 +548,42 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 || resultCode == RESULT_ADQUIRENTE_SUCCESS) {
             Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
             childFragment.onActivityResult(requestCode, resultCode, data);
+        }else if (requestCode == BARCODE_READER_REQUEST_CODE_COMERCE) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    try {
+                        Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
+                        JsonElement jelement = new JsonParser().parse(barcode.displayValue);
+                        JsonObject jobject = jelement.getAsJsonObject();
+                        jobject = jobject.getAsJsonObject("Aux");
+                        String plate = jobject.get("Pl").getAsString();
+
+                        interactor.valideteQR(plate);
+                    }catch (JsonParseException e){
+                        e.printStackTrace();
+                        onErrorValidatePlate("QR Invalido");
+                    } catch (NullPointerException e){
+                        onErrorValidatePlate("QR Invalido");
+                    }
+                    //interactor.onValidateQr(plate);
+                    /*if (barcode.displayValue.contains("reference") &&
+                            barcode.displayValue.contains("commerce") && barcode.displayValue.contains("codevisivility")) {
+                        MyQrCommerce myQr = new Gson().fromJson(barcode.displayValue, MyQrCommerce.class);
+                        Log.d("Ya codigo qr", myQr.getCommerce());
+                        Log.d("Ya codigo qr", myQr.getReference());
+
+                        loadFragment(PayQRFragment.newInstance(myQr.getCommerce(), myQr.getReference(), Boolean.parseBoolean(myQr.getCodevisivility())), R.id.fragment_container);
+                    } else {
+                        UI.showErrorSnackBar(this, getString(R.string.transfer_qr_invalid), Snackbar.LENGTH_SHORT);
+                    }*/
+                } else {
+                    finish();
+                }
+            }
         }
+    }
+    public void onErrorValidatePlate(String error) {
+        UI.showErrorSnackBar(this,error, Snackbar.LENGTH_SHORT);
     }
 
     protected void refreshAdquirenteMovements() {
@@ -891,6 +941,41 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         if (fm instanceof MyVirtualCardAccountFragment)
             ((MyVirtualCardAccountFragment) fm).loadOtpHuella();
 
+
+    }
+
+    @Override
+    public void showLoad() {
+
+    }
+
+    @Override
+    public void hideLoad() {
+
+    }
+
+    @Override
+    public void onSouccesValidateCard() {
+
+    }
+
+    @Override
+    public void onErrorRequest(String msj) {
+
+    }
+
+    @Override
+    public void onSouccesDataQR(QrValidateResponse QRresponse) {
+
+    }
+
+    @Override
+    public void onSouccesGetTitular(ConsultarTitularCuentaResponse data) {
+
+    }
+
+    @Override
+    public void onSouccessgetgetDataBank(ObtenerBancoBinResponse data) {
 
     }
 }
