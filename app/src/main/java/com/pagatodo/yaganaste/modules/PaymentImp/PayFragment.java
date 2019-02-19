@@ -175,7 +175,7 @@ public class PayFragment extends GenericFragment implements PayContracts.Listene
     private ArrayList<IconButtonDataHolder> covertFavItem(List<Favoritos> itemFav){
         ArrayList<IconButtonDataHolder> items = new ArrayList<>();
         items.add(rechargesRecycler.addFav());
-        
+
         for (Favoritos fav:itemFav){
             String url = fav.getImagenURL();
             if (fav.getImagenURL().isEmpty()){
@@ -195,10 +195,12 @@ public class PayFragment extends GenericFragment implements PayContracts.Listene
     public void onClickView(IconButtonDataHolder item, View view) {
 
         if (item.getT() instanceof Comercio){
-            startActivity(PaymentActivity.creatIntent(getActivity(),(Comercio)item.getT(),false));
+            startActivity(PaymentActivity.creatIntent(getActivity(),(Comercio)item.getT()));
         } else if(item.getT() instanceof  Favoritos){
-            UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()),"ES Comercio: " +
-                    ((Favoritos)item.getT()).getNombreComercio());
+            //UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()),"ES Comercio: " +
+              //      ((Favoritos)item.getT()).getNombreComercio());
+            startActivity(PaymentActivity.creatIntent(getActivity(),(Favoritos)item.getT()));
+
         } else if (item.getType() == ADD){
             Intent intent = new Intent(getActivity(), FavoritesActivity.class);
             intent.putExtra(CURRENT_TAB_ID, PAYMENT_RECARGAS);
