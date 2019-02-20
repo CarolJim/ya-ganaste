@@ -33,7 +33,7 @@ public class RechargesAdapter extends RecyclerView.Adapter<GenericHolder<IconBut
     }
 
     public ArrayList<IconButtonDataHolder> getListData() {
-        return listData;
+        return this.listData;
     }
 
 
@@ -75,7 +75,8 @@ public class RechargesAdapter extends RecyclerView.Adapter<GenericHolder<IconBut
                 return 2;
             case ITEM_RECHARGE:
                 return 1;
-            case ADD:
+            case ADD_RECHARGE:
+            case ADD_PAY:
                 return 2;
                 default:
                     return 1;

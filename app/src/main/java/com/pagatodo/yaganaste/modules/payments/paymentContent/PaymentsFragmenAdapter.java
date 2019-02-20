@@ -1,21 +1,23 @@
-package com.pagatodo.yaganaste.modules.PaymentImp;
+package com.pagatodo.yaganaste.modules.payments.paymentContent;
 
 import android.content.Context;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.modules.payments.payFragment.PayFragment;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import static com.pagatodo.yaganaste.modules.PaymentImp.PaymentContentFragment.RECHARGE_FRAGMENT;
-import static com.pagatodo.yaganaste.modules.PaymentImp.PaymentContentFragment.SERVICES_PAY_FRAGMENT;
+import static com.pagatodo.yaganaste.modules.payments.paymentContent.PaymentContentFragment.RECHARGE_FRAGMENT;
+import static com.pagatodo.yaganaste.modules.payments.paymentContent.PaymentContentFragment.SERVICES_PAY_FRAGMENT;
+
 
 public class PaymentsFragmenAdapter extends FragmentPagerAdapter {
 
     private Context context;
 
-    public PaymentsFragmenAdapter(Context context, FragmentManager fm) {
+    PaymentsFragmenAdapter(Context context, FragmentManager fm) {
         super(fm);
         this.context = context;
     }

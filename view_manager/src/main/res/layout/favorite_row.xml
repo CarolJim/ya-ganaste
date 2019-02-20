@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <com.pagatodo.view_manager.components.ImageInitials
         android:id="@+id/image_url"
         android:layout_width="45dp"
         android:layout_height="45dp"
@@ -13,11 +13,10 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:contentDescription="@string/app_name"
+        app:nameComplete="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_add"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/txtNameFav"
@@ -53,6 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtNameFav" />
 
     <View
+        android:id="@+id/line"
         android:layout_width="1dp"
         android:layout_height="45dp"
         android:layout_marginTop="8dp"
@@ -76,4 +76,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/ic_edit" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_off"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

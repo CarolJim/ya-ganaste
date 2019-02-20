@@ -23,6 +23,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder.TYPE.ADD_RECHARGE;
+
 
 public class RechargesRecycler extends LinearLayout implements LauncherHolder<ArrayList<IconButtonDataHolder>>,
         Serializable {
@@ -49,23 +51,16 @@ public class RechargesRecycler extends LinearLayout implements LauncherHolder<Ar
         LayoutInflater inflater = LayoutInflater.from(getContext());
         rootView = inflater.inflate(R.layout.recharges,this,false);
         init();
-        defaultView();
+        addFav(ADD_RECHARGE);
+        adapter.notifyDataSetChanged();
         this.addView(rootView);
     }
 
-    private void defaultView(){
-        adapter.addItem(new IconButtonDataHolder(getContext().getResources().getDrawable(R.drawable.ic_add),
-                getContext().getResources().getString(R.string.add_fav),
-                "Agregar",
-                IconButtonDataHolder.TYPE.ADD));
-        adapter.notifyDataSetChanged();
-    }
-
-    public IconButtonDataHolder addFav(){
+    public IconButtonDataHolder addFav(IconButtonDataHolder.TYPE type){
         return new IconButtonDataHolder(getContext().getResources().getDrawable(R.drawable.ic_add),
                 getContext().getResources().getString(R.string.add_fav),
                 "Agregar",
-                IconButtonDataHolder.TYPE.ADD);
+                type);
     }
 
 

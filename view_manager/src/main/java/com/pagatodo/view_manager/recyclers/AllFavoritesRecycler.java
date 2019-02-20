@@ -8,12 +8,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.pagatodo.view_manager.R;
-import com.pagatodo.view_manager.controllers.ItemOffsetDecoration;
 import com.pagatodo.view_manager.controllers.LauncherHolder;
 import com.pagatodo.view_manager.controllers.OnHolderListener;
-import com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder;
 import com.pagatodo.view_manager.controllers.dataholders.RowFavDataHolder;
 import com.pagatodo.view_manager.recyclers.adapters.AllFavoritesAdapter;
+import com.pagatodo.view_manager.recyclers.interfaces.PencilListener;
 
 import java.util.ArrayList;
 
@@ -50,7 +49,7 @@ public class AllFavoritesRecycler extends LinearLayout implements LauncherHolder
     }
 
     private void defaultView(){
-        adapter.addItem(RowFavDataHolder.create("","Agregar",""));
+        adapter.addItem(RowFavDataHolder.create("","Agregar","","#FF00FF", null,true));
         adapter.notifyDataSetChanged();
     }
 
@@ -65,12 +64,16 @@ public class AllFavoritesRecycler extends LinearLayout implements LauncherHolder
         adapter.setListener(listener);
     }
 
+    public void setPencilOnClickItem(PencilListener<RowFavDataHolder> listener){
+        adapter.setListenerPencil(listener);
+    }
+
     @Override
     public void init() {
         RecyclerView recyclerMain = rootView.findViewById(R.id.recycler_main);
         recyclerMain.setHasFixedSize(true);
         recyclerMain.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        recyclerMain.addItemDecoration(new ItemOffsetDecoration(getContext(), R.dimen.item_offset));
+        //recyclerMain.addItemDecoration(new ItemOffsetDecoration(getContext(), R.dimen.item_offset));
         adapter = new AllFavoritesAdapter();
         recyclerMain.setAdapter(adapter);
     }
