@@ -84,7 +84,7 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_CHAT = 503;
 
 
-    public static final int OPTION_SIMPLE = 0;
+    public static final int OPTION_SIMPLE = 100;
     public static final int OPTION_ZONE = 1;
     public static final int OPTION_ZONE_UNO = 2;
     public static final int OPTION_ZONE_DOS = 3;
