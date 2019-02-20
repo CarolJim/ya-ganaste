@@ -1811,5 +1811,6 @@
     <string name="select_service">Selecciona un comercio para\nrealizar un pago de servicio</string>
     <string name="select_service_fav">Selecciona un favorito para\nrealizar un pago</string>
 
-
+    <string name="title_indication_simple">¡Tu Activación Esta en Proceso!</string>
+    <string name="subtitle_indication_simple">La activación tomará menos de 15 minutos.\n\nUna vez que este lista podrás realizar cobros\ncon tarjeta en tu negocio fácil y rápido</string>
 </resources>

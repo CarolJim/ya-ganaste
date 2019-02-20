@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.ui_wallet.adapters.InputTexAdapter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.TextDataAdapter;
 import com.pagatodo.yaganaste.ui_wallet.holders.ButtonSimpleViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.GenericHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.IndicationSimpleHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.IndicationZoneViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.holders.PaletteViewHolder;
@@ -24,6 +25,7 @@ import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SIMPLE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_DOS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_FIRST;
@@ -159,6 +161,10 @@ public class ContainerBuilder {
         GenericHolder op = null;
         //OPTION_ZONE
         switch (typeholder) {
+            case OPTION_SIMPLE:
+                op = new IndicationSimpleHolder(inflater.inflate(R.layout.indication_simple,
+                        parent,false));
+                break;
             case OPTION_ZONE:
                 op = new IndicationZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone, parent, false));
                 break;

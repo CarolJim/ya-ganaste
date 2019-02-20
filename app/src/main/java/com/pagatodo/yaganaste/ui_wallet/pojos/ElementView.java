@@ -405,7 +405,8 @@ public class ElementView implements ElementGlobal {
     //Proceso Continuar Registro Documentacion
     public static ArrayList<ElementView> getListEstadoContinuarRegistro(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_CONTINUE_DOCS, R.drawable.portada_adq, -1, -1, true, false, R.string.continuar_registro, OPTION_ZONE, idComercio));
+        elementViews.add(new ElementView(OPTION_CONTINUE_DOCS, R.drawable.portada_adq, -1,
+                -1, true, false, R.string.continuar_registro, OPTION_SIMPLE, idComercio));
         return elementViews;
     }
 
