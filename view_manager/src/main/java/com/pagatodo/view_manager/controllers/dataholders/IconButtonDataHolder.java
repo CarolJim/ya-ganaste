@@ -1,6 +1,8 @@
 package com.pagatodo.view_manager.controllers.dataholders;
 
 import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.io.Serializable;
 
@@ -10,7 +12,7 @@ public class IconButtonDataHolder implements Serializable {
     private String namCom;
     private String imageUrl;
     private TYPE type;
-    private Object T;
+    private Serializable object;
 
     public IconButtonDataHolder(Drawable iconRes, String name) {
         this.iconRes = iconRes;
@@ -32,13 +34,14 @@ public class IconButtonDataHolder implements Serializable {
 
     }
 
-    public Object getT() {
-        return T;
+
+    protected IconButtonDataHolder(Parcel in) {
+        name = in.readString();
+        namCom = in.readString();
+        imageUrl = in.readString();
     }
 
-    public void setT(Object t) {
-        T = t;
-    }
+
 
     public Drawable getIconRes() {
         return iconRes;
@@ -80,7 +83,15 @@ public class IconButtonDataHolder implements Serializable {
         this.namCom = namCom;
     }
 
+    public Serializable getObject() {
+        return object;
+    }
+
+    public void setObject(Serializable object) {
+        this.object = object;
+    }
+
     public enum TYPE{
-        ITEM_RECHARGE, ITEM_RECHARGE_FAV, ADD
+        ITEM_RECHARGE, ITEM_RECHARGE_FAV, ADD_RECHARGE, ADD_PAY
     }
 }

@@ -1802,4 +1802,14 @@
     <string name="monto_de_recarga">Monto de recarga</string>
     <string name="autorizar_pago">Autorizar Pago</string>
     <string name="autorizar_recarga">Autorizar Recarga</string>
+    
+    <!-- Pay recharge services -->
+    <string name="title_all_recharge_fav">Recargas Favoritas</string>
+    <string name="title_all_services_fav">Pagos Favoritos</string>
+    <string name="select_comerce">Selecciona un comercio para\nrealizar una recarga</string>
+    <string name="select_comerce_fav">Selecciona un favorito para\nrealizar una recarga</string>
+    <string name="select_service">Selecciona un comercio para\nrealizar un pago de servicio</string>
+    <string name="select_service_fav">Selecciona un favorito para\nrealizar un pago</string>
+
+
 </resources>

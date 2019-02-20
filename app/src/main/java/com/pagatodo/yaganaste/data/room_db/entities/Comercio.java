@@ -1,5 +1,8 @@
 package com.pagatodo.yaganaste.data.room_db.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -107,6 +110,25 @@ public class Comercio implements Serializable {
         this.formato = "";
         this.mensaje = "";
         this.sobrecargo = 0.0;
+    }
+
+    protected Comercio(Parcel in) {
+        idComercio = in.readInt();
+        idTipoComercio = in.readInt();
+        nombreComercio = in.readString();
+        logoURL = in.readString();
+        logoURLColor = in.readString();
+        imagenURL = in.readString();
+        colorMarca = in.readString();
+        longitudReferencia = in.readInt();
+        formato = in.readString();
+        mensaje = in.readString();
+        orden = in.readInt();
+        if (in.readByte() == 0) {
+            sobrecargo = null;
+        } else {
+            sobrecargo = in.readDouble();
+        }
     }
 
     public int getIdComercio() {

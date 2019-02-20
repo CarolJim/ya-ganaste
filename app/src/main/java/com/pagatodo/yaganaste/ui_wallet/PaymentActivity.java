@@ -3,19 +3,19 @@ package com.pagatodo.yaganaste.ui_wallet;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.widget.AppCompatImageView;
 import android.view.View;
-import android.view.WindowManager;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PaymentFormFragment;
 import com.pagatodo.yaganaste.utils.UI;
 
+import java.util.Objects;
+
+import androidx.appcompat.widget.AppCompatImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -28,7 +28,8 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
     public static final String PAYMENT_DATA = "PAYMENT_DATA";
     public static final String PAYMENT_IS_FAV = "PAYMENT_IS_FAV";
     public static final String AUTHORIZE = "AUTHORIZE";
-    public static final String NEXT_VIEW = "NEXT_VIEW";
+    //public static final String NEXT_VIEW = "NEXT_VIEW";
+
     @BindView(R.id.btn_back)
     AppCompatImageView back;
 
@@ -59,11 +60,11 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
         /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_payment);
         if (getIntent().getExtras() != null) {
-            if (getIntent().getExtras().get(PAYMENT_DATA) instanceof Comercio) {
-                comercioResponse = (Comercio) getIntent().getExtras().get(PAYMENT_DATA);
+            if (getIntent().getExtras().getSerializable(PAYMENT_DATA) instanceof Comercio) {
+                comercioResponse = (Comercio) getIntent().getExtras().getSerializable(PAYMENT_DATA);
                 isFavorite = false;
-            } else if(getIntent().getExtras().get(PAYMENT_DATA) instanceof Favoritos){
-                favoritos = (Favoritos) getIntent().getExtras().get(PAYMENT_DATA);
+            } else if(getIntent().getExtras().getSerializable(PAYMENT_DATA) instanceof Favoritos){
+                favoritos = (Favoritos) getIntent().getExtras().getSerializable(PAYMENT_DATA);
                 isFavorite = true;
             }
         }
@@ -113,18 +114,16 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode,final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         PaymentFormFragment myFragment = (PaymentFormFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        myFragment.onActivityResult(requestCode, resultCode, data);
-        //  UI.showErrorSnackBar(this, "LOL");
-
-        // Mostramos los Snack de Error
+        Objects.requireNonNull(myFragment).onActivityResult(requestCode, resultCode, data);
         try {
             Bundle MBuddle = data.getExtras();
-            String MMessage = MBuddle.getString(MESSAGE);
+            String MMessage = Objects.requireNonNull(MBuddle).getString(MESSAGE);
             String resultError = MBuddle.getString(RESULT);
-            if (resultError.equals(RESULT_ERROR)) {
+            if (Objects.requireNonNull(resultError).equals(RESULT_ERROR)) {
                 UI.showErrorSnackBar(this, MMessage, Snackbar.LENGTH_SHORT);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
