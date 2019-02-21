@@ -542,8 +542,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
         registerUser.setIdColonia(Idcolonia);
 
         if (registerUser.isBreakregister()){
-            Intent intentReg = new Intent(getActivity(), UserValidActivity.class);
-            startActivity(intentReg);
+            activityf.getRouter().showSMSAndroid();
         }else
         activityf.getRouter().showBusinessData(Direction.FORDWARD);
     }

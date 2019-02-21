@@ -666,6 +666,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 validatePersonDataResponse((GenericResponse) dataSourceResult.getData());
                 break;
 
+            case VALIDAR_DATOS_PERSONAHOMO:
+                validatePersonDataResponseHomoError((GenericResponse) dataSourceResult.getData());
+                break;
+
             case CONSULTAR_SALDO_ADQ:
                 validateBalanceAdqResponse((ConsultaSaldoCupoResponse) dataSourceResult.getData());
                 break;
@@ -714,6 +718,19 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }*/
     }
 
+    private void validatePersonDataResponseHomoError(GenericResponse data) {
+        if (data.getCodigoRespuesta() == 0) {
+            accountManager.onSuccessDataPersonHomoError();
+
+        } else{
+            accountManager.onSuccessDataPersonHomoError();
+        }
+    }
+    private void validatePersonDataResponseHomoError() {
+            accountManager.onSuccessDataPersonHomoError();
+
+    }
+
     @Override
     public void onFailed(DataSourceResult error) {
 
@@ -733,7 +750,13 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
         if (error != null && error.getWebService() == LOGINSTARBUCKS) {
             accountManager.onError(error.getWebService(), error.getData().toString());
+        } if (error != null && error.getWebService() == LOGINSTARBUCKS) {
+            validatePersonDataResponseHomoError();
         }
+
+
+
+
     }
 
     private void validateBalanceResponse(ConsultarSaldoResponse response) {

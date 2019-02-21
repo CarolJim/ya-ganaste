@@ -78,9 +78,10 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
                 RegisterUserNew registerUser = RegisterUserNew.getInstance();
                 registerUser.setRegincomplete(true);
             }
-            else
-                router.showPersonalData(Direction.FORDWARD);
-                //router.showUserData(Direction.FORDWARD);
+            else {
+                //router.showPersonalData(Direction.FORDWARD);
+                router.showUserData(Direction.FORDWARD);
+            }
 
         }
         else
@@ -169,6 +170,10 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
             finish();
 
         } else if (currentFragment instanceof RegistroDatosPersonalesFragment) {
+            /*backStep();
+            router.showUserData(Direction.BACK);
+            backStep();*/
+        }else if (currentFragment instanceof VincularCuentaFragment) {
             /*backStep();
             router.showUserData(Direction.BACK);
             backStep();*/

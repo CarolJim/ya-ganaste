@@ -368,6 +368,11 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     }
 
     @Override
+    public void onSuccessDataPersonHomoError() {
+        ((IRenapoView) accountView).onHomonimiaErrorSecond();
+    }
+
+    @Override
     public void onHomonimiaDataPerson() {
         accountView.hideLoader();
         ((IRenapoView) accountView).onHomonimiaError();

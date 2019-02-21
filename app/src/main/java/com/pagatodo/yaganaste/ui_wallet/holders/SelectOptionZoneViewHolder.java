@@ -82,7 +82,7 @@ public class SelectOptionZoneViewHolder extends GenericHolder implements View.On
                 this.imgBtn3.setImageResource(R.drawable.ico_inmediato);
                 if (isAgregador) {
                     this.descBtn3.setVisibility(View.GONE);
-                    this.imgBtn3.setVisibility(View.GONE);
+                    this.btn3.setVisibility(View.GONE);
                 }
                 this.btnContinue.setText(activity.getString(R.string.continuar));
             } else {

@@ -760,9 +760,8 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         }
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
-
         if (BuildConfig.DEBUG) {
-          //    onValidationSuccess();
+          //  onValidationSuccess();
             accountPresenter.validatePersonDatanew();
         } else {
             accountPresenter.validatePersonDatanew();
@@ -842,6 +841,16 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                     public void actionCancel(Object... params) {
                     }
                 }, true, false);
+    }
+
+
+
+    @Override
+    public void onHomonimiaErrorSecond() {
+        RegisterUserNew registerUser = RegisterUserNew.getInstance();
+        registerUser.setBreakregister(true);
+        onValidationSuccess();
+
     }
 
     @Override
@@ -929,7 +938,5 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         country = item;
         editCountry.setText(country.getPais());
         lytCountry.setBackgroundResource(R.drawable.inputtext_normal);
-
-
     }
 }
