@@ -271,7 +271,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 loadFragment(SelectDongleFragment.newInstance(), Direction.FORDWARD);
                 break;
             case "PREFER_USER_MY_DONGLE":
-                loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                /*loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                        Direction.FORDWARD, false);*/
+                loadFragment(MyDongleFragment.newInstance(),
                         Direction.FORDWARD, false);
                 break;
             case "PREFER_USER_REPORTA_TARJETA":

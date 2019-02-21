@@ -41,10 +41,59 @@
             android:textSize="14sp"
             app:tipo="Text" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="9dp"
+            android:background="@drawable/inputtext_normal"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:hint="@string/buscar_favoritos"
+                android:maxLines="1"
+                android:paddingLeft="6dp"
+                android:textColor="@color/blue_text_wallet"
+                android:textColorHint="@color/gray_slate"
+                android:theme="@style/TextLabel"
+                app:passwordToggleTint="@color/hint_color">
+
+                <EditText
+                    android:id="@+id/search_favorites"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="9dp"
+                    android:background="@android:color/transparent"
+                    android:digits="@string/input_alphanumeric_reference"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:longClickable="false"
+                    android:maxLength="22"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/texthint_edittext"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/ic_search"
+                android:tint="@color/colorAccent" />
+
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reciclerAllFavoritos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/reciclerAllFavoritos" />
+            android:layout_marginTop="24dp" />
 
     </LinearLayout>
 </LinearLayout>

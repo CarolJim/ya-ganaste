@@ -15,7 +15,13 @@
         android:text="@string/my_qr"
         android:textColor="@color/blue_text_wallet"
         android:textSize="18sp" />
-
+    <TextView
+        android:id="@+id/no_data"
+        android:textColor="@color/gray_slate"
+        android:text="bbbkjbkj"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="25dp"
         android:id="@+id/rcv_qr"
@@ -26,12 +32,6 @@
         android:orientation="horizontal">
 
     </androidx.recyclerview.widget.RecyclerView>
-
-    <TextView
-        android:id="@+id/no_data"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"

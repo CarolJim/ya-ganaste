@@ -105,7 +105,12 @@ public class QrManagerFragment extends GenericFragment implements QrManagerContr
 
     @Override
     public void onSuccessQRs(ArrayList<QrItems> listQRs) {
-        adapter.setQrUser(listQRs);
+        if (listQRs.size()==0){
+            no_data.setText("Aún no cuentas con un código QR,\n" +"Genera uno nuevo o, si tienes uno físico,\n escanéalo usando los botones inferiores.");
+        }else {
+            adapter.setQrUser(listQRs);
+        }
+
     }
 
     @Override
