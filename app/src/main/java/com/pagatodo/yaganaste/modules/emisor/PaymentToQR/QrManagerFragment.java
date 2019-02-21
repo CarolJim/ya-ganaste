@@ -2,10 +2,12 @@ package com.pagatodo.yaganaste.modules.emisor.PaymentToQR;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 
 import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -34,9 +37,7 @@ public class QrManagerFragment extends GenericFragment implements QrManagerContr
     private QrManagerRouter router;
     ArrayList<MyQrData> list = new ArrayList<>();
     private QRAdapter adapter;
-
     private QrManagerIteractor iteractor;
-
 
     @BindView(R.id.rcv_qr)
     RecyclerView rcv_qr;
@@ -60,6 +61,7 @@ public class QrManagerFragment extends GenericFragment implements QrManagerContr
     @Override
     public void onResume() {
         super.onResume();
+        list.clear();
         iteractor.getMyQrs();
     }
 
@@ -83,39 +85,40 @@ public class QrManagerFragment extends GenericFragment implements QrManagerContr
     public void initViews() {
         ButterKnife.bind(this, rootView);
         list = new ArrayList<>();
-
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rcv_qr.setLayoutManager(llm);
         rcv_qr.setHasFixedSize(true);
-
         adapter = new QRAdapter(this);
         rcv_qr.setAdapter(adapter);
-
-
-
         iteractor.getMyQrs();
         addQR.setOnClickListener(v -> router.showOperation(ID_ADD_QR));
         generateQR.setOnClickListener(v -> router.showOperation(ID_GENERATE_NEW_QR));
-
     }
 
     public QrManagerIteractor getIteractor() {
         return iteractor;
     }
 
-
     @Override
     public void onSuccessQRs(ArrayList<QrItems> listQRs) {
-        if (listQRs.size()==0){
-            no_data.setText("Aún no cuentas con un código QR,\n" +"Genera uno nuevo o, si tienes uno físico,\n escanéalo usando los botones inferiores.");
-        }else {
+        if (listQRs.size() == 0) {
+            no_data.setVisibility(View.VISIBLE);
+            no_data.setText("Aún no cuentas con un código QR,\n" + "Genera uno nuevo o, si tienes uno físico,\n escanéalo usando los botones inferiores.");
+            rcv_qr.setVisibility(View.GONE);
+        } else {
+            no_data.setVisibility(View.GONE);
             adapter.setQrUser(listQRs);
+            rcv_qr.setVisibility(View.VISIBLE);
         }
-
     }
 
     @Override
     public void onErrorQRs() {
+
+    }
+
+    @Override
+    public void onSuccesDel() {
 
     }
 

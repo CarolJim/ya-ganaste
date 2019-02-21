@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:minWidth="270dp"
+    android:minWidth="320dp"
     android:orientation="vertical"
     tools:ignore="MissingPrefix">
 
@@ -25,11 +25,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:gravity="center"
-            android:text="@string/ingresa_tu_curp"
-            android:textColor="@color/colorTituloDialog"
-            android:textSize="@dimen/size_text_style_3_value"
+            android:text="@string/ingresa_tu_curp_new"
+            android:textColor="@color/gristexto"
+            android:textSize="@dimen/size_text_style_2_half_value"
             android:visibility="visible"
-            app:tipo="Titulo" />
+            app:tipo="Text" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_curp"

@@ -145,6 +145,7 @@
     <string name="updateQR">/pdtQR</string>
     <string name="getDataQRYG">/getDataQRYG</string>
     <string name="ntfyMrchntYG">/ntfyMrchntYG</string>
+    <string name="dltQRYG">/dltQRYG</string>
 
     <!-- Activacion de tarjeta fisica -->
     <string name="bloqueoTarjetaDifinitivo">/BloqueoTarjetaDefinitivo</string>
@@ -1541,6 +1542,7 @@
     <string name="load_detail_movimientos">Cargando detalle del movimiento</string>
     <string name="load_detail_movimientos_error">No se pudo obtener el detalle, inténtelo más tarde</string>
     <string name="ingresa_tu_curp">Ingresa tu CURP</string>
+    <string name="ingresa_tu_curp_new">Tuvimos un problema para identificarte,\npor favor ingresa tu CURP</string>
     <string name="mis_recompensas">Mis Recompensas</string>
     <string name="label_btn_see_account_statement">Ver estado de cuenta</string>
 
@@ -1731,6 +1733,7 @@
     <string name="addqrbutton">Agregar QR</string>
     <string name="qr_name_add">Ingresa un Nombre para Identificar tu Código</string>
     <string name="qr_add_succes">QR agregado correctamente</string>
+    <string name="qr_delete_succes">QR eliminado correctamente</string>
     <string name="qr_add_error">QR Invalido</string>
     <string name="no_qr">No cuentas con codigos QR</string>
 

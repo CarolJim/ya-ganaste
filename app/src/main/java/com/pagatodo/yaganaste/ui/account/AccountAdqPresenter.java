@@ -140,6 +140,11 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     }
 
     @Override
+    public void onSuccessDataPersonHomoError() {
+
+    }
+
+    @Override
     public void onHomonimiaDataPerson() {
 
     }

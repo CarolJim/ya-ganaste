@@ -15,6 +15,9 @@ public interface IRenapoView extends INavigationView {
 
     void onHomonimiaError();
 
+    void onHomonimiaErrorSecond();
+
+
     void showDialogList(List<Paises> paises);
 
     void showDialogListCountryF(List<CountryF> paises);

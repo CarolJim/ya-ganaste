@@ -112,6 +112,7 @@ public class AllFavoritesFragment extends GenericFragment implements View.OnClic
         super.onResume();
         paymentsCarouselPresenter.getFavoriteCarouselItems();
         //search_favorites.setText("");
+
     }
 
 
@@ -214,7 +215,6 @@ public class AllFavoritesFragment extends GenericFragment implements View.OnClic
 
 
     }
-
     @Override
     public void setDataBank(String idcomercio, String nombrebank) {
 

@@ -191,7 +191,9 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
 
     @Override
     public void onErrorToken() {
+
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+
     }
 
     public enum COMPLETE_MESSAGES {

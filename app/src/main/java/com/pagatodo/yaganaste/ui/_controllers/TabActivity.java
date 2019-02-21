@@ -601,6 +601,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
             childFragment.onActivityResult(requestCode, resultCode, data);
         }
+
+
+
     }
 
     public void onErrorValidatePlate(String error) {

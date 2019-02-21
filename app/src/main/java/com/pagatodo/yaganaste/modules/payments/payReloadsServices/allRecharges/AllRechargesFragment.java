@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.pagatodo.view_manager.controllers.OnHolderListener;
 import com.pagatodo.view_manager.controllers.dataholders.RowFavDataHolder;
 import com.pagatodo.view_manager.recyclers.AllFavoritesRecycler;
+import com.pagatodo.view_manager.recyclers.adapters.AllFavoritesAdapter;
 import com.pagatodo.view_manager.recyclers.interfaces.PencilListener;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
@@ -46,17 +49,20 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
     private PayReloadsServicesActivity.Type type;
     private AllRechargesInteractor interactor;
 
+
     @BindView(R.id.all_recharge)
     AllFavoritesRecycler recAll;
     @BindView(R.id.text_title)
     TextView textTitle;
     @BindView(R.id.text_subtitle)
     TextView textSubtitle;
+    @BindView(R.id.search_alls)
+    TextView search_alls;
 
-    public static AllRechargesFragment newInstance(PayReloadsServicesActivity.Type type){
+    public static AllRechargesFragment newInstance(PayReloadsServicesActivity.Type type) {
         AllRechargesFragment fragment = new AllRechargesFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(TAG_TYPE,type);
+        bundle.putSerializable(TAG_TYPE, type);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -64,7 +70,7 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null){
+        if (getArguments() != null) {
             this.type = (PayReloadsServicesActivity.Type) getArguments().getSerializable(TAG_TYPE);
         }
         interactor = new AllRechargesInteractor(this);
@@ -73,16 +79,33 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.allrecharges_fragment,container,false);
+        rootView = inflater.inflate(R.layout.allrecharges_fragment, container, false);
         initViews();
         return rootView;
     }
 
     @Override
     public void initViews() {
-        ButterKnife.bind(this,rootView);
+        ButterKnife.bind(this, rootView);
+
+        search_alls.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
         Resources resources = Objects.requireNonNull(getContext()).getResources();
-        switch (type){
+        switch (type) {
             case ALL_RECHARGES:
                 textTitle.setText(resources.getString(R.string.child_tab_recharge));
                 textSubtitle.setText(resources.getString(R.string.select_comerce));
@@ -128,6 +151,7 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                     } else {
+
                         startActivity(intentEditFav);
                     }
                 });
@@ -135,21 +159,35 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
         }
     }
 
-    private ArrayList<RowFavDataHolder> converte(List<Comercio> comercios){
+    private void filter(String s) {
+        ArrayList<RowFavDataHolder> lista = new ArrayList<>();
+
+        /*for (Comercio comercio : comerciosNuevos) {
+            if (comercio.getNombreComercio().equals("")) {
+
+                *//*list.add(RowFavDataHolder.create(comercio.getLogoURLColor(),
+                        comercio.getNombreComercio(), "",
+                        "", comercio, false));*//*
+            }
+        }*/
+        recAll.getRecycler().setAdapter(new AllFavoritesAdapter());
+    }
+
+    private ArrayList<RowFavDataHolder> converte(List<Comercio> comercios) {
         ArrayList<RowFavDataHolder> list = new ArrayList<>();
-        for (Comercio comercio:comercios){
-                list.add(RowFavDataHolder.create(comercio.getLogoURLColor(),
-                        comercio.getNombreComercio(),"",
-                        "", comercio,false));
+        for (Comercio comercio : comercios) {
+            list.add(RowFavDataHolder.create(comercio.getLogoURLColor(),
+                    comercio.getNombreComercio(), "",
+                    "", comercio, false));
         }
         return list;
     }
 
-    private ArrayList<RowFavDataHolder> convert(List<Favoritos> favs){
+    private ArrayList<RowFavDataHolder> convert(List<Favoritos> favs) {
         ArrayList<RowFavDataHolder> list = new ArrayList<>();
-        for (Favoritos favoritos:favs){
+        for (Favoritos favoritos : favs) {
             String urlImage;
-            if (favoritos.getImagenURL().isEmpty()){
+            if (favoritos.getImagenURL().isEmpty()) {
                 urlImage = favoritos.getImagenURLComercioColor();
             } else {
                 urlImage = favoritos.getImagenURL();
@@ -158,7 +196,7 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
             list.add(RowFavDataHolder.create(urlImage,
                     favoritos.getNombre(), favoritos.getReferencia(),
                     favoritos.getColorMarca(),
-                    favoritos,true));
+                    favoritos, true));
 
         }
         return list;
@@ -186,14 +224,14 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
 
     @Override
     public void onError(String msj) {
-        UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()),msj);
+        UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()), msj);
     }
 
     @Override
     public void onClickView(RowFavDataHolder item, View view) {
         if (item.getObject() instanceof Comercio) {
             startActivity(PaymentActivity.creatIntent(getActivity(), (Comercio) item.getObject()));
-        } else if (item.getObject() instanceof Favoritos){
+        } else if (item.getObject() instanceof Favoritos) {
             startActivity(PaymentActivity.creatIntent(getActivity(), (Favoritos) item.getObject()));
         }
     }
