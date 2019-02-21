@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 import com.pagatodo.view_manager.components.LabelArrowCheckbox;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -35,18 +37,12 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
     public String msj;
     private SidebarRouter router;
     protected OnEventListener onEventListener;
-    private ImageView goChangeNip;
+    private LinearLayout goChangeNip;
     private LabelArrowCheckbox checkBoxBiometrics, checkBalances;
     private CheckBox biometrics, balances;
 
-
-    public SecuritySettignsFragment() {
-        // Required empty public constructor
-    }
-
     public static SecuritySettignsFragment newInstance() {
-        SecuritySettignsFragment securitySettignsFragment = new SecuritySettignsFragment();
-        return securitySettignsFragment;
+        return new SecuritySettignsFragment();
     }
 
     @Override
@@ -70,7 +66,7 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_security_settigns, container, false);
         ButterKnife.bind(this, rootView);
-        goChangeNip = (ImageView) rootView.findViewById(R.id.goChangeNip);
+        goChangeNip = rootView.findViewById(R.id.account_disassociate);
         checkBoxBiometrics = (LabelArrowCheckbox) rootView.findViewById(R.id.checkBoxBiometrics);
         checkBalances = (LabelArrowCheckbox) rootView.findViewById(R.id.checkBalances);
         biometrics = (CheckBox) rootView.findViewById(R.id.check);
@@ -114,7 +110,7 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.goChangeNip:
+            case R.id.account_disassociate:
                 activity.loadFragment(ChangePasswordFragment.newInstance(), R.id.container, Direction.FORDWARD, false);
                 break;
 

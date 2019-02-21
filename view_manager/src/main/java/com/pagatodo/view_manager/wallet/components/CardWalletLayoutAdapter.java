@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.view_manager.R;
+import com.pagatodo.view_manager.controllers.OnHolderListener;
+import com.pagatodo.view_manager.wallet.holders.BankCardHolderView;
 
 import java.util.ArrayList;
 
@@ -18,12 +20,11 @@ import static com.pagatodo.view_manager.wallet.components.CardWalletLinearLayout
 
 public class CardWalletLayoutAdapter extends PagerAdapter implements ViewPager.PageTransformer{
 
-    private Context mContext;
-    private ArrayList<CardData> listWallet;
 
-    public CardWalletLayoutAdapter(Context context) {
-        this.mContext = context;
-        //this.listener = listener;
+    private ArrayList<CardData> listWallet;
+    private OnHolderListener<CardData> listener;
+
+    public CardWalletLayoutAdapter() {
         this.listWallet = new ArrayList<>();
     }
 
@@ -36,6 +37,10 @@ public class CardWalletLayoutAdapter extends PagerAdapter implements ViewPager.P
         return listWallet.get(position);
     }
 
+    public void setListener(OnHolderListener<CardData> listener) {
+        this.listener = listener;
+    }
+
     @Override
     public int getCount() {
         return this.listWallet.size();
@@ -44,14 +49,12 @@ public class CardWalletLayoutAdapter extends PagerAdapter implements ViewPager.P
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup collection, int position) {
-
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-
+        LayoutInflater inflater = LayoutInflater.from(collection.getContext());
         boolean isZero = true;
         if (position != 0) isZero = false;
         View layout  = inflater.inflate(R.layout.card_layout,collection,false);
-        //BankCardHolderView bankCardHolderView = new BankCardHolderView(layout,isZero);
-        //bankCardHolderView.bind(this.listWallet.get(position),listener);
+        BankCardHolderView bankCardHolderView = new BankCardHolderView(layout,isZero);
+        bankCardHolderView.bind(this.listWallet.get(position),listener);
         collection.addView(layout);
         return layout;
     }
