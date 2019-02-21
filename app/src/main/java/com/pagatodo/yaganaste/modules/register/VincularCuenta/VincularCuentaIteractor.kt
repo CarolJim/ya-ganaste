@@ -51,6 +51,9 @@ import kotlin.collections.HashMap
 class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) : VincularcuentaContracts.Iteractor,
         IRequestResult<DataSourceResult>, AprovPresenter(App.getContext(), false),
         IAprovView<Any> {
+    override fun onSuccessDataPersonHomoError() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private var intentsValidateSms = 0
 
