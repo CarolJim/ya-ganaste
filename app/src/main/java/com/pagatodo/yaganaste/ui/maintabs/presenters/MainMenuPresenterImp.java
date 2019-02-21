@@ -54,6 +54,11 @@ public class MainMenuPresenterImp extends AprovPresenter {
     }
 
     @Override
+    public void onSuccessDataPersonHomoError() {
+
+    }
+
+    @Override
     public void onHomonimiaDataPerson() {
 
     }
