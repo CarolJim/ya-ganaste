@@ -34,13 +34,9 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
     private SettingsRouter router;
     private LinearLayout goSettings_security, goConfig_card_reader, goUnlink_phone;
 
-    public SettingsFragment() {
-        // Required empty public constructor
-    }
 
     public static SettingsFragment newInstance() {
-        SettingsFragment settingsFragment = new SettingsFragment();
-        return settingsFragment;
+        return new SettingsFragment();
     }
 
     @Override

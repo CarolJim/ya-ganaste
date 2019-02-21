@@ -11,7 +11,6 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.pagatodo.view_manager.buttons.ButtonContinue;
-import com.pagatodo.view_manager.components.inputs.InputSecret;
 import com.pagatodo.view_manager.components.inputs.InputSecretListener;
 import com.pagatodo.view_manager.components.inputs.InputSecretPass;
 import com.pagatodo.yaganaste.App;
@@ -37,6 +36,7 @@ import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.EVENT_GO_SECURRITY_SETTING_NONE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PUSH;
@@ -51,7 +51,7 @@ public class NewPasswwordFragment extends GenericFragment implements InputSecret
     private PreferUserPresenter mPreferPresenter;
     private ResetPinPresenter resetPinPresenter;
     private ChangeNipPresenterImp changeNipPresenterImp;
-    static String TAG_HIT = "TAG_HIT";
+    private static String TAG_HIT = "TAG_HIT";
     private String hit;
 
     @BindView(R.id.input_secret_current)
@@ -110,33 +110,18 @@ public class NewPasswwordFragment extends GenericFragment implements InputSecret
                 /*if (inputSecretPassNew.getTextEdit().length() == 6){
                     inputSecretPassConfirm.setRequestFocus();
                 }*/
-                if (validate()){
+                if(inputSecretPassNew.getTextEdit().length() < 6) {
+                    inputSecretPassNew.isError();
+                    showError("Favor de introducir los datos en los campos requeridos");
+                } else {
                     inputSecretPassConfirm.setRequestFocus();
                 }
+
                 return true;
             }
             // Return true if you have consumed the action, else false.
             return false;
         });
-
-        inputSecretPassConfirm.setActionListener((textView, i, keyEvent) -> {
-            if (i == EditorInfo.IME_ACTION_DONE
-                    || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                    && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                if (validate()){
-                    hideKeyBoard();
-                    mPreferPresenter.changePassToPresenter(
-                            Utils.cipherRSA(hit, PUBLIC_KEY_RSA),
-                            Utils.cipherRSA(inputSecretPassNew.getTextEdit(), PUBLIC_KEY_RSA)
-                    );
-                }
-                return true;
-            }
-            // Return true if you have consumed the action, else false.
-            return false;
-        });
-
-
 
         inputSecretPassNew.setInputSecretListener(new InputSecretListener() {
             @Override
@@ -153,6 +138,24 @@ public class NewPasswwordFragment extends GenericFragment implements InputSecret
                 nextBtn.inactive();
             }
         });
+
+        inputSecretPassConfirm.setActionListener((textView, i, keyEvent) -> {
+            if (i == EditorInfo.IME_ACTION_DONE
+                    || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                    && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                if (validate()){
+                    hideKeyBoard();
+                    mPreferPresenter.changePassToPresenter(
+                            Utils.cipherRSA(hit, PUBLIC_KEY_RSA),
+                            Utils.cipherRSA(inputSecretPassNew.getTextEdit(), PUBLIC_KEY_RSA)
+                    );
+                }
+                return true;
+            }
+            return false;
+        });
+
+
         inputSecretPassConfirm.setInputSecretListener(this);
 
     }
@@ -162,15 +165,15 @@ public class NewPasswwordFragment extends GenericFragment implements InputSecret
         if (inputSecretPassNew.getTextEdit().length() < 6){
             isValid = false;
             inputSecretPassNew.isError();
-            showError("Introdusca una contraseña valida");
+            showError("Favor de introducir los datos en los campos requeridos");
         } else if (inputSecretPassConfirm.getTextEdit().length() < 6){
             isValid = false;
             inputSecretPassConfirm.isError();
-            showError("Introdusca una contraseña valida");
+            showError("Favor de introducir los datos en los campos requeridos");
 
         } else if (!inputSecretPassNew.getTextEdit().equalsIgnoreCase(inputSecretPassConfirm.getTextEdit())){
             isValid = false;
-            showError("Introdusca una contraseña valida");
+            showError("Favor de introducir los datos en los campos requeridos");
             inputSecretPassConfirm.isError();
         }
         return isValid;
@@ -208,7 +211,6 @@ public class NewPasswwordFragment extends GenericFragment implements InputSecret
     @Override
     public void sendErrorPassToView(String mensaje) {
         if (mensaje.contains("Contraseña")) {
-            //editActual.inputLayout.setBackgroundResource(R.drawable.input_text_error);
             showError(getString(R.string.error_service_verify_pass));
         } else {
             showError(mensaje);
@@ -266,16 +268,17 @@ public class NewPasswwordFragment extends GenericFragment implements InputSecret
     @Override
     public void showErrorNip(ErrorObject error) {
         hideLoader();
+        UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),error.getErrorMessage(),Snackbar.LENGTH_SHORT);
     }
 
     private void endAndBack() {
-        /*editActual.editText.setText("");
-        editNueva.editText.setText("");
-        editConfir.editText.setText("");*/
-        //showSnakBar(Recursos.MESSAGE_CHANGE_PASS);
+
         hideLoader();
-        UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()),"Bien",Snackbar.LENGTH_SHORT);
-        //onEventListener.onEvent("PREFER_SECURITY_SUCCESS_PASS", false);
+        onEventListener.onEvent(EVENT_GO_SECURRITY_SETTING_NONE, false);
+        UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()),
+                Objects.requireNonNull(getContext()).getResources()
+                        .getString(R.string.success_change_pass),
+                Snackbar.LENGTH_SHORT);
     }
 
     @Override

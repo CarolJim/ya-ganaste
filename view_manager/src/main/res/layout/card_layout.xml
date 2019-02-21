@@ -25,14 +25,40 @@
                 android:id="@+id/bank_card"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:src="@color/gray_off"
                 android:contentDescription="@string/app_name"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/hidden_card_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/app_name"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toTopOf="@+id/name_owner"
+                app:layout_constraintStart_toStartOf="parent" />
 
-            
+            <TextView
+                android:id="@+id/name_owner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/app_name"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.pagatodo.view_manager.wallet.components.CardWalletLinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.emisor.ChangeNip.MyChangeNip;
 import com.pagatodo.yaganaste.modules.sidebar.About.AboutInfoFragment;
+import com.pagatodo.yaganaste.modules.sidebar.ChangePassword.ChangePasswordFragment;
 import com.pagatodo.yaganaste.modules.sidebar.DataAccount.AccountDataFragment;
 import com.pagatodo.yaganaste.modules.sidebar.HelpYaGanaste.HelpYaGanasteFragment;
 import com.pagatodo.yaganaste.modules.sidebar.Settings.SettingsFragment;
@@ -117,6 +118,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_CANCEL_RESULT = "PREFER_CANCEL_RESULT";
     public static String EVENT_GO_CONFIG_REPAYMENT = "EVENT_GO_CONFIG_REPAYMENT";
     public static String EVENT_GO_CONFIG_REPAYMENT_BACK = "EVENT_GO_CONFIG_REPAYMENT_BACK";
+    public static final String EVENT_GO_SECURRITY_SETTING_BACK = "EVENT_GO_SECURRITY_SETTING_BACK";
+    public static final String EVENT_GO_SECURRITY_SETTING_NONE = "EVENT_GO_SECURRITY_SETTING_NONE";
+    public static final String EVENT_GO_ABOUT_INFO_NONE = "EVENT_GO_ABOUT_INFO_NONE";
 
     /**
      * Acciones para dialogo de confirmacion en cerrar session
@@ -492,6 +496,13 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 Intent intent = new Intent(this, SplashActivity.class);
                 startActivity(intent);
                 break;
+            case EVENT_GO_SECURRITY_SETTING_BACK:
+                loadFragment(SecuritySettignsFragment.newInstance(), R.id.container, Direction.BACK, false);
+                break;
+            case EVENT_GO_SECURRITY_SETTING_NONE:
+                loadFragment(SecuritySettignsFragment.newInstance(), R.id.container, Direction.NONE, false);
+                break;
+
         }
     }
 
@@ -556,6 +567,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_LISTA, null);
             } else if (currentFragment instanceof NotificacionesPrefFragment) {
                 onEvent(PREFER_NOTIFICACIONES_BACK, null);
+            } else if (currentFragment instanceof ChangePasswordFragment){
+                onEvent(EVENT_GO_SECURRITY_SETTING_BACK, null);
+            } else if (currentFragment instanceof AboutInfoFragment){
+                onEvent(PREFER_USER_TERMINOS_BACK, null);
             } else {
                 super.onBackPressed();
             }

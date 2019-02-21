@@ -24,6 +24,7 @@ public class AllFavoritesRecycler extends LinearLayout implements LauncherHolder
 
     private View rootView;
     private AllFavoritesAdapter adapter;
+    private RecyclerView recyclerMain;
 
     public AllFavoritesRecycler(Context context) {
         super(context);
@@ -68,12 +69,15 @@ public class AllFavoritesRecycler extends LinearLayout implements LauncherHolder
         adapter.setListenerPencil(listener);
     }
 
+    public RecyclerView getRecycler() {
+        return recyclerMain;
+    }
+
     @Override
     public void init() {
-        RecyclerView recyclerMain = rootView.findViewById(R.id.recycler_main);
+        recyclerMain = rootView.findViewById(R.id.recycler_main);
         recyclerMain.setHasFixedSize(true);
         recyclerMain.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        //recyclerMain.addItemDecoration(new ItemOffsetDecoration(getContext(), R.dimen.item_offset));
         adapter = new AllFavoritesAdapter();
         recyclerMain.setAdapter(adapter);
     }

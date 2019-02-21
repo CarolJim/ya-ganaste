@@ -2,20 +2,13 @@ package com.pagatodo.yaganaste.modules.sidebar.SettingsOfSecurity;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.pagatodo.view_manager.components.LabelArrowCheckbox;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -26,6 +19,8 @@ import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.utils.UI;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENSAJE;
@@ -42,18 +37,12 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
     public String msj;
     private SidebarRouter router;
     protected OnEventListener onEventListener;
-    private ImageView goChangeNip;
+    private LinearLayout goChangeNip;
     private LabelArrowCheckbox checkBoxBiometrics, checkBalances;
     private CheckBox biometrics, balances;
 
-
-    public SecuritySettignsFragment() {
-        // Required empty public constructor
-    }
-
     public static SecuritySettignsFragment newInstance() {
-        SecuritySettignsFragment securitySettignsFragment = new SecuritySettignsFragment();
-        return securitySettignsFragment;
+        return new SecuritySettignsFragment();
     }
 
     @Override
@@ -77,7 +66,7 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_security_settigns, container, false);
         ButterKnife.bind(this, rootView);
-        goChangeNip = (ImageView) rootView.findViewById(R.id.goChangeNip);
+        goChangeNip = rootView.findViewById(R.id.account_disassociate);
         checkBoxBiometrics = (LabelArrowCheckbox) rootView.findViewById(R.id.checkBoxBiometrics);
         checkBalances = (LabelArrowCheckbox) rootView.findViewById(R.id.checkBalances);
         biometrics = (CheckBox) rootView.findViewById(R.id.check);
@@ -125,7 +114,7 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.goChangeNip:
+            case R.id.account_disassociate:
                 activity.loadFragment(ChangePasswordFragment.newInstance(), R.id.container, Direction.FORDWARD, false);
                 break;
         }
