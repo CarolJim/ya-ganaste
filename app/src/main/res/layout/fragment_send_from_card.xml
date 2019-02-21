@@ -64,7 +64,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="40dp"
-        android:background="@color/gray_slate"
+        android:background="@drawable/button_rounded_gray"
         style="@style/buttonRoundedStroke"
         android:text="Confirmar Datos"
         android:textAllCaps="false"

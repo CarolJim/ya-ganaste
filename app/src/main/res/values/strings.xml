@@ -164,8 +164,8 @@
     <string name="ce_cobro_rechazado">RECHAZADO</string>
     <string name="ce_cobro_cancelado">CANCELADO</string>
 
-    <string name="desasociarDispositivoTittle">Desvincula tu dispositivo</string>
-    <string name="desvincula_dispositivo_texto">Al desvincular tu dispositivo, ya no estará ligado\na tu cuenta Ya Ganaste y se cerrará tu sesión.\n\nPuedes iniciar sesión en cualquier dispositivo\npara volver a vincular tu cuenta.</string>
+    <string name="desasociarDispositivoTittle">Desvincular Celular</string>
+    <string name="desvincula_dispositivo_texto">Al desvincular tu teléfono celular, éste ya\n no estará ligado a tu cuenta Ya Ganaste y\n se cerrará tu sesión.\n\nPuedes iniciar sesión en cualquier\n dispositivo para volver a vincular tu cuenta.</string>
     <string name="deseaDesasociarDispositivo">¿Estás seguro que deseas desvincular tu dispositivo?</string>
     <string name="deseaRealizarLlamada">¿Desea llamar ahora?</string>
     <string name="sel_fotografia">Seleccionar fotografía</string>
@@ -1637,8 +1637,8 @@
     <string name="title_fragment_ayuda">Ayuda Ya Ganaste</string>
     <string name="subtitle_fragment_ayuda">Si tienes alguna duda o comentario\ndel servicio, comunícate con nosotros</string>
     <string name="title_videos">Video tutoriales</string>
-    <string name="correo">Correo\nelectronico</string>
-    <string name="llamada">Llamada\ntelefónica</string>
+    <string name="correo">Correo\nElectrónico</string>
+    <string name="llamada">Llamada\nTelefónica</string>
     <string name="chat">Chat de\nayuda</string>
 
     <!-- Chat Fragment-->
@@ -1800,4 +1800,5 @@
     <string name="tab_pay_services">Pagar servicios</string>
     <string name="saldo_actual">Saldo actual</string>
     <string name="monto_de_recarga">Monto de recarga</string>
+    <string name="buscar_favoritos">Buscar Favoritos</string>
 </resources>

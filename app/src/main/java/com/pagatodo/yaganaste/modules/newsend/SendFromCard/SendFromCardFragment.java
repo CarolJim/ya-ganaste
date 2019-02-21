@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import io.card.payment.CardIOActivity;
 
 import android.provider.ContactsContract;
+import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -170,6 +171,19 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
     String refff = "";
     String dateref = "";
     private boolean isValid;
+
+    private String card_number = "";
+    private String card_dest = "";
+    private String card_bank = "";
+
+    private String telephone_number = "";
+    private String telephone_dest = "";
+    private String telephone_bank_edt = "";
+
+    private String clabe_number = "";
+    private String clabe_dest = "";
+    private String clabe_bank = "";
+
 
     public SendFromCardFragment() {
         // Required empty public constructor
@@ -333,6 +347,152 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                 selectedType = CLABE;
                 break;
         }
+        referencianumber_edtx.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isCheckFromCard();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        dest_card_edtx.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isCheckFromCard();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        bank_card_edtx.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isCheckFromCard();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        number_card_edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isCheckFromTelephone();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        dest_edtx.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isCheckFromTelephone();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        bank_edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isCheckFromTelephone();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        referencianumber_clabe.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isCheckFromClabe();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        dest_clabe_edtx.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isCheckFromClabe();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        bank_clabe_edtx.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isCheckFromClabe();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
     }
 
@@ -429,7 +589,7 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
 
                 validateForm();
 
-                    //clearInputs();
+                //clearInputs();
 
                 break;
             case R.id.bankLinear:
@@ -500,7 +660,6 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                     }
                 }
 
-
                 break;
             case NUMERO_TELEFONO:
                 bank_edt.setText(item.getComercio().getNombreComercio());
@@ -525,6 +684,7 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                         enviosPresenter.getTitularName(dest_edtx.getText().toString().trim());
                     }
                 }
+                isCheckFromTelephone();
                 break;
             case CLABE:
                 bank_clabe_edtx.setText(item.getComercio().getNombreComercio());
@@ -549,6 +709,7 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                         enviosPresenter.getTitularName(dest_clabe_edtx.getText().toString().trim());
                     }
                 }
+                isCheckFromClabe();
                 break;
         }
     }
@@ -567,6 +728,84 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                 return 0;
             }
         });
+    }
+
+    public void getDataFromCard() {
+        card_number = referencianumber_edtx.getText().toString();
+        card_dest = dest_card_edtx.getText().toString();
+        card_bank = bank_card_edtx.getText().toString();
+    }
+
+    private void getDataFromTelephone() {
+        telephone_number = number_card_edt.getText().toString();
+        telephone_dest = dest_edtx.getText().toString();
+        telephone_bank_edt = bank_edt.getText().toString();
+    }
+
+    private void getDataFromClabe() {
+        clabe_number = referencianumber_clabe.getText().toString();
+        clabe_dest = dest_clabe_edtx.getText().toString();
+        clabe_bank = bank_clabe_edtx.getText().toString();
+    }
+
+    public void isCheckFromCard() {
+        getDataFromCard();
+        boolean isValid = true;
+        if (card_number == null || card_number.equals("") || card_number.isEmpty()) {
+            isValid = false;
+            btnSendPayment.setBackgroundResource(R.drawable.button_rounded_gray);
+        }
+        if (card_dest == null || card_dest.equals("") || card_dest.isEmpty()) {
+            isValid = false;
+            btnSendPayment.setBackgroundResource(R.drawable.button_rounded_gray);
+        }
+        if (card_bank == null || card_bank.equals("") || card_bank.isEmpty()) {
+            isValid = false;
+            btnSendPayment.setBackgroundResource(R.drawable.button_rounded_gray);
+        }
+        if (isValid) {
+            btnSendPayment.setBackgroundResource(R.drawable.button_rounded_blue);
+        }
+    }
+
+    public void isCheckFromTelephone() {
+        getDataFromTelephone();
+        boolean isValid = true;
+        if (telephone_number == null || telephone_number.equals("")) {
+            isValid = false;
+            btnSendPayment.setBackgroundResource(R.drawable.button_rounded_gray);
+        }
+        if (telephone_dest == null || telephone_dest.equals("")) {
+            isValid = false;
+            btnSendPayment.setBackgroundResource(R.drawable.button_rounded_gray);
+        }
+        if (telephone_bank_edt == null || telephone_bank_edt.equals("")) {
+            isValid = false;
+            btnSendPayment.setBackgroundResource(R.drawable.button_rounded_gray);
+        }
+        if (isValid) {
+            btnSendPayment.setBackgroundResource(R.drawable.button_rounded_blue);
+        }
+    }
+
+    public void isCheckFromClabe() {
+        getDataFromClabe();
+        boolean isValid = true;
+        if (clabe_number == null || clabe_number.equals("")) {
+            isValid = false;
+            btnSendPayment.setBackgroundResource(R.drawable.button_rounded_gray);
+        }
+        if (clabe_dest == null || clabe_dest.equals("")) {
+            isValid = false;
+            btnSendPayment.setBackgroundResource(R.drawable.button_rounded_gray);
+        }
+        if (clabe_bank == null || clabe_bank.equals("")) {
+            isValid = false;
+            btnSendPayment.setBackgroundResource(R.drawable.button_rounded_gray);
+        }
+        if (isValid) {
+            btnSendPayment.setBackgroundResource(R.drawable.button_rounded_blue);
+        }
     }
 
     private void validateForm() {
@@ -625,7 +864,7 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                 break;
         }
 
-        if (isValid){
+        if (isValid) {
             payment = new Envios(selectedType, referenciaNumber, 0D, nombreDestinatario, concepto, dateref, comercioItem, false);
             Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
             intent.putExtra("pagoItem", payment);

@@ -27,75 +27,80 @@
             android:id="@+id/edt1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginTop="-10dp"
+            android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
             android:inputType="number"
+            android:maxLength="1"
 
             android:textColor="@color/grayColor" />
 
         <LinearLayout
-            android:layout_gravity="center_vertical"
             android:layout_width="2dp"
             android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
             android:background="@color/gray_space"></LinearLayout>
 
         <EditText
             android:id="@+id/edt2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginTop="-10dp"
+            android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
             android:inputType="number"
+            android:maxLength="1"
             android:textColor="@color/grayColor" />
 
         <LinearLayout
-            android:layout_gravity="center_vertical"
             android:layout_width="2dp"
             android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
             android:background="@color/gray_space"></LinearLayout>
 
         <EditText
             android:id="@+id/edt3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginTop="-10dp"
+            android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
             android:inputType="number"
+            android:maxLength="1"
             android:textColor="@color/grayColor" />
 
         <LinearLayout
-            android:layout_gravity="center_vertical"
             android:layout_width="2dp"
             android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
             android:background="@color/gray_space"></LinearLayout>
 
         <EditText
             android:id="@+id/edt4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginTop="-10dp"
+            android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
             android:inputType="number"
+            android:maxLength="1"
             android:textColor="@color/grayColor" />
 
         <LinearLayout
-            android:layout_gravity="center_vertical"
             android:layout_width="2dp"
             android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
             android:background="@color/gray_space"></LinearLayout>
 
         <EditText
             android:id="@+id/edt5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginTop="-10dp"
+            android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
             android:inputType="number"
+            android:maxLength="1"
             android:textColor="@color/grayColor" />
     </LinearLayout>
 
