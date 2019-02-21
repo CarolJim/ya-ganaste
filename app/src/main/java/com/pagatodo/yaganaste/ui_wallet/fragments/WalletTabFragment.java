@@ -131,7 +131,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         super.onCreate(savedInstanceState);
         walletPresenter = (WalletPresenter) PresenterFactory.newInstace(this).getPresenter(WALLETPRESENTER);
         timeRepaymentPresenter = new TimeRepaymentPresenter(this);
-        cardWalletAdpater = new CardWalletAdpater(true);
+        cardWalletAdpater = new CardWalletAdpater(false);
         isBegin = true;
     }
 

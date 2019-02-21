@@ -1800,5 +1800,18 @@
     <string name="tab_pay_services">Pagar servicios</string>
     <string name="saldo_actual">Saldo actual</string>
     <string name="monto_de_recarga">Monto de recarga</string>
+    <string name="autorizar_pago">Autorizar Pago</string>
+    <string name="autorizar_recarga">Autorizar Recarga</string>
+
+    <!-- Pay recharge services -->
+    <string name="title_all_recharge_fav">Recargas Favoritas</string>
+    <string name="title_all_services_fav">Pagos Favoritos</string>
+    <string name="select_comerce">Selecciona un comercio para\nrealizar una recarga</string>
+    <string name="select_comerce_fav">Selecciona un favorito para\nrealizar una recarga</string>
+    <string name="select_service">Selecciona un comercio para\nrealizar un pago de servicio</string>
+    <string name="select_service_fav">Selecciona un favorito para\nrealizar un pago</string>
+
+    <string name="title_indication_simple">¡Tu Activación Esta en Proceso!</string>
+    <string name="subtitle_indication_simple">La activación tomará menos de 15 minutos.\n\nUna vez que este lista podrás realizar cobros\ncon tarjeta en tu negocio fácil y rápido</string>
     <string name="buscar_favoritos">Buscar Favoritos</string>
 </resources>

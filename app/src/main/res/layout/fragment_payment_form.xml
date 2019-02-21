@@ -84,7 +84,7 @@
                     android:id="@+id/head_account_payments"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:labelHeadAccount=""
+                    app:labelHeadAccount="ya ganaste"
                     />
             </LinearLayout>
             <View
@@ -109,21 +109,23 @@
             android:padding="20dp"
             android:visibility="gone">
 
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/imgPagosUserProfile"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/radio_image_pago_payment_tab"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:src="@mipmap/icon_user_fail"
-                    app:civ_border_color="@color/transparent"
-                    app:civ_border_width="@dimen/border_width" />
+                    android:padding="10dp"
+                    android:src="@mipmap/main_card_zoom_blue"
+                    />
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/anim_onboarding"
@@ -197,7 +199,7 @@
                     android:gravity="center"
                     android:maxLines="2"
                     android:text="Amaury"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@color/gray_text_wallet_3" />
 
                 <Space
                     android:layout_width="0dp"
@@ -214,7 +216,7 @@
                     android:gravity="center"
                     android:maxLines="2"
                     android:text="Telcel"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@color/gray_text_wallet_3" />
 
             </LinearLayout>
 
@@ -262,6 +264,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:layout_marginTop="25dp"
                 android:orientation="vertical"
                 android:visibility="visible">
 
@@ -270,9 +273,7 @@
                     android:id="@+id/txtgiroNew"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="11dp"
                     android:layout_marginTop="6dp"
-                    android:layout_marginRight="11dp"
                     android:orientation="horizontal">
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -296,7 +297,6 @@
                             android:id="@+id/recargaNumberNew"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="9dp"
                             android:background="@android:color/transparent"
                             android:imeOptions="actionDone"
                             android:singleLine="true"
@@ -311,18 +311,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="5dp"
                     android:background="#e0e0e0" />
 
                 <LinearLayout
                     android:id="@+id/txt_num_telefonoNew"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="11dp"
                     android:layout_marginTop="6dp"
-                    android:layout_marginRight="11dp"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:visibility="visible">
@@ -348,7 +343,6 @@
                             android:id="@+id/recargaMontoNew"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="9dp"
                             android:background="@android:color/transparent"
                             android:imeOptions="actionDone"
                             android:singleLine="true"
@@ -364,18 +358,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="5dp"
                     android:background="#e0e0e0" />
 
                 <LinearLayout
                     android:id="@+id/txt_conceptoNew"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="11dp"
                     android:layout_marginTop="6dp"
-                    android:layout_marginRight="11dp"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:visibility="visible">
@@ -401,7 +390,6 @@
                             android:id="@+id/etConceptoNew"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="9dp"
                             android:background="@android:color/transparent"
                             android:imeOptions="actionDone"
                             android:singleLine="true"
@@ -411,16 +399,15 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="5dp"
-                        android:background="#e0e0e0" />
+
                 </LinearLayout>
 
-
-
+                <View
+                    android:id="@+id/divConcept"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="#e0e0e0" />
 
             </LinearLayout>
 
