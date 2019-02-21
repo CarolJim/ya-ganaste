@@ -2,17 +2,13 @@ package com.pagatodo.yaganaste.modules.sidebar.SettingsOfSecurity;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.pagatodo.view_manager.components.LabelArrowCheckbox;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -22,7 +18,11 @@ import com.pagatodo.yaganaste.modules.sidebar.ChangePassword.ChangePasswordFragm
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.utils.UI;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import butterknife.ButterKnife;
+
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENSAJE;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_BALANCE;
@@ -85,24 +85,28 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
                 UI.showSuccessSnackBar(getActivity(), msj, Snackbar.LENGTH_SHORT);
             }
         }
-        checkBoxBiometrics.getCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, true);
-                } else {
-                    App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, false);
-                }
+        if (App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, false) == true) {
+            checkBoxBiometrics.getCheckBox().setChecked(true);
+        } else {
+            checkBoxBiometrics.getCheckBox().setChecked(false);
+        }
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_BALANCE, false) == true) {
+            checkBalances.getCheckBox().setChecked(true);
+        } else {
+            checkBalances.getCheckBox().setChecked(false);
+        }
+        checkBoxBiometrics.getCheckBox().setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, true);
+            } else {
+                App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, false);
             }
         });
-        checkBalances.getCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    App.getInstance().getPrefs().saveDataBool(SHOW_BALANCE, true);
-                } else {
-                    App.getInstance().getPrefs().saveDataBool(SHOW_BALANCE, false);
-                }
+        checkBalances.getCheckBox().setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                App.getInstance().getPrefs().saveDataBool(SHOW_BALANCE, true);
+            } else {
+                App.getInstance().getPrefs().saveDataBool(SHOW_BALANCE, false);
             }
         });
     }
@@ -113,7 +117,6 @@ public class SecuritySettignsFragment extends SupportFragment implements View.On
             case R.id.account_disassociate:
                 activity.loadFragment(ChangePasswordFragment.newInstance(), R.id.container, Direction.FORDWARD, false);
                 break;
-
         }
     }
 }

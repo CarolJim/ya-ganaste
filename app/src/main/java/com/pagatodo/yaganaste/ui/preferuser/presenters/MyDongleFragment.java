@@ -53,6 +53,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.MSJ;
 import static com.pagatodo.yaganaste.utils.Recursos.READ_BATTERY_LEVEL;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_FINAL_CONFIRM;
@@ -99,12 +100,17 @@ public class MyDongleFragment extends GenericFragment implements IPreferUserGene
         fragment.setArguments(args);
         return fragment;
     }
+    public static MyDongleFragment newInstance() {
+        MyDongleFragment fragment = new MyDongleFragment();
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        communicationMode = getArguments().getInt(MODE_COMMUNICACTION);
+
+        //communicationMode = getArguments().getInt(MODE_COMMUNICACTION);
         prefs = App.getInstance().getPrefs();
         audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
         currentVolumenDevice = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
@@ -147,6 +153,7 @@ public class MyDongleFragment extends GenericFragment implements IPreferUserGene
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+
         if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
             imgYaGanasteCard.setImageResource(R.drawable.lector_bt);
             String[] btDevice = new String[2];

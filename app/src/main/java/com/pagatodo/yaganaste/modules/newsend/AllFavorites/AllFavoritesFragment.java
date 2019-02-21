@@ -12,9 +12,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.os.Vibrator;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -65,17 +68,21 @@ import static com.pagatodo.yaganaste.utils.UtilsIntents.favoriteIntents;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AllFavoritesFragment extends GenericFragment implements   View.OnClickListener, PaymentsCarrouselManager, IReciclerfavoritos {
+public class AllFavoritesFragment extends GenericFragment implements View.OnClickListener, PaymentsCarrouselManager, IReciclerfavoritos {
 
     View rootView;
 
     @BindView(R.id.reciclerAllFavoritos)
     RecyclerView reciclerAllFavoritos;
+    @BindView(R.id.search_favorites)
+    EditText search_favorites;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     List<Favoritos> backUpResponseFavoritos;
-    public  static  AllFavoritesFragment newInstance(){
+
+    public static AllFavoritesFragment newInstance() {
         return new AllFavoritesFragment();
     }
+
     ArrayList<CarouselItem> backUpResponse, finalList, backUpResponsefinal, backUpResponsefavo;
     int idTipoComercio, idComercio;
     SendNewActivity activity;
@@ -85,7 +92,6 @@ public class AllFavoritesFragment extends GenericFragment implements   View.OnCl
     TransferType selectedType;
     private boolean isCuentaValida = true, isUp, bancoselected = false, solicitabanco = true,
             isfavo = false, isValid = true;
-
 
 
     private String nombreDestinatario, referenciaNumber, referenceFavorite, myReferencia, errorText,
@@ -105,8 +111,8 @@ public class AllFavoritesFragment extends GenericFragment implements   View.OnCl
     public void onResume() {
         super.onResume();
         paymentsCarouselPresenter.getFavoriteCarouselItems();
+        //search_favorites.setText("");
     }
-
 
 
     @Override
@@ -129,7 +135,6 @@ public class AllFavoritesFragment extends GenericFragment implements   View.OnCl
     }
 
 
-
     @Override
     public void onClick(View v) {
 
@@ -137,8 +142,9 @@ public class AllFavoritesFragment extends GenericFragment implements   View.OnCl
 
     @Override
     public void initViews() {
-        ButterKnife.bind(this,rootView);
-        activity =(SendNewActivity) getActivity();
+        ButterKnife.bind(this, rootView);
+
+        activity = (SendNewActivity) getActivity();
         activity.showaddfavo(true);
         activity = (SendNewActivity) getActivity();
         Objects.requireNonNull(activity).showaddfavo(true);
@@ -152,13 +158,39 @@ public class AllFavoritesFragment extends GenericFragment implements   View.OnCl
             }
         });*/
 
+        search_favorites.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
+    }
+
+    private void filter(String s) {
+        ArrayList<Favoritos> favs = new ArrayList<>();
+        for (Favoritos favoritos : backUpResponseFavoritos) {
+            if (favoritos.getNombre().toLowerCase().contains(s)){
+                favs.add(favoritos);
+            }
+        }
+        reciclerAllFavoritos.setAdapter(new AdapterSelecFavoNew(favs, getActivity(), backUpResponse, this));
     }
 
     @Override
     public void setCarouselData(ArrayList<CarouselItem> lista) {
         setBackUpResponse(lista);
     }
+
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
         backUpResponse = new ArrayList<>();
         ArrayList<Integer> orderBy = new ArrayList<>();
@@ -182,6 +214,7 @@ public class AllFavoritesFragment extends GenericFragment implements   View.OnCl
 
 
     }
+
     @Override
     public void setDataBank(String idcomercio, String nombrebank) {
 
@@ -210,7 +243,7 @@ public class AllFavoritesFragment extends GenericFragment implements   View.OnCl
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         reciclerAllFavoritos.setLayoutManager(linearLayoutManager);
         reciclerAllFavoritos.setHasFixedSize(true);
-        reciclerAllFavoritos.setAdapter(new AdapterSelecFavoNew(backUpResponseFavoritos,getActivity(),backUpResponse,this));
+        reciclerAllFavoritos.setAdapter(new AdapterSelecFavoNew(backUpResponseFavoritos, getActivity(), backUpResponse, this));
     }
 
     @Override
@@ -312,13 +345,12 @@ public class AllFavoritesFragment extends GenericFragment implements   View.OnCl
                 concepto = "";
                 nombreDestinatario = myName;
                 referenciaNumber = referencia;
-                payment = new Envios(selectedType,referenciaNumber , 0D, nombreDestinatario, concepto,referencia , comercioItem,
+                payment = new Envios(selectedType, referenciaNumber, 0D, nombreDestinatario, concepto, referencia, comercioItem,
                         favoriteItem != null);
                 Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
                 intent.putExtra("pagoItem", payment);
                 intent.putExtra("favoritoItem", favoriteItem);
                 startActivityForResult(intent, BACK_FROM_PAYMENTS);
-
 
 
             }
