@@ -16,6 +16,10 @@ public class QrRequest implements Serializable {
         this.account = account;
     }
 
+  public QrRequest(String plate) {
+        this.plate = plate;
+    }
+
     public QrRequest() {
     }
 

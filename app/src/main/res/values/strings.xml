@@ -145,6 +145,7 @@
     <string name="updateQR">/pdtQR</string>
     <string name="getDataQRYG">/getDataQRYG</string>
     <string name="ntfyMrchntYG">/ntfyMrchntYG</string>
+    <string name="dltQRYG">/dltQRYG</string>
 
     <!-- Activacion de tarjeta fisica -->
     <string name="bloqueoTarjetaDifinitivo">/BloqueoTarjetaDefinitivo</string>
@@ -1728,6 +1729,7 @@
     <string name="addqrbutton">Agregar QR</string>
     <string name="qr_name_add">Ingresa un Nombre para Identificar tu Código</string>
     <string name="qr_add_succes">QR agregado correctamente</string>
+    <string name="qr_delete_succes">QR eliminado correctamente</string>
     <string name="qr_add_error">QR Invalido</string>
     <string name="no_qr">No cuentas con codigos QR</string>
 

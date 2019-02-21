@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.modules.emisor.PaymentToQR.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,21 +23,20 @@ public class QRAdapter extends RecyclerView.Adapter<QRAdapter.ViewHolder> {
     private OnHolderListener<QrItems> listener;
 
 
-
-    public QRAdapter(OnHolderListener<QrItems> listener){
-        this.listQR=new ArrayList<>();
-        this.listener=listener;
+    public QRAdapter(OnHolderListener<QrItems> listener) {
+        this.listQR = new ArrayList<>();
+        this.listener = listener;
     }
 
 
-    public void setQrUser(ArrayList<QrItems> qrUser){
-        this.listQR=qrUser;
+    public void setQrUser(ArrayList<QrItems> qrUser) {
+        this.listQR = qrUser;
         notifyDataSetChanged();
     }
 
     @Override
     public QRAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_my_qr,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_my_qr, parent, false);
         return new ViewHolder(view);
     }
 
@@ -58,7 +58,6 @@ public class QRAdapter extends RecyclerView.Adapter<QRAdapter.ViewHolder> {
                 listener.onClickItem(element);
             }
         });
-
     }
 
     @Override
@@ -67,8 +66,8 @@ public class QRAdapter extends RecyclerView.Adapter<QRAdapter.ViewHolder> {
     }
 
 
-    class ViewHolder extends GenericHolder<QrItems>{
-        private TextView txtNameQr,txtLastNumberQR;
+    class ViewHolder extends GenericHolder<QrItems> {
+        private TextView txtNameQr, txtLastNumberQR;
         private ImageView imgQr;
         private LinearLayout container_QR;
 
@@ -79,15 +78,15 @@ public class QRAdapter extends RecyclerView.Adapter<QRAdapter.ViewHolder> {
 
         @Override
         public void init() {
-            this.txtNameQr=(TextView)itemView.findViewById(R.id.name_qr);
-            this.imgQr=(ImageView) itemView.findViewById(R.id.image_qr);
-            this.txtLastNumberQR=(TextView)itemView.findViewById(R.id.last_number_qr);
-            this.container_QR=(LinearLayout)itemView.findViewById(R.id.container_qr);
+            this.txtNameQr = (TextView) itemView.findViewById(R.id.name_qr);
+            this.imgQr = (ImageView) itemView.findViewById(R.id.image_qr);
+            this.txtLastNumberQR = (TextView) itemView.findViewById(R.id.last_number_qr);
+            this.container_QR = (LinearLayout) itemView.findViewById(R.id.container_qr);
         }
 
         @Override
         public void bind(QrItems item, OnHolderListener<QrItems> listener) {
-            if(item.getResImage() == R.drawable.qr_code) {
+            if (item.getResImage() == R.drawable.qr_code) {
                 this.imgQr.setImageResource(item.getResImage());
                 this.txtNameQr.setText(item.getQrUser().getAlias());
                 if (!item.getQrUser().getPlate().isEmpty()) {
@@ -100,7 +99,7 @@ public class QRAdapter extends RecyclerView.Adapter<QRAdapter.ViewHolder> {
                 this.txtLastNumberQR.setText(item.getQrUser().getPlate());
             }
 
-            if (listener != null){
+            if (listener != null) {
                 this.itemView.setOnClickListener(view -> listener.onClickItem(item));
             }
         }

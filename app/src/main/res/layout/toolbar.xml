@@ -148,6 +148,14 @@
             android:layout_marginRight="15dp"
             android:visibility="gone"
             app:srcCompat="@drawable/ic_delete_white" />
+        <ImageView
+            android:id="@+id/delete_qr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginRight="15dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_delete_white" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/help_icon"
