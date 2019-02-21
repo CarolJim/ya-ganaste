@@ -1141,6 +1141,9 @@
     <string name="get_status_card">Obteniendo estatus de tu tarjeta</string>
     <string name="myDongle">Mi lector</string>
 
+    <!-- Dialogos -->
+    <string name="dialog_state_account">Ingresa tu contraseña para\nautorizar esta descarga</string>
+    
     <!--Dialogo de cancelacion-->
     <string name="cancelacion_dialog_title">Cancelar cobro</string>
     <string name="cancelacion_dialog_message">Para cancelar es necesario que tu cliente presente la tarjeta con la que se realizó el cobro</string>
@@ -1692,7 +1695,7 @@
     <string name="promo_near">Estos son los comercios cercanos\nque tienen promociones para ti</string>
     <string name="centrar_mapa">Centrar mapa</string>
 
-    <string name="scan_qr_label">Escanea tu código QR</string>
+    <string name="scan_qr_label">Escanea el código Qr</string>
     <string name="physical_question">¿Ya tienes un código QR para tu negocio?</string>
     <!-- Nueva Pantalla Vincular Dispositivo -->
     <string name="creating_user">Creando usuario</string>
@@ -1706,7 +1709,7 @@
     <string name="title_register_complete">¡Bienvenido a Ya Ganaste!</string>
     <string name="title_welcome">Bienvenido a\nYa Ganaste</string>
 
-    <string name="desc_register_complete">\u00B7 Aceptar pagos desde celulares con las\n   principales apps bancarias\n\n\u00B7   Recibir tu dinero de inmediato\n\n\u00B7   Paga a proveedores o envía dinero a\n  familiares y amigos\n\n\u00B7 Paga tus servicios y realiza tus recargas</string>
+    <string name="desc_register_complete">\u00B7 Aceptar pagos desde celulares con las\n   principales apps bancarias\n\n\u00B7   Recibe tu dinero de inmediato\n\n\u00B7   Paga a proveedores o envía dinero a\n  familiares y amigos\n\n\u00B7 Paga tus servicios y realiza tus recargas</string>
 
 
     <!-- Codigo fisico -->
