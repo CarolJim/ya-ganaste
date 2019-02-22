@@ -824,6 +824,8 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
 
     @Override
     public void onValidateUserDataSuccess() {
+        RegisterUserNew registerUser = RegisterUserNew.getInstance();
+        registerUser.setBreakregister(false);
         onValidationSuccess();
     }
 
