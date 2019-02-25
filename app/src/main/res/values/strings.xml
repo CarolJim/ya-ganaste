@@ -1409,7 +1409,7 @@
 
     <!--Tittle Operaciones-->
     <string name="operation_movimientos">Movimientos\nYa Ganaste</string>
-    <string name="operation_deposito">Mi cuenta</string>
+    <string name="operation_deposito">Mi\ncuenta</string>
     <string name="operation_payment_qr">Pago a\nQR</string>
     <string name="operation_administracion">Administrar\ntarjeta</string>
     <string name="operation_administracion_starbucks">Administrar\nTarjetas</string>

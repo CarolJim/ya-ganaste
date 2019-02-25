@@ -104,6 +104,7 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
                 filter(s.toString());
             }
         });
+
         Resources resources = Objects.requireNonNull(getContext()).getResources();
         switch (type) {
             case ALL_RECHARGES:

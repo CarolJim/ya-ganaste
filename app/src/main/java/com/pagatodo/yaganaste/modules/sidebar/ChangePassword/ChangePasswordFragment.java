@@ -68,6 +68,7 @@ public class ChangePasswordFragment extends GenericFragment implements View.OnCl
         ButterKnife.bind(this, rootView);
         inputSecretPassCurrent.setRequestFocus();
         showKeyboard();
+
         inputSecretPassCurrent.setActionListener((textView, i, keyEvent) -> {
             if (i == EditorInfo.IME_ACTION_DONE
                     || keyEvent.getAction() == KeyEvent.ACTION_DOWN

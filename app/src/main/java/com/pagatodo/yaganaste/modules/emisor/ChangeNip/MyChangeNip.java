@@ -28,7 +28,9 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.UtilsIntents;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
-
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -76,8 +78,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-
+        setHasOptionsMenu(false);
 
         accountPresenter = new AccountPresenterNew(getContext());
         accountPresenter.setIView(this);
@@ -148,6 +149,11 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         call_phone.setOnClickListener(this);
         setValidationRules();
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     private void hideKeyBoard() {

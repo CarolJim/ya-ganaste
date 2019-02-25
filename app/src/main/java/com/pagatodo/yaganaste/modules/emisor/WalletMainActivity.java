@@ -303,7 +303,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         } else if (getCurrentFragment() instanceof BlockCardFragment) {
 
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -534,8 +534,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public void onErrorValidatePlate(String error) {
         UI.showErrorSnackBar(this,error,Snackbar.LENGTH_SHORT);
     }
-
-
 
     @Override
     public boolean requiresTimer() {
@@ -776,7 +774,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             super.onBackPressed();
         }
     }
-
 
     /**
      * Creates a symmetric key in the Android Key Store which can only be used after the user has
