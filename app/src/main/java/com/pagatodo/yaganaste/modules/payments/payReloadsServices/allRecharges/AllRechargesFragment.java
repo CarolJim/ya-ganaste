@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.view_manager.controllers.OnHolderListener;
@@ -49,7 +50,6 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
     private PayReloadsServicesActivity.Type type;
     private AllRechargesInteractor interactor;
 
-
     @BindView(R.id.all_recharge)
     AllFavoritesRecycler recAll;
     @BindView(R.id.text_title)
@@ -58,6 +58,8 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
     TextView textSubtitle;
     @BindView(R.id.search_alls)
     TextView search_alls;
+
+    List<Comercio> comerciosList;
 
     public static AllRechargesFragment newInstance(PayReloadsServicesActivity.Type type) {
         AllRechargesFragment fragment = new AllRechargesFragment();
@@ -87,7 +89,6 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-
         search_alls.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -160,21 +161,30 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
     }
 
     private void filter(String s) {
-        ArrayList<RowFavDataHolder> lista = new ArrayList<>();
 
-        /*for (Comercio comercio : comerciosNuevos) {
-            if (comercio.getNombreComercio().equals("")) {
+        ArrayList<Comercio> favs = new ArrayList<>();
+        for (Comercio comercio:comerciosList){
 
-                *//*list.add(RowFavDataHolder.create(comercio.getLogoURLColor(),
-                        comercio.getNombreComercio(), "",
-                        "", comercio, false));*//*
+            if (comercio.getNombreComercio().toLowerCase().contains(s)){
+                if (s.isEmpty()){
+                    comerciosList=favs;
+                    recAll.setListItem(converte(favs));
+                }
+                favs.add(comercio);
+            }
+        }
+        /*ArrayList<RowFavDataHolder> filterList = new ArrayList<>();
+        for (RowFavDataHolder com:converte(favs)){
+            if (com.getName().toLowerCase().contains(s)){
+                filterList.add(com);
             }
         }*/
-        recAll.getRecycler().setAdapter(new AllFavoritesAdapter());
+        recAll.setListItem(converte(favs));
     }
 
     private ArrayList<RowFavDataHolder> converte(List<Comercio> comercios) {
         ArrayList<RowFavDataHolder> list = new ArrayList<>();
+        comerciosList=comercios;
         for (Comercio comercio : comercios) {
             list.add(RowFavDataHolder.create(comercio.getLogoURLColor(),
                     comercio.getNombreComercio(), "",

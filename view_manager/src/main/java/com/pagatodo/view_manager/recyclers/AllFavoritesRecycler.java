@@ -55,6 +55,7 @@ public class AllFavoritesRecycler extends LinearLayout implements LauncherHolder
     }
 
     public void setListItem(ArrayList<RowFavDataHolder> listData){
+
         if (!listData.isEmpty()){
             adapter.setListData(listData);
             adapter.notifyDataSetChanged();

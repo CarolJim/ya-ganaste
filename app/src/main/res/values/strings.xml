@@ -1817,4 +1817,5 @@
     <string name="title_indication_simple">¡Tu Activación Esta en Proceso!</string>
     <string name="subtitle_indication_simple">La activación tomará menos de 15 minutos.\n\nUna vez que este lista podrás realizar cobros\ncon tarjeta en tu negocio fácil y rápido</string>
     <string name="buscar_favoritos">Buscar Favoritos</string>
+    <string name="nombre_simple">Nombre</string>
 </resources>
