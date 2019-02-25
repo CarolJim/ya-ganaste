@@ -64,6 +64,7 @@ public class Recursos {
     public static final int INVALID_TOKEN = 3001;
     public static final int INCORRECT_FORMAT = -2;
     public static final int DEVICE_ALREADY_ASSIGNED = 224;
+    public static final int IDPROSPECTO = 13;
 
     /*WS Adq*/
     public static final String ADQ_CODE_OK = "00";

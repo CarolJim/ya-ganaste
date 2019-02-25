@@ -262,7 +262,8 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
         //String name = usuario.getNombre().concat(SPACE).concat(usuario.getPrimerApellido()).concat(SPACE).concat(usuario.getSegundoApellido());
 
         //txtNameTitular.setText(name);
-        String name = nombreprimerUser + " " + apellidoMostrarUser;
+        String name = nombreprimerUser + " " + apellidoMostrarUser + " " +
+                userData.getSegundoApellido();
         //txtNameTitular.setText(name);
 
         String celPhone = "";

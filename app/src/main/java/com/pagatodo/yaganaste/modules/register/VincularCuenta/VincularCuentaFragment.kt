@@ -16,6 +16,7 @@ import android.telephony.SmsManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.pagatodo.yaganaste.App
 import com.pagatodo.yaganaste.R
 import com.pagatodo.yaganaste.data.model.MessageValidation
@@ -32,6 +33,7 @@ import com.pagatodo.yaganaste.utils.Recursos
 import com.pagatodo.yaganaste.utils.UI
 import com.pagatodo.yaganaste.utils.Utils
 import com.pagatodo.yaganaste.utils.ValidatePermissions
+import kotlinx.android.synthetic.main.fragment_vincular_cuenta.*
 
 private const val CHECK_SMS_VALIDATE_DELAY: Long = 3000
 
@@ -63,12 +65,23 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         (activity!! as RegActivity).nextStep()
         (activity!! as RegActivity).backvisivility(false)
 
+        var registerUserSingleton = RegisterUserNew.getInstance()
+
+        if (registerUserSingleton.isRegincomplete){
+            binding.txtTitleAssociatePhone.setText("Se interrumpió el registro vale")
+
+
+        }
+
+
 
 
         return binding.root
     }
 
     override fun initViews() {
+
+
 
 
     }
@@ -101,25 +114,33 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
 
                     var registerUserSingleton = RegisterUserNew.getInstance()
 
-                    if (registerUserSingleton.isRegincomplete){
-                        RegisterUserNew.getInstance().statusRegistro =USUARIO_CREADO
-                        when (RegisterUserNew.getInstance().statusRegistro) {
-                            USUARIO_CREADO -> iteractor.createClient()
-                            CUENTA_ASIGNADA -> iteractor.assignNip()
-                            NIP_ASIGNADO -> iteractor.createAgent()
-                            AGENTE_CREADO -> iteractor.getNumberOfSms()
-                            else -> iteractor.createUser()
-                        }
+                    if (registerUserSingleton.isBreakregister){
+                        iteractor.createUser()
                     }else {
-                        when (RegisterUserNew.getInstance().statusRegistro) {
-                            SIN_REGISTRO -> iteractor.createUser()
-                            USUARIO_CREADO -> iteractor.createClient()
-                            CUENTA_ASIGNADA -> iteractor.assignNip()
-                            NIP_ASIGNADO -> iteractor.createAgent()
-                            AGENTE_CREADO -> iteractor.getNumberOfSms()
-                            else -> iteractor.createUser()
+
+
+                        if (registerUserSingleton.isRegincomplete) {
+                            RegisterUserNew.getInstance().statusRegistro = USUARIO_CREADO
+                            when (RegisterUserNew.getInstance().statusRegistro) {
+                                USUARIO_CREADO -> iteractor.createClient()
+                                CUENTA_ASIGNADA -> iteractor.assignNip()
+                                NIP_ASIGNADO -> iteractor.createAgent()
+                                AGENTE_CREADO -> iteractor.getNumberOfSms()
+                                else -> iteractor.createUser()
+                            }
+                        } else {
+                            when (RegisterUserNew.getInstance().statusRegistro) {
+                                SIN_REGISTRO -> iteractor.createUser()
+                                USUARIO_CREADO -> iteractor.createClient()
+                                CUENTA_ASIGNADA -> iteractor.assignNip()
+                                NIP_ASIGNADO -> iteractor.createAgent()
+                                AGENTE_CREADO -> iteractor.getNumberOfSms()
+                                else -> iteractor.createUser()
+                            }
                         }
+
                     }
+
                 } else {
                     UI.showErrorSnackBar(activity!!, getString(R.string.no_internet_access), com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
                 }
@@ -137,7 +158,16 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
 
     override fun onUserCreated() {
         hideLoader()
-        iteractor.createClient()
+        var registerUserSingleton = RegisterUserNew.getInstance()
+        if (!registerUserSingleton.isBreakregister) {
+            iteractor.createUser()
+        }else{
+            UI.showErrorSnackBar(activity!!, "Ya quedo el prospecto", com.google.android.material.snackbar.Snackbar.LENGTH_SHORT)
+            binding.btnSendSms.setVisibility(View.GONE)
+        }
+
+
+
     }
 
     override fun onAccountAssigned() {

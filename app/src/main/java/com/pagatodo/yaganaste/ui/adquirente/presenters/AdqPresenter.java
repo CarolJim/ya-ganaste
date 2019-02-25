@@ -250,6 +250,11 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
     }
 
     @Override
+    public void onSuccessDataPersonHomoError() {
+
+    }
+
+    @Override
     public void onHomonimiaDataPerson() {
 
     }

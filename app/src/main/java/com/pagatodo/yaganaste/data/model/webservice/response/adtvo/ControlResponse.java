@@ -6,6 +6,15 @@ public class ControlResponse implements Serializable{
     private Boolean EsCliente;
     private Boolean EsUsuario;
     private Boolean RequiereActivacionSMS;
+    private int IdTipoPersona ;
+
+    public int getIdTipoPersona() {
+        return IdTipoPersona;
+    }
+
+    public void setIdTipoPersona(int idTipoPersona) {
+        IdTipoPersona = idTipoPersona;
+    }
 
     public Boolean getEsCliente() {
         return EsCliente;

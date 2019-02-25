@@ -31,6 +31,8 @@ public interface IAccountManager<T> {
 
     void onSuccessDataPerson();
 
+    void onSuccessDataPersonHomoError();
+
     void onHomonimiaDataPerson();
 
     void sessionExpiredToPresenter(DataSourceResult response);

@@ -36,6 +36,8 @@ public interface IAccountPresenterNew {
 
     void validatePersonDatanew();
 
+    void validatePersonDatanewCURP(String CURP);
+
     void validatePersonDataHomonimia();
 
     void getNeighborhoods(String zipCode);
