@@ -81,7 +81,8 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 registerUserSingleton.calle,
                 registerUserSingleton.numExterior,
                 registerUserSingleton.numInterior,
-                registerUserSingleton.paisNacimiento.id)
+                registerUserSingleton.paisNacimiento.id,
+                registerUserSingleton.isBreakregister)
         RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getContext()))
         try {
             ApiAdtvo.crearUsuarioCliente(request, this)
