@@ -292,20 +292,22 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         editMail.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (!editMail.getText().toString().isEmpty()) {
+                if (!editMail.getText().toString().isEmpty() || userExist) {
                     if (actionId == EditorInfo.IME_ACTION_NEXT) {
                         hideKeyBoard();
                         if (asignar_edittext.getText().toString().isEmpty()) {
 
                         }
-                        edt_psw.setVisibility(View.GONE);
-                        llypass_pass.setVisibility(View.VISIBLE);
-                        asignar_edittext.requestFocus();
 
-                        llypass_pass.setBackgroundResource(R.drawable.inputtext_active);
-                        asignar_edittext.requestFocus();
                     }
                     return true;
+                } else {
+                    edt_psw.setVisibility(View.GONE);
+                    llypass_pass.setVisibility(View.VISIBLE);
+                    asignar_edittext.requestFocus();
+
+                    llypass_pass.setBackgroundResource(R.drawable.inputtext_active);
+                    asignar_edittext.requestFocus();
                 }
                 return false;
             }

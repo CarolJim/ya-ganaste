@@ -214,6 +214,7 @@ public class InputSecretPass extends InputLauncher implements View.OnClickListen
             desactive();
             if (Objects.requireNonNull(inputEditText.getText()).toString().length() < 6){
                 isError();
+                desactive();
             }
         }
     }
