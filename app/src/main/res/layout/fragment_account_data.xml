@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="0dp"
-            android:text="@string/nameHint"
+            android:text="@string/nombre_simple"
             android:textColor="@color/colorAccent" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
