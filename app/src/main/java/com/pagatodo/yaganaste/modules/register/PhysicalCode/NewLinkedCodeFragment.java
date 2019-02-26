@@ -155,6 +155,7 @@ public class NewLinkedCodeFragment extends GenericFragment implements TextWatche
                 activity.getRouter().showLinkedCodes();
             } else {
                 activity.onErrorValidatePlate("El QR ya fue agregado");
+                activity.getRouter().showLinkedCodes();
             }
         }
     }
