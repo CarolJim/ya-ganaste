@@ -13,6 +13,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -42,6 +43,8 @@ import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -200,7 +203,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         editMail.setOnFocusChangeListener(this::onFocusChange);
         edit_psw.setOnFocusChangeListener(this::onFocusChange);
         edit_psw_confirm.setOnFocusChangeListener(this::onFocusChange);
-
         asignar_edittext.setFocusableInTouchMode(true);
         asignar_edittext.addTextChangedListener
                 (new AsignarNipTextWatcher(asignar_edittext, tv1Num, tv2Num, tv3Num, tv4Num, tv5Num, tv6Num, this, false));
@@ -208,7 +210,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         asignar_edittextConfirm.setFocusableInTouchMode(true);
         asignar_edittextConfirm.addTextChangedListener
                 (new AsignarNipTextWatcher(asignar_edittextConfirm, tv1NumConfirm, tv2NumConfirm, tv3NumConfirm, tv4NumConfirm, tv5NumConfirm, tv6NumConfirm, this, true));
-
 
         asignar_control_layout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -232,7 +233,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             }
         });
 
-
         editMail.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -244,7 +244,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 return false;
             }
         });
-
 
         llypass_passConfirm.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -293,13 +292,18 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         editMail.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (editMail.getText().toString().isEmpty()) {
+                if (!editMail.getText().toString().isEmpty()) {
                     if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                        hideKeyBoard();
+                        if (asignar_edittext.getText().toString().isEmpty()) {
+
+                        }
+                        edt_psw.setVisibility(View.GONE);
+                        llypass_pass.setVisibility(View.VISIBLE);
+                        asignar_edittext.requestFocus();
+
                         llypass_pass.setBackgroundResource(R.drawable.inputtext_active);
                         asignar_edittext.requestFocus();
-                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
-                        imm.showSoftInput(asignar_edittext, InputMethodManager.SHOW_IMPLICIT);
                     }
                     return true;
                 }
@@ -361,9 +365,10 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                         text_email.setBackgroundResource(R.drawable.inputtext_normal);
                         llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_normal);
                     } else {
-                        llypass_pass.setVisibility(View.GONE);
+                        llypass_pass.setVisibility(View.VISIBLE);
+                        asignar_edittext.requestFocus();
                         llypass_passConfirm.setVisibility(View.GONE);
-                        edt_psw.setVisibility(View.VISIBLE);
+                        llypass_pass.setBackgroundResource(R.drawable.inputtext_active);
                         edt_psw_confirm.setVisibility(View.VISIBLE);
                         asignar_edittext.setText("");
                         asignar_edittextConfirm.setText("");
@@ -389,136 +394,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_normal);
             }
         });
-
-
-        /*
-        llay_eye_pass.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                bitmapBullet = BitmapFactory.decodeResource(App.getContext().getResources(),
-                        R.drawable.ico_asterisk_white);
-                int medidaTextSize = 0;
-
-
-                 Obtenemos la resolucion de la pantalla y enviamos la medida necesaria
-
-                DisplayMetrics metrics = App.getContext().getResources().getDisplayMetrics();
-                switch (metrics.densityDpi) {
-                    case DisplayMetrics.DENSITY_LOW:
-                        break;
-                    case DisplayMetrics.DENSITY_MEDIUM:
-                        medidaTextSize = obtenerMedidas(tv1Num, 2);
-                        break;
-                    case DisplayMetrics.DENSITY_HIGH:
-                        medidaTextSize = obtenerMedidas(tv1Num, 3);
-                        break;
-                    case DisplayMetrics.DENSITY_XHIGH:
-                        medidaTextSize = obtenerMedidas(tv1Num, 4);
-                        break;
-                    case DisplayMetrics.DENSITY_XXHIGH:
-                        medidaTextSize = obtenerMedidas(tv1Num, 5);
-                        break;
-                    case DisplayMetrics.DENSITY_XXXHIGH:
-                        medidaTextSize = obtenerMedidas(tv1Num, 5);
-                        break;
-                    default:
-                        medidaTextSize = obtenerMedidas(tv1Num, 5);
-                        break;
-                }
-
-                bitmapBullet = Bitmap.createScaledBitmap(bitmapBullet, medidaTextSize, medidaTextSize, true);
-
-
-                String pass = asignar_edittext.getText().toString();
-                if (passwordshow) {
-                    passwordshow = false;
-                } else {
-                    passwordshow = true;
-                }
-                if (!passwordshow) {
-
-                    if (pass.length() == 1)
-                        tv1Num.setText(pass.substring(0, 1));
-                    if (pass.length() == 2) {
-                        tv1Num.setText(pass.substring(0, 1));
-                        tv2Num.setText(pass.substring(1, 2));
-                    }
-                    if (pass.length() == 3) {
-                        tv1Num.setText(pass.substring(0, 1));
-                        tv2Num.setText(pass.substring(1, 2));
-                        tv3Num.setText(pass.substring(2, 3));
-                    }
-
-                    if (pass.length() == 4) {
-                        tv1Num.setText(pass.substring(0, 1));
-                        tv2Num.setText(pass.substring(1, 2));
-                        tv3Num.setText(pass.substring(2, 3));
-                        tv4Num.setText(pass.substring(3, 4));
-                    }
-
-                    if (pass.length() == 5) {
-                        tv1Num.setText(pass.substring(0, 1));
-                        tv2Num.setText(pass.substring(1, 2));
-                        tv3Num.setText(pass.substring(2, 3));
-                        tv4Num.setText(pass.substring(3, 4));
-                        tv5Num.setText(pass.substring(4, 5));
-                    }
-                    if (pass.length() == 6) {
-                        tv1Num.setText(pass.substring(0, 1));
-                        tv2Num.setText(pass.substring(1, 2));
-                        tv3Num.setText(pass.substring(2, 3));
-                        tv4Num.setText(pass.substring(3, 4));
-                        tv5Num.setText(pass.substring(4, 5));
-                        tv6Num.setText(pass.substring(5, 6));
-                    }
-
-                    eye_img.setImageResource(R.drawable.icon_eye_pass_blok);
-
-                } else {
-                    SpannableStringBuilder ssb = new SpannableStringBuilder(" "); // 20
-                    ssb.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                    ssb.setSpan(new ImageSpan(bitmapBullet), 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                    if (pass.length() == 1)
-                        tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                    if (pass.length() == 2) {
-                        tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                        tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                    }
-                    if (pass.length() == 3) {
-                        tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                        tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                        tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                    }
-                    if (pass.length() == 4) {
-                        tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                        tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                        tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                        tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                    }
-                    if (pass.length() == 5) {
-                        tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                        tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                        tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                        tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                        tv5Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                    }
-
-                    if (pass.length() == 6) {
-                        tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                        tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                        tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                        tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                        tv5Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                        tv6Num.setText(ssb, TextView.BufferType.SPANNABLE);
-                    }
-
-                    eye_img.setImageResource(R.drawable.icon_eye_pass);
-                }
-
-                return false;
-            }
-        });*/
         setValidationRules();
 
     }
@@ -609,7 +484,8 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 editMail.requestFocus();
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
                 imm.showSoftInput(editMail, InputMethodManager.SHOW_IMPLICIT);
-                //llypass_pass.setVisibility(View.GONE);
+
+
                 //edt_psw.setVisibility(View.VISIBLE);
             } else {
                 if (!UtilsNet.isOnline(getActivity())) {
@@ -634,7 +510,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 }
                 //isChecked();
 
-                text_email.setBackgroundResource(R.drawable.inputtext_normal);
+                text_email.setBackgroundResource(R.drawable.input_text_error);
 
             }
             isChecked();
@@ -646,7 +522,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 edt_psw.setVisibility(View.GONE);
                 text_passwordnew.setVisibility(View.GONE);
                 llypass_pass.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
                 llypass_pass.setVisibility(View.VISIBLE);
                 llypass_pass.setBackgroundResource(R.drawable.inputtext_active);
                 text_email.setBackgroundResource(R.drawable.inputtext_normal);
@@ -736,6 +611,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         }
 
         if (psd.length() != 6 || psd_con.length() != 6) {
+
             UI.showErrorSnackBar(getActivity(), getString(R.string.psd_no_six_digits), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
@@ -807,6 +683,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_gray);
         }
         if (!userExist || asignar_edittext.length() == 6 || asignar_edittextConfirm.length() == 6) {
+
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             //imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             imm.hideSoftInputFromWindow(btnNextDatosUsuario.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -834,5 +711,27 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         }
     }
 
+    protected void showKeyboard() {
+        InputMethodManager imm = (InputMethodManager) App.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        Objects.requireNonNull(imm).toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+    }
 
+    private void hideKeyBoard() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                InputMethodManager imm = (InputMethodManager) App.getContext().getSystemService(
+                        Context.INPUT_METHOD_SERVICE);
+                Objects.requireNonNull(imm).hideSoftInputFromWindow(editMail.getWindowToken(), 0);
+            }
+        }, 3500);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        hideKeyBoard();
+    }
 }

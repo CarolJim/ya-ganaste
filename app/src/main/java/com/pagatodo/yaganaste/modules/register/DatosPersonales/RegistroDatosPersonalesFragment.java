@@ -296,7 +296,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
 
             }
         });
-
+        /*accountPresenter.validatePersonDatanewCURP("SASA910827HMCNLR09");*/
     }
 
 
@@ -760,10 +760,9 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         }
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
-
         if (BuildConfig.DEBUG) {
             onValidationSuccess();
-            //accountPresenter.validatePersonDatanew();
+           // accountPresenter.validatePersonDatanew();
         } else {
             accountPresenter.validatePersonDatanew();
         }
@@ -825,6 +824,8 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
 
     @Override
     public void onValidateUserDataSuccess() {
+        RegisterUserNew registerUser = RegisterUserNew.getInstance();
+        registerUser.setBreakregister(false);
         onValidationSuccess();
     }
 
@@ -842,6 +843,16 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                     public void actionCancel(Object... params) {
                     }
                 }, true, false);
+    }
+
+
+
+    @Override
+    public void onHomonimiaErrorSecond() {
+        RegisterUserNew registerUser = RegisterUserNew.getInstance();
+        registerUser.setBreakregister(true);
+        onValidationSuccess();
+
     }
 
     @Override
@@ -929,7 +940,5 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         country = item;
         editCountry.setText(country.getPais());
         lytCountry.setBackgroundResource(R.drawable.inputtext_normal);
-
-
     }
 }

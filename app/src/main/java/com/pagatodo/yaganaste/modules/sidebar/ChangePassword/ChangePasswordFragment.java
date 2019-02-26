@@ -74,17 +74,15 @@ public class ChangePasswordFragment extends GenericFragment implements View.OnCl
                     && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 hideKeyBoard();
                 if (validate()){
-                    /*this.interactor.onBlockCard(SingletonUser.getInstance().getDataUser().getEmisor()
-                            .getCuentas().get(0).getTarjetas().get(0).getNumero().trim());*/
-                    //interactor.validateCard(editNumberCard.getText().toString().trim());
-                    activity.loadFragment(NewPasswwordFragment.newInstance(inputSecretPassCurrent.getTextEdit()),R.id.container,Direction.FORDWARD,false);
+                    activity.loadFragment(NewPasswwordFragment.newInstance(inputSecretPassCurrent
+                            .getTextEdit()),R.id.container,Direction.FORDWARD,false);
 
                 }
                 return true;
             }
-            // Return true if you have consumed the action, else false.
             return false;
         });
+
         inputSecretPassCurrent.setOnClickListener(v -> inputSecretPassCurrent.setRequestFocus());
         inputSecretPassCurrent.setInputSecretListener(this);
         btnContinue.setOnClickListener(this);
@@ -94,7 +92,6 @@ public class ChangePasswordFragment extends GenericFragment implements View.OnCl
     private boolean validatePass(){
         return Utils.getSHA256(inputSecretPassCurrent.getTextEdit())
                 .equalsIgnoreCase(App.getInstance().getPrefs().loadData(SHA_256_FREJA));
-        //Utils.cipherRSA(editNueva.editText.getText().toString().trim(), PUBLIC_KEY_RSA)
     }
 
     private boolean validate(){
@@ -104,20 +101,21 @@ public class ChangePasswordFragment extends GenericFragment implements View.OnCl
             inputSecretPassCurrent.isError();
             UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),
                     "Por favor verifica que la contraseña actual sea correcta",Snackbar.LENGTH_SHORT);
-            //activity.showError("Por favor verifica que la contraseña actual sea correcta");
         }
         return isValid;
     }
 
     protected void showKeyboard(){
-        InputMethodManager imm = (InputMethodManager)  App.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager)  App.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
         Objects.requireNonNull(imm).toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
     private void hideKeyBoard(){
         InputMethodManager imm = (InputMethodManager) App.getContext().getSystemService(
                 Context.INPUT_METHOD_SERVICE);
-        Objects.requireNonNull(imm).hideSoftInputFromWindow(inputSecretPassCurrent.getInputEditText().getWindowToken(), 0);
+        Objects.requireNonNull(imm).hideSoftInputFromWindow(inputSecretPassCurrent
+                .getInputEditText().getWindowToken(), 0);
     }
 
     @Override
@@ -129,17 +127,18 @@ public class ChangePasswordFragment extends GenericFragment implements View.OnCl
     @Override
     public void onClick(View v) {
         if (validate()){
-                    /*this.interactor.onBlockCard(SingletonUser.getInstance().getDataUser().getEmisor()
-                            .getCuentas().get(0).getTarjetas().get(0).getNumero().trim());*/
-            //interactor.validateCard(editNumberCard.getText().toString().trim());
-            activity.loadFragment(NewPasswwordFragment.newInstance(inputSecretPassCurrent.getTextEdit()),R.id.container,Direction.FORDWARD,false);
-
+            activity.loadFragment(NewPasswwordFragment.newInstance(inputSecretPassCurrent
+                    .getTextEdit()),R.id.container,Direction.FORDWARD,false);
         }
     }
 
     @Override
     public void inputListenerFinish(View view) {
         btnContinue.active();
+        if (validate()){
+            activity.loadFragment(NewPasswwordFragment.newInstance(inputSecretPassCurrent
+                    .getTextEdit()),R.id.container,Direction.FORDWARD,false);
+        }
     }
 
     @Override

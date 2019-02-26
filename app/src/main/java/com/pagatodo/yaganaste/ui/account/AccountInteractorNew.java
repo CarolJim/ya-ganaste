@@ -141,6 +141,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_PROSPECTO;
 import static com.pagatodo.yaganaste.utils.Recursos.ACTUAL_LEVEL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
@@ -158,6 +159,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_FIREBASE_ACCOUNT;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.IDPROSPECTO;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_MIEMBRO_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
@@ -198,6 +200,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private boolean logOutBefore;
     private Preferencias prefs = App.getInstance().getPrefs();
     private String pass;
+
+
 
     public AccountInteractorNew(IAccountManager accountManager) {
         this.accountManager = accountManager;
@@ -369,7 +373,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 registerUser.getCalle(),
                 registerUser.getNumExterior(),
                 registerUser.getNumInterior(),
-                registerUser.getPaisNacimiento().getId()
+                registerUser.getPaisNacimiento().getId(),
+                false
         );
 
         checkSessionState(request, registerUser.getContrasenia());
@@ -684,6 +689,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
             case CONSULTAR_DATOS_PERSONA_RENAPO:
                 validatePersonDataResponseRenapo((GenericResponse) dataSourceResult.getData());
+            case VALIDAR_DATOS_PERSONAHOMO:
+                validatePersonDataResponseHomoError((GenericResponse) dataSourceResult.getData());
                 break;
 
             case CONSULTAR_SALDO_ADQ:
@@ -726,11 +733,25 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private void validatePersonDataResponse(GenericResponse data) {
         if (data.getCodigoRespuesta() == 0) {
             accountManager.onSuccessDataPerson();
-        } /*else if (data.getCodigoRespuesta() == 352) {
+
+        } else /*if (data.getCodigoRespuesta() != 0) */{
             accountManager.onHomonimiaDataPerson();
-        }*/ else {
+        } /*else {
             accountManager.onError(VALIDAR_DATOS_PERSONA, data.getMensaje());
+        }*/
+    }
+
+    private void validatePersonDataResponseHomoError(GenericResponse data) {
+        if (data.getCodigoRespuesta() == 0) {
+            accountManager.onSuccessDataPersonHomoError();
+
+        } else{
+            accountManager.onSuccessDataPersonHomoError();
         }
+    }
+    private void validatePersonDataResponseHomoError() {
+            accountManager.onSuccessDataPersonHomoError();
+
     }
 
     private void validatePersonDataResponseRenapo(GenericResponse data) {
@@ -760,7 +781,13 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
         if (error != null && error.getWebService() == LOGINSTARBUCKS) {
             accountManager.onError(error.getWebService(), error.getData().toString());
+        } if (error != null && error.getWebService() == LOGINSTARBUCKS) {
+            validatePersonDataResponseHomoError();
         }
+
+
+
+
     }
 
     private void validateBalanceResponse(ConsultarSaldoResponse response) {
@@ -898,10 +925,21 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         DataIniciarSesionUYU dataUser = data.getData();
         String stepByUserStatus = "";
         if (data.getCodigoRespuesta() == CODE_OK) {
+
             RequestHeaders.setUsername(dataUser.getUsuario().getNombreUsuario());
+
+
             if (dataUser.getAdquirente().getAgentes() != null && dataUser.getAdquirente().getAgentes().size() > 0) {
                 new DatabaseManager().insertAgentes(dataUser.getAdquirente().getAgentes());
             }
+
+
+            /*if (dataUser.getControl().getIdTipoPersona() == IDPROSPECTO) {*/
+
+            if (dataUser.getControl().getIdTipoPersona() == IDPROSPECTO) {
+                stepByUserStatus = EVENT_GO_PROSPECTO;
+                accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
+            }else {
             //Seteamos los datos del usuario en el SingletonUser.
             SingletonUser user = SingletonUser.getInstance();
             if (dataUser.getControl().getEsUsuario()) {
@@ -931,7 +969,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                         if (!dataUser.getControl().getRequiereActivacionSMS()) {
                             stepByUserStatus = EVENT_GO_ASSIGN_NEW_CONTRASE;
                         } else {
-                            if (dataUser.getEmisor().getCuentas().get(0).getTarjetas().get(0).getAsignoNip()  ) { // NO necesita NIP
+                            if (dataUser.getEmisor().getCuentas().get(0).getTarjetas().get(0).getAsignoNip()) { // NO necesita NIP
                                 checkAfterLogin();
                                 return;
                             } else {//Requiere setear el NIP
@@ -949,6 +987,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 }
                 accountManager.onError(response.getWebService(), App.getContext().getString(R.string.usuario_no_existe));
             }
+
+
+        }
+
         } else {
             if (RequestHeaders.getTokenauth().isEmpty()) {
                 RequestHeaders.setUsername("");

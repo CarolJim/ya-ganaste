@@ -5,13 +5,6 @@
     android:layout_height="match_parent"
     tools:context="com.pagatodo.yaganaste.ui.preferuser.DesasociarPhoneFragment">
 
-    <ImageView
-        android:id="@+id/icon_alert"
-        android:layout_width="60dp"
-        android:layout_height="64dp"
-        android:src="@drawable/ico_alert"
-        android:layout_marginTop="40dp"
-        android:layout_centerHorizontal="true"/>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/textView2"
@@ -20,7 +13,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/colorAccent"
-        android:layout_below="@id/icon_alert"
         android:layout_marginTop="16dp"
         android:text="@string/desasociarDispositivoTittle" />
 
@@ -30,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textView2"
-            android:textColor="@color/texthint"
+            android:textColor="@color/gray_slate"
             android:layout_marginTop="16dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"

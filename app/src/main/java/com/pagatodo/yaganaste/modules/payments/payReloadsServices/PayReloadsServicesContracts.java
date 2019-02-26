@@ -1,11 +1,8 @@
-package com.pagatodo.yaganaste.modules.payReloadsServices;
+package com.pagatodo.yaganaste.modules.payments.payReloadsServices;
 
-import com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder;
-import com.pagatodo.view_manager.recyclers.RechargesRecycler;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.modules.management.apis.ListenerLauncher;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PayReloadsServicesContracts {
@@ -19,7 +16,7 @@ public class PayReloadsServicesContracts {
     }
 
     interface Router{
-        void onShowAllRecharges(ArrayList<IconButtonDataHolder> list);
+        void onShowAllRecharges(PayReloadsServicesActivity.Type type);
         void onShowAllFavRefills();
         void onShowAddFavoriteRecharge();
     }

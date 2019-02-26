@@ -145,6 +145,7 @@
     <string name="updateQR">/pdtQR</string>
     <string name="getDataQRYG">/getDataQRYG</string>
     <string name="ntfyMrchntYG">/ntfyMrchntYG</string>
+    <string name="dltQRYG">/dltQRYG</string>
 
     <!-- Activacion de tarjeta fisica -->
     <string name="bloqueoTarjetaDifinitivo">/BloqueoTarjetaDefinitivo</string>
@@ -164,8 +165,8 @@
     <string name="ce_cobro_rechazado">RECHAZADO</string>
     <string name="ce_cobro_cancelado">CANCELADO</string>
 
-    <string name="desasociarDispositivoTittle">Desvincula tu dispositivo</string>
-    <string name="desvincula_dispositivo_texto">Al desvincular tu dispositivo, ya no estará ligado\na tu cuenta Ya Ganaste y se cerrará tu sesión.\n\nPuedes iniciar sesión en cualquier dispositivo\npara volver a vincular tu cuenta.</string>
+    <string name="desasociarDispositivoTittle">Desvincular Celular</string>
+    <string name="desvincula_dispositivo_texto">Al desvincular tu teléfono celular, éste ya\n no estará ligado a tu cuenta Ya Ganaste y\n se cerrará tu sesión.\n\nPuedes iniciar sesión en cualquier\n dispositivo para volver a vincular tu cuenta.</string>
     <string name="deseaDesasociarDispositivo">¿Estás seguro que deseas desvincular tu dispositivo?</string>
     <string name="deseaRealizarLlamada">¿Desea llamar ahora?</string>
     <string name="sel_fotografia">Seleccionar fotografía</string>
@@ -860,7 +861,7 @@
     <!-- <string name="actualizando_saldo">Actualizando Saldo.</string> -->
     <string name="password_incorrect">Su contraseña es incorrecta</string>
     <string name="password_incorrect_format">Su contraseña no cumple con el formato </string>
-    <string name="desea_cerrar_sesion">¿Estás seguro que deseas cerrar sesión?</string>
+    <string name="desea_cerrar_sesion">¿Estás seguro de que deseas cerrar sesión?</string>
     <string name="sesion_close">La sesión se ha cerrado</string>
     <string name="search_zipcode"> </string>
     <string name="password_required">La contraseña no es correcta, revísala y vuelve a intentar.</string>
@@ -1141,6 +1142,9 @@
     <string name="get_status_card">Obteniendo estatus de tu tarjeta</string>
     <string name="myDongle">Mi lector</string>
 
+    <!-- Dialogos -->
+    <string name="dialog_state_account">Ingresa tu contraseña para\nautorizar esta descarga</string>
+    
     <!--Dialogo de cancelacion-->
     <string name="cancelacion_dialog_title">Cancelar cobro</string>
     <string name="cancelacion_dialog_message">Para cancelar es necesario que tu cliente presente la tarjeta con la que se realizó el cobro</string>
@@ -1318,7 +1322,7 @@
 
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Contraseña actual</string>
-    <string name="confirma_nueva_contrasena">Nueva contraseña (6 dígitos)</string>
+    <string name="confirma_nueva_contrasena">Nueva Contraseña (6 Números)</string>
     <string name="confirma_nueva_contraseña">Confirma nueva contraseña</string>
     <string name="confirmar_contrase">La contraseña no coincide</string>
     <string name="sub_titulo_cambio_contraseña">Cambiamos el formato para que\naccedas más rápido</string>
@@ -1538,6 +1542,7 @@
     <string name="load_detail_movimientos">Cargando detalle del movimiento</string>
     <string name="load_detail_movimientos_error">No se pudo obtener el detalle, inténtelo más tarde</string>
     <string name="ingresa_tu_curp">Ingresa tu CURP</string>
+    <string name="ingresa_tu_curp_new">Tuvimos un problema para identificarte,\npor favor ingresa tu CURP</string>
     <string name="mis_recompensas">Mis Recompensas</string>
     <string name="label_btn_see_account_statement">Ver estado de cuenta</string>
 
@@ -1637,8 +1642,8 @@
     <string name="title_fragment_ayuda">Ayuda Ya Ganaste</string>
     <string name="subtitle_fragment_ayuda">Si tienes alguna duda o comentario\ndel servicio, comunícate con nosotros</string>
     <string name="title_videos">Video tutoriales</string>
-    <string name="correo">Correo\nelectronico</string>
-    <string name="llamada">Llamada\ntelefónica</string>
+    <string name="correo">Correo\nElectrónico</string>
+    <string name="llamada">Llamada\nTelefónica</string>
     <string name="chat">Chat de\nayuda</string>
 
     <!-- Chat Fragment-->
@@ -1692,7 +1697,7 @@
     <string name="promo_near">Estos son los comercios cercanos\nque tienen promociones para ti</string>
     <string name="centrar_mapa">Centrar mapa</string>
 
-    <string name="scan_qr_label">Escanea tu código QR</string>
+    <string name="scan_qr_label">Escanea el código Qr</string>
     <string name="physical_question">¿Ya tienes un código QR para tu negocio?</string>
     <!-- Nueva Pantalla Vincular Dispositivo -->
     <string name="creating_user">Creando usuario</string>
@@ -1706,7 +1711,7 @@
     <string name="title_register_complete">¡Bienvenido a Ya Ganaste!</string>
     <string name="title_welcome">Bienvenido a\nYa Ganaste</string>
 
-    <string name="desc_register_complete">\u00B7 Aceptar pagos desde celulares con las\n   principales apps bancarias\n\n\u00B7   Recibir tu dinero de inmediato\n\n\u00B7   Paga a proveedores o envía dinero a\n  familiares y amigos\n\n\u00B7 Paga tus servicios y realiza tus recargas</string>
+    <string name="desc_register_complete">\u00B7 Aceptar pagos desde celulares con las\n   principales apps bancarias\n\n\u00B7   Recibe tu dinero de inmediato\n\n\u00B7   Paga a proveedores o envía dinero a\n  familiares y amigos\n\n\u00B7 Paga tus servicios y realiza tus recargas</string>
 
 
     <!-- Codigo fisico -->
@@ -1728,6 +1733,7 @@
     <string name="addqrbutton">Agregar QR</string>
     <string name="qr_name_add">Ingresa un Nombre para Identificar tu Código</string>
     <string name="qr_add_succes">QR agregado correctamente</string>
+    <string name="qr_delete_succes">QR eliminado correctamente</string>
     <string name="qr_add_error">QR Invalido</string>
     <string name="no_qr">No cuentas con codigos QR</string>
 
@@ -1780,6 +1786,7 @@
     <string name="indication_adq_text_button">Vincular lector de tarjetas</string>
     <string name="indication_adq_text_label"><u>¿Aún no Cuentas con un Lector de Tarjetas?</u></string>
     <string name="indicationes_emi">\u2022 ¡Acepta tarjetas Visa, Mastercard y más!\n\n\u2022 La comisión más baja del mercado\n\n\u2022 Recibe tu dinero de inmediato\n\n\u2022 Regístrate en pocos pasos</string>
+    <string name="success_change_pass">Tu contraseña fue cambiada con éxito</string>
 
     <!--New Sends-->
     <string name="number_card">Número de\nTarjeta</string>
@@ -1805,4 +1812,17 @@
     <string name="URL_SERVER_FOLK">10.10.47.11:994/folk</string>
     <string name="consult_data_person_renapo">/GetData</string>
     <string name="consult_curp_person_renapo">/GetCurp</string>
+
+    <!-- Pay recharge services -->
+    <string name="title_all_recharge_fav">Recargas Favoritas</string>
+    <string name="title_all_services_fav">Pagos Favoritos</string>
+    <string name="select_comerce">Selecciona un comercio para\nrealizar una recarga</string>
+    <string name="select_comerce_fav">Selecciona un favorito para\nrealizar una recarga</string>
+    <string name="select_service">Selecciona un comercio para\nrealizar un pago de servicio</string>
+    <string name="select_service_fav">Selecciona un favorito para\nrealizar un pago</string>
+
+    <string name="title_indication_simple">¡Tu Activación Esta en Proceso!</string>
+    <string name="subtitle_indication_simple">La activación tomará menos de 15 minutos.\n\nUna vez que este lista podrás realizar cobros\ncon tarjeta en tu negocio fácil y rápido</string>
+    <string name="buscar_favoritos">Buscar Favoritos</string>
+    <string name="nombre_simple">Nombre</string>
 </resources>

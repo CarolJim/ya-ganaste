@@ -181,4 +181,5 @@
         <attr name="startAngle" format="integer"/>
         <attr name="percent" format="integer"/>
     </declare-styleable>
+
 </resources>

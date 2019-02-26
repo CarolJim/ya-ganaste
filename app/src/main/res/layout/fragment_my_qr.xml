@@ -16,22 +16,26 @@
         android:textColor="@color/blue_text_wallet"
         android:textSize="18sp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="25dp"
-        android:id="@+id/rcv_qr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="horizontal">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
     <TextView
         android:id="@+id/no_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="bbbkjbkj"
+        android:textAlignment="center"
+        android:textColor="@color/gray_slate"
         android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_qr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -206,6 +206,12 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     }
 
     @Override
+    public void validatePersonDatanewCURP(String CURP) {
+        accountView.showLoader(context.getString(R.string.msg_renapo));
+        accountIteractor.validatePersonDataHomonimia();
+    }
+
+    @Override
     public void validatePersonDataHomonimia() {
         accountView.showLoader(context.getString(R.string.msg_renapo));
         accountIteractor.validatePersonDataHomonimia();
@@ -359,6 +365,12 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     public void onSuccessDataPerson() {
         accountView.hideLoader();
         ((IRenapoView) accountView).onValidateUserDataSuccess();
+    }
+
+    @Override
+    public void onSuccessDataPersonHomoError() {
+        accountView.hideLoader();
+        ((IRenapoView) accountView).onHomonimiaErrorSecond();
     }
 
     @Override

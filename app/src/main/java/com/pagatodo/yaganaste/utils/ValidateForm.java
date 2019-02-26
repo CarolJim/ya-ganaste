@@ -59,6 +59,7 @@ public class ValidateForm {
      */
 
     private final static Pattern passwprdPattern = Pattern.compile("((?=.*\\d).{6})");
+    private final static Pattern cardvalidPattern = Pattern.compile("^3[47][0-9]{13}$");
     private final static Pattern passwprdPatternstarbucks =Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})");
     private final static Pattern emailPattern = Patterns.EMAIL_ADDRESS; //Pattern.compile(
     List<String> listOfPattern = new ArrayList<String>();
@@ -87,6 +88,10 @@ public class ValidateForm {
 
     public static boolean isValidPassword(String pass) {
         return passwprdPattern.matcher(pass).matches();
+    }
+
+    public static boolean isValidCard(String card) {
+        return ptVisa.matcher(card).matches();
     }
     public static boolean isValidPasswordsatrbucks(String pass) {
         return passwprdPatternstarbucks.matcher(pass).matches();

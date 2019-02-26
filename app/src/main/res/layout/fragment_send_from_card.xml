@@ -30,6 +30,11 @@
         app:layout_constraintTop_toBottomOf="@+id/headWallet"
         app:walletResImage="@drawable/ic_ico_ventas_tarjeta"></com.pagatodo.view_manager.components.HeadWallet>
 
+
+
+
+
+
     <include
         android:id="@+id/send_type_card"
         layout="@layout/send_with_card"
@@ -64,7 +69,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="40dp"
-        android:background="@color/gray_slate"
+        android:background="@drawable/button_rounded_gray"
         style="@style/buttonRoundedStroke"
         android:text="Confirmar Datos"
         android:textAllCaps="false"

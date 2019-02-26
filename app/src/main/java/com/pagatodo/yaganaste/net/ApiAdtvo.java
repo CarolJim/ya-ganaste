@@ -142,6 +142,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTR
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECURSO_IMAGEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.UPDATE_DATOS_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONAHOMO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
@@ -389,7 +390,7 @@ public class ApiAdtvo extends Api {
     public static void validarDatosPersonaHomonimia(ValidarDatosPersonaRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        NetFacade.consumeWS(VALIDAR_DATOS_PERSONA,
+        NetFacade.consumeWS(VALIDAR_DATOS_PERSONAHOMO,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.validate_data_person_curp),
                 headers, request, GenericResponse.class, result);
     }

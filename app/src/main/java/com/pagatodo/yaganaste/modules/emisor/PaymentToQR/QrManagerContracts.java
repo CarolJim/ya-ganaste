@@ -9,10 +9,12 @@ public class QrManagerContracts {
     public interface Listener{
         void onSuccessQRs(ArrayList<QrItems> listQRs);
         void onErrorQRs();
+        void onSuccesDel();
     }
 
     public interface Iteractor{
         void getMyQrs();
+        void delQR(QrItems item);
     }
 
     public interface Router{

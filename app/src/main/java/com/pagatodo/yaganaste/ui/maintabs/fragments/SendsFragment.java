@@ -118,7 +118,7 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
         if (!UtilsNet.isOnline(getActivity())) {
             UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
         } else {
-            onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+            //onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
             paymentsCarouselPresenter.getCarouselItems();
             paymentsCarouselPresenter.getFavoriteCarouselItems();
         }

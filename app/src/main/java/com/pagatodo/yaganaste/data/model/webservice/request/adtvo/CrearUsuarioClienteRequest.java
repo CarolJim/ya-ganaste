@@ -31,7 +31,7 @@ public class CrearUsuarioClienteRequest extends Request implements Serializable 
     private String Calle = "";
     private String NumeroExterior = "";
     private String NumeroInterior = "";
-
+    private  boolean EsProspecto =false;
 
     public CrearUsuarioClienteRequest() {
 
@@ -41,7 +41,7 @@ public class CrearUsuarioClienteRequest extends Request implements Serializable 
                                       String segundoApellido, String genero, String fechaNacimiento, String RFC,
                                       String CURP, String nacionalidad, String IdEstadoNacimiento, String correo,
                                       String telefono, String telefonoCelular, String idColonia, String colonia,
-                                      String CP, String calle, String numeroExterior, String numeroInterior, int idPaisNacimiento) {
+                                      String CP, String calle, String numeroExterior, String numeroInterior, int idPaisNacimiento, boolean isprospected) {
         this.Usuario = usuario;
         this.Contrasena = contrasena;
         this.Nombre = nombre;
@@ -63,6 +63,16 @@ public class CrearUsuarioClienteRequest extends Request implements Serializable 
         this.NumeroExterior = numeroExterior;
         this.NumeroInterior = numeroInterior;
         this.IdPaisNacimiento = idPaisNacimiento;
+        this.EsProspecto = isprospected;
+    }
+
+
+    public boolean isEsProspecto() {
+        return EsProspecto;
+    }
+
+    public void setEsProspecto(boolean esProspecto) {
+        EsProspecto = esProspecto;
     }
 
     public String getUsuario() {

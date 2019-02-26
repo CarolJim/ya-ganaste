@@ -870,6 +870,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
     }
 
     @Override
+    public void onHomonimiaErrorSecond() {
+
+    }
+
+    @Override
     public void onCountrySelectedListener(Paises item) {
         country = item;
         editCountry.setText(country.getPais());

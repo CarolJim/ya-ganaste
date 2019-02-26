@@ -41,7 +41,7 @@ public enum  Errors {
     E11(1005, true, "Session has expired"),
     E12(1020, false, "Online token has been locked due to too many failed authentication attempts. If this occurs, the token is no longer usable until a PIN reset is performed"),
     E13(1029, false, "None of the provided protocol versions are supported. This error is shown if mobile " +
-            "application and MASS do not use the same protocol for communication. One or both components should be upgraded"),
+            "application and MASS do not use the same protocol for communication. One or both onents should be upgraded"),
 
     E14(1000, false, "MASS has received an activation code which does not exist in its database"),
     E15(1003, false, "MASS has received a provisioning request for both an online and an offline token. However, their respective serial numbers are not associated with the same activation code"),
@@ -140,7 +140,7 @@ public enum  Errors {
         P11(1005, "Session has expired"),
         P12(1020, "Online token has been locked due to too many failed authentication attempts. If this occurs, the token is no longer usable until a PIN reset is performed"),
         P13(1029, "None of the provided protocol versions are supported. This error is shown if mobile " +
-                "application and MASS do not use the same protocol for communication. One or both components should be upgraded");
+                "application and MASS do not use the same protocol for communication. One or both onents should be upgraded");
 
         private int errorCode;
         private String message;

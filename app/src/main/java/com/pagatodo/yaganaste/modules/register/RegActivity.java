@@ -78,11 +78,14 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
                 RegisterUserNew registerUser = RegisterUserNew.getInstance();
                 registerUser.setRegincomplete(true);
             }
-            else
+            else {
+                //router.showPersonalData(Direction.FORDWARD);
                 router.showUserData(Direction.FORDWARD);
+            }
+
         }
         else
-        router.showUserData(Direction.FORDWARD);
+            router.showUserData(Direction.FORDWARD);
 
         btn_back = (ImageView) findViewById(R.id.btn_back);
        // router.showPrsonalAddress(Direction.FORDWARD);
@@ -93,6 +96,14 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
             btn_back.setVisibility(View.VISIBLE);
         else
             btn_back.setVisibility(View.INVISIBLE);
+
+    }
+
+    public void progressvisivility( boolean visivility){
+        if (visivility)
+            stepBar.setVisibility(View.VISIBLE);
+        else
+            stepBar.setVisibility(View.INVISIBLE);
 
     }
 
@@ -167,6 +178,10 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
             finish();
 
         } else if (currentFragment instanceof RegistroDatosPersonalesFragment) {
+            /*backStep();
+            router.showUserData(Direction.BACK);
+            backStep();*/
+        }else if (currentFragment instanceof VincularCuentaFragment) {
             /*backStep();
             router.showUserData(Direction.BACK);
             backStep();*/

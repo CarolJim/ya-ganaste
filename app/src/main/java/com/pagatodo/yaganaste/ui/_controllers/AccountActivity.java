@@ -54,6 +54,7 @@ import com.pagatodo.yaganaste.modules.emisor.WalletEmisorInteractor;
 import com.pagatodo.yaganaste.modules.emisor.WalletEmisorRouter;
 import com.pagatodo.yaganaste.modules.management.response.QrValidateResponse;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
+import com.pagatodo.yaganaste.modules.usernovalid.ProspectoUserFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment;
@@ -144,6 +145,7 @@ public class AccountActivity extends LoaderActivity implements WalletEmisorContr
     public final static String EVENT_ADDRESS_DATA = "EVENT_GO_ADDRESS_DATA";
     public final static String EVENT_ADDRESS_DATA_BACK = "EVENT_GO_ADDRESS_DATA_BACK";
     public final static String EVENT_GO_ASSIGN_PIN = "EVENT_GO_ASSIGN_PIN";
+    public final static String EVENT_GO_PROSPECTO = "EVENT_GO_PROSPECTO";
     public final static String EVENT_GO_ASSIGN_NEW_CONTRASE = "EVENT_GO_ASSIGN_NEW_CONTRASE";
     public final static String EVENT_GO_CONFIRM_NEW_CONTRASE = "EVENT_GO_CONFIRM_NEW_CONTRASE";
     public final static String EVENT_GO_CONFIRM_PIN = "EVENT_GO_CONFIRM_PIN";
@@ -393,6 +395,10 @@ public class AccountActivity extends LoaderActivity implements WalletEmisorContr
             case EVENT_GO_ASSIGN_PIN:
                 changeToolbarVisibility(true);
                 loadFragment(ConfirmarNIPFragment.newInstance("nada"), Direction.FORDWARD, false);
+                break;
+                case EVENT_GO_PROSPECTO:
+                changeToolbarVisibility(true);
+                loadFragment(ProspectoUserFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CONFIRM_PIN:
                 loadFragment(ConfirmarNIPFragment.newInstance(o.toString()), Direction.FORDWARD, false);

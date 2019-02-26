@@ -8,12 +8,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.pagatodo.view_manager.R;
-import com.pagatodo.view_manager.controllers.ItemOffsetDecoration;
 import com.pagatodo.view_manager.controllers.LauncherHolder;
 import com.pagatodo.view_manager.controllers.OnHolderListener;
-import com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder;
 import com.pagatodo.view_manager.controllers.dataholders.RowFavDataHolder;
 import com.pagatodo.view_manager.recyclers.adapters.AllFavoritesAdapter;
+import com.pagatodo.view_manager.recyclers.interfaces.PencilListener;
 
 import java.util.ArrayList;
 
@@ -25,6 +24,7 @@ public class AllFavoritesRecycler extends LinearLayout implements LauncherHolder
 
     private View rootView;
     private AllFavoritesAdapter adapter;
+    private RecyclerView recyclerMain;
 
     public AllFavoritesRecycler(Context context) {
         super(context);
@@ -50,11 +50,12 @@ public class AllFavoritesRecycler extends LinearLayout implements LauncherHolder
     }
 
     private void defaultView(){
-        adapter.addItem(RowFavDataHolder.create("","Agregar",""));
+        adapter.addItem(RowFavDataHolder.create("","Agregar","","#FF00FF", null,true));
         adapter.notifyDataSetChanged();
     }
 
     public void setListItem(ArrayList<RowFavDataHolder> listData){
+
         if (!listData.isEmpty()){
             adapter.setListData(listData);
             adapter.notifyDataSetChanged();
@@ -65,12 +66,19 @@ public class AllFavoritesRecycler extends LinearLayout implements LauncherHolder
         adapter.setListener(listener);
     }
 
+    public void setPencilOnClickItem(PencilListener<RowFavDataHolder> listener){
+        adapter.setListenerPencil(listener);
+    }
+
+    public RecyclerView getRecycler() {
+        return recyclerMain;
+    }
+
     @Override
     public void init() {
-        RecyclerView recyclerMain = rootView.findViewById(R.id.recycler_main);
+        recyclerMain = rootView.findViewById(R.id.recycler_main);
         recyclerMain.setHasFixedSize(true);
         recyclerMain.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        recyclerMain.addItemDecoration(new ItemOffsetDecoration(getContext(), R.dimen.item_offset));
         adapter = new AllFavoritesAdapter();
         recyclerMain.setAdapter(adapter);
     }

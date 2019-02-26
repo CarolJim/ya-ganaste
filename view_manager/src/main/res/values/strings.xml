@@ -5,4 +5,7 @@
     <string name="btn_all">Ver todas</string>
     <string name="url_images_logos">https://www.yaganaste.com/Logos/</string>
     <string name="add_fav">Agregar\nfavorito</string>
+    <string name="title_indication_simple">¡Tu Activación Esta en Proceso!</string>
+    <string name="subtitle_indication_simple">La activación tomará menos de 15 minutos.\n\nUna vez que este lista podrás realizar cobros\ncon tarjeta en tu negocio fácil y rápido</string>
+
 </resources>

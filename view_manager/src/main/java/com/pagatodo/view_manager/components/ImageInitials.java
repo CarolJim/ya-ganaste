@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.pagatodo.view_manager.R;
 import com.pagatodo.view_manager.controllers.dataholders.IconButtonDataHolder;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -74,7 +75,8 @@ public class ImageInitials extends LinearLayout {
     }
 
     public void setInitials(String name){
-        initials.setText(getIniciales(name));
+        this.initials.setVisibility(VISIBLE);
+        this.initials.setText(getIniciales(name));
     }
 
     private GradientDrawable createCircleDrawable(String colorBackground) {
@@ -102,5 +104,10 @@ public class ImageInitials extends LinearLayout {
             return fullName.substring(0, 2).toUpperCase();
         }
         return "";
+    }
+
+    public void setImageURL(String imageURL){
+        Picasso.get().load(imageURL).into(imageBackgraund);
+        this.initials.setVisibility(GONE);
     }
 }
