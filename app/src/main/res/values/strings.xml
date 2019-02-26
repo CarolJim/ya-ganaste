@@ -1809,7 +1809,7 @@
     <string name="monto_de_recarga">Monto de recarga</string>
     <string name="autorizar_pago">Autorizar Pago</string>
     <string name="autorizar_recarga">Autorizar Recarga</string>
-    <string name="URL_SERVER_FOLK">10.10.47.11:994/folk</string>
+    <string name="URL_SERVER_FOLK">https://eiga-yg.yaganaste.net/api</string>
     <string name="consult_data_person_renapo">/GetData</string>
     <string name="consult_curp_person_renapo">/GetCurp</string>
 

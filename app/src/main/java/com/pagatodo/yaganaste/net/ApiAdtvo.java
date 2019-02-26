@@ -344,13 +344,13 @@ public class ApiAdtvo extends Api {
 
 
         if (request instanceof RenapoDataRequest) {
-            NetFacade.consumeWS(CONSULTAR_DATOS_PERSONA_RENAPO,
+            NetFacade.consumeWSnotag(CONSULTAR_DATOS_PERSONA_RENAPO,
                     METHOD_GET, URL_SERVER_FOLK + App.getContext().getString(R.string.consult_curp_person_renapo),
-                    headers, (RenapoDataRequest)request, GenericResponse.class, result);
+                    headers, (RenapoDataRequest)request, GenericResponse.class, result,false);
         }else {
-            NetFacade.consumeWS(CONSULTAR_DATOS_PERSONA_RENAPO,
+            NetFacade.consumeWSnotag(CONSULTAR_DATOS_PERSONA_RENAPO,
                     METHOD_GET, URL_SERVER_FOLK + App.getContext().getString(R.string.consult_data_person_renapo),
-                    headers, (RenapoDataCurpRequest)request, GenericResponse.class, result);
+                    headers, (RenapoDataCurpRequest)request, GenericResponse.class, result,false);
         }
     }
 

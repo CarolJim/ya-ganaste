@@ -423,8 +423,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
 
         try {
-            //ApiAdtvo.validarDatosPersona(request, this);
-            ApiAdtvo.consultarDatosPersonaRenapo(renapoRequest, this);
+            ApiAdtvo.validarDatosPersona(request, this);
+          //  ApiAdtvo.consultarDatosPersonaRenapo(renapoRequest, this);
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.onError(VALIDAR_DATOS_PERSONA, App.getContext().getString(R.string.no_internet_access));
@@ -453,7 +453,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiAdtvo.consultarDatosPersonaRenapo(renapoCurprequest, this);
         } catch (OfflineException e) {
             e.printStackTrace();
-            accountManager.onError(VALIDAR_DATOS_PERSONAHOMO, App.getContext().getString(R.string.no_internet_access));
+            accountManager.onError(CONSULTAR_DATOS_PERSONA_RENAPO, App.getContext().getString(R.string.no_internet_access));
         }
     }
 
