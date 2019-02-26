@@ -350,7 +350,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case OPTION_PAGO_QR:
                 //Intent intent = new Intent(this, ScannVisionActivity.class);
-                Intent intent = ScannVisionActivity.createIntent(this,false);
+                Intent intent = ScannVisionActivity.createIntent(this,false,
+                        getResources().getString(R.string.title_scan));
                 intent.putExtra(ScannVisionActivity.QRObject, true);
                 this.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE_COMERCE);
 

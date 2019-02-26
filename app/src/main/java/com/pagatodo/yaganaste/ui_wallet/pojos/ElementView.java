@@ -324,7 +324,7 @@ public class ElementView implements ElementGlobal {
                     if (!isAgregador) {
                         elementViews = ElementView.getListSeleccionarTipoReevolso(idComercio);
                     } else {
-                        elementViews = ElementView.getListTipoReembolsoAgregador(idComercio);
+                        elementViews = ElementView.getListAdqBalance(false);
                     }
                     for (Operadores opr : list) {
                         if (opr.getIsAdmin()) {

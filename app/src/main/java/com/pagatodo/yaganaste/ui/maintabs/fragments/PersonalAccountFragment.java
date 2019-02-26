@@ -80,6 +80,12 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
     @Override
     protected void onTabLoaded() {
         filterLinerLayout.setVisibility(View.GONE);
+        if(!movementsList.isEmpty()){
+            btnContinue.active();
+        } else {
+            btnContinue.inactive();
+        }
+
         if (this.currentTab != 0) {
             tabMonths.getTabAt(this.currentTab).select();
         } else {
@@ -117,7 +123,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
 
     @Override
     public void loadMovementsResult(List<ItemMovements<MovimientosResponse>> movementsList) {
-        if (movementsList.size() > 0){
+        if (!movementsList.isEmpty()){
             this.activeButton();
         } else this.inactiveButton();
         List<ItemMovements<MovimientosResponse>> actualList = null;
@@ -158,10 +164,8 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
         }
     }
 
-
     @Override
     protected void updateRecyclerData(RecyclerView.Adapter adapter, List<ItemMovements<MovimientosResponse>> movements) {
-        //txtInfoMovements.setVisibility(Movements.isEmpty() ? View.VISIBLE : View.GONE);
         updateRecyclerData(adapter);
     }
 

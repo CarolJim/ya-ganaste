@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 /**
@@ -61,13 +62,14 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
         Agentes agentes = SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(0);
 
         if (agentes != null) {
-            if (agentes.getIdEstatus() != IdEstatus.ADQUIRENTE.getId()) {
+            if (SingletonUser.getInstance().getDataUser().getUsuario().getIdEstatusEmisor() == IdEstatus.ADQUIRENTE.getId() &&
+                    !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)) {
                 goConfig_card_reader.setVisibility(View.GONE);
             } else {
                 goConfig_card_reader.setVisibility(View.VISIBLE);
             }
         } else {
-            goConfig_card_reader.setVisibility(View.VISIBLE);
+            goConfig_card_reader.setVisibility(View.GONE);
         }
 
         initViews();

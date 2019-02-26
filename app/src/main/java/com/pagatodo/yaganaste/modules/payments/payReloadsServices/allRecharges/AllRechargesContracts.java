@@ -4,6 +4,7 @@ import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.modules.management.apis.ListenerLauncher;
 
+import java.io.Serializable;
 import java.util.List;
 
 class AllRechargesContracts {

@@ -7,5 +7,8 @@
     <string name="add_fav">Agregar\nfavorito</string>
     <string name="title_indication_simple">¡Tu Activación Esta en Proceso!</string>
     <string name="subtitle_indication_simple">La activación tomará menos de 15 minutos.\n\nUna vez que este lista podrás realizar cobros\ncon tarjeta en tu negocio fácil y rápido</string>
-
+    <string name="date">26</string>
+    <string name="month">Ene</string>
+    <string name="movement">Venta con tarjet</string>
+    <string name="ref">Santander 5245</string>
 </resources>

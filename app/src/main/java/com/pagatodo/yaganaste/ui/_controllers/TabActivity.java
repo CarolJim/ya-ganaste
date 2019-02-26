@@ -58,6 +58,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.modules.charge.ChargeActivity;
 import com.pagatodo.yaganaste.modules.emisor.PaymentToQR.QrManagerFragment;
@@ -150,6 +151,8 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_COMPLETE;
+import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_LOGIN;
+import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_COACHMARK;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
@@ -280,6 +283,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         navitaionBar.setOnNavigationItemSelectedListener(this);
         lastFrag = 0;
         navitaionBar.setSelectedItemId(R.id.navigation_wallet);
+
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getIdEstatusEmisor() == IdEstatus.ADQUIRENTE.getId() &&
+                !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)) {
+            navitaionBar.getMenu().removeItem(R.id.navigation_charge);
+        }
+
+
     }
 
     @Override

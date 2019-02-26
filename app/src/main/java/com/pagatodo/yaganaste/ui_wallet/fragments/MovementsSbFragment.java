@@ -31,9 +31,7 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class MovementsSbFragment extends SupportFragment implements IMovementsView {
 
     @BindView(R.id.title_fragment)

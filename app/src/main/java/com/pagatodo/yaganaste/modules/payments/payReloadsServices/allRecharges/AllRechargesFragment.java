@@ -10,13 +10,11 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.view_manager.controllers.OnHolderListener;
 import com.pagatodo.view_manager.controllers.dataholders.RowFavDataHolder;
 import com.pagatodo.view_manager.recyclers.AllFavoritesRecycler;
-import com.pagatodo.view_manager.recyclers.adapters.AllFavoritesAdapter;
 import com.pagatodo.view_manager.recyclers.interfaces.PencilListener;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
@@ -27,6 +25,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.PaymentActivity;
 import com.pagatodo.yaganaste.utils.UI;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -49,7 +48,8 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
     private View rootView;
     private PayReloadsServicesActivity.Type type;
     private AllRechargesInteractor interactor;
-
+    private List<Serializable> itmesCList;
+    private List<Favoritos> itmesFList;
     @BindView(R.id.all_recharge)
     AllFavoritesRecycler recAll;
     @BindView(R.id.text_title)
@@ -59,7 +59,7 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
     @BindView(R.id.search_alls)
     TextView search_alls;
 
-    List<Comercio> comerciosList;
+
 
     public static AllRechargesFragment newInstance(PayReloadsServicesActivity.Type type) {
         AllRechargesFragment fragment = new AllRechargesFragment();
@@ -89,22 +89,7 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        search_alls.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                filter(s.toString());
-            }
-        });
 
         Resources resources = Objects.requireNonNull(getContext()).getResources();
         switch (type) {
@@ -162,52 +147,49 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
     }
 
     private void filter(String s) {
-
-        ArrayList<Comercio> favs = new ArrayList<>();
-        for (Comercio comercio:comerciosList){
-
-            if (comercio.getNombreComercio().toLowerCase().contains(s)){
-                if (s.isEmpty()){
-                    comerciosList=favs;
-                    recAll.setListItem(converte(favs));
+        List<Serializable> favs = new ArrayList<>();
+        for (RowFavDataHolder row:recAll.getListData()){
+            if(row.getObject() instanceof Comercio) {
+                Comercio comercio = (Comercio) row.getObject();
+                if (comercio.getNombreComercio().toLowerCase().contains(s)) {
+                    favs.add(comercio);
                 }
-                favs.add(comercio);
+            } else if(row.getObject() instanceof Favoritos) {
+                Favoritos comercio = (Favoritos) row.getObject();
+                if (comercio.getNombreComercio().toLowerCase().contains(s)) {
+                    favs.add(comercio);
+                }
             }
         }
-        /*ArrayList<RowFavDataHolder> filterList = new ArrayList<>();
-        for (RowFavDataHolder com:converte(favs)){
-            if (com.getName().toLowerCase().contains(s)){
-                filterList.add(com);
-            }
-        }*/
-        recAll.setListItem(converte(favs));
-    }
 
-    private ArrayList<RowFavDataHolder> converte(List<Comercio> comercios) {
-        ArrayList<RowFavDataHolder> list = new ArrayList<>();
-        comerciosList=comercios;
-        for (Comercio comercio : comercios) {
-            list.add(RowFavDataHolder.create(comercio.getLogoURLColor(),
-                    comercio.getNombreComercio(), "",
-                    "", comercio, false));
+        if (s.isEmpty()){
+            recAll.setListItem(convertItems(itmesCList));
+        } else {
+            recAll.setListItem(convertItems(favs));
         }
-        return list;
     }
 
-    private ArrayList<RowFavDataHolder> convert(List<Favoritos> favs) {
+    private ArrayList<RowFavDataHolder> convertItems(List<Serializable> listObject) {
         ArrayList<RowFavDataHolder> list = new ArrayList<>();
-        for (Favoritos favoritos : favs) {
-            String urlImage;
-            if (favoritos.getImagenURL().isEmpty()) {
-                urlImage = favoritos.getImagenURLComercioColor();
-            } else {
-                urlImage = favoritos.getImagenURL();
-            }
+        for (Serializable object : listObject) {
+            if (object instanceof Comercio){
+                list.add(RowFavDataHolder.create(((Comercio) object).getLogoURLColor(),
+                        ((Comercio) object).getNombreComercio(), "",
+                    "", object, false));
+            } else if (object instanceof Favoritos){
+                String urlImage;
+                Favoritos favoritos = (Favoritos) object;
+                if (favoritos.getImagenURL().isEmpty()) {
+                    urlImage = favoritos.getImagenURLComercioColor();
+                } else {
+                    urlImage = favoritos.getImagenURL();
+                }
 
-            list.add(RowFavDataHolder.create(urlImage,
-                    favoritos.getNombre(), favoritos.getReferencia(),
-                    favoritos.getColorMarca(),
-                    favoritos, true));
+                list.add(RowFavDataHolder.create(urlImage,
+                        favoritos.getNombre(), favoritos.getReferencia(),
+                        favoritos.getColorMarca(),
+                        favoritos, true));
+            }
 
         }
         return list;
@@ -215,12 +197,16 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
 
     @Override
     public void onSuccsessRechargeAndServices(List<Comercio> comercios) {
-        recAll.setListItem(converte(comercios));
+        itmesCList = new ArrayList<>(comercios);
+        recAll.setListItem(convertItems(new ArrayList<>(comercios)));
+        search_alls.addTextChangedListener(textWatcher);
     }
 
     @Override
     public void onFavoritesSuccess(List<Favoritos> favoritos) {
-        recAll.setListItem(convert(favoritos));
+        itmesCList = new ArrayList<>(favoritos);
+        recAll.setListItem(convertItems(new ArrayList<>(favoritos)));
+        search_alls.addTextChangedListener(textWatcher);
     }
 
     @Override
@@ -262,5 +248,23 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
             }
         }
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            filter(s.toString());
+        }
+    };
 
 }

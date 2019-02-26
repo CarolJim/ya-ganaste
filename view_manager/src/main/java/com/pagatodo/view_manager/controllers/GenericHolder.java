@@ -16,9 +16,7 @@ public abstract class GenericHolder<T> extends RecyclerView.ViewHolder implement
 
     public abstract void init();
 
-
     public abstract void bind(final T item, final OnHolderListener<T> listener);
-
 
     @Override
     public void inflate(ViewGroup layout) {

@@ -41,6 +41,10 @@ public class AllFavoritesAdapter extends RecyclerView.Adapter<FavoriteHorizontal
         this.listData.add(dataHolder);
     }
 
+    public ArrayList<RowFavDataHolder> getListData() {
+        return listData;
+    }
+
     @NonNull
     @Override
     public FavoriteHorizontalHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
