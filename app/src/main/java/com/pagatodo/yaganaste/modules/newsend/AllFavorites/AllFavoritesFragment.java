@@ -111,7 +111,6 @@ public class AllFavoritesFragment extends GenericFragment implements View.OnClic
     public void onResume() {
         super.onResume();
         paymentsCarouselPresenter.getFavoriteCarouselItems();
-        //search_favorites.setText("");
 
     }
 
@@ -279,6 +278,7 @@ public class AllFavoritesFragment extends GenericFragment implements View.OnClic
          * Si es editable mandamos a Edittar, si no a proceso normal
          */
         Favoritos favorito = (Favoritos) item;
+        search_favorites.setText("");
         if (isEditable) {
             if (favorito.getIdComercio() != 0) {
                 Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);

@@ -30,6 +30,11 @@
         app:layout_constraintTop_toBottomOf="@+id/headWallet"
         app:walletResImage="@drawable/ic_ico_ventas_tarjeta"></com.pagatodo.view_manager.components.HeadWallet>
 
+
+
+
+
+
     <include
         android:id="@+id/send_type_card"
         layout="@layout/send_with_card"

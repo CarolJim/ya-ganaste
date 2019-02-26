@@ -19,6 +19,7 @@ public class NumberCardTextWatcher implements TextWatcher {
 
     private EditText cardNumber;
     private ITextChangeListener listener;
+    private  Ibind ibind;
     private int maxLength;
     private String finalText = "";
     private String auxText = "";
@@ -26,6 +27,11 @@ public class NumberCardTextWatcher implements TextWatcher {
     public NumberCardTextWatcher(EditText cardNumber, int maxLength) {
         this.cardNumber = cardNumber;
         this.maxLength = maxLength;
+    }
+    public NumberCardTextWatcher(EditText cardNumber, int maxLength, Ibind ibind1) {
+        this.cardNumber = cardNumber;
+        this.maxLength = maxLength;
+        this.ibind = ibind1;
     }
 
     public void setOnITextChangeListener(ITextChangeListener listener) {
@@ -54,6 +60,16 @@ public class NumberCardTextWatcher implements TextWatcher {
             cardNumber.addTextChangedListener(this);
             finalText = auxText;
         }
+
+        if (auxText.length() ==16){
+            ibind.bindcomplete(auxText);
+        }
+        if (auxText.length() ==0){
+            ibind.bindcomplete(auxText);
+        }
+
+
+
     }
 
     /**
@@ -87,4 +103,10 @@ public class NumberCardTextWatcher implements TextWatcher {
             }
         }
     }
+
+    public  interface Ibind{
+
+        void  bindcomplete( String bind);
+    }
+
 }
