@@ -121,6 +121,8 @@ public class HeadAccount extends LinearLayout implements LauncherHolder<HeadAcco
     public void setImageURL(String url){
         Picasso.get().load(url)
                 .transform(new CircleTransform()).into(circlePersonUrl);
+        circlePersonUrl.setVisibility(VISIBLE);
+        circlePersonContent.setVisibility(GONE);
     }
 
     public void setImageDrawable(String name, String colorMarca){

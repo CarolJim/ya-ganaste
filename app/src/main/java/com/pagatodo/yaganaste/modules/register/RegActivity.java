@@ -99,6 +99,14 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
 
     }
 
+    public void progressvisivility( boolean visivility){
+        if (visivility)
+            stepBar.setVisibility(View.VISIBLE);
+        else
+            stepBar.setVisibility(View.INVISIBLE);
+
+    }
+
     public void showFragmentDatosPersonales() {
         router.showPersonalData(Direction.FORDWARD);
     }
