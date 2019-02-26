@@ -86,6 +86,8 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
+import com.pagatodo.yaganaste.modules.data.webservices.RenapoDataCurpRequest;
+import com.pagatodo.yaganaste.modules.data.webservices.RenapoDataRequest;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 
 import java.util.Map;
@@ -108,6 +110,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CHANGE_PASS_6;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CHANGE_STATUS_OPERADOR;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_DATOS_PERSONA_RENAPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_MOVIMIENTOS_MES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS_REGISTRO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
@@ -155,6 +158,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 public class ApiAdtvo extends Api {
 
     private static String URL_SERVER_ADTVO;
+    private static String URL_SERVER_FOLK = App.getContext().getString(R.string.URL_SERVER_FOLK);
     public static String PIN_ADTVO;
 
     public static void setUrlServerAdtvo(String urlServerAdtvo) {
@@ -325,6 +329,28 @@ public class ApiAdtvo extends Api {
         NetFacade.consumeWS(VALIDAR_DATOS_PERSONA,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.validate_data_person),
                 headers, request, GenericResponse.class, result);
+    }
+
+    /**
+     * Método que se invoca para Consultar.
+     *
+     * @param request {@link Object} bodyParams de la petición (RenapoDataRequest ó RenapoDataCurpRequest).
+     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void consultarDatosPersonaRenapo(Object request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+
+
+        if (request instanceof RenapoDataRequest) {
+            NetFacade.consumeWS(CONSULTAR_DATOS_PERSONA_RENAPO,
+                    METHOD_GET, URL_SERVER_FOLK + App.getContext().getString(R.string.consult_curp_person_renapo),
+                    headers, (RenapoDataRequest)request, GenericResponse.class, result);
+        }else {
+            NetFacade.consumeWS(CONSULTAR_DATOS_PERSONA_RENAPO,
+                    METHOD_GET, URL_SERVER_FOLK + App.getContext().getString(R.string.consult_data_person_renapo),
+                    headers, (RenapoDataCurpRequest)request, GenericResponse.class, result);
+        }
     }
 
     /**
