@@ -79,7 +79,7 @@
             android:layout_marginBottom="9dp"
             android:background="@android:color/transparent"
             android:cursorVisible="false"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             android:inputType="textEmailAddress"
             android:singleLine="true"
             android:paddingLeft="15dp"

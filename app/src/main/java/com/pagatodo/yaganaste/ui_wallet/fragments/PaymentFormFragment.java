@@ -589,11 +589,11 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         String labelName = "";
         String labelRef ="";
         if (favoritos != null){
-            if (favoritos.getImagenURL().isEmpty() || favoritos.getImagenURL() == null)
-                headAccount.setImageDrawable(favoritos.getNombreComercio(),favoritos.getColorMarca());
-            else
-                headAccount.setImageURL(favoritos.getImagenURLComercio());
-
+            if (favoritos.getImagenURLComercio().isEmpty() || favoritos.getImagenURLComercio() == null) {
+                headAccount.setImageDrawable(favoritos.getNombreComercio(), favoritos.getColorMarca());
+            }else {
+                headAccount.setImageURL(getString(R.string.url_images_logos) + favoritos.getImagenURLComercio());
+            }
             headAccount.getTxtName().setText(favoritos.getNombreComercio());
             headAccount.getTxtReference().setText(favoritos.getReferencia());
             headAccount.getTxtReference().setVisibility(View.VISIBLE);
@@ -605,10 +605,12 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
 
         }else if (comercioResponse != null){
-            if (comercioResponse.getImagenURL().isEmpty() || comercioResponse.getImagenURL() == null)
-                headAccount.setImageDrawable(comercioResponse.getNombreComercio(),comercioResponse.getColorMarca());
-            else
-                headAccount.setImageURL(comercioResponse.getImagenURL());
+            if (comercioResponse.getLogoURLColor().isEmpty() || comercioResponse.getLogoURLColor() == null) {
+                headAccount.setImageDrawable(comercioResponse.getNombreComercio(), comercioResponse.getColorMarca());
+            }else {
+                String urlimg = getString(R.string.url_images_logos) + comercioResponse.getLogoURLColor();
+                headAccount.setImageURL(getString(R.string.url_images_logos) + comercioResponse.getLogoURLColor());
+            }
             headAccount.getTxtName().setText(comercioResponse.getNombreComercio());
             headAccount.getTxtLabelTag().setVisibility(View.VISIBLE);
             headAccount.getTxtReference().setVisibility(View.GONE);
@@ -1022,7 +1024,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
      * Envio a la actividad PaymentsProcessingActivity del resultado, sea una Recarga o PDS
      */
     protected void sendPayment() {
-
 /*
         if (isRecarga) {
             onEventListener.onEvent(PaymentActivity.AUTHORIZE, payment);

@@ -18,6 +18,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:visibility="gone"
+            android:scaleType="fitXY"
             android:contentDescription="@string/app_name"/>
 
         <RelativeLayout
@@ -29,6 +30,7 @@
 
             <ImageView
                 android:id="@+id/circle_person_image"
+                android:scaleType="fitXY"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/circle"

@@ -25,6 +25,7 @@
             style="@style/generic_text_style_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/txt_subtitle_associate_phone"
             android:layout_marginTop="24dp"
             android:gravity="center"
             android:text="@string/activacion_sms_desc"
@@ -40,6 +41,17 @@
             android:layout_marginBottom="36dp"
             android:background="@drawable/button_rounded_blue"
             android:text="@string/send_sms"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btn_close"
+            style="@style/buttonSquareRoundedBlue"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/button_rounded_blue"
+            android:text="@string/terminar"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

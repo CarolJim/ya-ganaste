@@ -89,6 +89,8 @@ import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.interfaces.enums.AccountOperation;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
+import com.pagatodo.yaganaste.modules.data.webservices.RenapoDataCurpRequest;
+import com.pagatodo.yaganaste.modules.data.webservices.RenapoDataRequest;
 import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiStarbucks;
@@ -116,6 +118,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CHANGE_PASS_6;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_DATOS_PERSONA_RENAPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_SB;
@@ -389,7 +392,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         request.setFechaNacimiento(registerUser.getFechaNacimiento());
         request.setGenero(registerUser.getGenero());
         request.setIdEstadoNacimiento(Integer.valueOf(registerUser.getIdEstadoNacimineto()));
-
         try {
             ApiAdtvo.validarDatosPersona(request, this);
         } catch (OfflineException e) {
@@ -411,8 +413,18 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         request.setGenero(registerUser.getGenero());
         request.setIdEstadoNacimiento(Integer.valueOf(registerUser.getIdEstadoNacimineto()));
 
+        RenapoDataRequest renapoRequest = new RenapoDataRequest();
+        renapoRequest.setName(registerUser.getNombre());
+        renapoRequest.setFatherLastName(registerUser.getApellidoPaterno());
+        renapoRequest.setMotherLastName(registerUser.getApellidoMaterno());
+        renapoRequest.setBornDate(registerUser.getFechaNacimiento());
+        renapoRequest.setBornState(registerUser.getIdEstadoNacimineto());
+        renapoRequest.setSex(registerUser.getGenero());
+
+
         try {
-            ApiAdtvo.validarDatosPersona(request, this);
+            //ApiAdtvo.validarDatosPersona(request, this);
+            ApiAdtvo.consultarDatosPersonaRenapo(renapoRequest, this);
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.onError(VALIDAR_DATOS_PERSONA, App.getContext().getString(R.string.no_internet_access));
@@ -433,8 +445,12 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         request.setIdEstadoNacimiento(Integer.valueOf(registerUser.getIdEstadoNacimineto()));
         request.setCURP(registerUser.getCURP());
 
+        RenapoDataCurpRequest renapoCurprequest = new RenapoDataCurpRequest();
+        renapoCurprequest.setCurp(request.getCURP());
+
         try {
-            ApiAdtvo.validarDatosPersonaHomonimia(request, this);
+            //ApiAdtvo.validarDatosPersonaHomonimia(request, this);
+            ApiAdtvo.consultarDatosPersonaRenapo(renapoCurprequest, this);
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.onError(VALIDAR_DATOS_PERSONAHOMO, App.getContext().getString(R.string.no_internet_access));
@@ -671,6 +687,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 validatePersonDataResponse((GenericResponse) dataSourceResult.getData());
                 break;
 
+            case CONSULTAR_DATOS_PERSONA_RENAPO:
+                validatePersonDataResponseRenapo((GenericResponse) dataSourceResult.getData());
             case VALIDAR_DATOS_PERSONAHOMO:
                 validatePersonDataResponseHomoError((GenericResponse) dataSourceResult.getData());
                 break;
@@ -736,6 +754,14 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     }
 
+    private void validatePersonDataResponseRenapo(GenericResponse data) {
+        if (data.getCodigoRespuesta() == 0) {
+            accountManager.onSuccessDataPerson();
+        } else {
+            //TODO Manejar consulta solo por CURP
+            accountManager.onHomonimiaDataPerson();
+        }
+    }
     @Override
     public void onFailed(DataSourceResult error) {
 

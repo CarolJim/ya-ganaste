@@ -41,6 +41,7 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
 
     var permissionSms: Int = 0
     var permissionCall: Int = 0
+    //private lateinit var binding: FragmentVincularCuentaBinding
     private lateinit var binding: FragmentVincularCuentaBinding
     private lateinit var iteractor: VincularcuentaContracts.Iteractor
     private lateinit var router: VincularcuentaContracts.Router
@@ -62,20 +63,19 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
                               savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_vincular_cuenta, container, false)
         binding.btnSendSms.setOnClickListener(this)
+        binding.btnClose.setOnClickListener(this)
+
         (activity!! as RegActivity).nextStep()
         (activity!! as RegActivity).backvisivility(false)
 
         var registerUserSingleton = RegisterUserNew.getInstance()
 
-        if (registerUserSingleton.isRegincomplete){
-            binding.txtTitleAssociatePhone.setText("Se interrumpió el registro vale")
-
-
+        if (registerUserSingleton.isBreakregister){
+            binding.txtTitleAssociatePhone.setText("Termina tu registor")
+            binding.txtSubtitleAssociatePhone.setText("Al concluir tu registro .....")
+            binding.btnSendSms.setText("Continuar")
+            (activity!! as RegActivity).progressvisivility(false)
         }
-
-
-
-
         return binding.root
     }
 
@@ -144,6 +144,8 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
                 } else {
                     UI.showErrorSnackBar(activity!!, getString(R.string.no_internet_access), com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
                 }
+            } binding.btnClose.id -> {
+              activity!!.finish()
             }
         }
     }
@@ -162,8 +164,10 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         if (!registerUserSingleton.isBreakregister) {
             iteractor.createUser()
         }else{
-            UI.showErrorSnackBar(activity!!, "Ya quedo el prospecto", com.google.android.material.snackbar.Snackbar.LENGTH_SHORT)
+            UI.showSuccessSnackBar(activity!!, "Registor Completado", com.google.android.material.snackbar.Snackbar.LENGTH_SHORT)
+            binding.txtSubtitleAssociatePhone.setText("Nos pondremos en contacto contigo en las proximas 24H")
             binding.btnSendSms.setVisibility(View.GONE)
+            binding.btnClose.setVisibility(View.VISIBLE)
         }
 
 

@@ -99,7 +99,7 @@ public class ChangePasswordFragment extends GenericFragment implements View.OnCl
         boolean isValid = true;
         if (!validatePass()){
             isValid = false;
-            inputSecretPassCurrent.isError();
+            //inputSecretPassCurrent.isError();
             UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),
                     "Por favor verifica que la contraseña actual sea correcta",Snackbar.LENGTH_SHORT);
         }
