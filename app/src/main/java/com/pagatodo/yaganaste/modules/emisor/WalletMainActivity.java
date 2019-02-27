@@ -303,7 +303,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         } else if (getCurrentFragment() instanceof BlockCardFragment) {
 
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -350,7 +350,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case OPTION_PAGO_QR:
                 //Intent intent = new Intent(this, ScannVisionActivity.class);
-                Intent intent = ScannVisionActivity.createIntent(this,false);
+                Intent intent = ScannVisionActivity.createIntent(this,false,
+                        getResources().getString(R.string.title_scan));
                 intent.putExtra(ScannVisionActivity.QRObject, true);
                 this.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE_COMERCE);
 
@@ -534,8 +535,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public void onErrorValidatePlate(String error) {
         UI.showErrorSnackBar(this,error,Snackbar.LENGTH_SHORT);
     }
-
-
 
     @Override
     public boolean requiresTimer() {
@@ -776,7 +775,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             super.onBackPressed();
         }
     }
-
 
     /**
      * Creates a symmetric key in the Android Key Store which can only be used after the user has

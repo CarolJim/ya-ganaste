@@ -304,6 +304,7 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
 
     }
 
+
     private void checkState(String state) {
         switch (state) {
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:

@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -63,13 +64,13 @@ public class ScannVisionActivity extends AppCompatActivity implements View.OnCli
     private CameraSource mCameraSource;
     private CameraSourcePreview mPreview;
     private boolean isQrcode = false;
-
-
     private boolean isLight;
+    private String title;
 
-    static public Intent createIntent(Activity activity,boolean isActive) {
+    static public Intent createIntent(Activity activity,boolean isActive, String msj) {
         Intent intent = new Intent(activity, ScannVisionActivity.class);
         intent.putExtra("KEYBOARD_BTN", isActive);
+        intent.putExtra("TITLE", msj);
         return intent;
     }
 
@@ -87,6 +88,11 @@ public class ScannVisionActivity extends AppCompatActivity implements View.OnCli
             if (!getIntent().getExtras().getBoolean("KEYBOARD_BTN")){
                 (findViewById(R.id.button_keyboard)).setVisibility(View.GONE);
             }
+            if (getIntent().getExtras().getString("TITLE") != null){
+                title = getIntent().getExtras().getString("TITLE");
+                ((TextView) findViewById(R.id.title_scan)).setText(title);
+            }
+
         }
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
         // Check for the camera permission before accessing the camera.  If the

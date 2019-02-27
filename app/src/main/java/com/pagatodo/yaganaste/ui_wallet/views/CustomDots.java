@@ -40,7 +40,7 @@ public class CustomDots extends LinearLayout {
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
 
-            params.setMargins(22, 0, 22, 0);
+            params.setMargins(11, 0, 11, 0);
             this.addView(dots[i], params);
         }
 

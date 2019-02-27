@@ -74,6 +74,10 @@ public class AllFavoritesRecycler extends LinearLayout implements LauncherHolder
         return recyclerMain;
     }
 
+    public ArrayList<RowFavDataHolder> getListData() {
+        return adapter.getListData();
+    }
+
     @Override
     public void init() {
         recyclerMain = rootView.findViewById(R.id.recycler_main);

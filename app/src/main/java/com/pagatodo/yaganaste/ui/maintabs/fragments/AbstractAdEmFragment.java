@@ -141,13 +141,14 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     }
 
-    public void activeButton(){
+    void activeButton(){
         btnContinue.active();
     }
 
-    public void inactiveButton(){
+    void inactiveButton(){
         btnContinue.inactive();
     }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.adquitente_emisor_fragment, container, false);
@@ -228,6 +229,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         recyclerMovements.setVisibility(View.GONE);
 
         if (movementsList.get(tab.getPosition()) != null) {
+
             updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
         } else {
             if (isBussines) {

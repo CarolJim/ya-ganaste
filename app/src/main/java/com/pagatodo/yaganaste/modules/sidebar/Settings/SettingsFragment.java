@@ -14,7 +14,10 @@ import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.modules.sidebar.SettingsOfSecurity.SecuritySettignsFragment;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
@@ -23,6 +26,7 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 /**
@@ -55,6 +59,18 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
         goConfig_card_reader = (LinearLayout) rootView.findViewById(R.id.config_card_reader);
         goUnlink_phone = (LinearLayout) rootView.findViewById(R.id.unlink_phone);
 
+        Agentes agentes = SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(0);
+
+        if (agentes != null) {
+            if (SingletonUser.getInstance().getDataUser().getUsuario().getIdEstatusEmisor() == IdEstatus.ADQUIRENTE.getId() &&
+                    !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)) {
+                goConfig_card_reader.setVisibility(View.GONE);
+            } else {
+                goConfig_card_reader.setVisibility(View.VISIBLE);
+            }
+        } else {
+            goConfig_card_reader.setVisibility(View.GONE);
+        }
 
         initViews();
         return rootView;

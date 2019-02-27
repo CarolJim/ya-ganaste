@@ -151,7 +151,8 @@ public class SendsFragment extends GenericFragment implements View.OnClickListen
                 break;
             case R.id.send_from_qr:
                 //Intent intent = new Intent(this, ScannVisionActivity.class);
-                Intent intent = ScannVisionActivity.createIntent(getActivity(),false);
+                Intent intent = ScannVisionActivity.createIntent(getActivity(),false,
+                        getResources().getString(R.string.title_scan));
                 intent.putExtra(ScannVisionActivity.QRObject, true);
                 this.startActivityForResult(intent, BARCODE_READER_REQUEST_QR_SENDS);
                 break;
