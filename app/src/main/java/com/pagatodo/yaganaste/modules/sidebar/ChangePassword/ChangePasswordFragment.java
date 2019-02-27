@@ -68,6 +68,7 @@ public class ChangePasswordFragment extends GenericFragment implements View.OnCl
         ButterKnife.bind(this, rootView);
         inputSecretPassCurrent.setRequestFocus();
         showKeyboard();
+
         inputSecretPassCurrent.setActionListener((textView, i, keyEvent) -> {
             if (i == EditorInfo.IME_ACTION_DONE
                     || keyEvent.getAction() == KeyEvent.ACTION_DOWN
@@ -98,7 +99,7 @@ public class ChangePasswordFragment extends GenericFragment implements View.OnCl
         boolean isValid = true;
         if (!validatePass()){
             isValid = false;
-            inputSecretPassCurrent.isError();
+            //inputSecretPassCurrent.isError();
             UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),
                     "Por favor verifica que la contraseña actual sea correcta",Snackbar.LENGTH_SHORT);
         }

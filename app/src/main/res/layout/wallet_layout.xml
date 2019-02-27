@@ -9,21 +9,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/view4"
-        android:layout_width="0dp"
-        android:layout_height="24dp"
-        android:background="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-
     <com.pagatodo.yaganaste.ui_wallet.views.CutomWalletViewPage
         android:id="@+id/pager_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -34,10 +24,10 @@
             android:layout_height="126dp"
             android:clipToPadding="false"
             android:overScrollMode="never"
-            android:paddingEnd="@dimen/card_padding"
-            android:paddingLeft="@dimen/card_padding"
-            android:paddingRight="@dimen/card_padding"
             android:paddingStart="@dimen/card_padding"
+            android:paddingLeft="@dimen/card_padding"
+            android:paddingEnd="@dimen/card_padding"
+            android:paddingRight="@dimen/card_padding"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp" />
 
@@ -62,7 +52,7 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/board_indication"/>
 

@@ -294,7 +294,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (!editMail.getText().toString().isEmpty()) {
                     if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                        hideKeyBoard();
+                        //hideKeyBoard();
                         if (asignar_edittext.getText().toString().isEmpty()) {
 
                         }
@@ -510,7 +510,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 }
                 //isChecked();
 
-                text_email.setBackgroundResource(R.drawable.input_text_error);
+                text_email.setBackgroundResource(R.drawable.inputtext_normal);
 
             }
             isChecked();
@@ -718,15 +718,9 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     }
 
     private void hideKeyBoard() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                InputMethodManager imm = (InputMethodManager) App.getContext().getSystemService(
-                        Context.INPUT_METHOD_SERVICE);
-                Objects.requireNonNull(imm).hideSoftInputFromWindow(editMail.getWindowToken(), 0);
-            }
-        }, 3500);
+        InputMethodManager imm = (InputMethodManager) App.getContext().getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        Objects.requireNonNull(imm).hideSoftInputFromWindow(editMail.getWindowToken(), 0);
     }
 
     @Override

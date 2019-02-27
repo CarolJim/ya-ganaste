@@ -3,8 +3,10 @@ package com.pagatodo.yaganaste.ui_wallet.dialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -72,30 +74,35 @@ public class DialogSetPassword extends DialogFragment implements View.OnClickLis
         if (getArguments()!=null){
             title = getArguments().getString(TAG_TITLE);
         } else {
-            title = "";
+            title = getResources().getString(R.string.dialog_state_account);
         }
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final Dialog dialog = super.onCreateDialog(savedInstanceState);
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.drawable.dialog_iset);
-        return dialog;
+        //final Dialog dialog = super.onCreateDialog(savedInstanceState);
+        //Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.drawable.dialog_iset);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        rootView = inflater.inflate(R.layout.dialog_set_password,null);
+        builder.setView(rootView);
+        init();
+        return builder.create();
     }
 
-    @Nullable
+    /*@Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.dialog_set_password, container);
         init();
-
         return rootView;
-    }
+    }*/
 
     private void init(){
         ButterKnife.bind(this,rootView);
-        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         dialogTitle.setText(title);
+        btnContinue.active();
         btnContinue.setOnClickListener(this);
         passInput.setRequestFocus();
         showKeyboard();
@@ -108,6 +115,7 @@ public class DialogSetPassword extends DialogFragment implements View.OnClickLis
                 if (validate()){
                     /*activity.loadFragment(NewPasswwordFragment.newInstance(inputSecretPassCurrent
                             .getTextEdit()),R.id.container,Direction.FORDWARD,false);*/
+                    hideKeyBoard();
                     listener.onPasswordSet(passInput.getText());
                     dismiss();
                 }
@@ -121,6 +129,7 @@ public class DialogSetPassword extends DialogFragment implements View.OnClickLis
             public void inputListenerFinish(View view) {
                 hideKeyBoard();
                 listener.onPasswordSet(passInput.getText());
+                hideKeyBoard();
                 dismiss();
             }
 
@@ -158,6 +167,19 @@ public class DialogSetPassword extends DialogFragment implements View.OnClickLis
         }
         */
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        hideKeyBoard();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        hideKeyBoard();
+    }
+
     private void showKeyboard(){
         InputMethodManager imm = (InputMethodManager)  App.getContext()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);

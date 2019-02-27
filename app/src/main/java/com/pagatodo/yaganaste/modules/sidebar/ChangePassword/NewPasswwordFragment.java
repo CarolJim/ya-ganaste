@@ -169,7 +169,7 @@ public class NewPasswwordFragment extends GenericFragment implements InputSecret
         } else if (inputSecretPassConfirm.getTextEdit().length() < 6){
             isValid = false;
             inputSecretPassConfirm.isError();
-            showError("Favor de introducir los datos en los campos requeridos");
+            showError("Favor de introducir la confirmación de contraseña");
 
         } else if (!inputSecretPassNew.getTextEdit().equalsIgnoreCase(inputSecretPassConfirm.getTextEdit())){
             isValid = false;

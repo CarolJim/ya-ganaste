@@ -178,8 +178,8 @@ public class ElementWallet {
         Bitmap rearView = overlayImages(backView, qrCode,
                 (backView.getWidth() / 2) - (qrCode.getWidth() / 2),
                 (backView.getHeight() / 2) - (qrCode.getHeight() / 2));
-        Log.e("YA GANASTE", "Screen Density: " + App.getContext().getResources().getDisplayMetrics());
-        return new ElementWallet(TYPE_EMISOR, frontView, rearView,
+        //Log.e("YA GANASTE", "Screen Density: " + App.getContext().getResources().getDisplayMetrics());
+        return new ElementWallet(TYPE_EMISOR, frontView, null,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 ElementView.getListEmisor(),
                 R.string.saldo_disponible, true, null);

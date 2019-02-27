@@ -10,13 +10,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatSpinner;
+
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,7 +85,7 @@ import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegistroDatosPersonalesFragment extends GenericFragment implements IOnSpinnerClick ,View.OnClickListener,ValidationForms,AdapterView.OnItemSelectedListener,IRenapoView ,IDatosPersonalesManager {
+public class RegistroDatosPersonalesFragment extends GenericFragment implements IOnSpinnerClick, View.OnClickListener, ValidationForms, AdapterView.OnItemSelectedListener, IRenapoView, IDatosPersonalesManager {
 
     private static RegActivity activityf;
     Boolean seencuentra = false;
@@ -139,8 +143,6 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     ImageView icon_lugarde;
 
 
-
-
     @BindView(R.id.seleccionaGenero)
     StyleTextView seleccionaGenero;
 
@@ -169,11 +171,10 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     View rootView;
 
 
-
     View.OnClickListener onClickListenerDatePicker = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-          //  hideValidationError(editBirthDay.getId());
+            //  hideValidationError(editBirthDay.getId());
             Calendar newCalendar = Calendar.getInstance();
             year = 0;
             month = 0;
@@ -206,7 +207,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                     mCalendar.set(actualDate.get(Calendar.YEAR) - 18, actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH));
 
                     if (newDate.getTimeInMillis() > actualDate.getTimeInMillis()) {
-                      //  showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
+                        //  showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
                         // editBirthDay.setIsInvalid();
 
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -217,7 +218,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                     }
 
                     if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
-                     //   showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_mayor_edad));
+                        //   showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_mayor_edad));
                         //  editBirthDay.setIsInvalid();
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
@@ -235,14 +236,15 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     private String idEstadoNacimiento = "";
     private AccountPresenterNew accountPresenter;
 
-    public static RegistroDatosPersonalesFragment newInstance(){
+    public static RegistroDatosPersonalesFragment newInstance() {
         return new RegistroDatosPersonalesFragment();
     }
 
-    public static RegistroDatosPersonalesFragment newInstance(RegActivity activity){
+    public static RegistroDatosPersonalesFragment newInstance(RegActivity activity) {
         activityf = activity;
-        return  new RegistroDatosPersonalesFragment();
+        return new RegistroDatosPersonalesFragment();
     }
+
     public RegistroDatosPersonalesFragment() {
         // Required empty public constructor
     }
@@ -328,7 +330,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView= inflater.inflate(R.layout.fragment_registro_datos_personales, container, false);
+        rootView = inflater.inflate(R.layout.fragment_registro_datos_personales, container, false);
         actualDate = Calendar.getInstance(new Locale("es"));
         initViews();
         return rootView;
@@ -336,7 +338,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
 
     @Override
     public void initViews() {
-        ButterKnife.bind(this,rootView);
+        ButterKnife.bind(this, rootView);
         activityf.backvisivility(false);
         icon_lugarde.setOnClickListener(view -> spinnerBirthPlace.performClick());
         activityf.nextStep();
@@ -386,11 +388,11 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     private void onCountryClick() {
 
         paises.clear();
-        for (DtoCountry dtoCountry : countrys){
-            if(dtoCountry.Valido){
-             Paises paisesa=  new Paises(Integer.parseInt(dtoCountry.IdPaisFirebase),dtoCountry.Nombre,dtoCountry.Valor);
+        for (DtoCountry dtoCountry : countrys) {
+            if (dtoCountry.Valido) {
+                Paises paisesa = new Paises(Integer.parseInt(dtoCountry.IdPaisFirebase), dtoCountry.Nombre, dtoCountry.Valor);
 
-            paises.add(paisesa );
+                paises.add(paisesa);
             }
 
         }
@@ -398,6 +400,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         showDialogList(paises);
 
     }
+
     private void setCurrentData() {
 
         adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout,
@@ -454,11 +457,12 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
             }
         }
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnBackPersonalInfo:
-               // backScreen(EVENT_DATA_USER_BACK, null);
+                // backScreen(EVENT_DATA_USER_BACK, null);
                 break;
             case R.id.btnNextPersonalInfo:
                 validateForm();
@@ -467,7 +471,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
             case R.id.editCountry:
                 onCountryClick();
                 break;
-                case R.id.icon_lugarde:
+            case R.id.icon_lugarde:
                 onCountryClick();
                 break;
             case R.id.imageViewValidation:
@@ -489,11 +493,10 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                 radioBtnFemale.setChecked(true);
                 changecolorradio();
                 break;
-                case R.id.btnNextDatosPersonales:
-                    validateForm();
+            case R.id.btnNextDatosPersonales:
+                validateForm();
 
                 break;
-
 
 
             default:
@@ -572,20 +575,24 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         if (genero == null || genero.equals("")) {
             isValid = false;
             btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
+            btnNextDatosPersonales.setEnabled(false);
         }
 
         if (nombre.isEmpty()) {
             btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
             isValid = false;
+            btnNextDatosPersonales.setEnabled(false);
         }
         if (apPaterno.isEmpty()) {
             btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
             isValid = false;
+            btnNextDatosPersonales.setEnabled(false);
         }
 
         if (!fechaNacimiento.isEmpty() && newDate != null && (newDate.getTimeInMillis() > actualDate.getTimeInMillis())) {
             btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
             isValid = false;
+            btnNextDatosPersonales.setEnabled(false);
         }
 
         if (!fechaNacimiento.isEmpty() && actualDate != null) {
@@ -597,30 +604,33 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                 btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
 
                 isValid = false;
+                btnNextDatosPersonales.setEnabled(false);
             }
         }
 
         if (fechaNacimiento.isEmpty()) {
             btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
             isValid = false;
+            btnNextDatosPersonales.setEnabled(false);
         }
 
         if (lugarNacimiento.isEmpty()) {
             btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
             isValid = false;
+            btnNextDatosPersonales.setEnabled(false);
         }
 
         if (!lugarNacimiento.isEmpty() && lugarNacimiento.equals("Extranjero")) {
             if (country == null) {
                 btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
                 isValid = false;
+                btnNextDatosPersonales.setEnabled(false);
             }
         }
         if (isValid) {
-              btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_blue);
+            btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_blue);
+            btnNextDatosPersonales.setEnabled(true);
         }
-
-
 
 
     }
@@ -719,11 +729,9 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
             }
         }
         if (isValid) {
-                setPersonData();
-          //  activityf.showFragmentDomicilioIngresaCP();
+            setPersonData();
+            //  activityf.showFragmentDomicilioIngresaCP();
         }
-
-
 
 
     }
@@ -742,6 +750,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     public void onValidationSuccess() {
         activityf.showFragmentDomicilioIngresaCP();
     }
+
     private void setPersonData() {
         //Almacenamos la información para el registro
         RegisterUserNew registerUser = RegisterUserNew.getInstance();
@@ -763,20 +772,23 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         if (BuildConfig.DEBUG) {
            // onValidationSuccess();
             accountPresenter.validatePersonDatanew();
+
         } else {
             accountPresenter.validatePersonDatanew();
         }
     }
+
     @Override
     public void getDataForm() {
         genero = radioBtnMale.isChecked() ? "H" : radioBtnFemale.isChecked() ? "M" : "";
         nombre = editNames.getText().toString();
         apPaterno = editFirstLastName.getText().toString();
         apMaterno = editSecoundLastName.getText().toString();
+        fechaNacimiento = editBirthDay.getText().toString();
         if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
             idEstadoNacimiento = ((DtoStates) spinnerBirthPlace.getSelectedItem()).ID_EntidadNacimiento;
-        }else {
+        } else {
             lugarNacimiento = "";
         }
     }
@@ -832,7 +844,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     @Override
     public void onHomonimiaError() {
         String CURP = "";
-        UI.createSimpleCustomDialogCURP(getString(R.string.ingresa_tu_curp), "",
+        UI.createSimpleCustomDialogCURP(getString(R.string.ingresa_tu_curp_new), "",
                 getFragmentManager(), new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
@@ -844,7 +856,6 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                     }
                 }, true, false);
     }
-
 
 
     @Override
@@ -887,6 +898,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     public void hideLoader() {
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
+
     @Override
     public void showError(Object error) {
         errorVerificationData++;
@@ -910,6 +922,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
 
         }
     }
+
     public void llamar() {
         String number = getString(R.string.numero_telefono_paises);
 
@@ -935,6 +948,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
             getActivity().startActivity(callIntent);
         }
     }
+
     @Override
     public void onCountrySelectedListener(Paises item) {
         country = item;
