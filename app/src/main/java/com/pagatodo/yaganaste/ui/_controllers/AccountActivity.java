@@ -660,7 +660,7 @@ public class AccountActivity extends LoaderActivity implements WalletEmisorContr
                 loadFragment(loginContainerFragment, Direction.BACK, false);
             } else if (currentFragment instanceof TutorialsFragment && ayuda) {
                 super.onBackPressed();
-            } else if (currentFragment instanceof TutorialsFragment) {
+            } else if (currentFragment instanceof TutorialsFragment||currentFragment instanceof ProspectoUserFragment) {
                 showToolbarHelp(true);
                 loadFragment(loginContainerFragment, Direction.BACK, false);
             } else {
@@ -692,9 +692,6 @@ public class AccountActivity extends LoaderActivity implements WalletEmisorContr
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-
-
           if (requestCode == BARCODE_READER_REQUEST_CODE_COMERCE) {
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {

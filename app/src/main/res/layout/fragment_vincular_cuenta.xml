@@ -9,26 +9,46 @@
         tools:context=".modules.register.VincularCuenta.VincularCuentaFragment">
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lltop"
+            android:gravity="center"
+            tools:ignore="MissingConstraints">
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="13dp"
+            android:gravity="center"
+            android:src="@drawable/regproses"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
+        </LinearLayout>
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/txt_title_associate_phone"
             style="@style/GenericStyleTextTittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="27dp"
             android:gravity="center"
             android:text="Vincular Teléfono"
             android:textSize="@dimen/size_text_style_2_value"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/lltop" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txt_subtitle_associate_phone"
             style="@style/generic_text_style_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_subtitle_associate_phone"
+            android:layout_marginLeft="51dp"
             android:layout_marginTop="24dp"
+            android:layout_marginRight="51dp"
             android:gravity="center"
             android:text="@string/activacion_sms_desc"
             android:textColor="@color/gray_text_wallet_3"
@@ -52,7 +72,7 @@
             style="@style/buttonSquareRoundedBlue"
             android:layout_marginBottom="36dp"
             android:background="@drawable/button_rounded_blue"
-            android:text="@string/terminar"
+            android:text="@string/entendido_titulo"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

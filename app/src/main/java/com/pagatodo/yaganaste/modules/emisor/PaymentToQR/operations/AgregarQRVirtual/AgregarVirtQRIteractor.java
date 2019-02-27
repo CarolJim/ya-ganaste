@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
 
 
@@ -111,6 +112,7 @@ public class AgregarVirtQRIteractor implements  AgregarVirtContracts.Iteractor{
         Log.d("TOKEN_SESION", App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.POST, URL_NEW_QR, null, new Response.Listener<JSONObject>() {
+
                     @Override
                     public void onResponse(JSONObject response) {
                         listener.onSuccessQRs();
@@ -142,6 +144,9 @@ public class AgregarVirtQRIteractor implements  AgregarVirtContracts.Iteractor{
             }
 
         };
+        Gson gson = new Gson();
+        Log.d("WSC",jsonObjectRequest.getUrl());
+        Log.d("WSC Request",gson.toJson(jsonBody));
         requestQueue.add(jsonObjectRequest);
     }
 }
