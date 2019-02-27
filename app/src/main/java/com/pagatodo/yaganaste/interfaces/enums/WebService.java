@@ -216,6 +216,8 @@ public enum WebService {
     /*Validate QR*/
     DATA_QR,
     /*Notification*/
-    NOTIFICATION
+    NOTIFICATION,
+    /*Notification*/
+    VALIDADATOSGETCURP
 }
 

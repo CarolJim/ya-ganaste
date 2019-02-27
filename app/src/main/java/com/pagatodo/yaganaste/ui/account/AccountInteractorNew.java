@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import android.util.Log;
 
+import com.android.volley.RequestQueue;
 import com.crashlytics.android.Crashlytics;
 import com.dspread.xpos.QPOSService;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -91,6 +92,12 @@ import com.pagatodo.yaganaste.interfaces.enums.AccountOperation;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.modules.data.webservices.RenapoDataCurpRequest;
 import com.pagatodo.yaganaste.modules.data.webservices.RenapoDataRequest;
+import com.pagatodo.yaganaste.modules.management.ApisFriggs;
+import com.pagatodo.yaganaste.modules.management.apis.FriggsHeaders;
+import com.pagatodo.yaganaste.modules.management.apis.FrigsMethod;
+import com.pagatodo.yaganaste.modules.management.apis.ListenerFriggs;
+import com.pagatodo.yaganaste.modules.management.request.QrRequest;
+import com.pagatodo.yaganaste.modules.management.singletons.NotificationSingleton;
 import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiStarbucks;
@@ -124,6 +131,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_SB;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SALDO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.DATA_QR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ESTATUS_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGINSTARBUCKS;
@@ -131,11 +139,13 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGIN_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDADATOSGETCURP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONAHOMO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
+import static com.pagatodo.yaganaste.net.ApiAdtvo.URL_SERVER_FOLK;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_NEW_CONTRASE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
@@ -145,6 +155,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_PR
 import static com.pagatodo.yaganaste.utils.Recursos.ACTUAL_LEVEL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
@@ -188,10 +199,11 @@ import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_CUPO;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_BD_ODIN_USERS;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_FRIGGS;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_PROVISIONED;
 
-public class AccountInteractorNew implements IAccountIteractorNew, IRequestResult {
+public class AccountInteractorNew implements IAccountIteractorNew, IRequestResult , ListenerFriggs {
 
     private String TAG = AccountInteractorNew.class.getName();
     private IAccountManager accountManager;
@@ -200,7 +212,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private boolean logOutBefore;
     private Preferencias prefs = App.getInstance().getPrefs();
     private String pass;
-
+    private RequestQueue requestQueue;
 
 
     public AccountInteractorNew(IAccountManager accountManager) {
@@ -431,6 +443,36 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
     }
 
+    public void validetePersonDats() {
+        ApisFriggs apisFriggs = new ApisFriggs(this);
+
+        RegisterUserNew registerUser = RegisterUserNew.getInstance();
+        ValidarDatosPersonaRequest request = new ValidarDatosPersonaRequest();
+
+        request.setNombre(registerUser.getNombre());
+        request.setPrimerApellido(registerUser.getApellidoPaterno());
+        request.setSegundoApellido(registerUser.getApellidoMaterno());
+        request.setFechaNacimiento(registerUser.getFechaNacimiento());
+        request.setGenero(registerUser.getGenero());
+        request.setIdEstadoNacimiento(Integer.valueOf(registerUser.getIdEstadoNacimineto()));
+
+        RenapoDataRequest renapoRequest = new RenapoDataRequest();
+        renapoRequest.setName(registerUser.getNombre());
+        renapoRequest.setFatherLastName(registerUser.getApellidoPaterno());
+        renapoRequest.setMotherLastName(registerUser.getApellidoMaterno());
+        renapoRequest.setBornDate(registerUser.getFechaNacimiento());
+        renapoRequest.setBornState(registerUser.getIdEstadoNacimineto());
+        renapoRequest.setSex(registerUser.getGenero());
+
+        requestQueue.add(apisFriggs.sendRequest(FrigsMethod.GET,URL_SERVER_FOLK +
+                        App.getContext().getString(R.string.consult_curp_person_renapo),
+                FriggsHeaders.getHeadersBasic(),request,VALIDADATOSGETCURP));
+
+    }
+
+
+
+
     @Override
     public void validatePersonDataHomonimia() {
 
@@ -449,8 +491,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         renapoCurprequest.setCurp(request.getCURP());
 
         try {
-            //ApiAdtvo.validarDatosPersonaHomonimia(request, this);
-            ApiAdtvo.consultarDatosPersonaRenapo(renapoCurprequest, this);
+            ApiAdtvo.validarDatosPersonaHomonimia(request, this);
+           // ApiAdtvo.consultarDatosPersonaRenapo(renapoCurprequest, this);
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.onError(CONSULTAR_DATOS_PERSONA_RENAPO, App.getContext().getString(R.string.no_internet_access));
@@ -1387,5 +1429,15 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             }
             //accountManager.onSucces(LOGINSTARBUCKS, data.getData());
         }
+    }
+
+    @Override
+    public void onSuccess(WebService webService, JSONObject response) throws JSONException {
+
+    }
+
+    @Override
+    public void onError() {
+
     }
 }

@@ -71,10 +71,12 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         var registerUserSingleton = RegisterUserNew.getInstance()
 
         if (registerUserSingleton.isBreakregister){
-            binding.txtTitleAssociatePhone.setText("Termina tu registor")
-            binding.txtSubtitleAssociatePhone.setText("Al concluir tu registro .....")
-            binding.btnSendSms.setText("Continuar")
-            (activity!! as RegActivity).progressvisivility(false)
+            binding.txtTitleAssociatePhone.setText("¡Tu Registro está en Proceso!")
+            binding.txtSubtitleAssociatePhone.setText("Estamos validando tu información, lo que podría llevarnos hasta 1 día hábil \n" +
+                    "\n" +
+                    "Te pedimos estar al pendiente del correo electrónico que especificaste al inicio de tu proceso ya que probablemente necesitemos contactarte")
+            binding.btnSendSms.setText("Entendido")
+            /*(activity!! as RegActivity).progressvisivility()*/
         }
         return binding.root
     }

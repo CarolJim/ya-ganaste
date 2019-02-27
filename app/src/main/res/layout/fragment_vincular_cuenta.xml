@@ -8,6 +8,8 @@
         android:layout_height="match_parent"
         tools:context=".modules.register.VincularCuenta.VincularCuentaFragment">
 
+
+
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/txt_title_associate_phone"
             style="@style/GenericStyleTextTittle"

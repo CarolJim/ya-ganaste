@@ -159,7 +159,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 public class ApiAdtvo extends Api {
 
     private static String URL_SERVER_ADTVO;
-    private static String URL_SERVER_FOLK = App.getContext().getString(R.string.URL_SERVER_FOLK);
+    public static String URL_SERVER_FOLK = App.getContext().getString(R.string.URL_SERVER_FOLK);
     public static String PIN_ADTVO;
 
     public static void setUrlServerAdtvo(String urlServerAdtvo) {
