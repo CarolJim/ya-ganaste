@@ -4,9 +4,6 @@ import android.content.Context;
 
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 
-/**
- * @author Juan Guerra on 27/03/2017.
- */
 
 public class MonthsMovementsTab implements IEnumTab {
 

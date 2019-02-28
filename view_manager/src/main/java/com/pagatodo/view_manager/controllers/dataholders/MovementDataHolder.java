@@ -9,10 +9,12 @@ public class MovementDataHolder {
     private String movement;
     private String referencia;
     private String amount;
-    private Drawable resImage;
+    private String resImage;
+    private String colorBackgraund;
     private Object object;
 
-    MovementDataHolder(String day, String month, String movement, String referencia, String amount, Drawable resImage, Object object) {
+    MovementDataHolder(String day, String month, String movement, String referencia,
+                              String amount, String resImage, Object object) {
         this.day = day;
         this.month = month;
         this.movement = movement;
@@ -22,7 +24,9 @@ public class MovementDataHolder {
         this.object = object;
     }
 
-    public static MovementDataHolder create(String day, String month, String movement, String referencia, String amount, Drawable resImage, Object object){
+    public static MovementDataHolder create(String day, String month, String movement,
+                                            String referencia, String amount, String resImage,
+                                            Object object){
         return new MovementDataHolder(day,month,movement,referencia,amount,resImage,object);
     }
 
@@ -66,12 +70,20 @@ public class MovementDataHolder {
         this.amount = amount;
     }
 
-    public Drawable getResImage() {
+    public String getResImage() {
         return resImage;
     }
 
-    public void setResImage(Drawable resImage) {
+    public void setResImage(String resImage) {
         this.resImage = resImage;
+    }
+
+    public String getColorBackgraund() {
+        return colorBackgraund;
+    }
+
+    public void setColorBackgraund(String colorBackgraund) {
+        this.colorBackgraund = colorBackgraund;
     }
 
     public Object getObject() {

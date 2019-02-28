@@ -21,6 +21,12 @@ public class MovementAdapters extends GenericAdapter<MovementDataHolder,Movement
 
     @Override
     public void onBindViewHolder(@NonNull MovementHolder holder, int position) {
+
+        if ( position % 2 == 0 ){
+            holder.setColorBackgraund("#FFFFFF");
+        } else {
+            holder.setColorBackgraund("#FBFBFB");
+        }
         holder.bind(this.itemlist.get(position),listener);
     }
 }

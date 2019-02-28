@@ -1,5 +1,6 @@
 package com.pagatodo.view_manager.holders;
 
+import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ public class MovementHolder extends GenericHolder<MovementDataHolder> {
     private TextView textReference;
     private CurrencyFormat textAmount;
     private ImageView imageState;
+    private String colorBackgraund;
 
     public MovementHolder(@NonNull View itemView) {
         super(itemView);
@@ -43,10 +45,19 @@ public class MovementHolder extends GenericHolder<MovementDataHolder> {
         this.textMovment.setText(item.getMovement());
         this.textReference.setText(item.getReferencia());
         this.textAmount.setMoney(item.getAmount());
-        this.imageState.setImageDrawable(item.getResImage());
+        //this.imageState.setImageDrawable(item.getResImage());
+        this.itemView.setBackgroundColor(Color.parseColor(this.colorBackgraund));
 
         if (listener != null){
             itemView.setOnClickListener(v -> listener.onClickView(item,itemView));
         }
+    }
+
+    public String getColorBackgraund() {
+        return colorBackgraund;
+    }
+
+    public void setColorBackgraund(String colorBackgraund) {
+        this.colorBackgraund = colorBackgraund;
     }
 }

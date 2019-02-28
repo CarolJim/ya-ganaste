@@ -11,4 +11,6 @@
     <string name="month">Ene</string>
     <string name="movement">Venta con tarjet</string>
     <string name="ref">Santander 5245</string>
+    <string name="movements_res">Movimientos Recientes</string>
+    <string name="empty_movs">Sin movimientos</string>
 </resources>

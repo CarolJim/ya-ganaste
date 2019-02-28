@@ -87,10 +87,8 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
     }
 
     @Override
-    public void initViews() {
-        ButterKnife.bind(this, rootView);
-
-
+    public void onResume() {
+        super.onResume();
         Resources resources = Objects.requireNonNull(getContext()).getResources();
         switch (type) {
             case ALL_RECHARGES:
@@ -144,6 +142,66 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
                 });
                 break;
         }
+    }
+
+    @Override
+    public void initViews() {
+        ButterKnife.bind(this, rootView);
+
+
+        /*Resources resources = Objects.requireNonNull(getContext()).getResources();
+        switch (type) {
+            case ALL_RECHARGES:
+                textTitle.setText(resources.getString(R.string.child_tab_recharge));
+                textSubtitle.setText(resources.getString(R.string.select_comerce));
+                interactor.getRecharge();
+                recAll.setOnClickItems(this);
+
+                break;
+            case ALL_SERVICES:
+                textTitle.setText(resources.getString(R.string.child_tab_services));
+                textSubtitle.setText(resources.getString(R.string.select_comerce));
+                interactor.getServices();
+                recAll.setOnClickItems(this);
+                break;
+            case ALL_RECHARGES_FAV:
+                textTitle.setText(resources.getString(R.string.title_all_recharge_fav));
+                textSubtitle.setText(resources.getString(R.string.select_comerce_fav));
+                interactor.getRechargeFavorites();
+                recAll.setOnClickItems(this);
+                recAll.setPencilOnClickItem(item -> {
+                    Intent intentEditFav = new Intent(getContext(), FavoritesActivity.class);
+                    intentEditFav.putExtra(Objects.requireNonNull(getActivity()).getString(R.string.favoritos_tag),
+                            item.getObject());
+                    intentEditFav.putExtra(CURRENT_TAB_ID, ITEM_CARRIER_RECARGA);
+                    intentEditFav.putExtra(FAVORITE_PROCESS, EDIT_FAVORITE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                    } else {
+                        startActivity(intentEditFav);
+                    }
+                });
+                break;
+            case ALL_SERVICES_FAV:
+                textTitle.setText(resources.getString(R.string.title_all_services_fav));
+                textSubtitle.setText(resources.getString(R.string.select_service_fav));
+                interactor.getServicesFavorites();
+                recAll.setOnClickItems(this);
+                recAll.setPencilOnClickItem(item -> {
+                    Intent intentEditFav = new Intent(getContext(), FavoritesActivity.class);
+                    intentEditFav.putExtra(Objects.requireNonNull(getActivity()).getString(R.string.favoritos_tag),
+                            item.getObject());
+                    intentEditFav.putExtra(CURRENT_TAB_ID, ITEM_CARRIER_PAGOS);
+                    intentEditFav.putExtra(FAVORITE_PROCESS, EDIT_FAVORITE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                    } else {
+
+                        startActivity(intentEditFav);
+                    }
+                });
+                break;
+        }*/
     }
 
     private void filter(String s) {
@@ -242,9 +300,9 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
             intentEditFav.putExtra(CURRENT_TAB_ID, ITEM_CARRIER_RECARGA);
             intentEditFav.putExtra(FAVORITE_PROCESS, EDIT_FAVORITE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                startActivityForResult(intentEditFav, EDIT_FAVORITE,ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
             } else {
-                startActivity(intentEditFav);
+                startActivityForResult(intentEditFav, EDIT_FAVORITE);
             }
         }
     }
