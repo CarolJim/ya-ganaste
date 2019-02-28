@@ -525,7 +525,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 //  finish();
             }
         }
-        onEvent(EVENT_SHOW_LOADER,"");
+        onEvent(EVENT_SHOW_LOADER, "");
 
         if (requestCode == Constants.CONTACTS_CONTRACT
                 || requestCode == Constants.BARCODE_READER_REQUEST_CODE
@@ -611,7 +611,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
             childFragment.onActivityResult(requestCode, resultCode, data);
         }
-
 
 
     }
@@ -1033,6 +1032,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         Intent intent = new Intent(this, EnvioFormularioWallet.class);
         intent.putExtra("pagoItem", envio);
         startActivityForResult(intent, BACK_FROM_PAYMENTS);
-        onEvent(EVENT_HIDE_LOADER,"");
+        onEvent(EVENT_HIDE_LOADER, "");
     }
 }

@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui_wallet.dialog;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.google.android.material.textfield.TextInputLayout;
@@ -11,12 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IDialogSetPassword;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
+import java.util.Objects;
 
 import butterknife.ButterKnife;
 
@@ -82,6 +87,9 @@ public class DialogSetPasswordLogin  extends DialogFragment implements View.OnCl
 //                    txtInput.setBackgroundResource(R.drawable.inputtext_active);
                     listener.onPasswordSet(edtPas.getText().toString());
                     dismiss();
+                    InputMethodManager imm = (InputMethodManager)  App.getContext()
+                            .getSystemService(Context.INPUT_METHOD_SERVICE);
+                    Objects.requireNonNull(imm).toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
                 }
             }
 
