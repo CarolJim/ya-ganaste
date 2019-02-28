@@ -404,6 +404,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     @Override
     public void validatePersonDatanew() {
         RegisterUserNew registerUser = RegisterUserNew.getInstance();
+/**
+ * TODO ELIMINAR AL VALIDAR SERVICIOS DE RENAPO
+
         ValidarDatosPersonaRequest request = new ValidarDatosPersonaRequest();
 
         request.setNombre(registerUser.getNombre());
@@ -412,7 +415,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         request.setFechaNacimiento(registerUser.getFechaNacimiento());
         request.setGenero(registerUser.getGenero());
         request.setIdEstadoNacimiento(Integer.valueOf(registerUser.getIdEstadoNacimineto()));
-
+*/
         RenapoDataRequest renapoRequest = new RenapoDataRequest();
         renapoRequest.setName(registerUser.getNombre());
         renapoRequest.setFatherLastName(registerUser.getApellidoPaterno());
@@ -435,6 +438,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     public void validatePersonDataHomonimia() {
 
         RegisterUserNew registerUser = RegisterUserNew.getInstance();
+        /**
+         * TODO ELIMINAR AL VALIDAR SERVICIOS RENAPO
+
         ValidarDatosPersonaRequest request = new ValidarDatosPersonaRequest();
 
         request.setNombre(registerUser.getNombre());
@@ -444,9 +450,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         request.setGenero(registerUser.getGenero());
         request.setIdEstadoNacimiento(Integer.valueOf(registerUser.getIdEstadoNacimineto()));
         request.setCURP(registerUser.getCURP());
+         */
 
         RenapoDataCurpRequest renapoCurprequest = new RenapoDataCurpRequest();
-        renapoCurprequest.setCurp(request.getCURP());
+        renapoCurprequest.setCurp(registerUser.getCURP());
 
         try {
             //ApiAdtvo.validarDatosPersonaHomonimia(request, this);

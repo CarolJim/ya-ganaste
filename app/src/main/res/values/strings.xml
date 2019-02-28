@@ -1542,7 +1542,7 @@
     <string name="load_detail_movimientos">Cargando detalle del movimiento</string>
     <string name="load_detail_movimientos_error">No se pudo obtener el detalle, inténtelo más tarde</string>
     <string name="ingresa_tu_curp">Ingresa tu CURP</string>
-    <string name="ingresa_tu_curp_new">Tuvimos un problema para identificarte,\npor favor ingresa tu CURP</string>
+    <string name="ingresa_tu_curp_new">Tuvimos un problema para identificarte, por favor ingresa tu CURP</string>
     <string name="mis_recompensas">Mis Recompensas</string>
     <string name="label_btn_see_account_statement">Ver estado de cuenta</string>
 
@@ -1809,7 +1809,7 @@
     <string name="monto_de_recarga">Monto de recarga</string>
     <string name="autorizar_pago">Autorizar Pago</string>
     <string name="autorizar_recarga">Autorizar Recarga</string>
-    <string name="URL_SERVER_FOLK">10.10.47.11:994/folk</string>
+    <string name="URL_SERVER_FOLK">https://eiga-yg.yaganaste.net/api</string>
     <string name="consult_data_person_renapo">/GetData</string>
     <string name="consult_curp_person_renapo">/GetCurp</string>
 
