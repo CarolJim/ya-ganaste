@@ -88,6 +88,10 @@ import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.modules.data.webservices.RenapoDataCurpRequest;
 import com.pagatodo.yaganaste.modules.data.webservices.RenapoDataRequest;
+import com.pagatodo.yaganaste.modules.management.ApisFriggs;
+import com.pagatodo.yaganaste.modules.management.apis.FriggsHeaders;
+import com.pagatodo.yaganaste.modules.management.apis.FrigsMethod;
+import com.pagatodo.yaganaste.modules.management.request.UpdateTokenFirebase;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 
 import java.util.Map;
@@ -140,6 +144,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_SUBGIROS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECURSO_IMAGEN;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.UPDATEFIREBASETOKEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.UPDATE_DATOS_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONAHOMO;
@@ -149,6 +154,8 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIV
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
+import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_ODIN;
 
 /**
  * Created by flima on 17/03/2017.
@@ -341,7 +348,6 @@ public class ApiAdtvo extends Api {
     public static void consultarDatosPersonaRenapo(Object request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-
 
         if (request instanceof RenapoDataRequest) {
             NetFacade.consumeWS(CONSULTAR_DATOS_PERSONA_RENAPO,

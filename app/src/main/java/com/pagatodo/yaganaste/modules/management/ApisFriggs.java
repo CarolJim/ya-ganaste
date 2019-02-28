@@ -30,7 +30,8 @@ public class ApisFriggs {
                                          Serializable bodyRequest, WebService webService){
         //WsCaller
         Log.d("WSC", urlRequest);
-        Log.d("WSC",headers.get("Authorization"));
+        if (!headers.isEmpty())
+            Log.d("WSC",headers.get("Authorization"));
         Gson gson = new Gson();
         int metthodRequest = Request.Method.GET;
         if (method == FrigsMethod.POST) {

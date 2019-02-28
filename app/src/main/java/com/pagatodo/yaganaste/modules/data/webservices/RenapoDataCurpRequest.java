@@ -2,7 +2,9 @@ package com.pagatodo.yaganaste.modules.data.webservices;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RenapoDataCurpRequest {
+import java.io.Serializable;
+
+public class RenapoDataCurpRequest implements Serializable {
     @SerializedName("curp")
     private String curp;
 
