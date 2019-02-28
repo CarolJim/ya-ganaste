@@ -1796,16 +1796,16 @@
     <string name="selecciona_un_favorito">Selecciona un favorito para realizar\nun envio de dinero</string>
 
     <string name="enviar_a_un_favorit">Enviar a un Favorito</string>
-    <string name="select_recharge">Seleccionar recarga</string>
-    <string name="select_recharge_fav">Recargar a un Favorito</string>
+    <string name="select_recharge">Seleccionar Servicio</string>
+    <string name="select_recharge_fav">Pagar un Favorito</string>
     <string name="amount_to_send">Monto a Enviar</string>
     <string name="destinatario">Destinatario</string>
     <string name="referencia">Referencia</string>
     <string name="n_mero_de_tarjeta">Número de tarjeta</string>
     <string name="clabe_send">CLABE</string>
     <string name="tab_recharge">Recargar</string>
-    <string name="tab_pay_services">Pagar servicios</string>
-    <string name="saldo_actual">Saldo actual</string>
+    <string name="tab_pay_services">Pagar Servicios</string>
+    <string name="saldo_actual">Saldo Actual</string>
     <string name="monto_de_recarga">Monto de recarga</string>
     <string name="autorizar_pago">Autorizar Pago</string>
     <string name="autorizar_recarga">Autorizar Recarga</string>
@@ -1828,4 +1828,5 @@
     <string name="title_scan">Escanea el código QR\ndel negocio</string>
     <string name="month">Ene</string>
     <string name="introduce_curp_valida">Por favor introduce una CURP válida</string>
+    <string name="seleccionar_tipo_de_envio">Seleccionar Tipo de Envio</string>
 </resources>

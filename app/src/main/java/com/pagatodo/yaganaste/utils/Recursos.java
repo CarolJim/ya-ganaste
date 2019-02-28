@@ -147,7 +147,7 @@ public class Recursos {
     public static final String TRANSACTION_SEQUENCE = "TRANSACTION_SEQUENCE";
     public static final String IPOS_READER_STATES = "EMVSWIPE_STATES";
     public static final int READER_TRANSACTION = 0x31;
-
+    public static  final String TYPEPAYMENT="TYPEPAYMENT";
     public static final String MSJ = "MSJ";
     public static final String ESTADO = "ESTADO";
     public static final String VALOR = "VALOR";
