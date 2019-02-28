@@ -234,6 +234,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     };
     private String lugarNacimiento = "";
     private String idEstadoNacimiento = "";
+    private String prefijo = "";
     private AccountPresenterNew accountPresenter;
 
     public static RegistroDatosPersonalesFragment newInstance() {
@@ -760,6 +761,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         registerUser.setApellidoMaterno(apMaterno);
         registerUser.setFechaNacimientoToShow(editBirthDay.getText().toString());
         registerUser.setFechaNacimiento(fechaNacimiento);
+        registerUser.setClaveedonacimiento(prefijo);
         //registerUser.setNacionalidad("MX");
         if (country != null) {
             registerUser.setPaisNacimiento(country);
@@ -770,8 +772,10 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
         if (BuildConfig.DEBUG) {
-            onValidationSuccess();
-            //accountPresenter.validatePersonDatanew();
+            //TODO descomentar despues de validar pruebas y comentar siguiente linea
+           // onValidationSuccess();
+            accountPresenter.validatePersonDatanew();
+
         } else {
             accountPresenter.validatePersonDatanew();
         }
@@ -787,6 +791,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
             idEstadoNacimiento = ((DtoStates) spinnerBirthPlace.getSelectedItem()).ID_EntidadNacimiento;
+            prefijo =  ((DtoStates) spinnerBirthPlace.getSelectedItem()).clave;
         } else {
             lugarNacimiento = "";
         }
@@ -847,6 +852,13 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                 getFragmentManager(), new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
+                        RegisterUserNew registerUserNew = RegisterUserNew.getInstance();
+
+                        if(!validarCurp(registerUserNew.getCURP())){
+                            UI.showErrorSnackBar(getActivity(),getString(R.string.introduce_curp_valida),Snackbar.LENGTH_SHORT);
+                            return;
+                        }
+
                         accountPresenter.validatePersonDataHomonimia();
                     }
 
@@ -854,6 +866,12 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                     public void actionCancel(Object... params) {
                     }
                 }, true, false);
+    }
+
+    /*Método validar curp*/
+    public boolean validarCurp(String curp){
+        curp=curp.toUpperCase().trim();
+        return curp.matches("[A-Z]{4}[0-9]{6}[H,M][A-Z]{5}[0-9]{2}");
     }
 
 

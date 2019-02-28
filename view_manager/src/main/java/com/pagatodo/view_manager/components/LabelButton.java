@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 public class LabelButton extends LinearLayout {
 
     private Button btnAll;
+    private TextView label;
 
     public LabelButton(Context context) {
         super(context);
@@ -35,7 +37,7 @@ public class LabelButton extends LinearLayout {
     public void init(AttributeSet attrs){
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View rootView = inflater.inflate(R.layout.label_button,this,false);
-        TextView labelBtn = rootView.findViewById(R.id.label_btn);
+        label = rootView.findViewById(R.id.label_btn);
         btnAll = rootView.findViewById(R.id.button_all);
         if (attrs != null) {
             TypedArray a = getContext().getTheme().obtainStyledAttributes(
@@ -44,7 +46,7 @@ public class LabelButton extends LinearLayout {
                     0, 0);
             try {
                 String resTextTitle = a.getString(R.styleable.LabelButton_labelBtn);
-                labelBtn.setText(resTextTitle);
+                label.setText(resTextTitle);
             } finally {
                 a.recycle();
             }
@@ -54,6 +56,13 @@ public class LabelButton extends LinearLayout {
 
     public void setOnClick(View.OnClickListener listener){
         btnAll.setOnClickListener(listener);
+    }
+    public void setLabel(String labeltitle){
+        label.setText(labeltitle);
+
+    }
+    public void setLabelButton(String labeltitleButton){
+        btnAll.setText(labeltitleButton);
     }
 
 }
