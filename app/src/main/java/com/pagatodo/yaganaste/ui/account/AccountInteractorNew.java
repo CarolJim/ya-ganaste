@@ -452,18 +452,18 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
         Log.e("BornDate",renapoRequest.getBornDate());
         Map months = new HashMap<String, String>();
-        months.put("Jan","01");
+        months.put("Ene","01");
         months.put("Feb","02");
         months.put("Mar","03");
-        months.put("Apr","04");
+        months.put("Abr","04");
         months.put("May","05");
         months.put("Jun","06");
         months.put("Jul","07");
-        months.put("Aug","08");
+        months.put("Ago","08");
         months.put("Sep","09");
         months.put("Oct","10");
         months.put("Nov","11");
-        months.put("Dec","12");
+        months.put("Dic","12");
         String [] elementsDate = renapoRequest.getBornDate().split(" ");
         String day = String.format("%2s",elementsDate[0]).replace(" ","0");
         String month = (String) months.get(elementsDate[1]);
