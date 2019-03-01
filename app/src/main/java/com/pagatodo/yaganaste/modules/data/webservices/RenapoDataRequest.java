@@ -3,13 +3,15 @@ package com.pagatodo.yaganaste.modules.data.webservices;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 //name=aurelio&
 // fatherLastName=cortés&
 // motherLastName=mendoza&
 // sex=H&
 // bornState=OC&
 // bornDate=11/19/1944
-public class RenapoDataRequest {
+public class RenapoDataRequest implements Serializable {
 
     @SerializedName("name")
     private String name;
