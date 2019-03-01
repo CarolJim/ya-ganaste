@@ -65,7 +65,7 @@ public class PayFragment extends GenericFragment implements PayContracts.Listene
     @BindView(R.id.recharges_recycler_fav)
     RechargesRecycler rechargesRecyclerFav;
     private PayReloadsServicesActivity activity;
-
+    PayInteractor interactor ;
     public static PayFragment newInstance() {
         return new PayFragment();
     }
@@ -76,6 +76,16 @@ public class PayFragment extends GenericFragment implements PayContracts.Listene
         bundle.putInt(TAG_TYPE, type);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    List<Favoritos> catalogos;
+    PayContracts.TYPE_PAY typePay;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (interactor !=null)
+        interactor.getFavoritesLocal();
     }
 
     @Override
@@ -113,7 +123,7 @@ public class PayFragment extends GenericFragment implements PayContracts.Listene
         if (type != 0) {
             switch (type) {
                 case RECHARGE_FRAGMENT:
-                    PayInteractor interactor = new PayInteractor(this, RECHARGE);
+                    interactor = new PayInteractor(this, RECHARGE);
                     interactor.getComerces();
                     interactor.getFavoritesLocal();
                     headBtn.setLabel("Seleccionar Recarga");
@@ -152,6 +162,9 @@ public class PayFragment extends GenericFragment implements PayContracts.Listene
 
     @Override
     public void onFavoritesSuccess(List<Favoritos> catalogos, PayContracts.TYPE_PAY typePay) {
+
+        this.catalogos = catalogos;
+        this.typePay= typePay;
         rechargesRecyclerFav.setListItem(covertFavItem(catalogos, typePay));
         rechargesRecyclerFav.setOnClickItems(this);
     }
