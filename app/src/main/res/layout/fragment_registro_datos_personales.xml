@@ -69,7 +69,7 @@
                     android:layout_marginBottom="9dp"
                     android:background="@android:color/transparent"
                     android:imeOptions="actionNext"
-                    android:digits="@string/input_letters"
+
                     android:inputType="textNoSuggestions|textCapSentences"
                     android:paddingLeft="9.5dp"
                     android:singleLine="true"
@@ -132,7 +132,6 @@
                         android:imeOptions="actionNext"
                         android:inputType="textNoSuggestions|textCapSentences"
                         android:paddingLeft="12.5dp"
-                        android:digits="@string/input_letters"
                         android:singleLine="true"
                         android:textColor="@color/grayColor"
                         android:theme="@style/NewEdittextwallet" />
@@ -186,7 +185,6 @@
                         android:inputType="textNoSuggestions|textCapSentences"
                         android:paddingLeft="12.5dp"
                         android:singleLine="true"
-                        android:digits="@string/input_letters"
                         android:textColor="@color/grayColor"
                         android:theme="@style/NewEdittextwallet" />
 
