@@ -26,6 +26,13 @@ public class NumberClabeTextWatcher implements TextWatcher {
         this.maxLength = maxLength;
     }
 
+ public NumberClabeTextWatcher(EditText cardNumber, int maxLength,ITextChangeListener listener) {
+        this.cardNumber = cardNumber;
+        this.maxLength = maxLength;
+        this.listener =listener;
+
+    }
+
     public void setOnITextChangeListener(ITextChangeListener listener) {
         this.listener = listener;
     }
@@ -79,7 +86,9 @@ public class NumberClabeTextWatcher implements TextWatcher {
 
         if (listener != null) {
             listener.onTextChanged();
-            if (newS.length() == 22) {
+            if (newS.length() == 0) {
+                listener.onTextComplete();
+            } if (newS.length() == 22) {
                 listener.onTextComplete();
             }
         }

@@ -7,6 +7,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -18,6 +19,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,9 +100,13 @@ public class AgregarVirtQRIteractor implements  AgregarVirtContracts.Iteractor{
     public void validarQRValido(String alias) {
         RequestQueue requestQueue = Volley.newRequestQueue(App.getContext());
 
+     /*   Date date = new Date();
+        Timestamp timeStampDate = new Timestamp(date.getTime());
+*/
         JSONObject jsonBody = new JSONObject();
         try {
 //            jsonBody.put("plate",plate);
+            //jsonBody.put("name",alias + timeStampDate.toString());
             jsonBody.put("name",alias);
             jsonBody.put("bank", "148");
             jsonBody.put("account", App.getInstance().getPrefs().loadData(CLABE_NUMBER).replace(" ",""));
@@ -115,12 +122,14 @@ public class AgregarVirtQRIteractor implements  AgregarVirtContracts.Iteractor{
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.d("QR","SuccesQR");
                         listener.onSuccessQRs();
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("VOLLEY OK", error.toString());
+                        Log.d("QR","ErrorQR");
                         listener.onErrorQRs();
                     }
                 }) {
@@ -147,6 +156,23 @@ public class AgregarVirtQRIteractor implements  AgregarVirtContracts.Iteractor{
         Gson gson = new Gson();
         Log.d("WSC",jsonObjectRequest.getUrl());
         Log.d("WSC Request",gson.toJson(jsonBody));
-        requestQueue.add(jsonObjectRequest);
+        //requestQueue.add(jsonObjectRequest);
+        requestQueue.add(jsonObjectRequest).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                Log.d("QR","TIMEOUT");
+                return 0;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+
+                return 0;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+                Log.d("QR","ErrorQRPOLICY");            }
+        });
     }
 }

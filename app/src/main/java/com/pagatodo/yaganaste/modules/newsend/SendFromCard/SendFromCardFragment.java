@@ -347,7 +347,7 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                 reference_clabe_edtx.setFocusableInTouchMode(false);
                 reference_clabe_edtx.setEnabled(false);
                 maxLength = 22;
-                NumberClabeTextWatcher clabeTextWatcher = new NumberClabeTextWatcher(referencianumber_clabe, maxLength);
+                NumberClabeTextWatcher clabeTextWatcher = new NumberClabeTextWatcher(referencianumber_clabe, maxLength,this);
                 txtWatcherSetted = clabeTextWatcher;
                 referencianumber_clabe.addTextChangedListener(clabeTextWatcher);
                 selectedType = CLABE;
@@ -889,19 +889,31 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
         for (int x = 0; x < backUpResponse.size(); x++) {
             if (backUpResponse.get(x).getComercio().getIdComercio() == myIdComercio) {
                 comercioItem = backUpResponse.get(x).getComercio();
-                bank_card_edtx.setText(backUpResponse.get(x).getComercio().getNombreComercio());
+                if (selectedType == CLABE)
+                    bank_clabe_edtx.setText(backUpResponse.get(x).getComercio().getNombreComercio());
+
+
+
+                if (selectedType == NUMERO_TARJETA)
+                    bank_card_edtx.setText(backUpResponse.get(x).getComercio().getNombreComercio());
+
+
+
+
                 idTipoComercio = backUpResponse.get(x).getComercio().getIdTipoComercio();
                 idComercio = backUpResponse.get(x).getComercio().getIdComercio();
             }
         }
 
         if (selectedType == CLABE && idComercio == IDCOMERCIO_YA_GANASTE) {
-            String card = referencianumber_edtx.getText().toString();
+            String card = referencianumber_clabe.getText().toString();
             card = card.replaceAll(" ", "");
             if (card.length() == 18) {
-                enviosPresenter.getTitularName(referencianumber_edtx.getText().toString().trim());
+                enviosPresenter.getTitularName(referencianumber_clabe.getText().toString().trim());
             }
-            reference_card_edtx.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+            reference_clabe_edtx.setText( (selectedType == CLABE)?App.getContext().getResources().getString(R.string.trans_yg_envio_txt):App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
+
+
         }
         if (selectedType == NUMERO_TELEFONO && idComercio == IDCOMERCIO_YA_GANASTE) {
             reference_card_edtx.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
@@ -974,7 +986,10 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
     @Override
     public void setTitularName(DataTitular dataTitular) {
         /*isCuentaValida = true;*/
+        if (selectedType == NUMERO_TARJETA)
         dest_card_edtx.setText(dataTitular.getNombre().concat(" ").concat(dataTitular.getPrimerApellido()).concat(" ").concat(dataTitular.getSegundoApellido()));
+        if (selectedType == CLABE)
+        dest_clabe_edtx.setText(dataTitular.getNombre().concat(" ").concat(dataTitular.getPrimerApellido()).concat(" ").concat(dataTitular.getSegundoApellido()));
     }
 
     @Override
@@ -999,6 +1014,14 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void onTextComplete() {
+
+        if (referencianumber_clabe.getText().toString().length() == 0) {
+            reference_clabe_edtx.setText("");
+            bank_clabe_edtx.setText("");
+            dest_clabe_edtx.setText("");
+        } else {
+            paymentsCarouselPresenter.getdatabank(referencianumber_clabe.getText().toString(), "clave");
+        }
 
     }
 

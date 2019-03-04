@@ -257,7 +257,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         } else if (itemOperation.getIdOperacion() == TYPE_ADQ_FIRST) {
             //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
             //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
-            timeRepaymentPresenter.getTypePayments();
+            timeRepaymentPresenter.updateTypeRepayment(Integer.parseInt(App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO)));
         } else if (itemOperation.getIdOperacion() == OPTION_BALANCE_CLOSED_LOOP) {
             BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
             if (!adapter.isEnabled() && App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {

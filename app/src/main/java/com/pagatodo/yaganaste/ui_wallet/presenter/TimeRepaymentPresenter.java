@@ -6,6 +6,8 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.ITimeRepaymentIteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ITimeRepaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ITimeRepaymentView;
 
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ERROR_ADDRESS;
+
 /**
  * Created by Omar on 22/02/2018.
  */
@@ -54,6 +56,7 @@ public class TimeRepaymentPresenter implements ITimeRepaymentPresenter {
     public void onFailedUpdateTypeRepayment(String error) {
         view.hideLoader();
         view.onError(error);
+
     }
 
     @Override

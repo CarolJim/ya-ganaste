@@ -556,7 +556,7 @@ public class AccountActivity extends LoaderActivity implements WalletEmisorContr
 
     private void registerUserInFirebase(DataIniciarSesionUYU data) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.createUserWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "123456")
+        auth.createUserWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "93682157")
                 .addOnCompleteListener(task -> {
                     App.getInstance().getPrefs().saveDataBool(HAS_FIREBASE_ACCOUNT, true);
 
