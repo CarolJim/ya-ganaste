@@ -384,7 +384,7 @@ public class ElementWallet {
     public static ElementWallet getCardLectorAdq(Agentes agentes) {
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), isBluetooth ? R.drawable.chip_pin : R.mipmap.lector_front);
-
+        agentes = null;
         if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) && agentes != null) {
             if (isBluetooth && !agentes.getNombreNegocio().equals("")) {
                 frontView = frontCardBusiness(frontView, agentes.getNombreNegocio());
@@ -392,9 +392,8 @@ public class ElementWallet {
             String leyenda;
             int descripcion;
             boolean isReload = true;
-            if (SingletonUser.getInstance().getDataUser().getUsuario().getIdEstatusEmisor() == IdEstatus.ADQUIRENTE.getId() &&
-                    App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false) &&
-                    App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)) {
+            if (agentes.isEsAgregador() && agentes.getIdEstatus() == IdEstatus.ADQUIRENTE.getId() &&
+                    !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false)) {
                 /*if (agentes.getIdEstatus() == IdEstatus.ADQUIRENTE.getId()) {*/
                 leyenda = StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE));
                 descripcion = R.string.saldo_reembolso;
@@ -405,10 +404,16 @@ public class ElementWallet {
             }
             if (isBluetooth) {
                 return new ElementWallet(TYPE_ADQ, null, null, leyenda,
-                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(), "" + agentes.getIdComercio(), agentes.isEsComercioUYU(), agentes.isEsAgregador()), descripcion, isReload, agentes);
+                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(),
+                                agentes.getNombreNegocio(), agentes.getNumeroAgente(), ""
+                                        + agentes.getIdComercio(), agentes.isEsComercioUYU(),
+                                agentes.isEsAgregador()), descripcion, isReload, agentes);
             } else {
                 return new ElementWallet(TYPE_ADQ, frontView, null, leyenda,
-                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(), "" + agentes.getIdComercio(), agentes.isEsComercioUYU(), agentes.isEsAgregador()), descripcion, isReload, agentes);
+                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(),
+                                agentes.getNombreNegocio(), agentes.getNumeroAgente(), ""
+                                        + agentes.getIdComercio(), agentes.isEsComercioUYU(),
+                                agentes.isEsAgregador()), descripcion, isReload, agentes);
             }
         } else {
             return getCardLectorEmi();

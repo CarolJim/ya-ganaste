@@ -147,7 +147,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void initViews() {
-        App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
+        //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
         //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_LOGIN, false);
 
         viewPagerWallet = pageContainer.getViewPager();
@@ -311,7 +311,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void onSuccessUpdateType() {
         UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()), getString(R.string.success_time_repayment_save), Snackbar.LENGTH_SHORT);
         showLoader("");
-        App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
+        //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
         App.getInstance().getPrefs().saveDataBool(FIST_ADQ_LOGIN, true);
         goToWalletMainActivity();
     }
@@ -412,7 +412,8 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void onPageSelected(int position) {
-        pager_indicator.selectDots(this.pageCurrent % cardWalletAdpater.getSize(), position % cardWalletAdpater.getSize());
+        pager_indicator.selectDots(this.pageCurrent % cardWalletAdpater.getSize(),
+                position % cardWalletAdpater.getSize());
         this.pageCurrent = position;
         cardWalletAdpater.resetFlip();
         updateOperations(position);

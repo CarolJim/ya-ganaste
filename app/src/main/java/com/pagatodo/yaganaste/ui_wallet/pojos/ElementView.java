@@ -267,7 +267,8 @@ public class ElementView implements ElementGlobal {
         return elementViews;
     }
 
-    public static ArrayList<ElementView> getListLectorAdq(int idEstatusAgente, List<Operadores> list, String nombreN, String numeroAgente, String idComercio, boolean isComercioUyu,
+    public static ArrayList<ElementView> getListLectorAdq(int idEstatusAgente, List<Operadores> list,
+                      String nombreN, String numeroAgente, String idComercio, boolean isComercioUyu,
                                                           boolean isAgregador) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
@@ -278,14 +279,23 @@ public class ElementView implements ElementGlobal {
 
             elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ic_ico_wallet, R.string.mis_operadores, list, nombreN, numeroAgente, idComercio));
             elementViews.add(new ElementView(OPTION_VENTAS_ADQ, R.drawable.ic_ico_ventas_dia, R.string.ventas_dia, list, nombreN, numeroAgente, idComercio));
+        } else {
+            List<Agentes> agentes = new ArrayList<>();
+            try {
+                agentes = new DatabaseManager().getAgentes();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (isAgente && isAgregador && idEstatusAgente == IdEstatus.ADQUIRENTE.getId()) {
+                elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_ico_ventas_tarjeta, R.string.operation_consultar_saldo));
+                //elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
+                elementViews.add(new ElementView(OPTION_CHARGE_WITH_CARD, R.drawable.ic_ico_cobros_tarjeta, R.string.realizar_cobro));
+                elementViews.add(new ElementView(OPTION_MY_CARD_SALES, R.drawable.ic_ico_ventas_tarjeta, R.string.my_card_sales));
+            } else {
+                elementViews = ElementView.getListAdqBalance(false);
+            }
         }
-        List<Agentes> agentes = new ArrayList<>();
-        try {
-            agentes = new DatabaseManager().getAgentes();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
+        /*
         //elementViews.add(new ElementView(OPTION_TRANSFER_BALANCE, R.drawable.ic_transfer, R.string.transfer_balance));
         if (agentes.size() < 2) {
             elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_ico_ventas_tarjeta, R.string.operation_consultar_saldo));
@@ -312,20 +322,16 @@ public class ElementView implements ElementGlobal {
             } else if (idEstatusAgente == IdEstatus.I10.getId() || idEstatusAgente == IdEstatus.I13.getId()) {
                 elementViews = ElementView.getListEstadoRechazado(idComercio);
             } else
-                /*if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
-                        !App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)
-                        && !isComercioUyu) {
-                    elementViews = ElementView.getListSeleccionarLector(idComercio);
-                }*/
-                if (idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
-                        !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)
-                        && !isComercioUyu) {
+
+                if (idEstatusAgente == IdEstatus.ADQUIRENTE.getId() && !isComercioUyu) {
+
                     //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
-                    if (!isAgregador) {
-                        elementViews = ElementView.getListSeleccionarTipoReevolso(idComercio);
-                    } else {
+                    if (isAgregador) {
                         elementViews = ElementView.getListAdqBalance(false);
-                    }
+                        //elementViews = ElementView.getListSeleccionarTipoReevolso(idComercio);
+                    } //else {
+                        //elementViews = ElementView.getListAdqBalance(false);
+                    //}
                     for (Operadores opr : list) {
                         if (opr.getIsAdmin()) {
                             RequestHeaders.setIdCuentaAdq(opr.getIdUsuarioAdquirente());
@@ -339,7 +345,7 @@ public class ElementView implements ElementGlobal {
                     App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
                 }
 
-        }
+        }*/
 
         return elementViews;
     }

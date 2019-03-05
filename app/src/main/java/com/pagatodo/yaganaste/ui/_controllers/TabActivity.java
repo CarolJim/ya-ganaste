@@ -284,10 +284,10 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         lastFrag = 0;
         navitaionBar.setSelectedItemId(R.id.navigation_wallet);
 
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getIdEstatusEmisor() == IdEstatus.ADQUIRENTE.getId() &&
+        /*if (SingletonUser.getInstance().getDataUser().getUsuario().getIdEstatusEmisor() == IdEstatus.ADQUIRENTE.getId() &&
                 !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)) {
             navitaionBar.getMenu().removeItem(R.id.navigation_charge);
-        }
+        }*/
 
 
     }
@@ -937,7 +937,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.navigation_charge) {
-            startActivity(ChargeActivity.createIntent(this));
+            if (SingletonUser.getInstance().getDataUser().getUsuario().getIdEstatusEmisor()
+                    == IdEstatus.ADQUIRENTE.getId()) {
+                startActivity(ChargeActivity.createIntent(this));
+            }
+            //startActivity(ChargeActivity.createIntent(this));
             //startActivity(AggregatorActivity.createIntent(this));
         } else if (lastFrag != menuItem.getItemId()) {
             lastFrag = menuItem.getItemId();
