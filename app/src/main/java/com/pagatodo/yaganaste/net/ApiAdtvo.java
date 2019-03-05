@@ -88,6 +88,10 @@ import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.modules.data.webservices.RenapoDataCurpRequest;
 import com.pagatodo.yaganaste.modules.data.webservices.RenapoDataRequest;
+import com.pagatodo.yaganaste.modules.management.ApisFriggs;
+import com.pagatodo.yaganaste.modules.management.apis.FriggsHeaders;
+import com.pagatodo.yaganaste.modules.management.apis.FrigsMethod;
+import com.pagatodo.yaganaste.modules.management.request.UpdateTokenFirebase;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 
 import java.util.Map;
@@ -140,6 +144,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_SUBGIROS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECURSO_IMAGEN;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.UPDATEFIREBASETOKEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.UPDATE_DATOS_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONAHOMO;
@@ -149,6 +154,8 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIV
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
+import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_ODIN;
 
 /**
  * Created by flima on 17/03/2017.
@@ -159,7 +166,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 public class ApiAdtvo extends Api {
 
     private static String URL_SERVER_ADTVO;
-    private static String URL_SERVER_FOLK = App.getContext().getString(R.string.URL_SERVER_FOLK);
+    public static String URL_SERVER_FOLK = App.getContext().getString(R.string.URL_SERVER_FOLK);
     public static String PIN_ADTVO;
 
     public static void setUrlServerAdtvo(String urlServerAdtvo) {
@@ -342,15 +349,14 @@ public class ApiAdtvo extends Api {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
 
-
         if (request instanceof RenapoDataRequest) {
-            NetFacade.consumeWS(CONSULTAR_DATOS_PERSONA_RENAPO,
+            NetFacade.consumeWSnotag(CONSULTAR_DATOS_PERSONA_RENAPO,
                     METHOD_GET, URL_SERVER_FOLK + App.getContext().getString(R.string.consult_curp_person_renapo),
-                    headers, (RenapoDataRequest)request, GenericResponse.class, result);
+                    headers, (RenapoDataRequest)request, GenericResponse.class, result,false);
         }else {
-            NetFacade.consumeWS(CONSULTAR_DATOS_PERSONA_RENAPO,
+            NetFacade.consumeWSnotag(CONSULTAR_DATOS_PERSONA_RENAPO,
                     METHOD_GET, URL_SERVER_FOLK + App.getContext().getString(R.string.consult_data_person_renapo),
-                    headers, (RenapoDataCurpRequest)request, GenericResponse.class, result);
+                    headers, (RenapoDataCurpRequest)request, GenericResponse.class, result,false);
         }
     }
 

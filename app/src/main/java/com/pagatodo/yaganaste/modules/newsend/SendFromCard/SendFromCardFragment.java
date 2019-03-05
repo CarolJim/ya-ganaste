@@ -86,7 +86,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
  * A simple {@link Fragment} subclass.
  */
 public class SendFromCardFragment extends GenericFragment implements View.OnClickListener, OnListServiceListener,
-        PaymentsCarrouselManager, EnviosManager , NumberCardTextWatcher.Ibind {
+        PaymentsCarrouselManager, EnviosManager, NumberCardTextWatcher.Ibind {
     @BindView(R.id.headWallet)
     HeadWallet headWallet;
     @BindView(R.id.HeadAccount)
@@ -119,10 +119,6 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
     @BindView(R.id.reference_card_edtx)
     EditText reference_card_edtx;
     /*Validación de datos */
-
-
-
-
 
 
     @BindView(R.id.dest)
@@ -230,8 +226,6 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
         ButterKnife.bind(this, rootView);
 
 
-
-
         referencianumber_edtx.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 number_card.setBackgroundResource(R.drawable.input_text_active);
@@ -318,7 +312,7 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                 reference_card_edtx.setFocusableInTouchMode(false);
                 reference_card_edtx.setEnabled(false);
                 maxLength = 19;
-                NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(referencianumber_edtx, maxLength,this::bindcomplete);
+                NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(referencianumber_edtx, maxLength, this::bindcomplete);
                 txtWatcherSetted = numberCardTextWatcher;
                 referencianumber_edtx.addTextChangedListener(numberCardTextWatcher);
                 selectedType = NUMERO_TARJETA;
@@ -328,10 +322,10 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                 HeadAccount.setAmount("Número de telefono");
                 HeadAccount.setResImage(getResources().getDrawable(R.drawable.ic_ico_telefono));
                 contactsPhone.setOnClickListener(this::onClick);
-                bankLinear.setOnClickListener(this::onClick);
+                bank_edt.setOnClickListener(this::onClick);
                 bank_edt.setFocusable(false);
                 bank_edt.setFocusableInTouchMode(false);
-                bank_edt.setEnabled(false);
+                bank_edt.setEnabled(true);
                 reference_edtx.setFocusable(false);
                 reference_edtx.setFocusableInTouchMode(false);
                 reference_edtx.setEnabled(false);
@@ -345,15 +339,15 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                 send_type_clabe.setVisibility(View.VISIBLE);
                 HeadAccount.setAmount("Cuenta CLABE");
                 HeadAccount.setResImage(getResources().getDrawable(R.drawable.ic_ico_clabe));
-                bank_clabe.setOnClickListener(this::onClick);
+                bank_clabe_edtx.setOnClickListener(this::onClick);
                 bank_clabe_edtx.setFocusable(false);
                 bank_clabe_edtx.setFocusableInTouchMode(false);
-                bank_clabe_edtx.setEnabled(false);
+                bank_clabe_edtx.setEnabled(true);
                 reference_clabe_edtx.setFocusable(false);
                 reference_clabe_edtx.setFocusableInTouchMode(false);
                 reference_clabe_edtx.setEnabled(false);
                 maxLength = 22;
-                NumberClabeTextWatcher clabeTextWatcher = new NumberClabeTextWatcher(referencianumber_clabe, maxLength);
+                NumberClabeTextWatcher clabeTextWatcher = new NumberClabeTextWatcher(referencianumber_clabe, maxLength,this);
                 txtWatcherSetted = clabeTextWatcher;
                 referencianumber_clabe.addTextChangedListener(clabeTextWatcher);
                 selectedType = CLABE;
@@ -604,19 +598,13 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                 //clearInputs();
 
                 break;
-            case R.id.bankLinear:
-                ListServDialogFragment dialogFragment = ListServDialogFragment.newInstance(backUpResponse);
-                dialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
-                dialogFragment.setOnListServiceListener(this);
-                dialogFragment.show(getActivity().getSupportFragmentManager(), "FragmentDialog");
-                break;
             case R.id.bank_card_edtx:
                 showdialogBank();
                 break;
-            case R.id.bank_card:
+            case R.id.bank_edtx:
                 showdialogBank();
                 break;
-            case R.id.bank_clabe:
+            case R.id.bank_clabe_edtx:
                 showdialogBank();
                 break;
         }
@@ -901,19 +889,31 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
         for (int x = 0; x < backUpResponse.size(); x++) {
             if (backUpResponse.get(x).getComercio().getIdComercio() == myIdComercio) {
                 comercioItem = backUpResponse.get(x).getComercio();
-                bank_card_edtx.setText(backUpResponse.get(x).getComercio().getNombreComercio());
+                if (selectedType == CLABE)
+                    bank_clabe_edtx.setText(backUpResponse.get(x).getComercio().getNombreComercio());
+
+
+
+                if (selectedType == NUMERO_TARJETA)
+                    bank_card_edtx.setText(backUpResponse.get(x).getComercio().getNombreComercio());
+
+
+
+
                 idTipoComercio = backUpResponse.get(x).getComercio().getIdTipoComercio();
                 idComercio = backUpResponse.get(x).getComercio().getIdComercio();
             }
         }
 
         if (selectedType == CLABE && idComercio == IDCOMERCIO_YA_GANASTE) {
-            String card = referencianumber_edtx.getText().toString();
+            String card = referencianumber_clabe.getText().toString();
             card = card.replaceAll(" ", "");
             if (card.length() == 18) {
-                enviosPresenter.getTitularName(referencianumber_edtx.getText().toString().trim());
+                enviosPresenter.getTitularName(referencianumber_clabe.getText().toString().trim());
             }
-            reference_card_edtx.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+            reference_clabe_edtx.setText( (selectedType == CLABE)?App.getContext().getResources().getString(R.string.trans_yg_envio_txt):App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
+
+
         }
         if (selectedType == NUMERO_TELEFONO && idComercio == IDCOMERCIO_YA_GANASTE) {
             reference_card_edtx.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
@@ -930,7 +930,7 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
             if (card.length() == 16) {
                 enviosPresenter.getTitularName(referencianumber_edtx.getText().toString().trim());
             }
-        }else if (idComercio != IDCOMERCIO_YA_GANASTE){
+        } else if (idComercio != IDCOMERCIO_YA_GANASTE) {
             reference_card_edtx.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
         }
 
@@ -986,7 +986,10 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
     @Override
     public void setTitularName(DataTitular dataTitular) {
         /*isCuentaValida = true;*/
+        if (selectedType == NUMERO_TARJETA)
         dest_card_edtx.setText(dataTitular.getNombre().concat(" ").concat(dataTitular.getPrimerApellido()).concat(" ").concat(dataTitular.getSegundoApellido()));
+        if (selectedType == CLABE)
+        dest_clabe_edtx.setText(dataTitular.getNombre().concat(" ").concat(dataTitular.getPrimerApellido()).concat(" ").concat(dataTitular.getSegundoApellido()));
     }
 
     @Override
@@ -1012,15 +1015,23 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
     @Override
     public void onTextComplete() {
 
+        if (referencianumber_clabe.getText().toString().length() == 0) {
+            reference_clabe_edtx.setText("");
+            bank_clabe_edtx.setText("");
+            dest_clabe_edtx.setText("");
+        } else {
+            paymentsCarouselPresenter.getdatabank(referencianumber_clabe.getText().toString(), "clave");
+        }
+
     }
 
     @Override
     public void bindcomplete(String bind) {
-        if (bind.length()==0){
+        if (bind.length() == 0) {
             reference_card_edtx.setText("");
             bank_card_edtx.setText("");
             dest_card_edtx.setText("");
-        }else {
+        } else {
 
             paymentsCarouselPresenter.getdatabank(bind, "bin");
         }

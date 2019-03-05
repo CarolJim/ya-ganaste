@@ -71,15 +71,22 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         var registerUserSingleton = RegisterUserNew.getInstance()
 
         if (registerUserSingleton.isBreakregister){
-            binding.txtTitleAssociatePhone.setText("Termina tu registor")
-            binding.txtSubtitleAssociatePhone.setText("Al concluir tu registro .....")
-            binding.btnSendSms.setText("Continuar")
-            (activity!! as RegActivity).progressvisivility(false)
+            binding.imageView15.setVisibility(View.VISIBLE)
+            binding.txtTitleAssociatePhone.setText("¡Tu Registro está en Proceso!")
+            binding.txtSubtitleAssociatePhone.setText("Estamos validando tu información,\npodría llevarnos hasta 1 día hábil \n" +
+                    "\n" +
+                    "Te pedimos estar al pendiente del\ncorreo electrónico que registraste \nya que probablemente\nnecesitemos contactarte")
+            binding.btnSendSms.setText("Entendido")
+            /*(activity!! as RegActivity).progressvisivility()*/
+                iteractor.createUser()
+
         }
         return binding.root
     }
 
     override fun initViews() {
+
+
 
 
 
@@ -164,8 +171,29 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         if (!registerUserSingleton.isBreakregister) {
             iteractor.createUser()
         }else{
-            UI.showSuccessSnackBar(activity!!, "Registor Completado", com.google.android.material.snackbar.Snackbar.LENGTH_SHORT)
-            binding.txtSubtitleAssociatePhone.setText("Nos pondremos en contacto contigo en las proximas 24H")
+            RegisterUserNew.getInstance().statusRegistro = SIN_REGISTRO
+
+            var registerUserSingleton = RegisterUserNew.getInstance()
+            registerUserSingleton.email=""
+            registerUserSingleton.nombre=""
+            registerUserSingleton.apellidoPaterno=""
+            registerUserSingleton.apellidoMaterno=""
+            registerUserSingleton.genero=""
+            registerUserSingleton.fechaNacimiento=""
+            registerUserSingleton.fechaNacimientoToShow=""
+            registerUserSingleton.nombreNegocio=""
+            registerUserSingleton.curp=""
+            registerUserSingleton.colonia=""
+            registerUserSingleton.calle=""
+            registerUserSingleton.numExterior=""
+            registerUserSingleton.codigoPostal=""
+            registerUserSingleton.idColonia=""
+
+
+            UI.showSuccessSnackBar(activity!!, "¡Tu Registro está en Proceso!", com.google.android.material.snackbar.Snackbar.LENGTH_SHORT)
+            binding.txtSubtitleAssociatePhone.setText("Estamos validando tu información,\npodría llevarnos hasta 1 día hábil \n" +
+                    "\n" +
+                    "Te pedimos estar al pendiente del\ncorreo electrónico que registraste \nya que probablemente\nnecesitemos contactarte")
             binding.btnSendSms.setVisibility(View.GONE)
             binding.btnClose.setVisibility(View.VISIBLE)
         }

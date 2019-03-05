@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.data.model.RegisterUserNew;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
@@ -332,7 +333,7 @@ public class UI {
             public void actionConfirm(Object... params) {
                 customErrorDialog.dismiss();
                 if (actions != null) {
-                    RegisterUser registerUser = RegisterUser.getInstance();
+                    RegisterUserNew registerUser = RegisterUserNew.getInstance().getInstance();
                     String curp = customErrorDialog.getcurpedittext();
                     registerUser.setCURP(curp);
                     actions.actionConfirm(params);

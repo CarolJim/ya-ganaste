@@ -18,6 +18,7 @@ public enum WebService {
     CONSULTAR_MOVIMIENTOS_MES,
     VALIDAR_DATOS_PERSONA,
     CONSULTAR_DATOS_PERSONA_RENAPO,
+    CONSULTAR_CURP_PERSONA_RENAPO,
     VALIDAR_DATOS_PERSONAHOMO,
     CREAR_AGENTE,
     CREAR_USUARIO_FWS,
@@ -216,6 +217,8 @@ public enum WebService {
     /*Validate QR*/
     DATA_QR,
     /*Notification*/
-    NOTIFICATION
+    NOTIFICATION,
+    /*Notification*/
+    VALIDADATOSGETCURP
 }
 

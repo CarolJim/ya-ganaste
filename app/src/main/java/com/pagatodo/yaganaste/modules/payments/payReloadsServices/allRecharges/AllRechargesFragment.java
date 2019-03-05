@@ -68,6 +68,23 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
 
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (interactor !=null && type !=null)
+        {
+            switch (type) {
+                case ALL_RECHARGES_FAV:
+                    interactor.getRechargeFavorites();
+                    break;
+                case ALL_SERVICES_FAV:
+                    interactor.getServicesFavorites();
+                    break;
+            }
+
+        }
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         this.activity = (PayReloadsServicesActivity) context;

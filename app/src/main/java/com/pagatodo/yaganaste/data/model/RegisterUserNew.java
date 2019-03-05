@@ -21,6 +21,7 @@ public class RegisterUserNew {
     private String fechaNacimientoToShow = "";
     private String lugarNacimiento = "";
     private String idEstadoNacimineto = "";
+    private String claveedonacimiento = "";
     private Paises paisNacimiento;
     private String CURP = "";
     /* Datos Domicilio Actual*/
@@ -47,6 +48,15 @@ public class RegisterUserNew {
     //Regincomplete
     boolean regincomplete =false;
     boolean breakregister =false;
+
+
+    public String getClaveedonacimiento() {
+        return claveedonacimiento;
+    }
+
+    public void setClaveedonacimiento(String claveedonacimiento) {
+        this.claveedonacimiento = claveedonacimiento;
+    }
 
     public boolean isBreakregister() {
         return breakregister;

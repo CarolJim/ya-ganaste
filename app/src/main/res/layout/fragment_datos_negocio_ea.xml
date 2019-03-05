@@ -69,6 +69,7 @@
                 android:layout_marginBottom="9dp"
                 android:background="@android:color/transparent"
                 android:imeOptions="actionDone"
+                android:digits="@string/input_letters"
                 android:paddingLeft="15dp"
                 android:singleLine="true"
                 android:textColor="@color/grayColor"
