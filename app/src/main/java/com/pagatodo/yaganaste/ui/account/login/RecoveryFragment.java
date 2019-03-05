@@ -63,7 +63,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
     private AccountPresenterNew accountPresenter;
     Preferencias prefs;
     String userEmail;
-
+    public static int MILISEGUNDOS_ESPERA = 3000;
     private String correoRegistrado = "";
 
     public RecoveryFragment() {
@@ -264,7 +264,23 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
         setEnableViews(false);
         accountPresenter.recoveryPassword(correoRegistrado);
     }
+    public void esperarYCerrar(int milisegundos) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // acciones que se ejecutan tras los milisegundos
+                getActivity().onBackPressed();
+            }
+        }, milisegundos);
 
+    }
+
+    /**
+     * Finaliza la aplicación
+     */
+    public void finalizarApp() {
+        getActivity().finish();
+    }
     @Override
     public void getDataForm() {
         /**
@@ -281,8 +297,11 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void recoveryPasswordSuccess(String message) {
+
         UI.showSuccessSnackBar(getActivity(), message, Snackbar.LENGTH_LONG);
-        getActivity().onBackPressed();
+        esperarYCerrar(MILISEGUNDOS_ESPERA);
+        //getActivity().onBackPressed();
+
     }
 
     @Override

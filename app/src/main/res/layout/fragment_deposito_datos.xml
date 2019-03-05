@@ -82,20 +82,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
-        <com.pagatodo.view_manager.components.IconButton
-            android:id="@+id/active_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            app:iconNameText="@string/name_active_physical_card"
-            app:iconResImage="@drawable/ic_active_physical_card" />
+
 
         <com.pagatodo.view_manager.components.IconButton
             android:id="@+id/block_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:visibility="visible"
             app:iconNameText="@string/name_block_card"
@@ -105,8 +97,16 @@
             android:id="@+id/change_nip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             app:iconNameText="@string/name_change_nip"
             app:iconResImage="@drawable/ic_password_wallet" />
+        <com.pagatodo.view_manager.components.IconButton
+            android:id="@+id/active_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:iconNameText="@string/name_active_physical_card"
+            app:iconResImage="@drawable/ic_active_physical_card" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
