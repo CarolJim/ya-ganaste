@@ -332,7 +332,9 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                     registerUserSingleton.fechaNacimiento=""*/
 
                 } else {
+                    presenter.onVerificationCreateUserFailed()
                     presenter.onErrorService(response.mensaje)
+
                 }
             }
             is AsignarCuentaDisponibleResponse -> {
@@ -453,9 +455,11 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     }
 
     override fun onFailed(error: DataSourceResult?) {
+
         if (error!!.webService == WebService.VERIFICAR_ACTIVACION) {
             presenter.onVerificationSmsFailed(error!!.data.toString())
-        } else {
+        }
+        else {
             presenter.onErrorService(error!!.data.toString())
         }
     }

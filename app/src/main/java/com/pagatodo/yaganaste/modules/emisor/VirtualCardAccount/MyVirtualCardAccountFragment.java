@@ -50,6 +50,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EmisorRespons
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.modules.emisor.WalletMainActivity;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -63,6 +64,7 @@ import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.UtilsIntents;
 import com.pagatodo.yaganaste.utils.qrcode.InterbankQr;
 import com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator;
@@ -92,11 +94,12 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.PSW_CPR;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 
-public class MyVirtualCardAccountFragment extends SupportFragment implements View.OnClickListener, IMyCardView {
+public class MyVirtualCardAccountFragment extends SupportFragment implements View.OnClickListener, IMyCardView, IDialogSetPassword {
 
 
     @BindView(R.id.label_titular)
@@ -118,7 +121,7 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
     boolean onlineNetWork, onlineGPS;
     private WalletMainActivity activity;
 
-
+    DialogSetPasswordLogin dialogPassword;
     /**
      * FingerPrint Autentication
      *
@@ -225,6 +228,23 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
         final LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         onlineNetWork = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         onlineGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+
+    public void showDialogPassword() {
+        String mensaje = "";
+        if (cardStatusId.equals("1")) {
+            // Operacion para Bloquear tarjeta
+            mensaje = getContext().getResources().getString(R.string.ingresa_pass_block);
+        } else {
+            // Operacion para Desbloquear tarjeta
+            mensaje = getContext().getResources().getString(R.string.ingresa_pass_desblock);
+        }
+        dialogPassword = new DialogSetPasswordLogin();
+        dialogPassword.setListener(this);
+        dialogPassword.setTitle(mensaje);
+
+        dialogPassword.show(getActivity().getFragmentManager(), "Dialog Set Password");
     }
 
     @Override
@@ -341,7 +361,10 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
                 this.activity.getRouter().onShowActivatePhysicalCard();
                 break;
             case R.id.block_card:
-                loadFinguerPrint();
+                if (App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, false) == true)
+                    loadFinguerPrint();
+                else
+                    showDialogPassword();
                 break;
             case R.id.change_nip:
                 this.activity.getRouter().onShowMyChangeNip();
@@ -515,7 +538,6 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
                     dialogPassword.show(Objects.requireNonNull(getActivity()).getFragmentManager(), "Dialog Set Password");
 
                 }
-
 
 
                 if (!keyguardManager.isKeyguardSecure()) {
@@ -723,5 +745,40 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
     public void sendErrorBloquearCuentaToView(String mensaje) {
         hideLoader();
         UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
+    }
+
+    @Override
+    public void onPasswordSet(String xps) {
+        boolean isOnline = Utils.isDeviceOnline();
+        if (isOnline) {
+            Preferencias preferencias = App.getInstance().getPrefs();
+
+            String enterpass = Utils.getSHA256(xps);
+
+            String currentpass = preferencias.loadData(SHA_256_FREJA);//Freja
+
+            if (currentpass.equals(enterpass)) {
+
+                loadOtpHuella();
+            } else {
+
+                UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.datos_usuario_pass_formato), Snackbar.LENGTH_SHORT);
+            }
+
+        } else {
+            UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
+        }
+
+
+    }
+
+    @Override
+    public void onOtpGenerated(String otp) {
+
+    }
+
+    @Override
+    public void showError(Errors error) {
+
     }
 }

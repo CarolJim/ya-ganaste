@@ -295,6 +295,10 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         }
     }
 
+    override fun onVerificationCreateUserFailed() {
+        RegisterUserNew.getInstance().statusRegistro = SIN_REGISTRO
+    }
+
     private fun goToLoginAlert(message: String) {
         hideLoader()
         if (message.isNotEmpty()) {
