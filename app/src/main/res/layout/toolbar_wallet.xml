@@ -15,6 +15,7 @@
         android:minHeight="?android:attr/actionBarSize"
         app:popupTheme="@style/PopupTheme"
         app:theme="@style/ToolBarTheme.ToolBarStyle" />
+
     <ImageView
         android:id="@+id/imgToolbar"
         android:layout_width="34.3dp"
@@ -23,5 +24,38 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center"
         app:srcCompat="@drawable/ic_logo_header"
+        tools:ignore="ContentDescription" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/btn_back_favos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|left"
+        android:adjustViewBounds="false"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingStart="15dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="5dp"
+        android:scaleType="center"
+        android:tint="@color/whiteColor"
+        android:visibility="gone"
+        app:srcCompat="@drawable/back_canvas" />
+
+    <ImageView
+        android:id="@+id/imgAddfavos"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignEnd="@+id/toolbar_wallet"
+        android:layout_alignRight="@+id/toolbar_wallet"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/addfavos"
         tools:ignore="ContentDescription" />
 </RelativeLayout>

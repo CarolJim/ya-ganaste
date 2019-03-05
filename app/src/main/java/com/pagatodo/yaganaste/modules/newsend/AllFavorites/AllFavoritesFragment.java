@@ -174,6 +174,10 @@ public class AllFavoritesFragment extends GenericFragment implements View.OnClic
                 filter(s.toString());
             }
         });
+
+
+
+
     }
 
     private void filter(String s) {

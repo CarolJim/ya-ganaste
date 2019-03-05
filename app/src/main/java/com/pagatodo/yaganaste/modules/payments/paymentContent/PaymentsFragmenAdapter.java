@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.modules.payments.paymentContent;
 
 import android.content.Context;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.modules.payments.payFragment.PayFragment;
 
@@ -11,6 +12,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import static com.pagatodo.yaganaste.modules.payments.paymentContent.PaymentContentFragment.RECHARGE_FRAGMENT;
 import static com.pagatodo.yaganaste.modules.payments.paymentContent.PaymentContentFragment.SERVICES_PAY_FRAGMENT;
+import static com.pagatodo.yaganaste.utils.Recursos.TYPEPAYMENT;
 
 
 public class PaymentsFragmenAdapter extends FragmentPagerAdapter {
@@ -25,8 +27,11 @@ public class PaymentsFragmenAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
+            App.getInstance().getPrefs().saveDataBool(TYPEPAYMENT,true);
             return PayFragment.newInstance(RECHARGE_FRAGMENT);
+
         } else if (position == 1){
+            App.getInstance().getPrefs().saveDataBool(TYPEPAYMENT,false);
             return PayFragment.newInstance(SERVICES_PAY_FRAGMENT);
         } else return PayFragment.newInstance(RECHARGE_FRAGMENT);
     }

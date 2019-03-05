@@ -23,9 +23,10 @@ import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.utils.Recursos.TYPEPAYMENT;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
-public class PaymentContentFragment extends GenericFragment implements PaymentContentContracts.Listener{
+public class PaymentContentFragment extends GenericFragment implements PaymentContentContracts.Listener {
 
     public static final int RECHARGE_FRAGMENT = 10;
     public static final int SERVICES_PAY_FRAGMENT = 20;
@@ -39,8 +40,9 @@ public class PaymentContentFragment extends GenericFragment implements PaymentCo
 
     private View rootView;
     private PaymentContentInteractor interactor;
+    private int pageCurrent;
 
-    public static PaymentContentFragment newInstance(){
+    public static PaymentContentFragment newInstance() {
         return new PaymentContentFragment();
     }
 
@@ -54,7 +56,7 @@ public class PaymentContentFragment extends GenericFragment implements PaymentCo
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.payment_content_fragment,container,false);
+        rootView = inflater.inflate(R.layout.payment_content_fragment, container, false);
         this.initViews();
         return rootView;
     }
@@ -63,6 +65,50 @@ public class PaymentContentFragment extends GenericFragment implements PaymentCo
     public void initViews() {
         ButterKnife.bind(this, rootView);
         headWallet.setAmount(App.getInstance().getPrefs().loadData(USER_BALANCE));
+
+        pageCurrent = 0;
+        pager.setCurrentItem(0);
+
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                //do stuff here
+
+                if (tab.getPosition() == 0) {
+                    App.getInstance().getPrefs().saveDataBool(TYPEPAYMENT, true);
+                } else if (tab.getPosition() == 1) {
+                    App.getInstance().getPrefs().saveDataBool(TYPEPAYMENT, false);
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                pageCurrent = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         this.interactor.getFavorites();
     }
 
@@ -74,8 +120,9 @@ public class PaymentContentFragment extends GenericFragment implements PaymentCo
 
     @Override
     public void onFavoritesSuccess() {
-        pager.setAdapter(new PaymentsFragmenAdapter(getContext(),getFragmentManager()));
+        pager.setAdapter(new PaymentsFragmenAdapter(getContext(), getFragmentManager()));
         tabs.setupWithViewPager(pager);
+        pager.setCurrentItem(pageCurrent);
     }
 
     @Override
@@ -90,6 +137,6 @@ public class PaymentContentFragment extends GenericFragment implements PaymentCo
 
     @Override
     public void onError(String msj) {
-        UI.showErrorSnackBar(Objects.requireNonNull(getActivity()),msj,Snackbar.LENGTH_SHORT);
+        UI.showErrorSnackBar(Objects.requireNonNull(getActivity()), msj, Snackbar.LENGTH_SHORT);
     }
 }

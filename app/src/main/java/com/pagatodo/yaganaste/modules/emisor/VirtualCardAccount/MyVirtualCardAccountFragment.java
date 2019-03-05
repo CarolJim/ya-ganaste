@@ -14,9 +14,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.google.android.material.snackbar.Snackbar;
+
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -26,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
@@ -92,7 +96,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 
-public class MyVirtualCardAccountFragment extends SupportFragment implements View.OnClickListener,IMyCardView {
+public class MyVirtualCardAccountFragment extends SupportFragment implements View.OnClickListener, IMyCardView {
 
 
     @BindView(R.id.label_titular)
@@ -117,6 +121,7 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
 
     /**
      * FingerPrint Autentication
+     *
      * @return
      */
     private FingerprintManager.CryptoObject cryptoObject;
@@ -229,7 +234,6 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
         ClienteResponse userData = SingletonUser.getInstance().getDataUser().getCliente();
 
 
-
         cardStatusId = App.getInstance().getPrefs().loadData(CARD_STATUS);
         if (cardStatusId == null || cardStatusId.equals("-1")) {
             cardStatusId = "1";
@@ -327,7 +331,7 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
     @Override
     public void onClick(View v) {
         getStatusGPS();
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.deposito_Share:
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
@@ -344,7 +348,8 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
                 break;
         }
     }
-    private void loadFinguerPrint(){
+
+    private void loadFinguerPrint() {
 
         cardStatusId = App.getInstance().getPrefs().loadData(CARD_STATUS);
         if (cardStatusId == null || cardStatusId.equals("-1")) {
@@ -364,7 +369,36 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !preferencias.loadData(PSW_CPR).equals("")) {
             if (!fingerprintManager.isHardwareDetected()) {
-                String mensajeB ="";
+                String mensajeB = "";
+                if (cardStatusId.equals("1")) {
+                    // Operacion para Bloquear tarjeta
+                    mensajeB = getContext().getResources().getString(R.string.ingresa_pass_block);
+                } else {
+                    // Operacion para Desbloquear tarjeta
+                    mensajeB = getContext().getResources().getString(R.string.ingresa_pass_desblock);
+                }
+                DialogSetPasswordLogin dialogPassword;
+                dialogPassword = new DialogSetPasswordLogin();
+                dialogPassword.setListener(new IDialogSetPassword() {
+                    @Override
+                    public void onPasswordSet(String xps) {
+                        loadOtpHuella();
+                    }
+
+                    @Override
+                    public void onOtpGenerated(String otp) {
+
+                    }
+
+                    @Override
+                    public void showError(Errors error) {
+
+                    }
+                });
+                dialogPassword.setTitle(mensajeB);
+                dialogPassword.show(Objects.requireNonNull(getActivity()).getFragmentManager(), "Dialog Set Password");
+            } else if (!fingerprintManager.isHardwareDetected() && preferencias.loadDataBoolean(USE_FINGERPRINT, false)) {
+                String mensajeB = "";
                 if (cardStatusId.equals("1")) {
                     // Operacion para Bloquear tarjeta
                     mensajeB = getContext().getResources().getString(R.string.ingresa_pass_block);
@@ -450,7 +484,39 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
                         fragment.setFragmentInstance(fragmentCode);
                         fragment.show(getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
                     }
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)) {
+                    String mensajeB = "";
+                    if (cardStatusId.equals("1")) {
+                        // Operacion para Bloquear tarjeta
+                        mensajeB = getContext().getResources().getString(R.string.ingresa_pass_block);
+                    } else {
+                        // Operacion para Desbloquear tarjeta
+                        mensajeB = getContext().getResources().getString(R.string.ingresa_pass_desblock);
+                    }
+                    DialogSetPasswordLogin dialogPassword;
+                    dialogPassword = new DialogSetPasswordLogin();
+                    dialogPassword.setListener(new IDialogSetPassword() {
+                        @Override
+                        public void onPasswordSet(String xps) {
+                            loadOtpHuella();
+                        }
+
+                        @Override
+                        public void onOtpGenerated(String otp) {
+
+                        }
+
+                        @Override
+                        public void showError(Errors error) {
+
+                        }
+                    });
+                    dialogPassword.setTitle(mensajeB);
+                    dialogPassword.show(Objects.requireNonNull(getActivity()).getFragmentManager(), "Dialog Set Password");
+
                 }
+
+
 
                 if (!keyguardManager.isKeyguardSecure()) {
                     return;
@@ -468,8 +534,6 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
         }
 
     }
-
-
 
 
     /**
@@ -642,7 +706,6 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
             checkState(Recursos.ESTATUS_CUENTA_BLOQUEADA);
 
 
-
         } else if (statusBloqueo == DESBLOQUEO) {
             App.getInstance().getPrefs().saveData(CARD_STATUS, Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
             messageStatus = getResources().getString(R.string.card_unlocked_success);
@@ -661,5 +724,4 @@ public class MyVirtualCardAccountFragment extends SupportFragment implements Vie
         hideLoader();
         UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
     }
-
 }

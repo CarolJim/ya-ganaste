@@ -8,7 +8,7 @@ public class PayReloadsServicesRouter implements PayReloadsServicesContracts.Rou
 
     private PayReloadsServicesActivity activity;
 
-    PayReloadsServicesRouter(PayReloadsServicesActivity activity) {
+    public PayReloadsServicesRouter(PayReloadsServicesActivity activity) {
         this.activity = activity;
     }
 
