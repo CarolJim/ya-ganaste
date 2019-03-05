@@ -15,4 +15,10 @@
         app:layout_constraintStart_toStartOf="parent">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        layout="@layout/empty_movs"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

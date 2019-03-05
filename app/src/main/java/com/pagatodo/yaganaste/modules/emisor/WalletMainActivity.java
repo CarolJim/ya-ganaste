@@ -42,6 +42,7 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.modules.emisor.BlockCard.BlockCardFragment;
 import com.pagatodo.yaganaste.modules.emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
+import com.pagatodo.yaganaste.modules.emisor.movements.MovmentsContentFragment;
 import com.pagatodo.yaganaste.modules.management.response.QrValidateResponse;
 import com.pagatodo.yaganaste.modules.management.singletons.NotificationSingleton;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -301,7 +302,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             //menu.findItem(R.id.action_reenviar_ticket).setVisible(true);
             //menu.findItem(R.id.action_cancelar_cobro).setVisible(true);
         } else if (getCurrentFragment() instanceof BlockCardFragment) {
-
+            getMenuInflater().inflate(R.menu.menu_wallet, menu);
         }
         return false;
     }
@@ -324,6 +325,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         switch (idoperation) {
             case OPTION_MVIMIENTOS_EMISOR:
                 loadFragment(PersonalAccountFragment.newInstance(tabMonthMov), R.id.fragment_container);
+                //loadFragment(MovmentsContentFragment.newInstance(), R.id.fragment_container);
                 break;
 
             case OPTION_MVIMIENTOS_ADQ:
@@ -864,7 +866,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         envio.setReferenciaNumerica("123456");
         interactor.getTitular(acountClabe);
 
-
     }
 
     @Override
@@ -895,6 +896,5 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         if (fm instanceof MyVirtualCardAccountFragment)
             ((MyVirtualCardAccountFragment) fm).loadOtpHuella();
     }
-
-
+    
 }
