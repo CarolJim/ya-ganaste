@@ -59,23 +59,26 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
         goConfig_card_reader = (LinearLayout) rootView.findViewById(R.id.config_card_reader);
         goUnlink_phone = (LinearLayout) rootView.findViewById(R.id.unlink_phone);
 
-        Agentes agentes = SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(0);
+        if(!SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().isEmpty()) {
+            Agentes agentes = SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(0);
 
-        if (agentes != null) {
+            if (agentes != null) {
 /*
             if (SingletonUser.getInstance().getDataUser().getUsuario().getIdEstatusEmisor()
                     == IdEstatus.ADQUIRENTE.getId()){
                     //!App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)) {
 */
-            if (SingletonUser.getInstance().getDataUser().getUsuario().getIdEstatusEmisor() == IdEstatus.ADQUIRENTE.getId()) {
-                goConfig_card_reader.setVisibility(View.GONE);
+                if (agentes.getIdEstatus() == IdEstatus.ADQUIRENTE.getId() && agentes.isEsAgregador()) {
+                    goConfig_card_reader.setVisibility(View.GONE);
+                } else {
+                    goConfig_card_reader.setVisibility(View.VISIBLE);
+                }
             } else {
-                goConfig_card_reader.setVisibility(View.VISIBLE);
+                goConfig_card_reader.setVisibility(View.GONE);
             }
         } else {
-            goConfig_card_reader.setVisibility(View.GONE);
+            goConfig_card_reader.setVisibility(View.VISIBLE);
         }
-
         initViews();
         return rootView;
     }

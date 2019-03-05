@@ -324,8 +324,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     private void getLoadFragment(int idoperation) {
         switch (idoperation) {
             case OPTION_MVIMIENTOS_EMISOR:
-                //loadFragment(PersonalAccountFragment.newInstance(tabMonthMov), R.id.fragment_container);
-                loadFragment(MovmentsContentFragment.newInstance(), R.id.fragment_container);
+                loadFragment(PersonalAccountFragment.newInstance(tabMonthMov), R.id.fragment_container);
+                //loadFragment(MovmentsContentFragment.newInstance(), R.id.fragment_container);
                 break;
 
             case OPTION_MVIMIENTOS_ADQ:
