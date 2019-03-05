@@ -66,7 +66,7 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
     @BindView(R.id.search_alls)
     TextView search_alls;
 
-
+/*
     @Override
     public void onResume() {
         super.onResume();
@@ -83,7 +83,7 @@ public class AllRechargesFragment extends GenericFragment implements AllRecharge
 
         }
     }
-
+*/
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
