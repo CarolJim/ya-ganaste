@@ -177,6 +177,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.IDPROSPECTO;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_MIEMBRO_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_AGREGADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_NUMBER_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_SINCE;
@@ -628,6 +629,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
                 RequestHeaders.setIdCuentaAdq(operador.getIdUsuarioAdquirente());
                 App.getInstance().getPrefs().saveDataBool(IS_UYU, agente.isEsComercioUYU());
+                App.getInstance().getPrefs().saveDataBool(IS_AGREGADOR, agente.isEsAgregador());
                 ApiAdq.consultaSaldoCupo(saldoRequest, this);
             } catch (ExecutionException e) {
                 e.printStackTrace();

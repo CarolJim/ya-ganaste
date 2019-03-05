@@ -170,7 +170,7 @@ public class RequestHeaders {
     }
 
     public static String getIdCuentaAdq() {
-        return sharedPreferences.getString(IdCuentaAdq, "");
+            return sharedPreferences.getString(IdCuentaAdq, "");
     }
 
     public static void setIdCuentaAdq(String idCuentaAdq) {

@@ -3,6 +3,7 @@ package com.pagatodo.view_manager.controllers;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 
 import com.squareup.picasso.Transformation;
@@ -16,6 +17,15 @@ public class CircleTransform implements Transformation {
 
         int x = (source.getWidth() - size) / 2;
         int y = (source.getHeight() - size) / 2;
+
+
+        /*int maxHeight = 40;
+        int maxWidth = 40;
+        float scale = Math.min(((float)maxHeight / 40), ((float)maxWidth / 40));
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale, scale);
+*/
 
         Bitmap squaredBitmap = Bitmap.createBitmap(source, x, y, size, size);
         if (squaredBitmap != source) {

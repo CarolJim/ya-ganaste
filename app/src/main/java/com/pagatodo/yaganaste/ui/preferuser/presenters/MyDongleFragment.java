@@ -52,6 +52,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_AGREGADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.MSJ;
@@ -170,13 +171,15 @@ public class MyDongleFragment extends GenericFragment implements IPreferUserGene
         }
         txtCompanyName.setText(prefs.loadData(COMPANY_NAME));
         boolean isComerioUyU = App.getInstance().getPrefs().loadDataBoolean(IS_UYU,true);
+        boolean isAgregador = App.getInstance().getPrefs().loadDataBoolean(IS_AGREGADOR,true);
+
         try {
             if (!RequestHeaders.getIdCuentaAdq().equals(""))
                 isComerioUyU = new DatabaseManager().isComercioUyU(RequestHeaders.getIdCuentaAdq());
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129 || isComerioUyU) {
+        if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129 || isComerioUyU||isAgregador) {
             lytConfigRepayment.setVisibility(View.GONE);
         }
         lytConfigRepayment.setOnClickListener(v -> {

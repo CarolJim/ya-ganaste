@@ -50,7 +50,7 @@ public class AllFavoritesRecycler extends LinearLayout implements LauncherHolder
     }
 
     private void defaultView(){
-        adapter.addItem(RowFavDataHolder.create("","Agregar","","#FF00FF", null,true));
+        //adapter.addItem(RowFavDataHolder.create("","Agregar","","#FF00FF", null,true));
         adapter.notifyDataSetChanged();
     }
 

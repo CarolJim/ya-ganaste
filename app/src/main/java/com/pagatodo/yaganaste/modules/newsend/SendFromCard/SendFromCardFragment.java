@@ -678,10 +678,10 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
                     reference_edtx.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
                 } else {
                     reference_edtx.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
-                    String card = dest_edtx.getText().toString();
+                    String card = number_card_edt.getText().toString();
                     card = card.replaceAll(" ", "");
-                    if (card.length() == 18) {
-                        enviosPresenter.getTitularName(dest_edtx.getText().toString().trim());
+                    if (card.length() == 10) {
+                        enviosPresenter.getTitularName(card);
                     }
                 }
                 isCheckFromTelephone();
@@ -990,6 +990,8 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
         dest_card_edtx.setText(dataTitular.getNombre().concat(" ").concat(dataTitular.getPrimerApellido()).concat(" ").concat(dataTitular.getSegundoApellido()));
         if (selectedType == CLABE)
         dest_clabe_edtx.setText(dataTitular.getNombre().concat(" ").concat(dataTitular.getPrimerApellido()).concat(" ").concat(dataTitular.getSegundoApellido()));
+        if (selectedType == NUMERO_TELEFONO)
+            dest_edtx.setText(dataTitular.getNombre().concat(" ").concat(dataTitular.getPrimerApellido()).concat(" ").concat(dataTitular.getSegundoApellido()));
     }
 
     @Override
@@ -999,13 +1001,14 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showLoader(String text) {
-
+        onEventListener.onEvent(EVENT_SHOW_LOADER, text);
     }
 
     @Override
     public void hideLoader() {
-
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
+
 
     @Override
     public void onTextChanged() {
