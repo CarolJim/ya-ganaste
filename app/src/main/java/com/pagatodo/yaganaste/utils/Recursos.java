@@ -60,6 +60,7 @@ public class Recursos {
 
     public static final String CODE_ADQ_OK = "00";
     public static final int CODE_ERROR_INFO_AGENTE = 91;
+    public static final String CODE_ERROR_SAME_REEMBOLSO_AGENTE = "3308";
     public static final int CODE_OFFLINE = -1;
     public static final int INVALID_TOKEN = 3001;
     public static final int INCORRECT_FORMAT = -2;
@@ -276,6 +277,7 @@ public class Recursos {
     public static final String FIST_ADQ_LOGIN = "FIST_ADQ_LOGIN"; // boolean
     public static final String FIST_ADQ_REEMBOLSO = "FIST_ADQ_REEMBOLSO"; // boolean
     public static final String IS_UYU = "IS_UYU"; // boolean
+    public static final String IS_AGREGADOR = "IS_AGREGADOR"; // boolean
     public static final String MODE_CONNECTION_DONGLE = "MODE_CONNECTION_DONGLE"; // int
     public static final String BT_PAIR_DEVICE = "BT_PAIR_DEVICE"; // string
 

@@ -384,7 +384,6 @@ public class ElementWallet {
     public static ElementWallet getCardLectorAdq(Agentes agentes) {
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), isBluetooth ? R.drawable.chip_pin : R.mipmap.lector_front);
-        agentes = null;
         if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) && agentes != null) {
             if (isBluetooth && !agentes.getNombreNegocio().equals("")) {
                 frontView = frontCardBusiness(frontView, agentes.getNombreNegocio());

@@ -844,8 +844,8 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             } else {
                 board.setReloadVisibility(View.INVISIBLE);
             }
-            txtCardDescBalance.setText(adapterBalanceCard.getElemenWallet(position).getTitleDesRes());
-            txtCardDescBalance2.setText(adapterBalanceCard.getElemenWallet(position).getCardNumberRes());
+            txtCardDescBalance.setText(adapterBalanceCard.getElemenWallet(position).getCardNumberRes());
+            txtCardDescBalance2.setText(adapterBalanceCard.getElemenWallet(position).getTitleDesRes());
         }
     }
 

@@ -147,9 +147,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void initViews() {
-        //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
-        //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_LOGIN, false);
-
         viewPagerWallet = pageContainer.getViewPager();
         viewPagerWallet.setOffscreenPageLimit(3);
         viewPagerWallet.setPageMargin(15);

@@ -121,11 +121,11 @@ public class BussinesActivity extends LoaderActivity implements
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
-            if (Idestatus != CRM_DOCTO_APROBADO && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) != STATUS_DOCTO_PENDIENTE) {
+            //if (Idestatus != CRM_DOCTO_APROBADO) {
                 App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
-            } else {
+            /*} else {
                 App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, false);
-            }
+            }*/
         } else {
             App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, false);
         }
@@ -141,10 +141,10 @@ public class BussinesActivity extends LoaderActivity implements
             loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
         } else if (esAgente && Idestatus == IdEstatus.I13.getId()) {
             loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
-        } else if (App.getInstance().getPrefs().loadDataBoolean(ADQ_PROCESS, false)) {
+        } else /*if (App.getInstance().getPrefs().loadDataBoolean(ADQ_PROCESS, true)) {
             loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
             showBack(true);
-        } else {
+        } else */{
             loadFragment(BusinessDataFragment.newInstance(this), Direction.FORDWARD, true);
         }
         //pref = App.getInstance().getPrefs();
