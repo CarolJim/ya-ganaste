@@ -20,6 +20,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_LOGIN;
 import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
@@ -382,8 +383,11 @@ public class ElementWallet {
     }
 
     public static ElementWallet getCardLectorAdq(Agentes agentes) {
-        boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
-        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), isBluetooth ? R.drawable.chip_pin : R.mipmap.lector_front);
+
+        boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)
+                == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(),
+                isBluetooth ? R.drawable.chip_pin : R.mipmap.lector_front);
         if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) && agentes != null) {
             if (isBluetooth && !agentes.getNombreNegocio().equals("")) {
                 frontView = frontCardBusiness(frontView, agentes.getNombreNegocio());
@@ -420,7 +424,7 @@ public class ElementWallet {
     }
 
     private static ElementWallet getCardLectorEmi() {
-        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.register_chip);
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.chip_pin);
         return new ElementWallet(TYPE_ADQ, frontView,
                 App.getContext().getString(R.string.cobro_tarjeta),
                 ElementView.getListLectorEmi(),

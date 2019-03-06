@@ -14,10 +14,6 @@ import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by ozuniga on 14/02/2017.
- */
-
 public class ElementsWalletAdapter extends RecyclerView.Adapter<GenericHolder> {
 
     private List<ElementView> elementViews;

@@ -27,7 +27,8 @@ public class WalletBuilder {
         if (!error && SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
             String statusCard = SingletonUser.getInstance().getCardStatusId();
             //if (statusCard != null) {
-            if (App.getInstance().getPrefs().loadData(CARD_STATUS).equals(ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+            if (App.getInstance().getPrefs().loadData(CARD_STATUS).equals(ESTATUS_CUENTA_BLOQUEADA)
+                    || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
                 walletList.addWallet(ElementWallet.getCardyaganasteBloqueda());
             } else {
                 walletList.addWallet(ElementWallet.getCardyaganaste());
@@ -58,7 +59,8 @@ public class WalletBuilder {
             walletList.addWallet(ElementWallet.getCardLectorAdq(null));
         }
 
-      /*  walletList.addWallet(ElementWallet.getCardStarbucksdesc());
+      /*
+        walletList.addWallet(ElementWallet.getCardStarbucksdesc());
         walletList.addWallet(ElementWallet.getCardCinepolisDes());
         walletList.addWallet(ElementWallet.getCardConstruganasDes());
         walletList.addWallet(ElementWallet.getCardSportCityDes());
@@ -69,7 +71,8 @@ public class WalletBuilder {
         walletList.addWallet(ElementWallet.getCardCostcoDes());
         walletList.addWallet(ElementWallet.getCardAeroMDes());
         walletList.addWallet(ElementWallet.getCardLiverpoolDes());
-        walletList.addWallet(ElementWallet.getPayBackDes());*/
+        walletList.addWallet(ElementWallet.getPayBackDes());
+       */
 
         //Starbucks
         if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {

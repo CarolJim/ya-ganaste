@@ -139,7 +139,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
                 txtSubtitle.setText(getString(R.string.adq_subtitle_thanks));
                 btnNextComplete.setText("Continuar");
                 App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal());
-                App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
+                App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, false);
                 NEXT_SCREEN = EVENT_DOC_CHECK;
                 break;
             case ADQ_ACEPTADOS:

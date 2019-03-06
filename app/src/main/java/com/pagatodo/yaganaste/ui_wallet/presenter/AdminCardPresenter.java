@@ -24,6 +24,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.FAVORITE_DRINK;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_MIEMBRO_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_COACHMARK;
 import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_NUMBER_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_SINCE;
 import static com.pagatodo.yaganaste.utils.Recursos.MISSING_STARS_NUMBER;
@@ -51,10 +52,17 @@ public class AdminCardPresenter implements IAdminCardsPresenter {
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         cards.add(new DtoAdminCards(-1, 0, 0, 0, TYPE_HEADER, context.getString(R.string.admin_cards_active),
                 null));
+
         cards.add(new DtoAdminCards(TYPE_EMISOR, R.mipmap.main_card_zoom_blue, 0, 1, TYPE_ITEM,
                 context.getString(R.string.tarjeta_yg), StringUtils.getCreditCardFormat(App.getInstance().getPrefs().loadData(CARD_NUMBER))));
-        cards.add(new DtoAdminCards(TYPE_ADQ, isBluetooth ? R.drawable.lector_bt : R.mipmap.lector_front, 1, 1, TYPE_ITEM,
-                context.getString(R.string.lector_yg), App.getInstance().getPrefs().loadData(COMPANY_NAME)));
+        if (!App.getInstance().getPrefs().loadDataBoolean(IS_COACHMARK, true)){
+            cards.add(new DtoAdminCards(TYPE_ADQ, R.mipmap.lector_front, 1, 1, TYPE_ITEM,
+                    context.getString(R.string.lector_yg), App.getInstance().getPrefs().loadData(COMPANY_NAME)));
+        } else {
+            cards.add(new DtoAdminCards(TYPE_ADQ, R.drawable.lector_bt, 1, 1, TYPE_ITEM,
+                    context.getString(R.string.lector_yg), App.getInstance().getPrefs().loadData(COMPANY_NAME)));
+        }
+
         if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOYALTY, false)) {
             if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
                 cards.add(new DtoAdminCards(TYPE_STARBUCKS, R.drawable.card_sbux, 3, 1, TYPE_ITEM,

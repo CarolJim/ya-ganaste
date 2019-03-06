@@ -292,7 +292,7 @@ public class ElementView implements ElementGlobal {
                 elementViews.add(new ElementView(OPTION_CHARGE_WITH_CARD, R.drawable.ic_ico_cobros_tarjeta, R.string.realizar_cobro));
                 elementViews.add(new ElementView(OPTION_MY_CARD_SALES, R.drawable.ic_ico_ventas_tarjeta, R.string.my_card_sales));
             } else {
-                elementViews = ElementView.getListAdqBalance(false);
+                elementViews = ElementView.getListEstadoContinuarRegistro();
             }
         }
         /*
@@ -363,7 +363,7 @@ public class ElementView implements ElementGlobal {
     public static ArrayList<ElementView> getListLectorEmi() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(7, R.drawable.portada_adq, -1, -1,
-                true, false, R.string.comenzar_registro, OPTION_ZONE));
+                true, false, R.string.comenzar_registro, OPTION_SIMPLE));
         return elementViews;
     }
 
@@ -410,10 +410,10 @@ public class ElementView implements ElementGlobal {
     }
 
     //Proceso Continuar Registro Documentacion
-    public static ArrayList<ElementView> getListEstadoContinuarRegistro(String idComercio) {
+    public static ArrayList<ElementView> getListEstadoContinuarRegistro() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_CONTINUE_DOCS, R.drawable.portada_adq, -1,
-                -1, true, false, R.string.continuar_registro, OPTION_SIMPLE, idComercio));
+                -1, true, false, R.string.continuar_registro, OPTION_SIMPLE));
         return elementViews;
     }
 
