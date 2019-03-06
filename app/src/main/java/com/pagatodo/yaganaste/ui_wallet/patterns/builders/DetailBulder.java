@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.ui_wallet.holders.DetailMovementHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.LauncherHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.holders.TextDataViewHolder;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 
 public class DetailBulder extends Builder {
@@ -20,11 +21,13 @@ public class DetailBulder extends Builder {
     }
 
     public void createDetailMov(ItemMovements item, boolean isAdq) {
-            LayoutInflater inflater = LayoutInflater.from(this.context);
-            View layout = inflater.inflate(R.layout.item_mov_head, parent, false);
-            DetailMovementHolder holder = new DetailMovementHolder(layout, isAdq);
-            holder.bind(item, null);
-            this.parent.addView(layout);
+        LayoutInflater inflater = LayoutInflater.from(this.context);
+        View layout = inflater.inflate(R.layout.item_mov_head, parent, false);
+        DetailMovementHolder holder = new DetailMovementHolder(layout, isAdq);
+        StyleTextView textView = (StyleTextView) layout.findViewById(R.id.txtTituloDescripcion);
+        textView.setSelected(true);
+        holder.bind(item, null);
+        this.parent.addView(layout);
     }
 
     public void createLeaf(Object item) {
