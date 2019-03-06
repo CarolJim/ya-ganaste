@@ -3,7 +3,9 @@ package com.pagatodo.yaganaste.modules.register.VincularCuenta
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
+import com.android.volley.RetryPolicy
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -209,7 +211,13 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 return headersQR
             }
         }
-        requestQueue.add(jsonObjectRequest)
+
+        val mRetryPolicy = DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+
+        requestQueue.add(jsonObjectRequest).setRetryPolicy(mRetryPolicy)
     }
 
     private fun setAsignQrPhysical(qrs: QRs) {
