@@ -106,7 +106,9 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.activity = (WalletMainActivity) context;
+        if (context instanceof WalletMainActivity) {
+            this.activity = (WalletMainActivity) context;
+        }
     }
 
     @Override

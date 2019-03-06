@@ -967,10 +967,10 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             }
             App.mixpanel.track(EVENT_ADD_FAV, props);
         }
-        setResult(RESUL_FAVORITES);
-        finish();
-        /*showDialogMesage(getString(R.string.title_dialog_favorite),
-                getString(R.string.respond_ok_add_new_favorite), 1);*/
+        //setResult(RESUL_FAVORITES);
+        //finish();
+        showDialogMesage(getString(R.string.title_dialog_favorite),
+                getString(R.string.respond_ok_add_new_favorite), 1);
     }
 
     @Override

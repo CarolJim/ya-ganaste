@@ -395,8 +395,8 @@ public class ElementWallet {
             String leyenda;
             int descripcion;
             boolean isReload = true;
-            if (agentes.isEsAgregador() && agentes.getIdEstatus() == IdEstatus.ADQUIRENTE.getId() &&
-                    !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false)) {
+            if ((agentes.isEsAgregador() ||  agentes.isEsComercioUYU()) && agentes.getIdEstatus() == IdEstatus.ADQUIRENTE.getId() &&
+                    !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false) ) {
                 /*if (agentes.getIdEstatus() == IdEstatus.ADQUIRENTE.getId()) {*/
                 leyenda = StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE));
                 descripcion = R.string.saldo_reembolso;

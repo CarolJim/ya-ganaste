@@ -28,6 +28,7 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.UtilsIntents;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.DESTINATARIO;
@@ -250,22 +251,15 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
                             intent.putExtra(REFERENCIA, referService);
                             intent.putExtra(CURRENT_TAB_ID, tab);
                             intent.putExtra(DESTINATARIO, adapter.getMovItem(position).getSubtituloDetalle());
-                            getActivity().startActivityForResult(intent, REQUEST_CODE_FAVORITES);
+                            //Objects.requireNonNull(getActivity()).startActivityForResult(intent, REQUEST_CODE_FAVORITES);
+                            startActivity(intent);
                         } else {
-                            UI.showAlertDialog(getContext(), "Este movimiento ya es favorito", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.dismiss();
-                                }
-                            });
+                            UI.showAlertDialog(getContext(), "Este movimiento ya es favorito",
+                                    (dialogInterface, i) -> dialogInterface.dismiss());
                         }
                     } else {
-                        UI.showAlertDialog(getContext(), "Este movimiento no puede ser agregado a favoritos", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        });
+                        UI.showAlertDialog(getContext(), "Este movimiento no puede ser agregado a favoritos",
+                                (dialogInterface, i) -> dialogInterface.dismiss());
                     }
                 }
                 if (direction == ItemTouchHelper.RIGHT) {
