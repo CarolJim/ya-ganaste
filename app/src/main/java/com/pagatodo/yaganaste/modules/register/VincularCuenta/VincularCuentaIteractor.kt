@@ -69,9 +69,9 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 registerUserSingleton.apellidoPaterno,
                 registerUserSingleton.apellidoMaterno,
                 registerUserSingleton.genero,
-                registerUserSingleton.fechaNacimiento,
+                registerUserSingleton.fechaNacimiento.replace("[;\\/:*?\"<>|&']",""),
                 "",/*RFC*/
-                "",/*CURP*/
+                registerUserSingleton.curp,/*CURP*/
                 registerUserSingleton.paisNacimiento.idPais,/*Nacionalidad*/
                 registerUserSingleton.idEstadoNacimineto,
                 registerUserSingleton.email,

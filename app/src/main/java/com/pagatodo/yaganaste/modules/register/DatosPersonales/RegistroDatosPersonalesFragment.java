@@ -69,8 +69,10 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -753,6 +755,26 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     }
 
     private void setPersonData() {
+
+        Map months = new HashMap<String, String>();
+        months.put("Ene","01");
+        months.put("Feb","02");
+        months.put("Mar","03");
+        months.put("Abr","04");
+        months.put("May","05");
+        months.put("Jun","06");
+        months.put("Jul","07");
+        months.put("Ago","08");
+        months.put("Sep","09");
+        months.put("Oct","10");
+        months.put("Nov","11");
+        months.put("Dic","12");
+        String [] elementsDate = fechaNacimiento.split(" ");
+        String day = String.format("%2s",elementsDate[0]).replace(" ","0");
+        String month = (String) months.get(elementsDate[1]);
+        String year = elementsDate[2];
+
+        String newDate = String.format("%s/%s/%s", month, day, year);
         //Almacenamos la información para el registro
         RegisterUserNew registerUser = RegisterUserNew.getInstance();
         registerUser.setGenero(genero);
@@ -760,7 +782,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         registerUser.setApellidoPaterno(apPaterno);
         registerUser.setApellidoMaterno(apMaterno);
         registerUser.setFechaNacimientoToShow(editBirthDay.getText().toString());
-        registerUser.setFechaNacimiento(fechaNacimiento);
+        registerUser.setFechaNacimiento(newDate.replace("\\",""));
         registerUser.setClaveedonacimiento(prefijo);
         //registerUser.setNacionalidad("MX");
         if (country != null) {
@@ -773,9 +795,9 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
         if (BuildConfig.DEBUG) {
             //TODO descomentar despues de validar pruebas y comentar siguiente linea
-            onValidationSuccess();
+            //onValidationSuccess();
 
-            //accountPresenter.validatePersonDatanew();
+            accountPresenter.validatePersonDatanew();
 
            // accountPresenter.validatePersonDatanew();
 
