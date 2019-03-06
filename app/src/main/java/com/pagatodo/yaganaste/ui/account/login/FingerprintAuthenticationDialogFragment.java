@@ -31,6 +31,7 @@ import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.modules.emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
@@ -332,6 +333,9 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                     dismiss();
                 } else if (fragmentInstance instanceof BalanceWalletFragment) {
                     ((BalanceWalletFragment) fragmentInstance).showDialogPassword();
+                    dismiss();
+                } else if (fragmentInstance instanceof MyVirtualCardAccountFragment) {
+                    ((MyVirtualCardAccountFragment) fragmentInstance).showDialogPassword();
                     dismiss();
                 } else {
                     mPasswordDescriptionTextView.setText("Demasiados intentos\nallidos, por favor\nusa tú contraseña");

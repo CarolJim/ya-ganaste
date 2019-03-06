@@ -15,6 +15,7 @@ import io.card.payment.CardIOActivity;
 
 import android.provider.ContactsContract;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -67,6 +68,7 @@ import java.util.List;
 import io.card.payment.CreditCard;
 
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
+import static android.view.inputmethod.EditorInfo.IME_ACTION_NEXT;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
@@ -865,6 +867,18 @@ public class SendFromCardFragment extends GenericFragment implements View.OnClic
         }
 
         if (isValid) {
+
+            if (idComercio == IDCOMERCIO_YA_GANASTE) {
+                dateref = ("123456");
+                concepto = (App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+            }
+            else {
+                dateref = (DateUtil.getDayMonthYear());
+                concepto=(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
+            }
+
+
+
             payment = new Envios(selectedType, referenciaNumber, 0D, nombreDestinatario, concepto, dateref, comercioItem, false);
             Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
             intent.putExtra("pagoItem", payment);

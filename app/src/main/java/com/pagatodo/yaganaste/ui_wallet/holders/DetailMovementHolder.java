@@ -44,6 +44,7 @@ public class DetailMovementHolder extends GenericHolder {
     @Override
     public void bind(Object item, OnClickItemHolderListener listener) {
         ItemMovements response = (ItemMovements) item;
+        this.title.setSelected(true);
         this.day.setText(response.getDate());
         this.month.setText(response.getMonth());
         this.title.setText(response.getTituloDescripcion());

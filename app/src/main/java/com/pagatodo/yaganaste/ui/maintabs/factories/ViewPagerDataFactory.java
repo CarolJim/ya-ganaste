@@ -98,8 +98,6 @@ public class ViewPagerDataFactory {
         } else {
             fragmentList.add(GetMountFragment.newInstance(SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(0).getNombreNegocio()));
         }
-
-
     }
 
     private static void addHomeFragments(List<Fragment> fragmentList) {

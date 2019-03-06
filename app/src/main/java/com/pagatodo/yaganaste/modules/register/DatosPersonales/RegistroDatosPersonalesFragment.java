@@ -774,7 +774,11 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         if (BuildConfig.DEBUG) {
             //TODO descomentar despues de validar pruebas y comentar siguiente linea
             onValidationSuccess();
+
             //accountPresenter.validatePersonDatanew();
+
+           // accountPresenter.validatePersonDatanew();
+
 
         } else {
             accountPresenter.validatePersonDatanew();
