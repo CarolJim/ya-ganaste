@@ -452,7 +452,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
 
         Log.e("BornDate",renapoRequest.getBornDate());
-        Map months = new HashMap<String, String>();
+        /*Map months = new HashMap<String, String>();
         months.put("Ene","01");
         months.put("Feb","02");
         months.put("Mar","03");
@@ -470,7 +470,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         String month = (String) months.get(elementsDate[1]);
         String year = elementsDate[2];
 
-        String newDate = String.format("%s/%s/%s", month, day, year);
+        String newDate = String.format("%s/%s/%s", month, day, year);*/
 
         webService = CONSULTAR_DATOS_PERSONA_RENAPO;
         ApisFriggs apisFriggs = new ApisFriggs(this);
@@ -478,7 +478,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                         App.getContext().getResources().getString(R.string.consult_curp_person_renapo)
                         +"?name="+renapoRequest.getName()+"&fatherLastName="+renapoRequest.getFatherLastName()
                         +"&motherLastName="+renapoRequest.getMotherLastName()+"&sex="+renapoRequest.getSex()
-                        +"&bornState="+renapoRequest.getBornState()+"&bornDate="+newDate,
+                        +"&bornState="+renapoRequest.getBornState()+"&bornDate="+renapoRequest.getBornDate(),
                 new HashMap<>(),null,webService));
 
         /*
@@ -1473,7 +1473,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         registerUser.setNombre(genericResponse.getBody().getName());
         registerUser.setApellidoPaterno(genericResponse.getBody().getFatherLastName());
         registerUser.setApellidoMaterno(genericResponse.getBody().getMotherLastName());
-        registerUser.setFechaNacimiento(genericResponse.getBody().getBornDate());
+        registerUser.setFechaNacimiento(genericResponse.getBody().getBornDate().replace("\\",""));
         registerUser.setClaveedonacimiento(genericResponse.getBody().getBornStateKey());
         registerUser.setCURP(genericResponse.getBody().getCurp());
         //registerUser.setNacionalidad("MX");
