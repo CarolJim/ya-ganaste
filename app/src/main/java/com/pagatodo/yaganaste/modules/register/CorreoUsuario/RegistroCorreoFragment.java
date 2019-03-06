@@ -294,7 +294,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (!editMail.getText().toString().isEmpty()) {
                     if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                        //hideKeyBoard();
+
                         if (asignar_edittext.getText().toString().isEmpty()) {
 
                         }
@@ -423,9 +423,16 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         hideLoader();
         emailValidatedByWS = true;
         userExist = true;
-        if (ValidateForm.isValidEmailAddress(email))
-        text_email.setBackgroundResource(R.drawable.inputtext_normal);
+        if (ValidateForm.isValidEmailAddress(email)) {
+            text_email.setBackgroundResource(R.drawable.inputtext_normal);
+        }
         isChecked();
+    }
+
+    private void hideKeyBoardReg() {
+        InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(getActivity())
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(Objects.requireNonNull(getView()).getWindowToken(), 0);
     }
 
     @Override
@@ -503,6 +510,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                     imm.hideSoftInputFromWindow(btnNextDatosUsuario.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     text_email.setBackgroundResource(R.drawable.input_text_error);
                     UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
+                    hideKeyBoard();
                 } else if (ValidateForm.isValidEmailAddress(editMail.getText().toString().trim().toLowerCase()) && !emailValidatedByWS) {
                     accountPresenter.validateEmail(editMail.getText().toString());
                 } else if (ValidateForm.isValidEmailAddress(editMail.getText().toString().trim().toLowerCase()) && emailValidatedByWS) {
