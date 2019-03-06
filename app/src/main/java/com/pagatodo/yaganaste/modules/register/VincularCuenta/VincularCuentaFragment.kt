@@ -169,7 +169,7 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         hideLoader()
         var registerUserSingleton = RegisterUserNew.getInstance()
         if (!registerUserSingleton.isBreakregister) {
-            iteractor.createUser()
+            iteractor.createClient()
         }else{
             RegisterUserNew.getInstance().statusRegistro = SIN_REGISTRO
 
@@ -296,7 +296,7 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
     }
 
     override fun onVerificationCreateUserFailed() {
-      //  RegisterUserNew.getInstance().statusRegistro = SIN_REGISTRO
+        RegisterUserNew.getInstance().statusRegistro = SIN_REGISTRO
     }
 
     private fun goToLoginAlert(message: String) {
