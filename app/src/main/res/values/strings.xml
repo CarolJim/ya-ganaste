@@ -851,7 +851,7 @@
     <string name="catalogo_version_init">0</string>
     <string name="asigna_nip">Asigna tu NIP</string>
 
-    <string name="vuelve_conectar_lector">Vuelve a conectar el lector</string>
+    <string name="vuelve_conectar_lector">Enciende tu dispositivo Bluetooth\nYa Ganaste</string>
     <string name="error_pos_is_null">Ha ocurrido un error, vuelva a intentarlo</string>
     <string name="vuelve_configurar_lector">Vuelve a configurar el lector</string>
     <string name="error_select_emv_app">Error al obtener tarjeta</string>

@@ -502,7 +502,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showSimpleDialogError(String message, DialogDoubleActions actions) {
-        UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error), message,
+        UI.createSimpleCustomDialogNoCancel("", message,
                 getFragmentManager(), actions);
     }
 
