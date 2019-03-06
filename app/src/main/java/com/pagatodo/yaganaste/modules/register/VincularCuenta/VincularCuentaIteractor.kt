@@ -3,7 +3,9 @@ package com.pagatodo.yaganaste.modules.register.VincularCuenta
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
+import com.android.volley.RetryPolicy
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -209,7 +211,13 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 return headersQR
             }
         }
-        requestQueue.add(jsonObjectRequest)
+
+        val mRetryPolicy = DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+
+        requestQueue.add(jsonObjectRequest).setRetryPolicy(mRetryPolicy)
     }
 
     private fun setAsignQrPhysical(qrs: QRs) {
@@ -332,7 +340,9 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                     registerUserSingleton.fechaNacimiento=""*/
 
                 } else {
+                    presenter.onVerificationCreateUserFailed()
                     presenter.onErrorService(response.mensaje)
+
                 }
             }
             is AsignarCuentaDisponibleResponse -> {
@@ -453,9 +463,11 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     }
 
     override fun onFailed(error: DataSourceResult?) {
+
         if (error!!.webService == WebService.VERIFICAR_ACTIVACION) {
             presenter.onVerificationSmsFailed(error!!.data.toString())
-        } else {
+        }
+        else {
             presenter.onErrorService(error!!.data.toString())
         }
     }

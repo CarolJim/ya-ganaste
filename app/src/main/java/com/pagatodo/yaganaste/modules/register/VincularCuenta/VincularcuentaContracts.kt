@@ -12,6 +12,7 @@ class VincularcuentaContracts {
         fun onSmsNumberObtained(obj: MessageValidation)
         fun onVerificationSmsSuccess()
         fun onVerificationSmsFailed(message: String)
+        fun onVerificationCreateUserFailed()
         fun onSessionUpdate()
         fun onAprovSuccess()
         fun onAprovFailed(obj: Any?, tag: String)

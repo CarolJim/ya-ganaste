@@ -423,6 +423,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         hideLoader();
         emailValidatedByWS = true;
         userExist = true;
+        if (ValidateForm.isValidEmailAddress(email))
         text_email.setBackgroundResource(R.drawable.inputtext_normal);
         isChecked();
     }
@@ -510,7 +511,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 }
                 //isChecked();
 
-                text_email.setBackgroundResource(R.drawable.inputtext_normal);
+                /*text_email.setBackgroundResource(R.drawable.inputtext_normal);*/
 
             }
             isChecked();

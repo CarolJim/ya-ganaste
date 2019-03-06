@@ -773,8 +773,8 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
         if (BuildConfig.DEBUG) {
             //TODO descomentar despues de validar pruebas y comentar siguiente linea
-           // onValidationSuccess();
-            accountPresenter.validatePersonDatanew();
+            onValidationSuccess();
+           // accountPresenter.validatePersonDatanew();
 
         } else {
             accountPresenter.validatePersonDatanew();
