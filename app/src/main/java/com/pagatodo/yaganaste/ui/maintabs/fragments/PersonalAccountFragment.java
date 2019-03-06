@@ -82,6 +82,13 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
         filterLinerLayout.setVisibility(View.GONE);
         if(!movementsList.isEmpty()){
             btnContinue.active();
+            ItemTouchHelper.SimpleCallback itemTouchHelperCallbackL =
+                    new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, getListenerItemTouchLeft(), LEFT);
+            new ItemTouchHelper(itemTouchHelperCallbackL).attachToRecyclerView(recyclerMovements);
+
+            ItemTouchHelper.SimpleCallback itemTouchHelperCallbackR =
+                    new RecyclerItemTouchHelper(0, ItemTouchHelper.RIGHT, getListenerItemTouchLeft(), RIGHT);
+            new ItemTouchHelper(itemTouchHelperCallbackR).attachToRecyclerView(recyclerMovements);
         } else {
             btnContinue.inactive();
         }

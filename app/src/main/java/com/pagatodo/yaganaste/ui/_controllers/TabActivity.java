@@ -248,6 +248,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             couchMark.setVisibility(View.GONE);
             close.setVisibility(View.GONE);
         } else {
+
             couchMark.setVisibility(View.VISIBLE);
             close.setVisibility(View.VISIBLE);
         }
@@ -302,7 +303,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_help:
-                goToWalletMainActivity();
+                if (!App.getInstance().getPrefs().loadDataBoolean(IS_COACHMARK, true)) {
+                    goToWalletMainActivity();
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
