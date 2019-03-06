@@ -76,7 +76,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 registerUserSingleton.apellidoPaterno,
                 registerUserSingleton.apellidoMaterno,
                 registerUserSingleton.genero,
-                fec,
+                registerUserSingleton.fechaNacimiento,
                 "",/*RFC*/
                 registerUserSingleton.curp,/*CURP*/
                 registerUserSingleton.paisNacimiento.idPais,/*Nacionalidad*/

@@ -774,7 +774,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         String month = (String) months.get(elementsDate[1]);
         String year = elementsDate[2];
 
-        String newDate = String.format("%s/%s/%s", month, day, year);
+        String newDate = String.format("%s-%s-%s", year,month, day);
         //Almacenamos la información para el registro
         RegisterUserNew registerUser = RegisterUserNew.getInstance();
         registerUser.setGenero(genero);
@@ -795,7 +795,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
         if (BuildConfig.DEBUG) {
             //TODO descomentar despues de validar pruebas y comentar siguiente linea
-          //  onValidationSuccess();
+         //   onValidationSuccess();
 
             accountPresenter.validatePersonDatanew();
 
