@@ -62,6 +62,13 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     override fun createUser() {
         presenter.showLoader(App.getContext().getString(R.string.creating_user))
         var registerUserSingleton = RegisterUserNew.getInstance()
+
+
+        var mes =  registerUserSingleton.fechaNacimiento.substring(0,2)
+        var dia =  registerUserSingleton.fechaNacimiento.substring(3,5)
+        var ano =  registerUserSingleton.fechaNacimiento.substring(6,10)
+        var fec = ano+"-"+mes+"-"+dia
+
         var request = CrearUsuarioClienteRequest(
                 registerUserSingleton.email,
                 Utils.cipherRSA(registerUserSingleton.contrasenia, PUBLIC_KEY_RSA),
@@ -69,7 +76,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 registerUserSingleton.apellidoPaterno,
                 registerUserSingleton.apellidoMaterno,
                 registerUserSingleton.genero,
-                registerUserSingleton.fechaNacimiento.replace("[;\\/:*?\"<>|&']",""),
+                fec,
                 "",/*RFC*/
                 registerUserSingleton.curp,/*CURP*/
                 registerUserSingleton.paisNacimiento.idPais,/*Nacionalidad*/

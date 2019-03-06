@@ -67,7 +67,8 @@ public class SingletonUser {
             prefs.saveDataBool(PASSWORD_CHANGE, dataUser.getUsuario().getPasswordAsignado());
             /* Cuando el array de Agentes llega vacío singifica que el usuario es emisor solamente,
              *  en caso de que llegue con algún elemento entonces significa que realizó su proceso adq */
-            prefs.saveDataBool(ES_AGENTE, dataUser.getAdquirente().getAgentes() != null && dataUser.getAdquirente().getAgentes().size() > 0);
+            prefs.saveDataBool(ES_AGENTE, dataUser.getAdquirente().getAgentes() != null
+                    && dataUser.getAdquirente().getAgentes().size() > 0);
             prefs.saveDataInt(ID_ROL, dataUser.getUsuario().getRoles().get(0).getIdRol());
             if (dataUser.getUsuario().getRoles().get(0).getIdRol() == 129) {
                 prefs.saveDataBool(IS_OPERADOR, true);
