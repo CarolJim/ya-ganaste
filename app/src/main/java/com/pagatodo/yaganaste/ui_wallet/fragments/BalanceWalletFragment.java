@@ -588,7 +588,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void sendErrorBloquearCuentaToView(String mensaje) {
-
+        UI.showErrorSnackBar(getActivity(),mensaje, Snackbar.LENGTH_SHORT);
     }
 
     @Override

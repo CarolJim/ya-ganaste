@@ -60,6 +60,7 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
+import com.pagatodo.yaganaste.ui_wallet.fragments.BalanceWalletFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
@@ -83,6 +84,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_SB;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ESTATUS_CUENTA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
@@ -392,6 +394,10 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             } else if (ws == OBTENER_COLONIAS_CP) {
                 ((IAccountRegisterView) accountView).zipCodeInvalid(error.toString());
                 accountView.showError(error.toString());
+            }
+        }else if (accountView instanceof BalanceWalletFragment) {
+            if (ws == INICIAR_SESION_SIMPLE) {
+                ((IMyCardView) accountView).sendErrorBloquearCuentaToView(error.toString());
             }
         } else if (accountView instanceof IUserDataRegisterView) {
             if (ws == VALIDAR_ESTATUS_USUARIO) {

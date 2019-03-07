@@ -77,6 +77,8 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
                 router.showBusinessData(Direction.FORDWARD);
                 RegisterUserNew registerUser = RegisterUserNew.getInstance();
                 registerUser.setRegincomplete(true);
+                nextStep();
+                nextStep();
             }
             else {
                 //router.showPersonalData(Direction.FORDWARD);
