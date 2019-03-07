@@ -6,11 +6,14 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 import android.text.InputType;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.view_manager.components.HeadAccount;
@@ -59,11 +62,16 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
     TextView txtInicialesFav;
     @BindView(R.id.enviar)
     StyleTextView btnEnviar;
+    @BindView(R.id.tv_sign)
+    StyleTextView tv_sign;
     @BindView(R.id.edit_conc)
     EditText edit_conc;
 
     @BindView(R.id.headWallet)
     HeadWallet headWallet;
+
+    @BindView(R.id.linera_monto)
+    LinearLayout linera_monto;
 
     View view;
 
@@ -100,13 +108,33 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
     @Override
     public void initViews() {
         ButterKnife.bind(this, view);
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int density = dm.densityDpi;
+        Log.d("Density","Es de : "+density);
         tvMontoEntero = (StyleTextView) view.findViewById(R.id.tv_monto_entero);
         tvMontoDecimal = (StyleTextView) view.findViewById(R.id.tv_monto_decimal);
+        if (density <450){
+            tvMontoEntero.setTextSize(40);
+            tv_sign.setTextSize(20);
+            tvMontoDecimal.setTextSize(20);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linera_monto.getLayoutParams();
+            params.height = 100;
+            linera_monto.setLayoutParams(params);
+        }
         HeadAccount headAccount = view.findViewById(R.id.head_account);
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
         headWallet.setAmount(App.getInstance().getPrefs().loadData(USER_BALANCE));
         headWallet.setTitle("Saldo actual");
+
+        linera_monto.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                et_amount.requestFocus();
+                return false;
+            }
+        });
 
         SingletonUser dataUser = SingletonUser.getInstance();
         saldoDisponible.setText("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));

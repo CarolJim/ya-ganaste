@@ -43,8 +43,8 @@
                     android:id="@+id/headWallet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="7dp"
                     android:gravity="center_horizontal|center_vertical"
                     app:walletResImage="@mipmap/main_card_zoom_blue"
                     app:headAmount="1000"
@@ -125,7 +125,7 @@
             <LinearLayout
                 android:id="@+id/linera_monto"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
 
@@ -257,7 +257,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
         android:layout_weight="2.5"
         android:gravity="bottom">
 

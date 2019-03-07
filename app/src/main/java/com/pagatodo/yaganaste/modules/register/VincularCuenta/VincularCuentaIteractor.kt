@@ -64,10 +64,10 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
         var registerUserSingleton = RegisterUserNew.getInstance()
 
 
-        var mes =  registerUserSingleton.fechaNacimiento.substring(0,2)
+        /*var mes =  registerUserSingleton.fechaNacimiento.substring(0,2)
         var dia =  registerUserSingleton.fechaNacimiento.substring(3,5)
         var ano =  registerUserSingleton.fechaNacimiento.substring(6,10)
-        var fec = ano+"-"+mes+"-"+dia
+        var fec = ano+"-"+mes+"-"+dia*/
 
         var request = CrearUsuarioClienteRequest(
                 registerUserSingleton.email,
