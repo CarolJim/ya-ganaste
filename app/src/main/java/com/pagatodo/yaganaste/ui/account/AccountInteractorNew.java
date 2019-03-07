@@ -1473,7 +1473,12 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         registerUser.setNombre(genericResponse.getBody().getName());
         registerUser.setApellidoPaterno(genericResponse.getBody().getFatherLastName());
         registerUser.setApellidoMaterno(genericResponse.getBody().getMotherLastName());
-        registerUser.setFechaNacimiento(genericResponse.getBody().getBornDate().replace("\\",""));
+
+        String dia =  genericResponse.getBody().getBornDate().substring(0,2);
+        String mes =  genericResponse.getBody().getBornDate().substring(3,5);
+        String ano =  genericResponse.getBody().getBornDate().substring(6,10);
+        String fec = ano+"-"+mes+"-"+dia;
+        registerUser.setFechaNacimiento(fec);
         registerUser.setClaveedonacimiento(genericResponse.getBody().getBornStateKey());
         registerUser.setCURP(genericResponse.getBody().getCurp());
         //registerUser.setNacionalidad("MX");
