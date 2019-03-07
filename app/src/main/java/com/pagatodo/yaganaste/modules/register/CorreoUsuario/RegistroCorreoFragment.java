@@ -364,6 +364,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                     if (asignar_edittext.getText().toString().equals(asignar_edittextConfirm.getText().toString())) {
                         text_email.setBackgroundResource(R.drawable.inputtext_normal);
                         llypass_passConfirm.setBackgroundResource(R.drawable.inputtext_normal);
+                        setLogData();
                     } else {
                         llypass_pass.setVisibility(View.VISIBLE);
                         asignar_edittext.requestFocus();
@@ -643,9 +644,8 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         RegisterUserNew registerUser = RegisterUserNew.getInstance();
         registerUser.setEmail(email);
         registerUser.setContrasenia(psd);
-        if (BuildConfig.DEBUG) {
             onValidationSuccess();
-        }
+
     }
 
     @Override
