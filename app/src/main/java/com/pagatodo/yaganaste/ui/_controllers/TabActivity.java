@@ -380,9 +380,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
+        if(App.getInstance().getPrefs().loadDataBoolean(IS_COACHMARK, true)) {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
         close.setOnClickListener(v -> {
             App.getInstance().getPrefs().saveDataBool(IS_COACHMARK, false);
             couchMark.setVisibility(View.GONE);

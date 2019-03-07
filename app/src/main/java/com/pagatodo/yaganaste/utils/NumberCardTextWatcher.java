@@ -28,6 +28,7 @@ public class NumberCardTextWatcher implements TextWatcher {
         this.cardNumber = cardNumber;
         this.maxLength = maxLength;
     }
+
     public NumberCardTextWatcher(EditText cardNumber, int maxLength, Ibind ibind1) {
         this.cardNumber = cardNumber;
         this.maxLength = maxLength;
@@ -61,11 +62,13 @@ public class NumberCardTextWatcher implements TextWatcher {
             finalText = auxText;
         }
 
-        if (auxText.length() ==16){
-            ibind.bindcomplete(auxText);
-        }
-        if (auxText.length() ==0){
-            ibind.bindcomplete(auxText);
+        if (ibind != null) {
+            if (auxText.length() == 16) {
+                ibind.bindcomplete(auxText);
+            }
+            if (auxText.length() == 0) {
+                ibind.bindcomplete(auxText);
+            }
         }
 
 
