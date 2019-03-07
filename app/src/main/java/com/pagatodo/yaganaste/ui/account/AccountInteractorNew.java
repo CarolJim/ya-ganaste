@@ -1474,10 +1474,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         registerUser.setApellidoPaterno(genericResponse.getBody().getFatherLastName());
         registerUser.setApellidoMaterno(genericResponse.getBody().getMotherLastName());
 
-        String dia =  genericResponse.getBody().getBornDate().substring(0,2);
-        String mes =  genericResponse.getBody().getBornDate().substring(3,5);
+        String mes =  genericResponse.getBody().getBornDate().substring(0,2);
+        String dia =  genericResponse.getBody().getBornDate().substring(3,5);
         String ano =  genericResponse.getBody().getBornDate().substring(6,10);
-        String fec = ano+"-"+mes+"-"+dia;
+        String fec = ano+"-"+dia+"-"+mes;
         registerUser.setFechaNacimiento(fec);
         registerUser.setClaveedonacimiento(genericResponse.getBody().getBornStateKey());
         registerUser.setCURP(genericResponse.getBody().getCurp());
