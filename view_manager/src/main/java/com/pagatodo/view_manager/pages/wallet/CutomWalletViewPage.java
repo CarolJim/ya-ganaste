@@ -1,17 +1,14 @@
-package com.pagatodo.yaganaste.ui_wallet.views;
+package com.pagatodo.view_manager.pages.wallet;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Point;
-import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.pagatodo.yaganaste.App;
-
-import static com.pagatodo.yaganaste.utils.Recursos.IS_COACHMARK;
+import androidx.viewpager.widget.ViewPager;
 
 public class CutomWalletViewPage extends FrameLayout implements ViewPager.OnPageChangeListener {
 
@@ -72,21 +69,16 @@ public class CutomWalletViewPage extends FrameLayout implements ViewPager.OnPage
     public boolean onTouchEvent(MotionEvent ev) {
         //We capture any touches not already handled by the ViewPager
         // to implement scrolling from a touch outside the pager bounds.
-        if (!App.getInstance().getPrefs().loadDataBoolean(IS_COACHMARK, true)) {
-            switch (ev.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    mInitialTouch.x = (int)ev.getX();
-                    mInitialTouch.y = (int)ev.getY();
-                default:
-                    ev.offsetLocation(mCenter.x - mInitialTouch.x, mCenter.y - mInitialTouch.y);
-                    break;
-            }
-            return mPager.dispatchTouchEvent(ev);
-        } else {
-            return false;
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mInitialTouch.x = (int)ev.getX();
+                mInitialTouch.y = (int)ev.getY();
+            default:
+                ev.offsetLocation(mCenter.x - mInitialTouch.x, mCenter.y - mInitialTouch.y);
+                break;
         }
 
-
+        return mPager.dispatchTouchEvent(ev);
     }
 
     @Override
@@ -94,16 +86,6 @@ public class CutomWalletViewPage extends FrameLayout implements ViewPager.OnPage
         //Force the container to redraw on scrolling.
         //Without this the outer pages render initially and then stay static
         if (mNeedsRedraw) invalidate();
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    @Override
-    public void setOnTouchListener(OnTouchListener l) {
-        if (!App.getInstance().getPrefs().loadDataBoolean(IS_COACHMARK, true)) {
-            super.setOnTouchListener(l);
-        }
-        //
-
     }
 
     @Override

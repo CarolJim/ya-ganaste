@@ -134,7 +134,16 @@
                 app:tipo="Text" />
 
 
-            <include layout="@layout/calculatorventaprincipal" />
+            <!--<include layout="@layout/calculatorventaprincipal" />-->
+            <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+                android:id="@+id/amount_last"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/generic_text_style_4"
+                android:textSize="50sp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"/>
+
 
 
         </LinearLayout>

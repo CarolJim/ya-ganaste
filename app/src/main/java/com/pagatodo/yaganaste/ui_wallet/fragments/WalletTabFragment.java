@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -82,6 +83,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_DONGLE_REEMBOLSO;
 import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_LOGIN;
 import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
 import static com.pagatodo.yaganaste.utils.Recursos.FOLIOADQ;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_COACHMARK;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
@@ -147,6 +149,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void initViews() {
+
         viewPagerWallet = pageContainer.getViewPager();
         viewPagerWallet.setOffscreenPageLimit(3);
         viewPagerWallet.setPageMargin(15);
@@ -161,6 +164,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         rcvOpciones.setHasFixedSize(true);
         board.setreloadOnclicklistener(this);
         checkDataCard();
+
     }
 
     @Override
@@ -247,32 +251,34 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void onItemClick(Object item) {
-        ElementView itemOperation = (ElementView) item;
-        this.element = itemOperation;
-        if (itemOperation.getIdOperacion() == 12) {  // Error en documentación
-            walletPresenter.getStatusDocuments();
-        } else if (itemOperation.getIdOperacion() == TYPE_ADQ_FIRST) {
-            //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
-            //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
-            timeRepaymentPresenter.updateTypeRepayment(Integer.parseInt(App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO)));
-        } else if (itemOperation.getIdOperacion() == OPTION_BALANCE_CLOSED_LOOP) {
-            BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
-            if (!adapter.isEnabled() && App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
-                Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivity(enabler);
+        if (!App.getInstance().getPrefs().loadDataBoolean(IS_COACHMARK, true)){
+            ElementView itemOperation = (ElementView) item;
+            this.element = itemOperation;
+            if (itemOperation.getIdOperacion() == 12) {  // Error en documentación
+                walletPresenter.getStatusDocuments();
+            } else if (itemOperation.getIdOperacion() == TYPE_ADQ_FIRST) {
+                //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
+                //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
+                timeRepaymentPresenter.updateTypeRepayment(Integer.parseInt(App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO)));
+            } else if (itemOperation.getIdOperacion() == OPTION_BALANCE_CLOSED_LOOP) {
+                BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+                if (!adapter.isEnabled() && App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                    Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivity(enabler);
+                } else {
+                    UI.showAlertDialog(getActivity(), getString(R.string.consultar_saldo_uyu_title),
+                            getString(R.string.consultar_saldo_uyu_desc),
+                            getString(R.string.consultar_saldo_uyu_btn), (dialogInterface, i) -> {
+                                TransactionAdqData.getCurrentTransaction().setAmount("");
+                                TransactionAdqData.getCurrentTransaction().setDescription("");
+                                Intent intentAdq = new Intent(getActivity(), AdqActivity.class);
+                                intentAdq.putExtra(TYPE_TRANSACTION, QPOSService.TransactionType.INQUIRY.ordinal());
+                                startActivity(intentAdq);
+                            });
+                }
             } else {
-                UI.showAlertDialog(getActivity(), getString(R.string.consultar_saldo_uyu_title),
-                        getString(R.string.consultar_saldo_uyu_desc),
-                        getString(R.string.consultar_saldo_uyu_btn), (dialogInterface, i) -> {
-                            TransactionAdqData.getCurrentTransaction().setAmount("");
-                            TransactionAdqData.getCurrentTransaction().setDescription("");
-                            Intent intentAdq = new Intent(getActivity(), AdqActivity.class);
-                            intentAdq.putExtra(TYPE_TRANSACTION, QPOSService.TransactionType.INQUIRY.ordinal());
-                            startActivity(intentAdq);
-                        });
+                goToWalletMainActivity();
             }
-        } else {
-            goToWalletMainActivity();
         }
     }
 
@@ -465,9 +471,11 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void onClick(View view) {
-        if (!prefs.containsData(IS_OPERADOR)) {
-            if (elementsWalletAdapter.getItemCount() > 0 && cardWalletAdpater.getElemenWallet(this.pageCurrent) != null) {
-                walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
+        if (!App.getInstance().getPrefs().loadDataBoolean(IS_COACHMARK, true)) {
+            if (!prefs.containsData(IS_OPERADOR)) {
+                if (elementsWalletAdapter.getItemCount() > 0 && cardWalletAdpater.getElemenWallet(this.pageCurrent) != null) {
+                    walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
+                }
             }
         }
     }

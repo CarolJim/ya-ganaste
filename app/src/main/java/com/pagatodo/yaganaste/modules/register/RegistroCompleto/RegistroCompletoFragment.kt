@@ -7,10 +7,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.dspread.xpos.QPOSService
+import com.pagatodo.yaganaste.App
 import com.pagatodo.yaganaste.R
 import com.pagatodo.yaganaste.databinding.FragmentRegistroCompletoBinding
 import com.pagatodo.yaganaste.modules.register.RegActivity
 import com.pagatodo.yaganaste.ui._manager.GenericFragment
+import com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE
+import com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE
 
 class RegistroCompletoFragment : GenericFragment(), RegistroCompletoContracts.Presenter, View.OnClickListener {
 
@@ -33,10 +37,15 @@ class RegistroCompletoFragment : GenericFragment(), RegistroCompletoContracts.Pr
         super.onCreate(savedInstanceState)
         router = RegistroCompletoRouter(activity!!)
         iteractor = RegistroCompletoIteractor(this)
+
+
+        App.getInstance().prefs.saveDataBool(HAS_CONFIG_DONGLE, true)
+        App.getInstance().prefs.saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_registro_completo, container, false)
         initViews()
         return binding.root

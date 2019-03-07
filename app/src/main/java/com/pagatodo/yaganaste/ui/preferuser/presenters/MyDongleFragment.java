@@ -111,7 +111,7 @@ public class MyDongleFragment extends GenericFragment implements IPreferUserGene
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        //communicationMode = getArguments().getInt(MODE_COMMUNICACTION);
+        communicationMode = getArguments().getInt(MODE_COMMUNICACTION);
         prefs = App.getInstance().getPrefs();
         audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
         currentVolumenDevice = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);

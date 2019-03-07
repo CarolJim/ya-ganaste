@@ -69,15 +69,15 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
                     //!App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)) {
 */
                 if (agentes.getIdEstatus() == IdEstatus.ADQUIRENTE.getId() && agentes.isEsAgregador()) {
-                    goConfig_card_reader.setVisibility(View.GONE);
-                } else {
                     goConfig_card_reader.setVisibility(View.VISIBLE);
+                } else {
+                    goConfig_card_reader.setVisibility(View.GONE);
                 }
             } else {
                 goConfig_card_reader.setVisibility(View.GONE);
             }
         } else {
-            goConfig_card_reader.setVisibility(View.VISIBLE);
+            goConfig_card_reader.setVisibility(View.GONE);
         }
         initViews();
         return rootView;

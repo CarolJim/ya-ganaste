@@ -39,15 +39,16 @@ public class WalletBuilder {
         }
         //Mis Negocios getCardMisNegocios
         //Adquiriente
-        if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes()
-                != null && !SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().isEmpty()) {
+        if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes() != null
+                && !SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().isEmpty()) {
             if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size() > 1) {
                 walletList.addWallet(ElementWallet.getCardMisNegocios());
             }
             for (int i = 0; i < SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size(); i++) {
                 Agentes agentes;
                 try {
-                    agentes = new DatabaseManager().getAgenteByComercio(SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(i).getIdComercio());
+                    agentes = new DatabaseManager().getAgenteByComercio(SingletonUser.getInstance()
+                            .getDataUser().getAdquirente().getAgentes().get(i).getIdComercio());
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                     agentes = SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(i);

@@ -12,7 +12,7 @@ import com.pagatodo.yaganaste.freja.provisioning.manager.ProvisioningManager;
 import java.util.concurrent.Executor;
 
 /**
- * @author Juan Guerra on 30/03/2017.
+ *
  * @version 1.0
  */
 

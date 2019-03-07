@@ -90,7 +90,9 @@ public class RegRouter implements RegContracts.Router {
      */
     @Override
     public void showScanQR() {
-        Intent intent = new Intent(activity, ScannVisionActivity.class);
+
+        Intent intent = ScannVisionActivity.createIntent(activity,true,
+                activity.getResources().getString(R.string.title_scan_reg));
         intent.putExtra(ScannVisionActivity.QRObject, true);
         activity.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
     }

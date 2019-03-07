@@ -1,6 +1,5 @@
 package com.pagatodo.view_manager.wallet.components;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

@@ -1826,6 +1826,7 @@
     <string name="buscar_favoritos">Buscar Favoritos</string>
     <string name="nombre_simple">Nombre</string>
     <string name="title_scan">Escanea el código QR\ndel negocio</string>
+    <string name="title_scan_reg">Escanea tu código QR</string>
     <string name="month">Ene</string>
     <string name="introduce_curp_valida">Por favor introduce una CURP válida</string>
     <string name="seleccionar_tipo_de_envio">Seleccionar Tipo de Envio</string>

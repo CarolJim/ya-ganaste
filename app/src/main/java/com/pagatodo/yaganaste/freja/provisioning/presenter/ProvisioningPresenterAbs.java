@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 import static com.pagatodo.yaganaste.utils.Recursos.PT_CLIENT_CODE;
 
 /**
- * @author Juan Guerra on 31/03/2017.
+ *
  */
 
 public abstract class ProvisioningPresenterAbs extends TabPresenterImpl implements ProvisioningPresenter, ProvisioningManager {

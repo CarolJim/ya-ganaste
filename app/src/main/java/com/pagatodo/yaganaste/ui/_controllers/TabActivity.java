@@ -252,11 +252,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             couchMark.setVisibility(View.VISIBLE);
             close.setVisibility(View.VISIBLE);
         }
-        close.setOnClickListener(v -> {
-            App.getInstance().getPrefs().saveDataBool(IS_COACHMARK, false);
-            couchMark.setVisibility(View.GONE);
-            close.setVisibility(View.GONE);
-        });
+
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -379,10 +375,26 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+        close.setOnClickListener(v -> {
+            App.getInstance().getPrefs().saveDataBool(IS_COACHMARK, false);
+            couchMark.setVisibility(View.GONE);
+            close.setVisibility(View.GONE);
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNDEFINED);
+
+        });
+        /*ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();*/
 
     }
 
@@ -939,38 +951,42 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        if (menuItem.getItemId() == R.id.navigation_charge) {
-            if (SingletonUser.getInstance().getDataUser().getUsuario().getIdEstatusEmisor()
-                    == IdEstatus.ADQUIRENTE.getId()) {
-                startActivity(ChargeActivity.createIntent(this));
-            }
-            //startActivity(ChargeActivity.createIntent(this));
-            //startActivity(AggregatorActivity.createIntent(this));
-        } else if (lastFrag != menuItem.getItemId()) {
-            lastFrag = menuItem.getItemId();
-            switch (menuItem.getItemId()) {
-                case R.id.navigation_send:
-                    mainViewPager.setCurrentItem(0);
-                    return true;
+        if (!App.getInstance().getPrefs().loadDataBoolean(IS_COACHMARK, true)) {
 
-                case R.id.navigation_pay:
-                    //navitaionBar.setSelectedItemId(R.id.navigation_pay);
-                    mainViewPager.setCurrentItem(1);
-                    return true;
 
-                case R.id.navigation_wallet:
-                    //navitaionBar.setSelectedItemId(R.id.navigation_wallet);
-                    mainViewPager.setCurrentItem(2);
-                    return true;
-                case R.id.navigation_my_qr:
-                    //navitaionBar.setSelectedItemId(R.id.navigation_my_qr);
-                    mainViewPager.setCurrentItem(3);
-                    return true;
-                //case R.id.navigation_charge:
-                //navitaionBar.setSelectedItemId(R.id.navigation_charge);
-                //mainViewPager.setCurrentItem(4);
+            if (menuItem.getItemId() == R.id.navigation_charge) {
+                if (SingletonUser.getInstance().getDataUser().getUsuario().getIdEstatusEmisor()
+                        == IdEstatus.ADQUIRENTE.getId()) {
+                    startActivity(ChargeActivity.createIntent(this));
+                }
+                //startActivity(ChargeActivity.createIntent(this));
+                //startActivity(AggregatorActivity.createIntent(this));
+            } else if (lastFrag != menuItem.getItemId()) {
+                lastFrag = menuItem.getItemId();
+                switch (menuItem.getItemId()) {
+                    case R.id.navigation_send:
+                        mainViewPager.setCurrentItem(0);
+                        return true;
 
-                //  return true;
+                    case R.id.navigation_pay:
+                        //navitaionBar.setSelectedItemId(R.id.navigation_pay);
+                        mainViewPager.setCurrentItem(1);
+                        return true;
+
+                    case R.id.navigation_wallet:
+                        //navitaionBar.setSelectedItemId(R.id.navigation_wallet);
+                        mainViewPager.setCurrentItem(2);
+                        return true;
+                    case R.id.navigation_my_qr:
+                        //navitaionBar.setSelectedItemId(R.id.navigation_my_qr);
+                        mainViewPager.setCurrentItem(3);
+                        return true;
+                    //case R.id.navigation_charge:
+                    //navitaionBar.setSelectedItemId(R.id.navigation_charge);
+                    //mainViewPager.setCurrentItem(4);
+
+                    //  return true;
+                }
             }
         }
         return false;

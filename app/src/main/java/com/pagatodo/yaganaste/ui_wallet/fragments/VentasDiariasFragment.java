@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.presenter.VentasDiariasPresenter;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.text.DateFormat;
@@ -39,6 +40,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.NOM_COM;
  * Armando Sandoval
  */
 public class VentasDiariasFragment extends SupportFragment implements View.OnClickListener, IVentasAdmin {
+
+
     @BindView(R.id.titulo_negocio)
     StyleTextView titulo_negocio;
     @BindView(R.id.linerarventashoy)
@@ -51,7 +54,12 @@ public class VentasDiariasFragment extends SupportFragment implements View.OnCli
     LinearLayout linerarventasayercontainer;
     @BindView(R.id.sub_actualizacin)
     StyleTextView sub_actualizacin;
-    private StyleTextView tvMontoEnteroPrincipal, tvMontoDecimalPrincipal, tvMontoEnteroTicketp, tvMontoDecimalTicketp;
+    @BindView(R.id.amount_last)
+    MontoTextView amountLast;
+
+    //private StyleTextView tvMontoEnteroPrincipal,
+      //      tvMontoDecimalPrincipal,
+        //    tvMontoEnteroTicketp, tvMontoDecimalTicketp;
     @BindView(R.id.cobrosrealizados)
     StyleTextView cobrosrealizados;
     Calendar c = Calendar.getInstance();
@@ -131,10 +139,10 @@ public class VentasDiariasFragment extends SupportFragment implements View.OnCli
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        tvMontoEnteroPrincipal = (StyleTextView) rootView.findViewById(R.id.tv_monto_enteroprincipal);
-        tvMontoDecimalPrincipal = (StyleTextView) rootView.findViewById(R.id.tv_monto_decimalprincipal);
-        tvMontoEnteroTicketp = (StyleTextView) rootView.findViewById(R.id.tv_monto_enteroticketp);
-        tvMontoDecimalTicketp = (StyleTextView) rootView.findViewById(R.id.tv_monto_decimalticketp);
+        //tvMontoEnteroPrincipal = (StyleTextView) rootView.findViewById(R.id.tv_monto_enteroprincipal);
+        //tvMontoDecimalPrincipal = (StyleTextView) rootView.findViewById(R.id.tv_monto_decimalprincipal);
+        //tvMontoEnteroTicketp = (StyleTextView) rootView.findViewById(R.id.tv_monto_enteroticketp);
+        //tvMontoDecimalTicketp = (StyleTextView) rootView.findViewById(R.id.tv_monto_decimalticketp);
         linerarventasayercontainer.setOnClickListener(this::onClick);
         linerarventashoycontainer.setOnClickListener(this::onClick);
         if (nombreComercio.isEmpty()) {
@@ -157,17 +165,19 @@ public class VentasDiariasFragment extends SupportFragment implements View.OnCli
         Ventas ventas = Ventas.getInstance();
         cobrosrealizados.setText(ventas.getCobrosr());
         String ventasprincipal = ventas.getMontoventas();
-        String[] split = ventasprincipal.split("\\.");
-        String enteroP = split[0];
-        String decimalP = split[1];
-        tvMontoEnteroPrincipal.setText(enteroP);
-        tvMontoDecimalPrincipal.setText(decimalP);
+
+        //String[] split = ventasprincipal.split("\\.");
+        //String enteroP = split[0];
+        //String decimalP = split[1];
+        amountLast.setText(ventas.getMontoventas());
+       // tvMontoEnteroPrincipal.setText(enteroP);
+        //tvMontoDecimalPrincipal.setText(decimalP);
         String ticket = ventas.getTicketp();
-        String[] split2 = ticket.split("\\.");
-        String enteroT = split2[0];
-        String decimalT = split2[1];
-        tvMontoEnteroTicketp.setText(enteroT);
-        tvMontoDecimalTicketp.setText(decimalT);
+        //String[] split2 = ticket.split("\\.");
+        //String enteroT = split2[0];
+        //String decimalT = split2[1];
+        //tvMontoEnteroTicketp.setText(enteroT);
+        //tvMontoDecimalTicketp.setText(decimalT);
     }
 
     private String getYesterdayDateString() {
