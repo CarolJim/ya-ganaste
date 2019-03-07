@@ -11,6 +11,8 @@ import com.pagatodo.yaganaste.modules.emisor.GeneratePIN.CardSuccessFragment;
 import com.pagatodo.yaganaste.modules.emisor.GeneratePIN.GeneratePINFragment;
 import com.pagatodo.yaganaste.modules.emisor.VirtualCardAccount.MyVirtualCardAccountFragment;
 import com.pagatodo.yaganaste.modules.emisor.ChangeNip.MyChangeNip;
+import com.pagatodo.yaganaste.modules.emisor.WritePlate.WritePlateEmisorFragment;
+import com.pagatodo.yaganaste.modules.register.PhysicalCode.WritePlateQRFragment;
 import com.pagatodo.yaganaste.ui._controllers.EnvioFormularioWallet;
 import com.pagatodo.yaganaste.ui_wallet.fragments.DescargarEdoCuentaFragment;
 
@@ -78,5 +80,11 @@ public class WalletEmisorRouter implements WalletEmisorContracts.Router{
         //intent.putExtra("favoritoItem", null);
         activity.startActivityForResult(intent, BACK_FROM_PAYMENTS);
 
+    }
+
+    @Override
+    public void onShowWritePlateQR() {
+        activity.loadFragment(WritePlateEmisorFragment.newInstance(), this.IdContainer,
+                Direction.NONE, false);
     }
 }

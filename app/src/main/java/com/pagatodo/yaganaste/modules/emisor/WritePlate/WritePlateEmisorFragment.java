@@ -1,15 +1,13 @@
-package com.pagatodo.yaganaste.modules.register.PhysicalCode;
+package com.pagatodo.yaganaste.modules.emisor.WritePlate;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.textfield.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -17,20 +15,24 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.modules.emisor.WalletMainActivity;
+import com.pagatodo.yaganaste.modules.register.PhysicalCode.WritePlateQRFragment;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class WritePlateQRFragment extends GenericFragment implements View.OnFocusChangeListener {
+public class WritePlateEmisorFragment extends GenericFragment implements OnFocusChangeListener{
 
     private View rootView;
-    private RegActivity activity;
-    private WalletMainActivity activityWallet;
+    private WalletMainActivity activity;
+
 
     @BindView(R.id.edit_code_wr)
     public EditText editTextWrQr;
@@ -74,15 +76,15 @@ public class WritePlateQRFragment extends GenericFragment implements View.OnFocu
     @BindView(R.id.llypass)
     public LinearLayout llypass;
 
-    public static WritePlateQRFragment newInstance(){
-        return new WritePlateQRFragment();
+    public static WritePlateEmisorFragment newInstance(){
+        return new WritePlateEmisorFragment();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-            activity = (RegActivity) context;
+        activity = (WalletMainActivity) context;
 
 
     }
@@ -171,7 +173,7 @@ public class WritePlateQRFragment extends GenericFragment implements View.OnFocu
 
                         case 12:
                             tv12Num.setText(s.toString().substring(11,12));
-                            activity.getInteractor().onValidateQr(asignar_edittext.getText().toString());
+                            activity.getInteractor().valideteQR(asignar_edittext.getText().toString());
                             InputMethodManager lManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                             lManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
@@ -256,7 +258,7 @@ public class WritePlateQRFragment extends GenericFragment implements View.OnFocu
                             tv11Num.setText("");
                             tv12Num.setText("");
                             break;
-                            case 6:
+                        case 6:
                             tv7Num.setText("");
                             tv8Num.setText("");
                             tv9Num.setText("");
@@ -285,7 +287,7 @@ public class WritePlateQRFragment extends GenericFragment implements View.OnFocu
                             tv11Num.setText("");
                             tv12Num.setText("");
                             break;
-                            case 11:
+                        case 11:
                             tv12Num.setText("");
                             break;
 
@@ -302,7 +304,7 @@ public class WritePlateQRFragment extends GenericFragment implements View.OnFocu
         btnContinue.setOnClickListener(view -> {
             if (validateData()){
                 //activity.getRouter().showNewLinkedCode(editTextWrQr.getText().toString());
-                activity.getInteractor().onValidateQr(asignar_edittext.getText().toString());
+                activity.getInteractor().valideteQR(asignar_edittext.getText().toString());
             } else {
                 inputQr.setBackgroundResource(R.drawable.input_text_error);
             }
@@ -312,7 +314,7 @@ public class WritePlateQRFragment extends GenericFragment implements View.OnFocu
             if(actionId == EditorInfo.IME_ACTION_DONE){
                 if (validateData()){
                     //activity.getRouter().showNewLinkedCode(editTextWrQr.getText().toString());
-                    activity.getInteractor().onValidateQr(asignar_edittext.getText().toString());
+                    activity.getInteractor().valideteQR(asignar_edittext.getText().toString());
                 } else {
                     inputQr.setBackgroundResource(R.drawable.input_text_error);
                 }

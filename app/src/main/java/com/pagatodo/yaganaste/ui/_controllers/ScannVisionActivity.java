@@ -45,9 +45,7 @@ import java.util.Objects;
 
 import static com.pagatodo.yaganaste.modules.register.RegActivity.RESULT_CODE_KEYBOARD;
 
-/**
- * Created by Jordan on 19/04/2017.
- */
+
 
 public class ScannVisionActivity extends AppCompatActivity implements View.OnClickListener,
         BarcodeTracker.BarcodeGraphicTrackerCallback {

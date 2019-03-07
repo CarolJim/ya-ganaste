@@ -181,6 +181,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_LOGIN;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
+import static com.pagatodo.yaganaste.modules.register.RegActivity.RESULT_CODE_KEYBOARD;
 
 public class WalletMainActivity extends LoaderActivity implements View.OnClickListener,
         WalletEmisorContracts.Listener, FingerprintAuthenticationDialogFragment.generateCodehuella{
@@ -255,6 +256,10 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     public WalletEmisorRouter getRouter() {
         return router;
+    }
+
+    public WalletEmisorInteractor getInteractor(){
+        return interactor;
     }
 
     public void showToolbarShadow() {
@@ -352,7 +357,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case OPTION_PAGO_QR:
                 //Intent intent = new Intent(this, ScannVisionActivity.class);
-                Intent intent = ScannVisionActivity.createIntent(this,false,
+                Intent intent = ScannVisionActivity.createIntent(this,true,
                         getResources().getString(R.string.title_scan));
                 intent.putExtra(ScannVisionActivity.QRObject, true);
                 this.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE_COMERCE);
@@ -474,7 +479,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                     break;
             }
         } else if (requestCode == BARCODE_READER_REQUEST_CODE_COMERCE) {
-            if (resultCode == CommonStatusCodes.SUCCESS) {
+            if (resultCode == RESULT_CODE_KEYBOARD) {
+                router.onShowWritePlateQR();
+            } else if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
                     try {
                         Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);

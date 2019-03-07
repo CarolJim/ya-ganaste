@@ -46,6 +46,7 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
+import com.pagatodo.yaganaste.ui_wallet.dialog.DialogSetPassword;
 import com.pagatodo.yaganaste.ui_wallet.dialog.DialogSetPasswordLogin;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ICardBalance;
@@ -133,9 +134,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
-/**
- * Created by Omar on 13/02/2018.
- */
+
 
 public class BalanceWalletFragment extends GenericFragment implements View.OnClickListener,
         ViewPager.OnPageChangeListener, IBalanceView, OnClickItemHolderListener,
@@ -674,6 +673,9 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         dialogPassword.setTitle(mensaje);
 
         dialogPassword.show(getActivity().getFragmentManager(), "Dialog Set Password");
+
+
+
     }
     @Override
     public void onItemClick(Object item) {

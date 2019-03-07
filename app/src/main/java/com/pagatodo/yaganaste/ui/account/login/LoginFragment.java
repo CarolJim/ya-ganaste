@@ -42,6 +42,7 @@ import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.net.UtilsNet;
+import com.pagatodo.yaganaste.testHandling.Testers;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
@@ -212,6 +213,13 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnLogin.setOnClickListener(this);
+        //Test
+        /*if (Testers.TEST_ON) {
+
+            edtUserName.setText(Testers.loginVin().getEmail());
+            asignar_edittext.setText(Testers.loginVin().getHide());
+
+        }*/
         txtLoginExistUserRecoverPass.setOnClickListener(this);
         ((AccountActivity) getActivity()).showToolbarHelp(false);
         SpannableString ss;

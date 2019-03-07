@@ -81,6 +81,7 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
             else {
                 //router.showPersonalData(Direction.FORDWARD);
                 router.showUserData(Direction.FORDWARD);
+                //router.showSMSAndroid();
             }
 
         }
@@ -88,7 +89,7 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
             router.showUserData(Direction.FORDWARD);
 
         btn_back = (ImageView) findViewById(R.id.btn_back);
-       // router.showPrsonalAddress(Direction.FORDWARD);
+
     }
 
     public void backvisivility( boolean visivility){

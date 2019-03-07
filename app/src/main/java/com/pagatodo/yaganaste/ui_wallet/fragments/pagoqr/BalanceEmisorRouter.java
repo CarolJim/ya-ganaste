@@ -81,4 +81,9 @@ public class BalanceEmisorRouter implements WalletEmisorContracts.Router {
         activity.startActivityForResult(intent, BACK_FROM_PAYMENTS);
 
     }
+
+    @Override
+    public void onShowWritePlateQR() {
+
+    }
 }

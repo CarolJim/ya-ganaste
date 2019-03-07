@@ -33,6 +33,7 @@ public class WalletEmisorContracts {
         void onShowMyVirtualCardAccount();
         void onShowMyChangeNip();
         void onShowEnvioFormulario(Envios envio);
+        void onShowWritePlateQR();
         void onShowBlockCard();
         void onShowTemporaryBlock();
         void onShowCardActiveSuccess();

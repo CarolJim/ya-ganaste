@@ -1,7 +1,7 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
 /**
- * Created by Armando Sandoval on 29/11/2017.
+ * Created byTEAM  on 29/11/2017.
  */
 
 
