@@ -10,9 +10,9 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:4.1.0'
+        classpath 'com.android.tools.build:gradle:3.3.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.21"
+        classpath 'com.google.gms:google-services:4.2.0'
         classpath 'com.google.firebase:firebase-plugins:1.1.5'
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.0.0'
         classpath 'io.fabric.tools:gradle:1.25.4'
@@ -47,9 +47,9 @@ ext {
     flipViewVersion = "1.1.3"
     lottieVersion = "2.5.0"
     dotsLoaderVersion = "0.8"
-    gsonVersion = "2.8.0"
+    gsonVersion = "2.8.2"
     databindVersion = "2.0.1"
-    volleyVersion = "1.0.0"
+    volleyVersion = "1.1.0"
     pinningVersion = "1.0.0"
     butterknifeVersion = "8.8.1"
     archLifecycleVersion = "1.1.1"

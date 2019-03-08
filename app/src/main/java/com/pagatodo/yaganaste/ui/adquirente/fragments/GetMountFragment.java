@@ -65,7 +65,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     @BindView(R.id.txtNameComerce)
     StyleTextView txtNameComerce;
     @BindView(R.id.et_amount)
-    public EditText et_amount;
+    EditText et_amount;
     @BindView(R.id.edtConcept)
     EditText edtConcept;
     @BindView(R.id.keyboard_view)
@@ -145,6 +145,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         cobrar = (StyleTextView) rootview.findViewById(R.id.cobrar);
         edtConcept = (EditText) rootview.findViewById(R.id.edtConcept);
         inputConcept = rootview.findViewById(R.id.text_input_concepto);
+        et_amount = (EditText) rootview.findViewById(R.id.et_amount);
 
         et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal, edtConcept, this));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
