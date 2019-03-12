@@ -1,4 +1,4 @@
-package com.pagatodo.view_manager.wallet.components;
+package com.pagatodo.view_manager.wallet.data;
 
 import android.graphics.drawable.Drawable;
 

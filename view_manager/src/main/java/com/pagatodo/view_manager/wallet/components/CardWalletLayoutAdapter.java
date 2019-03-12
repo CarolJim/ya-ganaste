@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import com.pagatodo.view_manager.R;
 import com.pagatodo.view_manager.controllers.OnHolderListener;
+import com.pagatodo.view_manager.wallet.data.CardData;
 import com.pagatodo.view_manager.wallet.holders.BankCardHolderView;
 
 import java.util.ArrayList;

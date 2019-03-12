@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import com.pagatodo.view_manager.R;
 import com.pagatodo.view_manager.controllers.GenericHolder;
 import com.pagatodo.view_manager.controllers.OnHolderListener;
-import com.pagatodo.view_manager.wallet.components.CardData;
+import com.pagatodo.view_manager.wallet.data.CardData;
 import com.pagatodo.view_manager.wallet.components.CardWalletLinearLayout;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;

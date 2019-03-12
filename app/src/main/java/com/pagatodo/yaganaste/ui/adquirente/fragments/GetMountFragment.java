@@ -154,7 +154,8 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         txtNameComerce.setText(nameComerce);
         et_amount.requestFocus();
 
-/*      Se comenta este codigo para quitar el Shebron y la funcionalidad, se deja por si se retoma el disenio
+        /*
+        Se comenta este codigo para quitar el Shebron y la funcionalidad, se deja por si se retoma el disenio
         if (getActivity() instanceof AccountActivity) {
             imgArrowPrev.setVisibility(View.VISIBLE);
             imgArrowPrev.setOnClickListener(new View.OnClickListener() {
@@ -460,7 +461,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     public void setMenuVisibility(boolean menuVisible) {
         super.setMenuVisibility(menuVisible);
         if (menuVisible) {
-            et_amount.requestFocus();
+            //et_amount.requestFocus();
         } else if (et_amount != null) {
             NumberCalcTextWatcher.cleanData();
             et_amount.setText("0");

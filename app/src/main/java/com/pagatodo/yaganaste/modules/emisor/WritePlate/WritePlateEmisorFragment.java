@@ -83,8 +83,9 @@ public class WritePlateEmisorFragment extends GenericFragment implements OnFocus
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        activity = (WalletMainActivity) context;
+        if (context instanceof WalletMainActivity) {
+            activity = (WalletMainActivity) context;
+        }
 
 
     }

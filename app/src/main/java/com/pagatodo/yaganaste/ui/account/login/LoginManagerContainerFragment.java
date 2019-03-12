@@ -18,6 +18,8 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.modules.emisor.Wallets.WalletTestFragment;
+import com.pagatodo.yaganaste.modules.emisor.WritePlate.WritePlateEmisorFragment;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
@@ -82,6 +84,7 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
             loadFragment(BalanceWalletFragment.newInstance(), Direction.FORDWARD, false);
             showBack(false);
         } else {
+            //loadFragment(WalletTestFragment.newInstance(), Direction.FORDWARD, true);
             loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);
             showBack(true);
         }
@@ -89,6 +92,7 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
 
     @Override
     public void loadLoginFragment() {
+        //loadFragment(WalletTestFragment.newInstance(), Direction.FORDWARD, true);
         loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, true);
         showBack(true);
     }
