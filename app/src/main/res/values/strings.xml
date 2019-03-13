@@ -1830,4 +1830,5 @@
     <string name="month">Ene</string>
     <string name="introduce_curp_valida">Por favor introduce una CURP válida</string>
     <string name="seleccionar_tipo_de_envio">Seleccionar Tipo de Envio</string>
+    <string name="conf_reem">¡Configura tu Reembolso!</string>
 </resources>
