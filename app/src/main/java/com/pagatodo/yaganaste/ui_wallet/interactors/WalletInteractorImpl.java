@@ -82,10 +82,12 @@ public class WalletInteractorImpl implements WalletInteractor {
                 case TYPE_ADQ:
                      try {
                         Operadores operador = db.getOperadoresAdmin(agente);
-                        saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
-                        RequestHeaders.setIdCuentaAdq(operador.getIdUsuarioAdquirente());
-                        App.getInstance().getPrefs().saveDataBool(IS_UYU, agente.isEsComercioUYU());
-                        ApiAdq.consultaSaldoCupo(saldoRequest, this);
+                        if (operador != null) {
+                            saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
+                            RequestHeaders.setIdCuentaAdq(operador.getIdUsuarioAdquirente());
+                            App.getInstance().getPrefs().saveDataBool(IS_UYU, agente.isEsComercioUYU());
+                            ApiAdq.consultaSaldoCupo(saldoRequest, this);
+                        }
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {

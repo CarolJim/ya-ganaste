@@ -366,7 +366,7 @@ public class ElementView implements ElementGlobal {
     public static ArrayList<ElementView> getListLectorEmi() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(7, R.drawable.portada_adq, -1, -1,
-                true, false, R.string.comenzar_registro, OPTION_SIMPLE));
+                true, false, R.string.comenzar_registro, OPTION_ZONE));
         return elementViews;
     }
 
