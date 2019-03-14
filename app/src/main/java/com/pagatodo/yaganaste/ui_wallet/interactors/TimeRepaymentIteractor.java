@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.ITimeRepaymentPresenter;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ADQ_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_SAME_REEMBOLSO_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
 
 /**
  * Created by Omar on 22/02/2018.
@@ -61,9 +62,11 @@ public class TimeRepaymentIteractor implements IRequestResult, ITimeRepaymentIte
                 DataResultAdq result = ((DataResultAdq)dataSourceResult.getData());
                 if(result.getId().equals(CODE_ADQ_OK)){
                     presenter.onSuccessUpdateTypeRepayment();
+                    App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
                 } else {
 
                     if(result.getId().equals(CODE_ERROR_SAME_REEMBOLSO_AGENTE)){
+                        App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
                         presenter.onSuccessUpdateTypeRepayment();
                     }else
                     presenter.onFailedUpdateTypeRepayment(result.getMessage());

@@ -51,6 +51,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.EMV_DETECTED;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
+import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_AGREGADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
@@ -179,9 +180,13 @@ public class MyDongleFragment extends GenericFragment implements IPreferUserGene
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129 || isComerioUyU||isAgregador) {
+        //if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129 || isComerioUyU && isAgregador) {
+        if ((isComerioUyU && isAgregador) || App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)) {
+            lytConfigRepayment.setVisibility(View.VISIBLE);
+        } else {
             lytConfigRepayment.setVisibility(View.GONE);
         }
+
         lytConfigRepayment.setOnClickListener(v -> {
             if (!UtilsNet.isOnline(getActivity())) {
                 UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);

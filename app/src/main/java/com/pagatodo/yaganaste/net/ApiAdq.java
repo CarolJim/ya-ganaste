@@ -440,7 +440,14 @@ public class ApiAdq extends Api {
         } else {
             headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         }
-
+        if (!SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().isEmpty()){
+            if (!SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes()
+                    .get(0).getOperadores().isEmpty()) {
+                        headers.put(RequestHeaders.IdCuentaAdq, "" +
+                                SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes()
+                                        .get(0).getOperadores().get(0).getIdUsuarioAdquirente());
+            }
+        }
 
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
         NetFacade.consumeWS(GET_TYPE_REPAYMENT,
@@ -454,7 +461,14 @@ public class ApiAdq extends Api {
      */
     public static void actualizaTipoReembolso(TypeRepaymentRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
-        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        //headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        if (!SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().isEmpty()) {
+            if (!SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes()
+                    .get(0).getOperadores().isEmpty()) {
+                headers.put(RequestHeaders.IdCuentaAdq, "" +
+                        SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(0).getOperadores().get(0).getIdUsuarioAdquirente());
+            }
+        }
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
         NetFacade.consumeWS(UPDATE_TYPE_REPAYMENT,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqUpdateTypeRepayment),

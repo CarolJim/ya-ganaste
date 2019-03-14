@@ -60,6 +60,7 @@ import androidx.fragment.app.Fragment;
 
 import static com.pagatodo.yaganaste.modules.sidebar.About.AboutInfoFragment.ABOUT_NOTICE_PRIVACY;
 import static com.pagatodo.yaganaste.modules.sidebar.About.AboutInfoFragment.ABOUT_lEGAL;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESULT_CODE_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CODE;
@@ -571,6 +572,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(EVENT_GO_SECURRITY_SETTING_BACK, null);
             } else if (currentFragment instanceof AboutInfoFragment){
                 onEvent(PREFER_USER_TERMINOS_BACK, null);
+            } else if (currentFragment instanceof SettingsFragment) {
+                setResult(RESULT_CODE_SELECT_DONGLE);
+                finish();
             } else {
                 super.onBackPressed();
             }

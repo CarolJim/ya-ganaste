@@ -26,6 +26,7 @@ public class Constants {
     public static final int BARCODE_READER_REQUEST_QR_SENDS = 72;
     public static final int BACK_FROM_PAYMENTS = 190;
 
+
     public static final int PAYMENTS_ADQUIRENTE = 818;
     public static final int ACTIVITY_LANDING = 181;
 

@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
@@ -93,7 +95,7 @@ public class TimeRepaymentFragment extends GenericFragment implements ITimeRepay
         initViews();
     }
 
-    public void reembolso() {
+    private void reembolso() {
         if (Utils.isDeviceOnline()) {
             if (idTypeLocal != idTypeServer) {
                 timeRepaymentPresenter.updateTypeRepayment(idTypeLocal);
@@ -108,7 +110,8 @@ public class TimeRepaymentFragment extends GenericFragment implements ITimeRepay
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(App.getContext(), LinearLayoutManager.VERTICAL, false);
+        @SuppressLint("WrongConstant") LinearLayoutManager mLayoutManager
+                = new LinearLayoutManager(App.getContext(), LinearLayoutManager.VERTICAL, false);
         if (!tipo_reeembolso.equals("100")) {
             idTypeLocal = Integer.parseInt(tipo_reeembolso);
             reembolso();
@@ -116,18 +119,15 @@ public class TimeRepaymentFragment extends GenericFragment implements ITimeRepay
         rcvTypeRepayments.setLayoutManager(mLayoutManager);
         rcvTypeRepayments.setHasFixedSize(true);
         timeRepaymentPresenter.getTypePayments();
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Utils.isDeviceOnline()) {
-                    if (idTypeLocal != idTypeServer) {
-                        timeRepaymentPresenter.updateTypeRepayment(idTypeLocal);
-                    } else {
-                        UI.showSuccessSnackBar(getActivity(), getString(R.string.success_time_repayment_save), Snackbar.LENGTH_SHORT);
-                    }
+        btnSave.setOnClickListener(v -> {
+            if (Utils.isDeviceOnline()) {
+                if (idTypeLocal != idTypeServer) {
+                    timeRepaymentPresenter.updateTypeRepayment(idTypeLocal);
                 } else {
-                    UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
+                    UI.showSuccessSnackBar(Objects.requireNonNull(getActivity()), getString(R.string.success_time_repayment_save), Snackbar.LENGTH_SHORT);
                 }
+            } else {
+                UI.showErrorSnackBar(Objects.requireNonNull(getActivity()), getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
             }
         });
     }

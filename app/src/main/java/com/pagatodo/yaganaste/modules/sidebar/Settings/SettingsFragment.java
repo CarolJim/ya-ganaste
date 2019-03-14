@@ -4,6 +4,7 @@ package com.pagatodo.yaganaste.modules.sidebar.Settings;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -50,7 +51,7 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
@@ -71,7 +72,11 @@ public class SettingsFragment extends SupportFragment implements View.OnClickLis
                 if (agentes.getIdEstatus() == IdEstatus.ADQUIRENTE.getId() && agentes.isEsAgregador()) {
                     goConfig_card_reader.setVisibility(View.VISIBLE);
                 } else {
-                    goConfig_card_reader.setVisibility(View.GONE);
+                    if (!App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)){
+                        goConfig_card_reader.setVisibility(View.GONE);
+                    } else {
+                        goConfig_card_reader.setVisibility(View.VISIBLE);
+                    }
                 }
             } else {
                 goConfig_card_reader.setVisibility(View.GONE);

@@ -290,14 +290,27 @@ public class ElementView implements ElementGlobal {
                 e.printStackTrace();
             }
             if (isAgente && isAgregador && idEstatusAgente == IdEstatus.ADQUIRENTE.getId()) {
+                elementViews =  getListAdq();
+            } else if (!App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)){
+                elementViews = ElementView.getListEstadoContinuarRegistro();
+            } else {
+                elementViews =  getListAdq();
+
+            }
+
+
+            /*if (isAgente && isAgregador && idEstatusAgente == IdEstatus.ADQUIRENTE.getId()) {
                 elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_ico_ventas_tarjeta, R.string.operation_consultar_saldo));
                 //elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
                 elementViews.add(new ElementView(OPTION_CHARGE_WITH_CARD, R.drawable.ic_ico_cobros_tarjeta, R.string.realizar_cobro));
                 elementViews.add(new ElementView(OPTION_MY_CARD_SALES, R.drawable.ic_ico_ventas_tarjeta, R.string.my_card_sales));
-            } else {
+            }*/ /*else{
                 elementViews = ElementView.getListEstadoContinuarRegistro();
-            }
+            }*/
         }
+        return elementViews;
+    }
+
         /*
         //elementViews.add(new ElementView(OPTION_TRANSFER_BALANCE, R.drawable.ic_transfer, R.string.transfer_balance));
         if (agentes.size() < 2) {
@@ -349,9 +362,14 @@ public class ElementView implements ElementGlobal {
                 }
 
         }*/
-
-        return elementViews;
-    }
+        public static ArrayList<ElementView> getListAdq() {
+            ArrayList<ElementView> elementViews = new ArrayList<>();
+            elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_ico_ventas_tarjeta, R.string.operation_consultar_saldo));
+            //elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
+            elementViews.add(new ElementView(OPTION_CHARGE_WITH_CARD, R.drawable.ic_ico_cobros_tarjeta, R.string.realizar_cobro));
+            elementViews.add(new ElementView(OPTION_MY_CARD_SALES, R.drawable.ic_ico_ventas_tarjeta, R.string.my_card_sales));
+            return elementViews;
+        }
 
     public static ArrayList<ElementView> getListLectorOperador(int idEstatusAgente, List<Operadores> list, String nombreN, String numeroAgente, String idComercio, boolean isComercioUyu) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
@@ -413,9 +431,9 @@ public class ElementView implements ElementGlobal {
     }
 
     //Proceso Continuar Registro Documentacion
-    public static ArrayList<ElementView> getListEstadoContinuarRegistro() {
+    private static ArrayList<ElementView> getListEstadoContinuarRegistro() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_CONTINUE_DOCS, R.drawable.portada_adq, R.string.conf_reem,
+        elementViews.add(new ElementView(OPTION_REMBOLSO_FIRST, R.drawable.portada_adq, R.string.conf_reem,
                 -1, true, false, R.string.continuar_registro, OPTION_ZONE_REENBOLSO));
         return elementViews;
     }

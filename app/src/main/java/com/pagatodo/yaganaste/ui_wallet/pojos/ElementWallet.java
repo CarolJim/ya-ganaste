@@ -293,7 +293,7 @@ public class ElementWallet {
 
     public static ElementWallet getCardFAhorroDes() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.fahorro);
-       /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
+        /*Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
         Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
         Bitmap resultBitmat = overlayImages(backView, starbucksCode,
                 (backView.getWidth() / 2) - (starbucksCode.getWidth() / 2),
@@ -306,7 +306,7 @@ public class ElementWallet {
 
     public static ElementWallet getCardSMonterreyDes() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.segurosm);
-       /* Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
+        /*Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.card_sbux_back);
         Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
         Bitmap resultBitmat = overlayImages(backView, starbucksCode,
                 (backView.getWidth() / 2) - (starbucksCode.getWidth() / 2),
@@ -395,8 +395,10 @@ public class ElementWallet {
             String leyenda;
             int descripcion;
             boolean isReload = true;
-            if ((agentes.isEsAgregador() ||  agentes.isEsComercioUYU()) && agentes.getIdEstatus() == IdEstatus.ADQUIRENTE.getId() &&
-                    !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false) ) {
+            if (((agentes.isEsAgregador() ||  agentes.isEsComercioUYU())
+                    && agentes.getIdEstatus() == IdEstatus.ADQUIRENTE.getId() &&
+                    !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false)) ||
+                    App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)) {
                 /*if (agentes.getIdEstatus() == IdEstatus.ADQUIRENTE.getId()) {*/
                 leyenda = StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE));
                 descripcion = R.string.saldo_reembolso;
