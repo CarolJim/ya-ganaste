@@ -280,8 +280,8 @@ public class ElementView implements ElementGlobal {
             elementViews.add(new ElementView(OPTION_CHARGE_WITH_CARD, R.drawable.ic_ico_cobros_tarjeta, R.string.realizar_cobro));
             elementViews.add(new ElementView(OPTION_MY_CARD_SALES, R.drawable.ic_ico_ventas_tarjeta_uyu, R.string.my_card_sales));
             elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_ico_consulta_saldo_uyu, R.string.operation_consultar_saldo));
-            elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ic_ico_wallet_uyu, R.string.mis_operadores, list, nombreN, numeroAgente, idComercio));
             elementViews.add(new ElementView(OPTION_VENTAS_ADQ, R.drawable.ic_ico_ventas_dia_uyu, R.string.ventas_dia, list, nombreN, numeroAgente, idComercio));
+            elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ic_ico_wallet_uyu, R.string.mis_operadores, list, nombreN, numeroAgente, idComercio));
         } else {
             List<Agentes> agentes = new ArrayList<>();
             try {
@@ -492,7 +492,7 @@ public class ElementView implements ElementGlobal {
         if (isuyu)
             elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_ico_ventas_tarjeta, R.string.operation_consultar_saldo));
         if (!App.getInstance().getPrefs().loadDataBoolean(IS_OPERADOR, false) && isuyu) {
-            elementViews.add(new ElementView(OPTION_VENTAS_ADQAFUERA, R.drawable.ic_ico_ventas_dia, R.string.ventas_dia));
+            elementViews.add(new ElementView(OPTION_VENTAS_ADQAFUERA, R.drawable.ic_ico_ventas_dia_uyu, R.string.ventas_dia));
         }
         //elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
         //elementViews.add(new ElementView(4, R.drawable.ic_calc, context.getResources().getString(R.string.calcular_comisiones)));
