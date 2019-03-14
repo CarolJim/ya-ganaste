@@ -139,7 +139,7 @@
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                app:srcCompat="@drawable/ic_ico_scanqr" />
+                app:srcCompat="@drawable/ico_scan_qr" />
 
             <TextView
                 android:layout_width="match_parent"

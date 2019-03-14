@@ -28,7 +28,8 @@
                 android:id="@+id/title_scan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/scan_qr_label"
+                android:text="@string/title_scan"
+                android:textAlignment="center"
                 android:textSize="16sp"
                 android:textColor="@color/whiteColor"/>
         </LinearLayout>

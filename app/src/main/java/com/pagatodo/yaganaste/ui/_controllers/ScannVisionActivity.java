@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -84,7 +85,7 @@ public class ScannVisionActivity extends AppCompatActivity implements View.OnCli
         if (getIntent().getExtras() != null) {
             isQrcode = getIntent().getExtras().getBoolean(QRObject);
             if (!getIntent().getExtras().getBoolean("KEYBOARD_BTN")){
-                (findViewById(R.id.button_keyboard)).setVisibility(View.GONE);
+                (findViewById(R.id.button_keyboard)).setVisibility(View.VISIBLE);
             }
             if (getIntent().getExtras().getString("TITLE") != null){
                 title = getIntent().getExtras().getString("TITLE");
