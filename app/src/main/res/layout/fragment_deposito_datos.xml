@@ -91,7 +91,7 @@
             android:layout_marginRight="8dp"
             android:visibility="visible"
             app:iconNameText="@string/name_block_card"
-            app:iconResImage="@drawable/ic_bloquear_wallet" />
+            app:iconResImage="@drawable/ic_bloquear" />
 
         <com.pagatodo.view_manager.components.IconButton
             android:id="@+id/change_nip"
