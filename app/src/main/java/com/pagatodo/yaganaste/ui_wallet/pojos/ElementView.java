@@ -284,11 +284,11 @@ public class ElementView implements ElementGlobal {
             elementViews.add(new ElementView(OPTION_VENTAS_ADQ, R.drawable.ic_ico_ventas_dia_uyu, R.string.ventas_dia, list, nombreN, numeroAgente, idComercio));
         } else {
             List<Agentes> agentes = new ArrayList<>();
-            try {
+            /*try {
                 agentes = new DatabaseManager().getAgentes();
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
-            }
+            }*/
             if (isAgente && isAgregador && idEstatusAgente == IdEstatus.ADQUIRENTE.getId()) {
                 elementViews =  getListAdq();
             } else if (!App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)){
@@ -298,74 +298,11 @@ public class ElementView implements ElementGlobal {
 
             }
 
-
-            /*if (isAgente && isAgregador && idEstatusAgente == IdEstatus.ADQUIRENTE.getId()) {
-                elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_ico_ventas_tarjeta, R.string.operation_consultar_saldo));
-=======
-                elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_ico_consulta_saldo, R.string.operation_consultar_saldo));
->>>>>>> e0a834752d071098fc61832058d77de03a693cea
-                //elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
-                elementViews.add(new ElementView(OPTION_CHARGE_WITH_CARD, R.drawable.ic_ico_cobros_tarjeta, R.string.realizar_cobro));
-                elementViews.add(new ElementView(OPTION_MY_CARD_SALES, R.drawable.ic_ico_ventas_tarjeta, R.string.my_card_sales));
-            }*/ /*else{
-                elementViews = ElementView.getListEstadoContinuarRegistro();
-            }*/
         }
         return elementViews;
     }
 
-        /*
-        //elementViews.add(new ElementView(OPTION_TRANSFER_BALANCE, R.drawable.ic_transfer, R.string.transfer_balance));
-        if (agentes.size() < 2) {
-            elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_ico_ventas_tarjeta, R.string.operation_consultar_saldo));
-            //elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
-            elementViews.add(new ElementView(OPTION_CHARGE_WITH_CARD, R.drawable.ic_ico_cobros_tarjeta, R.string.realizar_cobro));
-            elementViews.add(new ElementView(OPTION_MY_CARD_SALES, R.drawable.ic_ico_ventas_tarjeta, R.string.my_card_sales));
-        }
-
-        if (!isAgente) {
-            elementViews = ElementView.getListLectorEmi();
-        } else {
-            //idEstatusAgente = 12;
-
-
-            if (idEstatusAgente == IdEstatus.I6.getId()) {
-                elementViews = ElementView.getListEstadoContinuarRegistro(idComercio);
-            } else if (idEstatusAgente == IdEstatus.I7.getId() ||
-                    idEstatusAgente == IdEstatus.I8.getId() ||
-                    idEstatusAgente == IdEstatus.I11.getId() ||
-                    App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) == STATUS_DOCTO_PENDIENTE) {
-                elementViews = ElementView.getListEstadoRevisando(idComercio);
-            } else if (idEstatusAgente == IdEstatus.I9.getId()) {
-                elementViews = ElementView.getListEstadoError(idComercio);
-            } else if (idEstatusAgente == IdEstatus.I10.getId() || idEstatusAgente == IdEstatus.I13.getId()) {
-                elementViews = ElementView.getListEstadoRechazado(idComercio);
-            } else
-
-                if (idEstatusAgente == IdEstatus.ADQUIRENTE.getId() && !isComercioUyu) {
-
-                    //App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
-                    if (isAgregador) {
-                        elementViews = ElementView.getListAdqBalance(false);
-                        //elementViews = ElementView.getListSeleccionarTipoReevolso(idComercio);
-                    } //else {
-                        //elementViews = ElementView.getListAdqBalance(false);
-                    //}
-                    for (Operadores opr : list) {
-                        if (opr.getIsAdmin()) {
-                            RequestHeaders.setIdCuentaAdq(opr.getIdUsuarioAdquirente());
-                        }
-                    }
-                } else if (idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
-                        !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false)) {
-                    App.getInstance().getPrefs().saveDataInt(ESTATUS_DOCUMENTACION, STATUS_DOCTO_APROBADO);
-                    elementViews = ElementView.getListEstadoAprobado(idComercio);
-                } else {
-                    App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
-                }
-
-        }*/
-        public static ArrayList<ElementView> getListAdq() {
+    private static ArrayList<ElementView> getListAdq() {
             ArrayList<ElementView> elementViews = new ArrayList<>();
             elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_ico_ventas_tarjeta, R.string.operation_consultar_saldo));
             //elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));

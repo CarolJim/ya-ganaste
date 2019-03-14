@@ -98,6 +98,7 @@ import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -143,6 +144,7 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_COMPLETE;
+import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_COACHMARK;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
@@ -234,18 +236,18 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         setContentView(R.layout.main_menu_drawer);
         ButterKnife.bind(this);
         interactor = new WalletEmisorInteractor(this, this);
+
         if (!App.getInstance().getPrefs().loadDataBoolean(IS_COACHMARK, true)) {
             couchMark.setVisibility(View.GONE);
             close.setVisibility(View.GONE);
         } else {
-
             couchMark.setVisibility(View.VISIBLE);
             close.setVisibility(View.VISIBLE);
         }
 
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         init();
@@ -941,9 +943,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        if (!App.getInstance().getPrefs().loadDataBoolean(IS_COACHMARK, true)) {
-
-
+        if (!App.getInstance().getPrefs().loadDataBoolean(IS_COACHMARK, true) ||
+            App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)) {
             if (menuItem.getItemId() == R.id.navigation_charge) {
                 if (SingletonUser.getInstance().getDataUser().getUsuario().getIdEstatusEmisor()
                         == IdEstatus.ADQUIRENTE.getId()) {
